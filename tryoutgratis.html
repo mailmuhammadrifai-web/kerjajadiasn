@@ -9,6 +9,13 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap');
         body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        
+        /* Animasi halus untuk pop-up */
+        .modal-enter { animation: modalFadeIn 0.3s ease-out forwards; }
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: scale(0.9) translateY(-20px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
     </style>
 </head>
 <body class="bg-slate-50 min-h-screen">
@@ -81,38 +88,61 @@
         </div>
     </main>
 
+    <div id="successModal" class="fixed inset-0 z-50 flex items-center justify-center hidden bg-slate-900/60 backdrop-blur-sm px-4">
+        <div class="bg-white rounded-3xl p-8 max-w-sm w-full text-center shadow-2xl modal-enter">
+            <div class="w-20 h-20 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                <i class="fa-solid fa-circle-check text-5xl"></i>
+            </div>
+            <h3 class="text-2xl font-extrabold text-slate-900 mb-2">PIN Berhasil!</h3>
+            <p class="text-slate-500 mb-6">Selamat mengerjakan tryout. Menghubungkan Anda ke sistem...</p>
+            
+            <div class="flex justify-center gap-1">
+                <div class="w-2 h-2 bg-green-500 rounded-full animate-bounce"></div>
+                <div class="w-2 h-2 bg-green-500 rounded-full animate-bounce [animation-delay:-0.15s]"></div>
+                <div class="w-2 h-2 bg-green-500 rounded-full animate-bounce [animation-delay:-0.3s]"></div>
+            </div>
+        </div>
+    </div>
+
     <footer class="text-center py-10 text-slate-400 text-xs">
         &copy; 2026 Kerja Jadi ASN. Mulai Langkahmu Jadi PNS.
     </footer>
 
     <script>
-        // SCRIPT 1: KIRIM WA KE NOMOR USER
+        // SCRIPT 1: KIRIM WA
         document.getElementById('freeForm').addEventListener('submit', function(e) {
             e.preventDefault();
             const nama = document.getElementById('nama').value;
             const wa = document.getElementById('whatsapp').value;
-            const noAdmin = "6285696409288"; // Nomor Anda sesuai permintaan
-            
+            const noAdmin = "6285696409288";
+
             const pesan = `Halo Admin Kerja Jadi ASN,%0A%0A` + 
                           `Saya ingin mencoba *Tryout Gratis*. Berikut data saya:%0A` +
                           `*Nama:* ${nama}%0A` +
                           `*No WA:* 0${wa}%0A%0A` +
                           `Mohon kirimkan PIN akses untuk mencoba simulasinya. Terima kasih!`;
-            
+
             const url = `https://api.whatsapp.com/send?phone=${noAdmin}&text=${pesan}`;
             window.open(url, '_blank');
         });
 
-        // SCRIPT 2: CEK PIN UNTUK MASUK KE HALAMAN MULAI
+        // SCRIPT 2: CEK PIN DAN MODAL OTOMATIS
         function cekPinGratis() {
             const pinUser = document.getElementById('inputPinGratis').value.toUpperCase();
-            const PIN_BENAR = "GRATISASN2026"; // PIN UNIK ANDA
+            const PIN_BENAR = "GRATISASN2026"; // PIN ANDA
+            const modal = document.getElementById('successModal');
 
             if (pinUser === "") {
                 alert("Harap masukkan PIN Anda terlebih dahulu!");
             } else if (pinUser === PIN_BENAR) {
-                alert("PIN Berhasil! Selamat mengerjakan.");
-                window.location.href = "mulaitogratis.html";
+                // Tampilkan Modal Pop-up
+                modal.classList.remove('hidden');
+                
+                // Redirect otomatis setelah 3 detik
+                setTimeout(function() {
+                    window.location.href = "mulaitogratis.html";
+                }, 3000); 
+                
             } else {
                 alert("PIN Salah atau Kadaluarsa. Silakan hubungi admin via WhatsApp.");
             }
