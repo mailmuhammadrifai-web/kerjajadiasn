@@ -9,6 +9,13 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap');
         body { font-family: 'Plus Jakarta Sans', sans-serif; }
+
+        /* Animasi Pop-up */
+        .modal-active { display: flex !important; animation: fadeIn 0.3s ease-out; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
     </style>
 </head>
 <body class="bg-slate-50 min-h-screen">
@@ -26,7 +33,7 @@
 
     <main class="container mx-auto px-4 py-10">
         <div class="max-w-3xl mx-auto">
-            
+
             <div class="bg-gradient-to-br from-blue-700 to-blue-500 rounded-3xl p-8 text-white mb-8 shadow-xl shadow-blue-200">
                 <h1 class="text-2xl md:text-3xl font-extrabold mb-2">Siap untuk Uji Kemampuan?</h1>
                 <p class="text-blue-100 opacity-90 leading-relaxed">Anda akan mengerjakan Simulasi Tryout CPNS (SKD) dengan standar waktu dan sistem penilaian terbaru.</p>
@@ -52,7 +59,7 @@
                     <i class="fa-solid fa-list-check text-blue-600"></i>
                     Petunjuk Pengerjaan
                 </h2>
-                
+
                 <ul class="space-y-4 text-slate-600 text-sm md:text-base">
                     <li class="flex gap-4">
                         <span class="w-6 h-6 rounded-full bg-slate-100 text-slate-500 flex items-center justify-center shrink-0 font-bold">1</span>
@@ -84,7 +91,7 @@
                 <a href="index.html" class="flex-1 text-center py-4 bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold rounded-2xl transition">
                     Kembali Ke Beranda
                 </a>
-                <button onclick="startTryout()" class="flex-[2] py-4 bg-blue-600 hover:bg-blue-700 text-white font-extrabold rounded-2xl shadow-lg shadow-blue-200 transition active:scale-95 text-lg">
+                <button onclick="showLoading()" class="flex-[2] py-4 bg-blue-600 hover:bg-blue-700 text-white font-extrabold rounded-2xl shadow-lg shadow-blue-200 transition active:scale-95 text-lg">
                     MULAI UJIAN SEKARANG <i class="fa-solid fa-play ml-2"></i>
                 </button>
             </div>
@@ -92,17 +99,45 @@
         </div>
     </main>
 
+    <div id="loadingModal" class="fixed inset-0 z-[100] hidden items-center justify-center bg-slate-900/80 backdrop-blur-md px-4">
+        <div class="bg-white rounded-3xl p-10 max-w-sm w-full text-center shadow-2xl">
+            <div class="relative w-24 h-24 mx-auto mb-6">
+                <div class="absolute inset-0 border-4 border-slate-100 rounded-full"></div>
+                <div class="absolute inset-0 border-4 border-blue-600 rounded-full border-t-transparent animate-spin"></div>
+                <div class="absolute inset-0 flex items-center justify-center">
+                    <i class="fa-solid fa-file-lines text-3xl text-blue-600"></i>
+                </div>
+            </div>
+            <h3 class="text-2xl font-extrabold text-slate-900 mb-2">Menyiapkan Soal...</h3>
+            <p class="text-slate-500 text-sm leading-relaxed">Sistem sedang mengacak bank soal dan menyiapkan lembar jawaban Anda.</p>
+            
+            <div class="mt-8 overflow-hidden h-1.5 w-full bg-slate-100 rounded-full">
+                <div class="bg-blue-600 h-full rounded-full animate-[progress_2.5s_ease-in-out]"></div>
+            </div>
+        </div>
+    </div>
+
     <footer class="text-center py-10 text-slate-400 text-xs">
         &copy; 2026 Kerja Jadi ASN. Member Area.
     </footer>
 
+    <style>
+        @keyframes progress {
+            0% { width: 0%; }
+            100% { width: 100%; }
+        }
+    </style>
+
     <script>
-        function startTryout() {
-            if(confirm("Apakah Anda sudah yakin dan siap untuk memulai ujian sekarang?")) {
-                // Ganti dengan halaman soal ujian yang sesungguhnya nanti
-                alert("Sistem sedang memuat bank soal... Klik OK untuk melanjutkan.");
+        function showLoading() {
+            // Tampilkan Modal
+            const modal = document.getElementById('loadingModal');
+            modal.classList.add('modal-active');
+            
+            // Redirect setelah 2.5 detik (sesuai durasi animasi progress bar)
+            setTimeout(function() {
                 window.location.href = "halamansoal.html"; 
-            }
+            }, 2500);
         }
     </script>
 </body>
