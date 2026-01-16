@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Paket 1 - Kerja Jadi ASN</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap');
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    </style>
+</head>
+<body class="bg-slate-50 min-h-screen">
+
+    <nav class="bg-white border-b border-slate-100 sticky top-0 z-50 shadow-sm">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-4">
+                <span class="bg-blue-600 text-white px-3 py-1 rounded-lg font-bold text-xs uppercase tracking-tighter">Premium</span>
+                <h1 class="font-extrabold text-blue-600">KERJA JADI <span class="text-yellow-500">ASN</span></h1>
+            </div>
+            <div class="flex items-center gap-3">
+                <div class="text-right hidden md:block">
+                    <p class="text-[10px] font-bold text-slate-400 uppercase">PIN Peserta</p>
+                    <p id="displayPin" class="text-sm font-bold text-slate-800 tracking-wider">MEMUAT...</p>
+                </div>
+                <div class="w-10 h-10 bg-slate-100 rounded-full flex items-center justify-center border border-slate-200">
+                    <i class="fa-solid fa-user text-slate-400"></i>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container mx-auto px-4 py-8">
+        <div class="bg-gradient-to-r from-blue-600 to-indigo-700 rounded-3xl p-8 mb-8 text-white relative overflow-hidden shadow-xl shadow-blue-100">
+            <div class="relative z-10">
+                <h2 class="text-2xl font-bold mb-2">Selamat Datang di Paket 1</h2>
+                <p class="text-blue-100 opacity-90 max-w-lg">Gunakan 10 kuota tryout Anda dengan maksimal. Fokus pada akurasi dan manajemen waktu!</p>
+            </div>
+            <i class="fa-solid fa-graduation-cap absolute -right-4 -bottom-4 text-9xl text-white/10"></i>
+        </div>
+
+        <div class="grid lg:grid-cols-3 gap-8">
+            <div class="lg:col-span-2 space-y-4">
+                <h3 class="font-bold text-slate-800 text-lg flex items-center gap-2 mb-4">
+                    <i class="fa-solid fa-book-open text-blue-600"></i>
+                    Daftar Simulasi Tryout Utama
+                </h3>
+                
+                <div id="soalListContainer" class="space-y-3">
+                    </div>
+            </div>
+
+            <div class="space-y-6">
+                <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-100">
+                    <h4 class="font-bold text-slate-800 mb-4 tracking-tight text-sm uppercase">Status Akun</h4>
+                    <div class="space-y-3 mb-6">
+                        <div class="flex justify-between text-xs">
+                            <span class="text-slate-500 font-bold uppercase">Masa Aktif</span>
+                            <span class="font-bold text-blue-600">Selamanya</span>
+                        </div>
+                        <div class="flex justify-between text-xs">
+                            <span class="text-slate-500 font-bold uppercase">Kuota Tryout</span>
+                            <span class="font-bold text-slate-800">10 Paket</span>
+                        </div>
+                        <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
+                            <div class="bg-blue-600 h-full w-full"></div>
+                        </div>
+                    </div>
+                    <div class="p-3 bg-green-50 rounded-xl border border-green-100 flex items-center gap-3">
+                        <i class="fa-solid fa-check-circle text-green-600"></i>
+                        <span class="text-[10px] font-bold text-green-700 uppercase tracking-tighter">Pembahasan Teks Aktif</span>
+                    </div>
+                </div>
+
+                <div class="bg-yellow-400 rounded-3xl p-6 shadow-xl shadow-yellow-200">
+                    <h4 class="font-black text-yellow-950 text-lg leading-tight mb-2">Butuh Lebih Banyak?</h4>
+                    <p class="text-yellow-900 text-[11px] mb-5 font-semibold opacity-90">Beli 1 paket simulasi tambahan hanya Rp 25.000 saja!</p>
+                    <button onclick="tambahPaket()" class="w-full bg-yellow-950 text-white font-bold py-3 rounded-2xl hover:bg-black transition text-sm flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-cart-shopping"></i> Beli Paket
+                    </button>
+                </div>
+
+                <a href="login.html" class="flex items-center justify-center gap-2 text-slate-400 font-bold text-xs hover:text-red-500 transition">
+                    <i class="fa-solid fa-power-off"></i> KELUAR DASHBOARD
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // 1. Ambil PIN dari URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const pinAkses = urlParams.get('id');
+
+        // Validasi Akses
+        if (!pinAkses) {
+            window.location.href = "login.html";
+        } else {
+            // --- LOGIKA PENANDA PAKET PESERTA (PENTING) ---
+            // Menyimpan info di browser bahwa pemilik PIN ini adalah peserta Paket 1
+            localStorage.setItem(`paket_peserta_${pinAkses}`, "1");
+
+            document.getElementById('displayPin').innerText = pinAkses;
+            renderSoalList();
+        }
+
+        // 2. Fungsi Render Daftar Soal Secara Dinamis
+        function renderSoalList() {
+            const container = document.getElementById('soalListContainer');
+            container.innerHTML = ''; 
+
+            for (let i = 1; i <= 10; i++) {
+                const linkTujuan = `soalpaket${i}.html?id=${pinAkses}`;
+                
+                const soalCard = `
+                    <div class="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm flex items-center justify-between hover:border-blue-300 transition group">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center font-black group-hover:bg-blue-600 group-hover:text-white transition">
+                                ${i}
+                            </div>
+                            <div>
+                                <h4 class="font-extrabold text-slate-800 text-sm md:text-base">Simulasi SKD Utama Paket #${i}</h4>
+                                <p class="text-[11px] text-slate-500 font-medium uppercase tracking-wider">TWK • TIU • TKP (110 Soal)</p>
+                            </div>
+                        </div>
+                        <a href="${linkTujuan}" class="bg-blue-600 text-white px-5 py-2 rounded-xl text-xs font-bold hover:bg-blue-700 shadow-lg shadow-blue-100 transition active:scale-95">
+                            KERJAKAN
+                        </a>
+                    </div>
+                `;
+                container.innerHTML += soalCard;
+            }
+        }
+
+        // 3. Fungsi Pesan Tambahan Paket
+        function tambahPaket() {
+            const noAdmin = "6285696409288"; 
+            const pesan = `Halo Admin Kerja Jadi ASN,%0A%0A` +
+                          `Saya ingin *Tambah 1 Paket Tryout* (Rp 25.000).%0A` +
+                          `*PIN Peserta:* ${pinAkses}%0A%0A` +
+                          `Mohon diproses informasinya. Terima kasih!`;
+            
+            window.open(`https://api.whatsapp.com/send?phone=${noAdmin}&text=${pesan}`, '_blank');
+        }
+    </script>
+
+    <footer class="py-10 text-center text-slate-300 text-[10px] font-bold uppercase tracking-widest">
+        &copy; 2026 Kerja Jadi ASN. Platform Tryout Premium.
+    </footer>
+
+</body>
+</html>

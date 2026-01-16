@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Paket 3 (Ultimate) - Kerja Jadi ASN</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap');
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    </style>
+</head>
+<body class="bg-slate-50 min-h-screen">
+
+    <nav class="bg-slate-900 border-b border-slate-800 sticky top-0 z-50 shadow-sm">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-4">
+                <span class="bg-yellow-500 text-slate-900 px-3 py-1 rounded-lg font-bold text-[10px] uppercase tracking-tighter">Ultimate Paket 3</span>
+                <h1 class="font-extrabold text-white uppercase tracking-tighter text-lg">KERJA JADI <span class="text-yellow-500">ASN</span></h1>
+            </div>
+            <div class="flex items-center gap-3">
+                <div class="text-right hidden md:block">
+                    <p class="text-[10px] font-bold text-slate-400 uppercase leading-none">ID Member</p>
+                    <p id="displayPin" class="text-sm font-bold text-yellow-500 tracking-wider">MEMUAT...</p>
+                </div>
+                <div class="w-10 h-10 bg-slate-800 rounded-full flex items-center justify-center border border-slate-700">
+                    <i class="fa-solid fa-gem text-yellow-500"></i>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container mx-auto px-4 py-8">
+        <div class="bg-gradient-to-br from-slate-900 via-slate-800 to-blue-900 rounded-3xl p-8 mb-8 text-white relative overflow-hidden shadow-2xl">
+            <div class="relative z-10">
+                <div class="inline-block px-3 py-1 bg-yellow-500 text-slate-900 text-[10px] font-black rounded-full mb-4 uppercase tracking-widest">Akses Tak Terbatas</div>
+                <h2 class="text-3xl font-black mb-2 text-yellow-500">Selamat Datang, Member Ultimate!</h2>
+                <p class="text-slate-300 opacity-90 max-w-lg text-sm">Anda telah membuka seluruh fitur: 20 Paket Tryout, Materi Lengkap, dan Strategi Lolos Formasi.</p>
+            </div>
+            <i class="fa-solid fa-bolt-lightning absolute -right-6 -bottom-6 text-[12rem] text-yellow-500/10 rotate-12"></i>
+        </div>
+
+        <div class="grid lg:grid-cols-3 gap-8">
+            <div class="lg:col-span-2 space-y-8">
+                
+                <div>
+                    <h3 class="font-bold text-slate-800 text-xl flex items-center gap-3 mb-4">
+                        <i class="fa-solid fa-star text-yellow-500"></i>
+                        Fitur Eksklusif Ultimate
+                    </h3>
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <a href="tips-formasi.html" class="p-5 bg-white rounded-2xl border-2 border-yellow-100 shadow-sm hover:border-yellow-500 transition group flex items-start gap-4">
+                            <div class="w-12 h-12 bg-yellow-50 rounded-xl flex items-center justify-center text-yellow-600 shrink-0">
+                                <i class="fa-solid fa-map-location-dot text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-slate-800 text-sm">Tips Memilih Formasi</h4>
+                                <p class="text-[10px] text-slate-500 mt-1">Strategi memilih instansi dengan peluang lolos tertinggi.</p>
+                            </div>
+                        </a>
+                        <a href="strategi-skd.html" class="p-5 bg-white rounded-2xl border-2 border-yellow-100 shadow-sm hover:border-yellow-500 transition group flex items-start gap-4">
+                            <div class="w-12 h-12 bg-yellow-50 rounded-xl flex items-center justify-center text-yellow-600 shrink-0">
+                                <i class="fa-solid fa-brain text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-slate-800 text-sm">Strategi Mengerjakan SKD</h4>
+                                <p class="text-[10px] text-slate-500 mt-1">Teknik menjawab soal dalam 54 detik per soal.</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="font-bold text-slate-800 text-xl flex items-center gap-3 mb-4">
+                        <i class="fa-solid fa-laptop-code text-blue-600"></i>
+                        Simulasi Tryout (20 Paket)
+                    </h3>
+                    <div id="soalListContainer" class="space-y-3"></div>
+                </div>
+            </div>
+
+            <div class="space-y-6">
+                <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-100">
+                    <h4 class="font-bold text-slate-800 mb-4 tracking-tight uppercase text-xs">Status Akun</h4>
+                    <div class="p-4 bg-yellow-50 rounded-2xl border border-yellow-100 mb-4 flex items-center gap-3">
+                        <div class="w-10 h-10 bg-yellow-500 rounded-full flex items-center justify-center text-white shadow-md">
+                            <i class="fa-solid fa-shield-halved"></i>
+                        </div>
+                        <div>
+                            <p class="text-[10px] font-bold text-yellow-700 uppercase leading-none">Level Akun</p>
+                            <p class="text-sm font-black text-slate-900">MEMBER ULTIMATE</p>
+                        </div>
+                    </div>
+                    <div class="space-y-2">
+                        <div class="flex justify-between text-xs font-bold">
+                            <span class="text-slate-500">Kuota Tryout</span>
+                            <span class="text-slate-800">20 / 20 Tersedia</span>
+                        </div>
+                        <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
+                            <div class="bg-yellow-500 h-full w-full"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-100">
+                    <h4 class="font-bold text-slate-800 mb-4 tracking-tight uppercase text-xs">Modul Materi</h4>
+                    <div class="grid grid-cols-3 gap-2">
+                        <a href="modul-twk.html" class="flex flex-col items-center p-2 hover:bg-slate-50 rounded-xl transition">
+                            <i class="fa-solid fa-book-open text-blue-500 mb-1"></i>
+                            <span class="text-[8px] font-bold">TWK</span>
+                        </a>
+                        <a href="modul-tiu.html" class="flex flex-col items-center p-2 hover:bg-slate-50 rounded-xl transition">
+                            <i class="fa-solid fa-calculator text-blue-500 mb-1"></i>
+                            <span class="text-[8px] font-bold">TIU</span>
+                        </a>
+                        <a href="modul-tkp.html" class="flex flex-col items-center p-2 hover:bg-slate-50 rounded-xl transition">
+                            <i class="fa-solid fa-users text-blue-500 mb-1"></i>
+                            <span class="text-[8px] font-bold">TKP</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="bg-yellow-400 rounded-3xl p-6 shadow-xl shadow-yellow-100">
+                    <p class="text-[10px] font-black uppercase text-yellow-900 mb-1">Add-On</p>
+                    <h4 class="font-black text-yellow-950 text-lg leading-tight mb-4">Beli 1 Tryout Tambahan?</h4>
+                    <button onclick="tambahPaket()" class="w-full bg-yellow-950 text-white font-bold py-3 rounded-2xl hover:bg-black transition text-sm flex items-center justify-center gap-2">
+                        Beli Rp 25.000
+                    </button>
+                </div>
+
+                <a href="login.html" class="flex items-center justify-center gap-2 text-slate-400 font-bold text-xs hover:text-red-500 transition mt-6">
+                    <i class="fa-solid fa-right-from-bracket"></i> LOGOUT
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const pinAkses = urlParams.get('id');
+
+        if (!pinAkses) {
+            window.location.href = "login.html";
+        } else {
+            // --- LOGIKA PENANDA PAKET PESERTA (PENTING) ---
+            // Simpan info bahwa user ini adalah pemilik PAKET 3 (ULTIMATE)
+            localStorage.setItem(`paket_peserta_${pinAkses}`, "3");
+
+            document.getElementById('displayPin').innerText = pinAkses;
+            renderSoalList();
+        }
+
+        function renderSoalList() {
+            const container = document.getElementById('soalListContainer');
+            container.innerHTML = ''; 
+
+            for (let i = 1; i <= 20; i++) {
+                const linkTujuan = `soalpaket${i}.html?id=${pinAkses}`;
+                
+                const soalCard = `
+                    <div class="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm flex items-center justify-between hover:border-yellow-400 transition group">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 bg-slate-900 text-yellow-500 rounded-xl flex items-center justify-center font-black group-hover:scale-110 transition">
+                                ${i}
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-slate-800 text-sm">Simulasi SKD Ultimate #${i}</h4>
+                                <p class="text-[10px] text-slate-400 font-bold uppercase tracking-widest">Premium Question • 110 Soal</p>
+                            </div>
+                        </div>
+                        <a href="${linkTujuan}" class="bg-slate-900 text-yellow-500 px-5 py-2 rounded-xl text-xs font-black hover:bg-yellow-500 hover:text-slate-900 transition shadow-lg active:scale-95">
+                            MULAI
+                        </a>
+                    </div>
+                `;
+                container.innerHTML += soalCard;
+            }
+        }
+
+        function tambahPaket() {
+            const noAdmin = "6285696409288"; 
+            const pesan = `Halo Admin,%0A%0A` +
+                          `Saya member *PAKET 3 (ULTIMATE)* (PIN: ${pinAkses}).%0A` +
+                          `Ingin beli tambahan 1 paket tryout (Rp 25.000).%0A` +
+                          `Mohon instruksinya.`;
+            window.open(`https://api.whatsapp.com/send?phone=${noAdmin}&text=${pesan}`, '_blank');
+        }
+    </script>
+    <footer class="py-10 text-center text-slate-400 text-[10px] font-bold uppercase tracking-widest">
+        &copy; 2026 Kerja Jadi ASN. Member Ultimate Eksklusif.
+    </footer>
+</body>
+</html>

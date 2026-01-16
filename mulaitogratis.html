@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Persiapan Tryout Gratis - Kerja Jadi ASN</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap');
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    </style>
+</head>
+<body class="bg-slate-50 min-h-screen">
+
+    <nav class="p-6 bg-white border-b border-slate-100 sticky top-0 z-50">
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="text-xl font-extrabold text-blue-600">
+                KERJA JADI <span class="text-yellow-500">ASN</span>
+            </div>
+            <div class="text-sm font-bold text-slate-500">
+                <i class="fa-solid fa-user-circle mr-1"></i> Mode Peserta Gratis
+            </div>
+        </div>
+    </nav>
+
+    <main class="container mx-auto px-4 py-10">
+        <div class="max-w-3xl mx-auto">
+            
+            <div class="bg-gradient-to-br from-blue-700 to-blue-500 rounded-3xl p-8 text-white mb-8 shadow-xl shadow-blue-200">
+                <h1 class="text-2xl md:text-3xl font-extrabold mb-2">Siap untuk Uji Kemampuan?</h1>
+                <p class="text-blue-100 opacity-90 leading-relaxed">Anda akan mengerjakan Simulasi Tryout CPNS (SKD) dengan standar waktu dan sistem penilaian terbaru.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-4 mb-8">
+                <div class="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm text-center">
+                    <p class="text-xs font-bold text-slate-400 uppercase mb-1">Jumlah Soal</p>
+                    <p class="text-xl font-extrabold text-slate-800">110 Soal</p>
+                </div>
+                <div class="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm text-center">
+                    <p class="text-xs font-bold text-slate-400 uppercase mb-1">Durasi</p>
+                    <p class="text-xl font-extrabold text-slate-800">100 Menit</p>
+                </div>
+                <div class="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm text-center">
+                    <p class="text-xs font-bold text-slate-400 uppercase mb-1">Materi</p>
+                    <p class="text-xl font-extrabold text-slate-800">TWK, TIU, TKP</p>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-3xl p-8 border border-slate-100 shadow-sm mb-8">
+                <h2 class="text-xl font-bold text-slate-800 mb-6 flex items-center gap-2">
+                    <i class="fa-solid fa-list-check text-blue-600"></i>
+                    Petunjuk Pengerjaan
+                </h2>
+                
+                <ul class="space-y-4 text-slate-600 text-sm md:text-base">
+                    <li class="flex gap-4">
+                        <span class="w-6 h-6 rounded-full bg-slate-100 text-slate-500 flex items-center justify-center shrink-0 font-bold">1</span>
+                        <span>Pastikan koneksi internet Anda stabil sebelum menekan tombol <strong>Mulai Ujian</strong>.</span>
+                    </li>
+                    <li class="flex gap-4">
+                        <span class="w-6 h-6 rounded-full bg-slate-100 text-slate-500 flex items-center justify-center shrink-0 font-bold">2</span>
+                        <span>Waktu akan terus berjalan sejak Anda menekan tombol mulai dan tidak dapat dihentikan (pause).</span>
+                    </li>
+                    <li class="flex gap-4">
+                        <span class="w-6 h-6 rounded-full bg-slate-100 text-slate-500 flex items-center justify-center shrink-0 font-bold">3</span>
+                        <span>Jawaban yang sudah dipilih dapat diubah selama waktu masih tersedia.</span>
+                    </li>
+                    <li class="flex gap-4">
+                        <span class="w-6 h-6 rounded-full bg-slate-100 text-slate-500 flex items-center justify-center shrink-0 font-bold">4</span>
+                        <span>Hasil nilai akan langsung muncul setelah Anda menekan tombol <strong>Selesai</strong> atau waktu habis.</span>
+                    </li>
+                </ul>
+
+                <div class="mt-10 p-4 bg-yellow-50 border border-yellow-200 rounded-2xl flex items-start gap-3">
+                    <i class="fa-solid fa-triangle-exclamation text-yellow-600 mt-1"></i>
+                    <p class="text-xs text-yellow-800">
+                        <strong>PENTING:</strong> Menutup browser atau menekan tombol kembali (back) saat ujian berlangsung dapat menyebabkan data jawaban Anda tidak tersimpan.
+                    </p>
+                </div>
+            </div>
+
+            <div class="flex flex-col md:flex-row gap-4">
+                <a href="index.html" class="flex-1 text-center py-4 bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold rounded-2xl transition">
+                    Kembali Ke Beranda
+                </a>
+                <button onclick="startTryout()" class="flex-[2] py-4 bg-blue-600 hover:bg-blue-700 text-white font-extrabold rounded-2xl shadow-lg shadow-blue-200 transition active:scale-95 text-lg">
+                    MULAI UJIAN SEKARANG <i class="fa-solid fa-play ml-2"></i>
+                </button>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="text-center py-10 text-slate-400 text-xs">
+        &copy; 2026 Kerja Jadi ASN. Member Area.
+    </footer>
+
+    <script>
+        function startTryout() {
+            if(confirm("Apakah Anda sudah yakin dan siap untuk memulai ujian sekarang?")) {
+                // Ganti dengan halaman soal ujian yang sesungguhnya nanti
+                alert("Sistem sedang memuat bank soal... Klik OK untuk melanjutkan.");
+                window.location.href = "halamansoal.html"; 
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ujian CAT CPNS - Kerja Jadi ASN</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&display=swap');
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .no-soal-btn.active { background-color: #2563eb; color: white; border-color: #2563eb; }
+        .no-soal-btn.ragu { background-color: #eab308; color: white; border-color: #eab308; }
+        .no-soal-btn.filled { background-color: #16a34a; color: white; border-color: #16a34a; }
+        .custom-scrollbar::-webkit-scrollbar { width: 5px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #f1f1f1; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+    </style>
+</head>
+<body class="bg-slate-100 min-h-screen flex flex-col">
+
+    <header class="bg-white border-b p-4 sticky top-0 z-50 shadow-sm">
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <div class="bg-blue-600 text-white p-2 rounded-lg font-bold text-sm">CAT</div>
+                <h1 class="font-bold text-slate-800 hidden md:block">Simulasi SKD CPNS 2026</h1>
+            </div>
+            <div class="flex items-center gap-6">
+                <div class="text-right">
+                    <p class="text-[10px] text-slate-400 font-bold uppercase">Sisa Waktu</p>
+                    <p id="timer" class="text-xl font-mono font-extrabold text-red-600">100:00</p>
+                </div>
+                <button onclick="selesaiUjian()" class="bg-red-100 text-red-600 px-4 py-2 rounded-xl font-bold hover:bg-red-600 hover:text-white transition text-sm">
+                    Selesai
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div class="container mx-auto px-4 py-6 flex flex-col lg:flex-row gap-6 flex-grow">
+        <div class="flex-grow space-y-6">
+            <div class="bg-white rounded-3xl p-6 md:p-10 shadow-sm border border-slate-200 min-h-[400px]">
+                <div class="flex justify-between items-center mb-6">
+                    <span class="bg-blue-50 text-blue-700 px-4 py-1 rounded-full text-xs font-bold uppercase tracking-widest" id="kategori-soal">Materi: TWK</span>
+                    <span class="text-slate-400 text-sm font-medium">Soal No. <span id="current-no" class="text-slate-900 font-bold text-lg">1</span> / 110</span>
+                </div>
+                
+                <p id="teks-soal" class="text-lg text-slate-800 leading-relaxed mb-8">Loading soal...</p>
+
+                <div id="opsi-jawaban" class="space-y-3"></div>
+            </div>
+
+            <div class="flex justify-between items-center bg-white p-4 rounded-2xl shadow-sm border border-slate-200">
+                <button onclick="prevSoal()" class="px-6 py-2 rounded-xl font-bold text-slate-600 hover:bg-slate-100 transition">Sebelumnya</button>
+                <label class="flex items-center gap-2 cursor-pointer bg-yellow-50 px-4 py-2 rounded-xl text-yellow-700 font-bold text-sm">
+                    <input type="checkbox" id="checkRagu" onchange="toggleRagu()"> Ragu-ragu
+                </label>
+                <button onclick="nextSoal()" class="px-6 py-2 bg-blue-600 text-white rounded-xl font-bold hover:bg-blue-700 transition">Selanjutnya</button>
+            </div>
+        </div>
+
+        <aside class="w-full lg:w-80 space-y-4">
+            <div class="bg-white rounded-3xl p-6 shadow-sm border border-slate-200">
+                <h3 class="font-bold text-slate-800 mb-4 flex items-center gap-2">
+                    <i class="fa-solid fa-th-large text-blue-600"></i> Navigasi Soal
+                </h3>
+                <div id="grid-nomor" class="grid grid-cols-5 gap-2 max-h-[400px] overflow-y-auto pr-2 custom-scrollbar"></div>
+                
+                <div class="mt-6 pt-6 border-t border-slate-100 space-y-2 text-[10px] font-bold uppercase text-slate-400">
+                    <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-sm bg-green-600"></span> Sudah Dijawab</div>
+                    <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-sm bg-yellow-500"></span> Ragu-ragu</div>
+                    <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-sm bg-white border border-slate-300"></span> Belum Dijawab</div>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const pinAkses = urlParams.get('id') || "GUEST";
+
+        const bankSoal = [
+            { id: 1, kategori: "TWK", tanya: "Lambang negara Indonesia adalah Garuda Pancasila dengan semboyan Bhinneka Tunggal Ika. Makna dari semboyan tersebut adalah...", opsi: ["A. Berbeda-beda tapi tetap satu", "B. Bersatu kita teguh bercerai kita runtuh", "C. Kekuatan dalam perbedaan", "D. Indonesia milik bersama", "E. Keberagaman yang hakiki"], kunci: 0 },
+            { id: 2, kategori: "TIU", tanya: "Jika 2x + 5 = 15, maka nilai x adalah...", opsi: ["A. 2", "B. 3", "C. 4", "D. 5", "E. 6"], kunci: 3 },
+            { id: 3, kategori: "TKP", tanya: "Rekan kerja Anda melakukan kecurangan kecil dalam laporan keuangan. Sikap Anda adalah...", opsi: ["A. Mendiamkannya", "B. Melaporkan langsung ke atasan", "C. Mengingatkannya secara baik-baik", "D. Ikut melakukannya", "E. Membicarakannya di belakang"], kunci: 2, bobot: [1, 2, 5, 1, 1] }
+        ];
+
+        for(let i=4; i<=110; i++) {
+            let kat = i <= 30 ? "TWK" : (i <= 65 ? "TIU" : "TKP");
+            bankSoal.push({ 
+                id: i, 
+                kategori: kat, 
+                tanya: `[SIMULASI] Pertanyaan Soal ${kat} ke-${i}.`, 
+                opsi: ["Opsi A", "Opsi B", "Opsi C", "Opsi D", "Opsi E"], 
+                kunci: 0,
+                bobot: kat === "TKP" ? [5, 4, 3, 2, 1] : null 
+            });
+        }
+
+        let currentIdx = 0;
+        let jawabanUser = new Array(110).fill(null);
+        let statusRagu = new Array(110).fill(false);
+
+        function renderGrid() {
+            const grid = document.getElementById('grid-nomor');
+            grid.innerHTML = '';
+            bankSoal.forEach((s, i) => {
+                const btn = document.createElement('button');
+                btn.innerText = i + 1;
+                btn.className = `no-soal-btn w-full aspect-square text-xs font-bold rounded-lg border transition-all ${currentIdx === i ? 'active ring-2 ring-blue-300' : ''}`;
+                if (statusRagu[i]) btn.classList.add('ragu');
+                else if (jawabanUser[i] !== null) btn.classList.add('filled');
+                else btn.classList.add('bg-white', 'text-slate-600', 'border-slate-200');
+                btn.onclick = () => jumpTo(i);
+                grid.appendChild(btn);
+            });
+        }
+
+        function displaySoal() {
+            const soal = bankSoal[currentIdx];
+            document.getElementById('current-no').innerText = currentIdx + 1;
+            document.getElementById('kategori-soal').innerText = `Materi: ${soal.kategori}`;
+            document.getElementById('teks-soal').innerText = soal.tanya;
+            document.getElementById('checkRagu').checked = statusRagu[currentIdx];
+
+            const opsiContainer = document.getElementById('opsi-jawaban');
+            opsiContainer.innerHTML = '';
+            soal.opsi.forEach((o, i) => {
+                const isChecked = jawabanUser[currentIdx] === i;
+                opsiContainer.innerHTML += `
+                    <label class="flex items-center gap-4 p-4 rounded-2xl border ${isChecked ? 'border-blue-500 bg-blue-50' : 'border-slate-200 hover:bg-slate-50'} cursor-pointer transition">
+                        <input type="radio" name="jawaban" class="w-5 h-5 text-blue-600" onclick="pilihJawaban(${i})" ${isChecked ? 'checked' : ''}>
+                        <span class="text-slate-700 font-medium">${o}</span>
+                    </label>
+                `;
+            });
+            renderGrid();
+        }
+
+        function pilihJawaban(idx) {
+            jawabanUser[currentIdx] = idx;
+            renderGrid();
+        }
+
+        function toggleRagu() {
+            statusRagu[currentIdx] = document.getElementById('checkRagu').checked;
+            renderGrid();
+        }
+
+        function nextSoal() { if (currentIdx < 109) { currentIdx++; displaySoal(); } }
+        function prevSoal() { if (currentIdx > 0) { currentIdx--; displaySoal(); } }
+        function jumpTo(i) { currentIdx = i; displaySoal(); }
+
+        let time = 100 * 60;
+        const timerInt = setInterval(() => {
+            if (time <= 0) { clearInterval(timerInt); selesaiUjian(true); }
+            time--;
+            const m = Math.floor(time / 60);
+            const s = time % 60;
+            document.getElementById('timer').innerText = `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+        }, 1000);
+
+        function selesaiUjian(isAuto = false) {
+            if(isAuto || confirm("Apakah Anda yakin ingin mengakhiri ujian?")) {
+                let sTWK = 0, sTIU = 0, sTKP = 0, benar = 0, salah = 0, kosong = 0;
+
+                bankSoal.forEach((soal, i) => {
+                    const jawab = jawabanUser[i];
+                    if (jawab === null) {
+                        kosong++;
+                    } else {
+                        if (soal.kategori === "TKP") {
+                            sTKP += soal.bobot ? soal.bobot[jawab] : 0;
+                            benar++; // TKP selalu dianggap mengisi
+                        } else {
+                            if (jawab === soal.kunci) {
+                                benar++;
+                                if (soal.kategori === "TWK") sTWK += 5;
+                                else sTIU += 5;
+                            } else {
+                                salah++;
+                            }
+                        }
+                    }
+                });
+
+                const hasil = { total: sTWK + sTIU + sTKP, twk: sTWK, tiu: sTIU, tkp: sTKP, benar, salah, kosong };
+                localStorage.setItem(`hasil_${pinAkses}`, JSON.stringify(hasil));
+                window.location.href = `hasilujian.html?id=${pinAkses}`;
+            }
+        }
+
+        displaySoal();
+    </script>
+</body>
+</html>
