@@ -47,15 +47,36 @@
                     <div>
                         <label class="block text-sm font-bold text-slate-700 mb-2">Pilih Paket Tryout</label>
                         <select id="paket" required class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition font-semibold text-blue-600">
-                            <option value="Paket 1 (Rp 99.000)">Paket 1 - 10 Tryout (Rp 99.000)</option>
-                            <option value="Paket 2 (Rp 149.000)" selected>Paket 2 - 15 Tryout (Rp 149.000)</option>
-                            <option value="Paket 3 (Rp 189.000)">Paket 3 - 20 Tryout (Rp 189.000)</option>
+                            <option value="99000">Paket 1 - 10 Tryout (Rp 99.000)</option>
+                            <option value="149000" selected>Paket 2 - 15 Tryout (Rp 149.000)</option>
+                            <option value="189000">Paket 3 - 20 Tryout (Rp 189.000)</option>
                         </select>
                     </div>
 
+                    <div>
+                        <label class="block text-sm font-bold text-slate-700 mb-2">Kode Referral (Opsional)</label>
+                        <div class="relative">
+                            <input type="text" id="referral" class="w-full px-4 py-3 bg-yellow-50 border border-yellow-200 rounded-xl focus:ring-2 focus:ring-yellow-500 outline-none transition uppercase font-bold text-yellow-700" placeholder="MASUKKAN KODE">
+                            <div id="refStatus" class="hidden text-[10px] font-bold mt-1 text-green-600">
+                                <i class="fa-solid fa-check"></i> KODE BERHASIL: DISKON RP 10.000 DITERAPKAN
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="bg-blue-50 p-4 rounded-2xl border border-blue-100">
-                        <h4 class="text-xs font-bold text-blue-700 uppercase mb-2">Metode Pembayaran</h4>
-                        <p class="text-sm text-blue-900 leading-relaxed">Setelah klik daftar, Anda akan terhubung ke WhatsApp Admin untuk instruksi transfer (Bank/E-Wallet) dan <b>pengiriman PIN akses</b>.</p>
+                        <h4 class="text-xs font-bold text-blue-700 uppercase mb-2">Ringkasan Pembayaran</h4>
+                        <div class="flex justify-between text-sm mb-1">
+                            <span class="text-slate-600">Harga Paket:</span>
+                            <span id="displayHarga" class="font-bold">Rp 149.000</span>
+                        </div>
+                        <div id="rowDiskon" class="hidden justify-between text-sm mb-1 text-green-600 font-bold border-t border-blue-100 pt-1">
+                            <span>Potongan Referral:</span>
+                            <span>- Rp 10.000</span>
+                        </div>
+                        <div class="flex justify-between text-base font-extrabold text-blue-900 border-t border-blue-200 pt-2">
+                            <span>Total Bayar:</span>
+                            <span id="totalBayar">Rp 149.000</span>
+                        </div>
                     </div>
 
                     <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 rounded-2xl shadow-lg shadow-blue-200 transition active:scale-95 flex items-center justify-center gap-2">
@@ -84,15 +105,15 @@
                     </ul>
                 </div>
 
-                <div class="bg-white p-6 rounded-3xl border border-slate-200 flex items-center gap-4">
-                    <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center text-green-600">
+                <a href="https://wa.me/6281234567890?text=Halo%20Admin%2C%20saya%20butuh%20bantuan%20pendaftaran%20Tryout" target="_blank" class="bg-white p-6 rounded-3xl border border-slate-200 flex items-center gap-4 hover:border-green-500 transition cursor-pointer group">
+                    <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center text-green-600 group-hover:bg-green-600 group-hover:text-white transition">
                         <i class="fa-brands fa-whatsapp text-2xl"></i>
                     </div>
                     <div>
                         <h4 class="font-bold text-slate-900 text-sm">Butuh bantuan daftar?</h4>
-                        <p class="text-xs text-slate-500">Hubungi Admin di 085-696-409-288</p>
+                        <p class="text-xs text-slate-500">Hubungi Admin (Klik di sini)</p>
                     </div>
-                </div>
+                </a>
             </div>
 
         </div>
@@ -103,19 +124,57 @@
     </footer>
 
     <script>
+        // DAFTAR 7 KODE REFERRAL ACAK
+        const validReferrals = ["ASNJUARA", "LOLOS2026", "CPNSCEPAT", "ABDINEGARA", "MANTAPASN", "REZEKIASN", "SUKSESCPNS"];
+        const diskonNominal = 10000;
+        const noAdmin = "6281234567890"; // GANTI DENGAN NOMOR WA ANDA
+
+        const paketSelect = document.getElementById('paket');
+        const refInput = document.getElementById('referral');
+        const displayHarga = document.getElementById('displayHarga');
+        const totalBayarText = document.getElementById('totalBayar');
+        const rowDiskon = document.getElementById('rowDiskon');
+        const refStatus = document.getElementById('refStatus');
+
+        function hitungTotal() {
+            let hargaAsal = parseInt(paketSelect.value);
+            let isDiskon = validReferrals.includes(refInput.value.toUpperCase());
+            
+            displayHarga.innerText = `Rp ${hargaAsal.toLocaleString('id-ID')}`;
+            
+            if (isDiskon) {
+                rowDiskon.classList.remove('hidden');
+                rowDiskon.classList.add('flex');
+                refStatus.classList.remove('hidden');
+                totalBayarText.innerText = `Rp ${(hargaAsal - diskonNominal).toLocaleString('id-ID')}`;
+            } else {
+                rowDiskon.classList.add('hidden');
+                rowDiskon.classList.remove('flex');
+                refStatus.classList.add('hidden');
+                totalBayarText.innerText = `Rp ${hargaAsal.toLocaleString('id-ID')}`;
+            }
+        }
+
+        paketSelect.addEventListener('change', hitungTotal);
+        refInput.addEventListener('input', hitungTotal);
+
         document.getElementById('regForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
             const nama = document.getElementById('nama').value;
             const wa = document.getElementById('whatsapp').value;
-            const paket = document.getElementById('paket').value;
+            const paketText = paketSelect.options[paketSelect.selectedIndex].text;
+            const refUsed = refInput.value.toUpperCase();
+            const totalFinal = totalBayarText.innerText;
             
-            const noAdmin = "6285696409288"; // GANTI DENGAN NOMOR WA ANDA
+            let referralMsg = validReferrals.includes(refUsed) ? `*Kode Referral:* ${refUsed} (Diskon Terpakai)%0A` : `*Kode Referral:* - %0A`;
             
             const pesan = `Halo Admin Kerja Jadi ASN, saya ingin daftar:%0A%0A` +
                           `*Nama:* ${nama}%0A` +
                           `*No WA:* 0${wa}%0A` +
-                          `*Pilihan:* ${paket}%0A%0A` +
+                          `*Pilihan:* ${paketText}%0A` +
+                          referralMsg +
+                          `*Total Bayar:* ${totalFinal}%0A%0A` +
                           `Mohon info instruksi pembayaran untuk mendapatkan PIN akses dashboard. Terima kasih.`;
             
             const url = `https://api.whatsapp.com/send?phone=${noAdmin}&text=${pesan}`;
