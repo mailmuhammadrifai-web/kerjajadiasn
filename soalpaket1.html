@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ujian CAT CPNS - Kerja Jadi ASN</title>
+    <title>Ujian CAT CPNS - Paket 1</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
@@ -15,6 +15,8 @@
         .custom-scrollbar::-webkit-scrollbar { width: 5px; }
         .custom-scrollbar::-webkit-scrollbar-track { background: #f1f1f1; }
         .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+        .modal { display: none; position: fixed; z-index: 100; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); }
+        .modal-content { background-color: white; margin: 5% auto; padding: 20px; border-radius: 20px; width: 90%; max-width: 500px; }
     </style>
 </head>
 <body class="bg-slate-100 min-h-screen flex flex-col">
@@ -22,10 +24,10 @@
     <header class="bg-white border-b p-4 sticky top-0 z-50 shadow-sm">
         <div class="container mx-auto flex justify-between items-center">
             <div class="flex items-center gap-3">
-                <div class="bg-blue-600 text-white px-3 py-1 rounded-lg font-bold text-xs uppercase">CAT ASN</div>
+                <div class="bg-blue-600 text-white px-3 py-1 rounded-lg font-bold text-xs uppercase">CAT ASN - PAKET 1</div>
                 <div class="hidden md:block">
                     <p class="text-[10px] text-slate-400 font-bold uppercase leading-none">ID PESERTA</p>
-                    <p id="pesertaID" class="text-sm font-bold text-slate-800">MEMUAT...</p>
+                    <p id="pesertaID" class="text-sm font-bold text-slate-800">PAKET01-2024</p>
                 </div>
             </div>
             <div class="flex items-center gap-6">
@@ -39,6 +41,31 @@
             </div>
         </div>
     </header>
+
+    <div id="modalKonfirmasi" class="modal">
+        <div class="modal-content p-6">
+            <h3 class="text-xl font-bold text-slate-800 mb-4">Konfirmasi Pengumpulan</h3>
+            <p id="statistikTerjawab" class="text-slate-600 mb-6">Anda akan mengumpulkan jawaban dengan statistik sebagai berikut:</p>
+            <div class="grid grid-cols-3 gap-4 mb-6">
+                <div class="bg-blue-50 p-3 rounded-xl text-center">
+                    <p class="text-2xl font-bold text-blue-600" id="statTWK">0</p>
+                    <p class="text-xs text-slate-500">TWK</p>
+                </div>
+                <div class="bg-green-50 p-3 rounded-xl text-center">
+                    <p class="text-2xl font-bold text-green-600" id="statTIU">0</p>
+                    <p class="text-xs text-slate-500">TIU</p>
+                </div>
+                <div class="bg-purple-50 p-3 rounded-xl text-center">
+                    <p class="text-2xl font-bold text-purple-600" id="statTKP">0</p>
+                    <p class="text-xs text-slate-500">TKP</p>
+                </div>
+            </div>
+            <div class="flex justify-end gap-3">
+                <button onclick="tutupModal()" class="px-4 py-2 text-slate-600 hover:bg-slate-100 rounded-lg">Kembali</button>
+                <button onclick="kirimHasil()" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">Ya, Selesai</button>
+            </div>
+        </div>
+    </div>
 
     <div class="container mx-auto px-4 py-6 flex flex-col lg:flex-row gap-6 flex-grow">
         <div class="flex-grow space-y-6">
@@ -79,26 +106,149 @@
     </div>
 
     <script>
-        const urlParams = new URLSearchParams(window.location.search);
-        const pinAkses = urlParams.get('id');
-        
-        // IDENTIFIKASI PAKET: Ganti sesuai file (1, 2, atau 3)
-        const ID_PAKET = "1"; 
+        const ID_PAKET = "1";
+        const ID_PESERTA = "PAKET01-" + new Date().getTime();
 
-        if(!pinAkses) window.location.href = "login.html";
-        document.getElementById('pesertaID').innerText = pinAkses;
+        document.getElementById('pesertaID').innerText = ID_PESERTA;
 
-        const bankSoal = [];
-        for(let i=1; i<=110; i++) {
-            let kat = i <= 30 ? "TWK" : (i <= 65 ? "TIU" : "TKP");
-            bankSoal.push({
-                id: i,
-                kategori: kat,
-                tanya: `[${kat}] Ini adalah pertanyaan untuk soal nomor ${i}.`,
-                opsi: ["Opsi Jawaban A", "Opsi Jawaban B", "Opsi Jawaban C", "Opsi Jawaban D", "Opsi Jawaban E"],
-                kunci: 0 // Index 0 (A) adalah jawaban benar untuk TWK/TIU
-            });
-        }
+        // ====================== BANK SOAL PAKET 1 ======================
+        const bankSoal = [
+            // === TWK - 30 SOAL ===
+            { id: 1, kategori: "TWK", tanya: "Proklamasi Kemerdekaan Indonesia mengandung nilai universal yang berarti...", opsi: ["A. Hanya berlaku untuk bangsa Indonesia", "B. Dapat dijadikan inspirasi perjuangan bangsa lain", "C. Merupakan peristiwa lokal tanpa dampak global", "D. Hanya relevan pada masa penjajahan", "E. Tidak memiliki makna bagi generasi muda"], kunci: 1 },
+            { id: 2, kategori: "TWK", tanya: "Menurut UUD 1945 Pasal 27 ayat 3, hak dan kewajiban warga negara untuk ikut serta dalam upaya pembelaan negara diwujudkan dalam bentuk...", opsi: ["A. Wajib militer bagi semua warga", "B. Pengabdian sesuai profesi masing-masing", "C. Wajib pajak dan retribusi", "D. Keikutsertaan dalam organisasi kemasyarakatan", "E. Partisipasi dalam pemilu"], kunci: 1 },
+            { id: 3, kategori: "TWK", tanya: "Konsep Ketahanan Nasional Indonesia bersifat multidimensional, yang berarti mencakup aspek...", opsi: ["A. Militer dan keamanan saja", "B. Politik, ekonomi, sosial budaya, dan hankam", "C. Ekonomi dan teknologi", "D. Sosial dan budaya tradisional", "E. Pertahanan dan lingkungan hidup"], kunci: 1 },
+            { id: 4, kategori: "TWK", tanya: "Piagam Jakarta tanggal 22 Juni 1945 memuat rumusan Pancasila dengan perbedaan pada sila pertama yang berbunyi...", opsi: ["A. Ketuhanan Yang Maha Esa", "B. Ketuhanan dengan kewajiban menjalankan syariat Islam bagi pemeluk-pemeluknya", "C. Ketuhanan yang berkebudayaan", "D. Ketuhanan Yang Maha Kuasa", "E. Ketuhanan yang berperikemanusiaan"], kunci: 1 },
+            { id: 5, kategori: "TWK", tanya: "Undang-Undang Nomor 5 Tahun 2017 tentang Pemajuan Kebudayaan bertujuan untuk...", opsi: ["A. Melestarikan budaya asli Indonesia", "B. Mengatur penggunaan bahasa daerah", "C. Memajukan kebudayaan nasional Indonesia", "D. Membatasi pengaruh budaya asing", "E. Menetapkan budaya nasional yang tunggal"], kunci: 2 },
+            { id: 6, kategori: "TWK", tanya: "Sistem pemerintahan presidensial yang dianut Indonesia menurut UUD 1945 ditandai dengan...", opsi: ["A. Presiden sebagai kepala negara dan kepala pemerintahan", "B. Presiden bertanggung jawab kepada DPR", "C. Menteri-menteri dipilih oleh DPR", "D. Presiden dapat membubarkan DPR", "E. Adanya perdana menteri yang memimpin kabinet"], kunci: 0 },
+            { id: 7, kategori: "TWK", tanya: "Nilai-nilai luhur yang terkandung dalam Sumpah Pemuda 1928 adalah...", opsi: ["A. Persatuan, kesatuan, dan nasionalisme", "B. Individualisme dan kompetisi", "C. Primordialisme dan etnosentrisme", "D. Sekularisme dan liberalisme", "E. Elitisme dan intelektualisme"], kunci: 0 },
+            { id: 8, kategori: "TWK", tanya: "Kewenangan Mahkamah Konstitusi dalam menguji undang-undang terhadap UUD 1945 bersifat...", opsi: ["A. Preventif dan represif", "B. Hanya represif", "C. Hanya preventif", "D. Konsultatif", "E. Administratif"], kunci: 0 },
+            { id: 9, kategori: "TWK", tanya: "Perjanjian internasional yang mengatur tentang Hukum Laut Internasional dan dijadikan dasar pengakuan Indonesia sebagai negara kepulauan adalah...", opsi: ["A. UNCLOS 1982", "B. Geneva Convention 1958", "C. ASEAN Charter 2007", "D. Vienna Convention 1961", "E. TRIPS Agreement 1994"], kunci: 0 },
+            { id: 10, kategori: "TWK", tanya: "Fungsi utama Dewan Perwakilan Daerah (DPD) menurut UUD 1945 adalah...", opsi: ["A. Mengajukan dan membahas RUU tertentu", "B. Memilih Presiden dan Wakil Presiden", "C. Menetapkan APBN", "D. Mengangkat hakim konstitusi", "E. Menetapkan peraturan pemerintah"], kunci: 0 },
+
+            // TWK 11-20
+            { id: 11, kategori: "TWK", tanya: "Pancasila sebagai paradigma pembangunan mengandung arti bahwa...", opsi: ["A. Pembangunan harus mengutamakan pertumbuhan ekonomi", "B. Semua aspek pembangunan dijiwai oleh nilai-nilai Pancasila", "C. Pembangunan hanya dilakukan oleh pemerintah", "D. Pembangunan bertumpu pada teknologi asing", "E. Pembangunan bersifat sentralistik"], kunci: 1 },
+            { id: 12, kategori: "TWK", tanya: "Hak konstitusional warga negara untuk memperoleh pendidikan diatur dalam UUD 1945 Pasal...", opsi: ["A. 28C ayat 1", "B. 28D ayat 3", "C. 31 ayat 1", "D. 32 ayat 1", "E. 33 ayat 3"], kunci: 2 },
+            { id: 13, kategori: "TWK", tanya: "Dalam sistem ketatanegaraan Indonesia, MPR memiliki kewenangan untuk...", opsi: ["A. Mengubah dan menetapkan UUD", "B. Memilih Presiden setiap 5 tahun", "C. Menetapkan Perpu menjadi UU", "D. Memberhentikan menteri", "E. Menguji konstitusionalitas UU"], kunci: 0 },
+            { id: 14, kategori: "TWK", tanya: "Nilai gotong royong sebagai ciri khas bangsa Indonesia merupakan penjabaran dari sila...", opsi: ["A. Ketuhanan Yang Maha Esa", "B. Kemanusiaan yang adil dan beradab", "C. Persatuan Indonesia", "D. Kerakyatan yang dipimpin oleh hikmat kebijaksanaan dalam permusyawaratan/perwakilan", "E. Keadilan sosial bagi seluruh rakyat Indonesia"], kunci: 4 },
+            { id: 15, kategori: "TWK", tanya: "Badan yang bertugas memeriksa pengelolaan keuangan negara adalah...", opsi: ["A. BPK", "B. BPKP", "C. KPK", "D. OJK", "E. BI"], kunci: 0 },
+            { id: 16, kategori: "TWK", tanya: "Prinsip-prinsip dasar demokrasi Pancasila meliputi...", opsi: ["A. Musyawarah untuk mufakat dan kekeluargaan", "B. Mayoritas absolut dan minoritas tertindas", "C. Individualisme dan kebebasan mutlak", "D. Otoritarianisme dan sentralisme", "E. Sekularisme dan liberalisme"], kunci: 0 },
+            { id: 17, kategori: "TWK", tanya: "Kebijakan luar negeri Indonesia yang bebas aktif pertama kali dicetuskan oleh...", opsi: ["A. Soekarno", "B. Mohammad Hatta", "C. Sutan Sjahrir", "D. Muhammad Yamin", "E. Agus Salim"], kunci: 1 },
+            { id: 18, kategori: "TWK", tanya: "Lembaga negara yang berwenang melakukan judicial review terhadap peraturan perundang-undangan di bawah undang-undang adalah...", opsi: ["A. Mahkamah Agung", "B. Mahkamah Konstitusi", "C. Komisi Yudisial", "D. Dewan Perwakilan Rakyat", "E. Presiden"], kunci: 0 },
+            { id: 19, kategori: "TWK", tanya: "Upaya bela negara melalui pendidikan kewarganegaraan bertujuan untuk menanamkan...", opsi: ["A. Nasionalisme dan patriotisme", "B. Individualisme dan kompetisi", "C. Elitisme dan eksklusivisme", "D. Konsumerisme dan materialisme", "E. Sekularisme dan liberalisme"], kunci: 0 },
+            { id: 20, kategori: "TWK", tanya: "Sistem ekonomi Indonesia berdasarkan Pasal 33 UUD 1945 menganut prinsip...", opsi: ["A. Demokrasi ekonomi", "B. Kapitalisme liberal", "C. Sosialisme komunis", "D. Feodalisme ekonomi", "E. Merkantilisme"], kunci: 0 },
+
+            // TWK 21-30
+            { id: 21, kategori: "TWK", tanya: "Kearifan lokal dalam penyelesaian sengketa di masyarakat Indonesia mencerminkan nilai Pancasila sila ke...", opsi: ["A. 1", "B. 2", "C. 3", "D. 4", "E. 5"], kunci: 3 },
+            { id: 22, kategori: "TWK", tanya: "Peran Indonesia dalam perdamaian dunia diwujudkan melalui...", opsi: ["A. Pengiriman pasukan perdamaian PBB", "B. Pembentukan aliansi militer regional", "C. Ekspor senjata ke negara konflik", "D. Netralitas dalam semua konflik", "E. Intervensi militer unilateral"], kunci: 0 },
+            { id: 23, kategori: "TWK", tanya: "Pembukaan UUD 1945 memiliki kedudukan yang sangat penting karena...", opsi: ["A. Memuat dasar filosofis negara", "B. Dapat diubah oleh MPR", "C. Berisi pasal-pasal detail", "D. Mengatur sistem pemerintahan", "E. Menetapkan ibukota negara"], kunci: 0 },
+            { id: 24, kategori: "TWK", tanya: "Implementasi wawasan nusantara dalam konteks globalisasi menekankan pada...", opsi: ["A. Ketahanan nasional menghadapi pengaruh asing", "B. Isolasi dari pengaruh internasional", "C. Penyerapan semua budaya asing", "D. Penolakan terhadap teknologi luar", "E. Pembatasan hubungan internasional"], kunci: 0 },
+            { id: 25, kategori: "TWK", tanya: "Kebhinekaan bangsa Indonesia merupakan kekuatan karena...", opsi: ["A. Menciptakan persaingan yang sehat", "B. Memperkaya khazanah budaya nasional", "C. Memudahkan pembagian wilayah", "D. Menyederhanakan sistem pemerintahan", "E. Mengurangi konflik internasional"], kunci: 1 },
+            { id: 26, kategori: "TWK", tanya: "Konsep negara hukum (rechtsstaat) dalam UUD 1945 diwujudkan melalui...", opsi: ["A. Supremasi hukum dan kesamaan di depan hukum", "B. Kekuasaan absolut pemerintah", "C. Dominasi hukum adat", "D. Pemerintahan berdasarkan kekuasaan", "E. Hukum sebagai alat penguasa"], kunci: 0 },
+            { id: 27, kategori: "TWK", tanya: "Pembentukan KPK sebagai lembaga negara bertujuan untuk...", opsi: ["A. Memberantas korupsi secara komprehensif", "B. Mengadili semua pelaku kriminal", "C. Menggantikan peran kepolisian", "D. Menangani kasus perdata", "E. Mengawasi bank sentral"], kunci: 0 },
+            { id: 28, kategori: "TWK", tanya: "Prinsip otonomi daerah dalam NKRI diatur dalam UUD 1945 Pasal...", opsi: ["A. 18", "B. 19", "C. 20", "D. 21", "E. 22"], kunci: 0 },
+            { id: 29, kategori: "TWK", tanya: "Pancasila sebagai ideologi terbuka memungkinkan...", opsi: ["A. Penafsiran sesuai perkembangan zaman", "B. Perubahan sila-sila dasar", "C. Penggantian dengan ideologi lain", "D. Penolakan terhadap nilai universal", "E. Pengabaian terhadap nilai dasar"], kunci: 0 },
+            { id: 30, kategori: "TWK", tanya: "Sistem pertahanan dan keamanan rakyat semesta (sishankamrata) bertumpu pada...", opsi: ["A. Keterlibatan seluruh rakyat", "B. Kekuatan militer profesional", "C. Aliansi dengan negara kuat", "D. Teknologi persenjataan mutakhir", "E. Bantuan keamanan asing"], kunci: 0 },
+
+            // === TIU - 35 SOAL ===
+            { id: 31, kategori: "TIU", tanya: "ANOMALI ≈", opsi: ["A. Kelaziman", "B. Kekacauan", "C. Penyimpangan", "D. Keseragaman", "E. Kestabilan"], kunci: 2 },
+            { id: 32, kategori: "TIU", tanya: "KONSERVATIF ><", opsi: ["A. Kolot", "B. Modern", "C. Progresif", "D. Tradisional", "E. Konvensional"], kunci: 2 },
+            { id: 33, kategori: "TIU", tanya: "PENULIS : BUKU = PELUKIS : ...", opsi: ["A. Kanvas", "B. Kuas", "C. Lukisan", "D. Galeri", "E. Cat"], kunci: 2 },
+            { id: 34, kategori: "TIU", tanya: "1, 4, 9, 16, 25, ...", opsi: ["A. 30", "B. 36", "C. 40", "D. 45", "E. 49"], kunci: 1 },
+            { id: 35, kategori: "TIU", tanya: "3, 6, 12, 24, 48, ...", opsi: ["A. 72", "B. 84", "C. 96", "D. 108", "E. 120"], kunci: 2 },
+            { id: 36, kategori: "TIU", tanya: "Sebuah mobil menempuh jarak 180 km dengan kecepatan 60 km/jam. Jika ingin sampai 30 menit lebih cepat, kecepatan yang harus digunakan adalah...", opsi: ["A. 70 km/jam", "B. 72 km/jam", "C. 75 km/jam", "D. 80 km/jam", "E. 90 km/jam"], kunci: 1 },
+            { id: 37, kategori: "TIU", tanya: "Semua dokter adalah sarjana. Beberapa sarjana adalah peneliti. Kesimpulan yang benar adalah...", opsi: ["A. Semua dokter adalah peneliti", "B. Beberapa dokter adalah peneliti", "C. Semua peneliti adalah dokter", "D. Beberapa peneliti adalah dokter", "E. Tidak ada kesimpulan yang pasti"], kunci: 4 },
+            { id: 38, kategori: "TIU", tanya: "Jika x = 15% dari 200 dan y = 200% dari 15, maka...", opsi: ["A. x > y", "B. x < y", "C. x = y", "D. 2x = y", "E. x = 2y"], kunci: 2 },
+            { id: 39, kategori: "TIU", tanya: "PROBABILITAS ≈", opsi: ["A. Kepastian", "B. Kemungkinan", "C. Kenyataan", "D. Keyakinan", "E. Keteraturan"], kunci: 1 },
+            { id: 40, kategori: "TIU", tanya: "EFISIEN ><", opsi: ["A. Hemat", "B. Boros", "C. Cepat", "D. Lambat", "E. Sederhana"], kunci: 1 },
+
+            // TIU 41-50
+            { id: 41, kategori: "TIU", tanya: "AIR : HAUS = MAKANAN : ...", opsi: ["A. Kenyang", "B. Lapar", "C. Enak", "D. Sehat", "E. Lezat"], kunci: 1 },
+            { id: 42, kategori: "TIU", tanya: "2, 5, 10, 17, 26, ...", opsi: ["A. 35", "B. 37", "C. 39", "D. 41", "E. 43"], kunci: 1 },
+            { id: 43, kategori: "TIU", tanya: "64, 32, 16, 8, 4, ...", opsi: ["A. 2", "B. 1", "C. 0", "D. -2", "E. -4"], kunci: 0 },
+            { id: 44, kategori: "TIU", tanya: "Sebuah tabung memiliki diameter 14 cm dan tinggi 20 cm. Volume tabung tersebut adalah... (π = 22/7)", opsi: ["A. 3080 cm³", "B. 3160 cm³", "C. 3240 cm³", "D. 3320 cm³", "E. 3400 cm³"], kunci: 0 },
+            { id: 45, kategori: "TIU", tanya: "Jika harga 3 buku dan 2 pensil adalah Rp 19.500, sedangkan harga 2 buku dan 3 pensil adalah Rp 16.500, maka harga 1 buku adalah...", opsi: ["A. Rp 4.500", "B. Rp 5.000", "C. Rp 5.500", "D. Rp 6.000", "E. Rp 6.500"], kunci: 0 },
+            { id: 46, kategori: "TIU", tanya: "Sebuah persegi panjang memiliki panjang 24 cm dan lebar 18 cm. Panjang diagonal persegi panjang tersebut adalah...", opsi: ["A. 30 cm", "B. 32 cm", "C. 34 cm", "D. 36 cm", "E. 38 cm"], kunci: 0 },
+            { id: 47, kategori: "TIU", tanya: "Dalam sebuah rapat, 5 orang duduk melingkar. Banyaknya cara mereka duduk adalah...", opsi: ["A. 24", "B. 48", "C. 60", "D. 72", "E. 120"], kunci: 0 },
+            { id: 48, kategori: "TIU", tanya: "Jika 2x + 3y = 17 dan 3x - 2y = 6, maka nilai x + y adalah...", opsi: ["A. 5", "B. 6", "C. 7", "D. 8", "E. 9"], kunci: 2 },
+            { id: 49, kategori: "TIU", tanya: "AMATIR ><", opsi: ["A. Pemula", "B. Ahli", "C. Profesional", "D. Mahir", "E. Terampil"], kunci: 2 },
+            { id: 50, kategori: "TIU", tanya: "PARADOKS ≈", opsi: ["A. Pertentangan", "B. Keselarasan", "C. Keseimbangan", "D. Kesamaan", "E. Keteraturan"], kunci: 0 },
+
+            // TIU 51-60
+            { id: 51, kategori: "TIU", tanya: "MATAHARI : TERANG = BULAN : ...", opsi: ["A. Gelap", "B. Bercahaya", "C. Bintang", "D. Malam", "E. Sinarnya"], kunci: 1 },
+            { id: 52, kategori: "TIU", tanya: "1, 3, 6, 10, 15, ...", opsi: ["A. 18", "B. 20", "C. 21", "D. 24", "E. 28"], kunci: 2 },
+            { id: 53, kategori: "TIU", tanya: "100, 95, 85, 70, 50, ...", opsi: ["A. 25", "B. 30", "C. 35", "D. 40", "E. 45"], kunci: 0 },
+            { id: 54, kategori: "TIU", tanya: "Seorang pedagang membeli 50 kg beras seharga Rp 300.000. Jika ia ingin mendapatkan untung 20%, harga jual per kg adalah...", opsi: ["A. Rp 6.800", "B. Rp 7.000", "C. Rp 7.200", "D. Rp 7.400", "E. Rp 7.600"], kunci: 2 },
+            { id: 55, kategori: "TIU", tanya: "LAMBAN ><", opsi: ["A. Pelan", "B. Cepat", "C. Diam", "D. Stabil", "E. Statis"], kunci: 1 },
+            { id: 56, kategori: "TIU", tanya: "EMANSIPASI ≈", opsi: ["A. Pembebasan", "B. Penindasan", "C. Pembatasan", "D. Penguatan", "E. Penghapusan"], kunci: 0 },
+            { id: 57, kategori: "TIU", tanya: "KAPAL : NAKHODA = PESAWAT : ...", opsi: ["A. Pilot", "B. Pramugari", "C. Penumpang", "D. Teknisi", "E. Bandara"], kunci: 0 },
+            { id: 58, kategori: "TIU", tanya: "80, 40, 20, 10, 5, ...", opsi: ["A. 2", "B. 2.5", "C. 3", "D. 3.5", "E. 4"], kunci: 1 },
+            { id: 59, kategori: "TIU", tanya: "Sebuah segitiga siku-siku memiliki sisi miring 25 cm dan salah satu sisi siku-sikunya 15 cm. Panjang sisi siku-siku lainnya adalah...", opsi: ["A. 10 cm", "B. 15 cm", "C. 20 cm", "D. 24 cm", "E. 30 cm"], kunci: 2 },
+            { id: 60, kategori: "TIU", tanya: "Jika suatu pekerjaan dapat diselesaikan oleh 8 orang dalam 15 hari, maka waktu yang dibutuhkan 12 orang untuk menyelesaikan pekerjaan yang sama adalah...", opsi: ["A. 8 hari", "B. 9 hari", "C. 10 hari", "D. 11 hari", "E. 12 hari"], kunci: 2 },
+
+            // TIU 61-65
+            { id: 61, kategori: "TIU", tanya: "PERSEKUSI ≈", opsi: ["A. Penghargaan", "B. Penganiayaan", "C. Perlindungan", "D. Pemberian", "E. Penyembuhan"], kunci: 1 },
+            { id: 62, kategori: "TIU", tanya: "KONFLUEN ><", opsi: ["A. Bertemu", "B. Berpisah", "C. Mengalir", "D. Menyatu", "E. Bergabung"], kunci: 1 },
+            { id: 63, kategori: "TIU", tanya: "GURU : MENGAJAR = DOKTER : ...", opsi: ["A. Menyembuhkan", "B. Mendiagnosa", "C. Memeriksa", "D. Merawat", "E. Mengobati"], kunci: 0 },
+            { id: 64, kategori: "TIU", tanya: "12, 24, 48, 96, 192, ...", opsi: ["A. 288", "B. 324", "C. 348", "D. 372", "E. 384"], kunci: 4 },
+            { id: 65, kategori: "TIU", tanya: "Sebuah lingkaran memiliki jari-jari 21 cm. Luas lingkaran tersebut adalah... (π = 22/7)", opsi: ["A. 1.386 cm²", "B. 1.412 cm²", "C. 1.450 cm²", "D. 1.478 cm²", "E. 1.500 cm²"], kunci: 0 },
+
+            // === TKP - 45 SOAL ===
+            { id: 66, kategori: "TKP", tanya: "Ketika menghadapi tugas baru yang belum pernah saya kerjakan sebelumnya, sikap saya adalah...", opsi: ["A. Menolak karena merasa tidak mampu", "B. Mencari informasi dan belajar cara mengerjakannya", "C. Meminta orang lain yang lebih ahli", "D. Mengerjakan seadanya", "E. Menunda-nunda pengerjaan"], kunci: 1, bobot: [1, 5, 3, 2, 1] },
+            { id: 67, kategori: "TKP", tanya: "Jika atasan memberikan instruksi yang menurut saya kurang tepat, saya akan...", opsi: ["A. Langsung melaksanakan tanpa bertanya", "B. Melaksanakan sambil mengeluh", "C. Menanyakan maksud instruksi tersebut", "D. Menolak melaksanakan", "E. Meminta orang lain melaksanakannya"], kunci: 2, bobot: [2, 1, 5, 1, 1] },
+            { id: 68, kategori: "TKP", tanya: "Ketika rekan kerja melakukan kesalahan yang berdampak pada kinerja tim, saya akan...", opsi: ["A. Melaporkan kesalahan kepada atasan", "B. Membantu memperbaiki kesalahan tersebut", "C. Mencela rekan tersebut di depan yang lain", "D. Membiarkan saja", "E. Memanfaatkan kesalahan untuk keuntungan pribadi"], kunci: 1, bobot: [3, 5, 1, 2, 1] },
+            { id: 69, kategori: "TKP", tanya: "Dalam bekerja, saya lebih memprioritaskan...", opsi: ["A. Penyelesaian yang cepat", "B. Kualitas hasil kerja", "C. Kepuasan atasan", "D. Penghargaan dari rekan", "E. Imbalan yang diterima"], kunci: 1, bobot: [3, 5, 4, 2, 1] },
+            { id: 70, kategori: "TKP", tanya: "Jika diberikan tugas yang sangat banyak dan deadline ketat, saya akan...", opsi: ["A. Mengeluh dan stres", "B. Bekerja lembur tanpa perencanaan", "C. Membuat prioritas dan perencanaan kerja", "D. Meminta bantuan rekan tanpa koordinasi", "E. Menyerah dan tidak menyelesaikan"], kunci: 2, bobot: [1, 2, 5, 3, 1] },
+
+            // TKP 71-80
+            { id: 71, kategori: "TKP", tanya: "Ketika melihat rekan kerja mengambil barang kantor untuk kepentingan pribadi, saya...", opsi: ["A. Ikut mengambil barang kantor", "B. Membiarkan saja", "C. Mengingatkan dengan sopan", "D. Langsung melaporkan ke atasan", "E. Memperingatkan dengan ancaman"], kunci: 2, bobot: [1, 2, 5, 4, 1] },
+            { id: 72, kategori: "TKP", tanya: "Sikap saya terhadap perubahan sistem kerja di kantor adalah...", opsi: ["A. Menolak karena sudah nyaman dengan sistem lama", "B. Menerima dengan penuh keluhan", "C. Beradaptasi dan belajar sistem baru", "D. Pura-pura mengikuti sambil mencari cara lain", "E. Mengajukan keberatan formal"], kunci: 2, bobot: [1, 2, 5, 2, 3] },
+            { id: 73, kategori: "TKP", tanya: "Ketika atasan memuji kinerja rekan lain padahal kontribusi saya lebih besar, saya...", opsi: ["A. Merasa kesal dan iri", "B. Tetap bekerja dengan profesional", "C. Menghentikan kontribusi saya", "D. Menyampaikan keberatan kepada atasan", "E. Membicarakan ketidakadilan ini dengan rekan lain"], kunci: 1, bobot: [1, 5, 1, 3, 2] },
+            { id: 74, kategori: "TKP", tanya: "Dalam rapat, ketika pendapat saya ditolak, saya akan...", opsi: ["A. Meninggalkan rapat", "B. Tetap menghargai keputusan bersama", "C. Mempertahankan pendapat sampai disetujui", "D. Diam dan tidak berpartisipasi lagi", "E. Mencari dukungan di luar rapat"], kunci: 1, bobot: [1, 5, 3, 2, 1] },
+            { id: 75, kategori: "TKP", tanya: "Jika saya menemukan kelemahan dalam sistem kerja di kantor, saya...", opsi: ["A. Membiarkan saja", "B. Memberitahu rekan kerja", "C. Melaporkan kepada atasan dengan solusi", "D. Memanfaatkan kelemahan tersebut", "E. Menunggu orang lain yang melaporkan"], kunci: 2, bobot: [2, 3, 5, 1, 2] },
+
+            // TKP 76-85
+            { id: 76, kategori: "TKP", tanya: "Ketika menghadapi pelanggan yang marah karena kesalahan kami, saya...", opsi: ["A. Membalas dengan marah juga", "B. Menyalahkan bagian lain", "C. Mendengarkan dan mencari solusi", "D. Mengabaikan pelanggan", "E. Meminta atasan menanganinya"], kunci: 2, bobot: [1, 1, 5, 1, 3] },
+            { id: 77, kategori: "TKP", tanya: "Saya lebih suka bekerja...", opsi: ["A. Sendiri tanpa gangguan", "B. Dalam tim yang solid", "C. Sesuai instruksi atasan", "D. Dengan target jelas", "E. Fleksibel tanpa tekanan"], kunci: 1, bobot: [2, 5, 3, 4, 2] },
+            { id: 78, kategori: "TKP", tanya: "Ketika rekan kerja sakit dan tidak dapat menyelesaikan tugasnya, saya...", opsi: ["A. Membiarkan tugasnya terbengkalai", "B. Mengambil alih tugasnya sementara", "C. Melaporkan kepada atasan", "D. Menunggu rekan tersebut sembuh", "E. Meminta rekan lain menggantikannya"], kunci: 1, bobot: [1, 5, 3, 2, 3] },
+            { id: 79, kategori: "TKP", tanya: "Terhadap perkembangan teknologi terkini di bidang pekerjaan, saya...", opsi: ["A. Tidak tertarik mempelajarinya", "B. Mempelajari jika diwajibkan", "C. Aktif mempelajari untuk pengembangan diri", "D. Menunggu pelatihan dari kantor", "E. Menganggap tidak perlu"], kunci: 2, bobot: [1, 3, 5, 4, 1] },
+            { id: 80, kategori: "TKP", tanya: "Ketika deadline sudah dekat tetapi pekerjaan belum selesai, saya...", opsi: ["A. Panik dan bekerja tidak teratur", "B. Bekerja lembur dengan terencana", "C. Meminta perpanjangan deadline", "D. Menyelesaikan seadanya", "E. Menyalahkan orang lain"], kunci: 1, bobot: [1, 5, 3, 2, 1] },
+
+            // TKP 86-95
+            { id: 81, kategori: "TKP", tanya: "Saya lebih menghargai...", opsi: ["A. Penghasilan yang besar", "B. Pengakuan dari atasan", "C. Kepuasan dalam bekerja", "D. Waktu luang yang banyak", "E. Hubungan baik dengan rekan"], kunci: 2, bobot: [2, 3, 5, 2, 4] },
+            { id: 82, kategori: "TKP", tanya: "Ketika diberikan wewenang untuk mengambil keputusan, saya...", opsi: ["A. Selalu berkonsultasi dengan atasan", "B. Mengambil keputusan berdasarkan analisis", "C. Menyerahkan kepada rekan yang lebih senior", "D. Menunda pengambilan keputusan", "E. Mengambil keputusan asal-asalan"], kunci: 1, bobot: [3, 5, 2, 2, 1] },
+            { id: 83, kategori: "TKP", tanya: "Sikap saya terhadap atasan yang sering memarahi bawahan adalah...", opsi: ["A. Takut dan menghindari", "B. Menerima sebagai bagian dari pekerjaan", "C. Mencari cara komunikasi yang lebih baik", "D. Mengeluh kepada rekan kerja", "E. Melaporkan kepada atasan yang lebih tinggi"], kunci: 2, bobot: [1, 3, 5, 2, 2] },
+            { id: 84, kategori: "TKP", tanya: "Ketika ada lowongan promosi, saya...", opsi: ["A. Langsung mendaftar tanpa persiapan", "B. Mempersiapkan diri dengan matang", "C. Menunggu ditunjuk atasan", "D. Merasa tidak mampu dan tidak mendaftar", "E. Mencari dukungan dari rekan kerja"], kunci: 1, bobot: [2, 5, 3, 1, 2] },
+            { id: 85, kategori: "TKP", tanya: "Dalam menyelesaikan konflik antar rekan kerja, saya cenderung...", opsi: ["A. Menjadi penengah yang netral", "B. Memihak teman dekat", "C. Menghindari konflik", "D. Melaporkan kepada atasan", "E. Membiarkan konflik berlanjut"], kunci: 0, bobot: [5, 1, 2, 3, 1] },
+
+            // TKP 96-105
+            { id: 86, kategori: "TKP", tanya: "Ketika diminta lembur di hari libur keluarga, saya...", opsi: ["A. Langsung menolak", "B. Menerima dengan terpaksa", "C. Menegosiasikan waktu yang lebih baik", "D. Mencari alasan untuk tidak hadir", "E. Membawa keluarga ke kantor"], kunci: 2, bobot: [1, 3, 5, 2, 1] },
+            { id: 87, kategori: "TKP", tanya: "Saya merasa paling termotivasi bekerja ketika...", opsi: ["A. Mendapatkan bonus besar", "B. Pekerjaan sesuai minat", "C. Ada pengawasan ketat", "D. Bekerja di lingkungan nyaman", "E. Tidak ada tekanan"], kunci: 1, bobot: [3, 5, 2, 4, 2] },
+            { id: 88, kategori: "TKP", tanya: "Terhadap kesalahan yang saya lakukan, saya...", opsi: ["A. Berusaha menutupinya", "B. Menerima dan memperbaiki", "C. Menyalahkan keadaan", "D. Menganggap wajar", "E. Tidak peduli"], kunci: 1, bobot: [1, 5, 2, 2, 1] },
+            { id: 89, kategori: "TKP", tanya: "Ketika rekan kerja berprestasi, saya...", opsi: ["A. Memberikan selamat tulus", "B. Merasa tersaingi", "C. Acuh tak acuh", "D. Mencari kelemahannya", "E. Menganggap keberuntungan semata"], kunci: 0, bobot: [5, 1, 2, 1, 1] },
+            { id: 90, kategori: "TKP", tanya: "Dalam menerima kritik, saya...", opsi: ["A. Membela diri dengan keras", "B. Menerima dengan lapang dada", "C. Merasa tersinggung", "D. Mengabaikan kritik tersebut", "E. Membalas dengan kritik"], kunci: 1, bobot: [1, 5, 2, 2, 1] },
+
+            // TKP 106-110
+            { id: 91, kategori: "TKP", tanya: "Ketika ada informasi penting dari atasan, saya...", opsi: ["A. Langsung menyebarkan ke semua rekan", "B. Menyimpan untuk diri sendiri", "C. Menyampaikan ke yang berkepentingan", "D. Menunggu konfirmasi ulang", "E. Mengabaikan informasi"], kunci: 2, bobot: [2, 1, 5, 3, 1] },
+            { id: 92, kategori: "TKP", tanya: "Saya lebih suka atasan yang...", opsi: ["A. Tegas dan disiplin", "B. Ramah dan memahami", "C. Memberikan kebebasan", "D. Sering memberikan apresiasi", "E. Tidak terlalu mengawasi"], kunci: 1, bobot: [4, 5, 3, 4, 2] },
+            { id: 93, kategori: "TKP", tanya: "Ketika pekerjaan menumpuk, saya...", opsi: ["A. Bekerja dengan sistematis", "B. Mengerjakan yang mudah dulu", "C. Meminta bantuan rekan", "D. Mengeluh kepada atasan", "E. Bekerja asal selesai"], kunci: 0, bobot: [5, 3, 4, 2, 1] },
+            { id: 94, kategori: "TKP", tanya: "Terhadap peraturan kantor yang ketat, saya...", opsi: ["A. Selalu mematuhi", "B. Mematuhi jika diawasi", "C. Melanggar jika memungkinkan", "D. Menganggap tidak perlu", "E. Memprotes peraturan"], kunci: 0, bobot: [5, 3, 1, 1, 2] },
+            { id: 95, kategori: "TKP", tanya: "Ketika melihat ketidakadilan di tempat kerja, saya...", opsi: ["A. Melaporkan melalui jalur yang benar", "B. Membiarkan saja", "C. Ikut melakukan ketidakadilan", "D. Membicarakan dengan rekan kerja", "E. Mengundurkan diri"], kunci: 0, bobot: [5, 2, 1, 3, 1] },
+            { id: 96, kategori: "TKP", tanya: "Dalam bekerja sama dengan orang yang berbeda karakter, saya...", opsi: ["A. Menyesuaikan diri", "B. Memaksa sesuai keinginan saya", "C. Menghindari kerja sama", "D. Mengeluh kepada atasan", "E. Bekerja sendiri saja"], kunci: 0, bobot: [5, 1, 2, 2, 1] },
+            { id: 97, kategori: "TKP", tanya: "Ketika diberi tanggung jawab besar, saya merasa...", opsi: ["A. Tertantang dan bersemangat", "B. Takut dan khawatir", "C. Terbebani dan stres", "D. Biasa saja", "E. Tidak peduli"], kunci: 0, bobot: [5, 3, 2, 2, 1] },
+            { id: 98, kategori: "TKP", tanya: "Sikap saya terhadap rapat yang panjang adalah...", opsi: ["A. Tetap fokus dan aktif", "B. Bosan dan mengantuk", "C. Meninggalkan rapat", "D. Bermain ponsel", "E. Mengobrol dengan rekan"], kunci: 0, bobot: [5, 2, 1, 1, 1] },
+            { id: 99, kategori: "TKP", tanya: "Ketika proyek yang saya kerjakan gagal, saya...", opsi: ["A. Menganalisis penyebab kegagalan", "B. Menyalahkan orang lain", "C. Putus asa dan menyerah", "D. Melupakan proyek tersebut", "E. Mencari proyek baru"], kunci: 0, bobot: [5, 1, 1, 2, 2] },
+            { id: 100, kategori: "TKP", tanya: "Dalam menghadapi tekanan kerja, saya...", opsi: ["A. Tetap tenang dan mencari solusi", "B. Mudah panik", "C. Melampiaskan kepada rekan", "D. Mengeluh terus menerus", "E. Mengabaikan tekanan"], kunci: 0, bobot: [5, 2, 1, 1, 2] },
+            { id: 101, kategori: "TKP", tanya: "Ketika rekan kerja meminta bantuan di luar jam kerja, saya...", opsi: ["A. Membantu jika memungkinkan", "B. Menolak karena sudah lelah", "C. Membantu dengan berat hati", "D. Mengabaikan permintaan", "E. Meminta bayaran"], kunci: 0, bobot: [5, 3, 4, 2, 1] },
+            { id: 102, kategori: "TKP", tanya: "Terhadap teknologi baru di kantor, saya...", opsi: ["A. Cepat belajar menguasainya", "B. Menunggu diajari", "C. Menghindari penggunaan", "D. Mengeluh sulit dipelajari", "E. Tetap menggunakan cara lama"], kunci: 0, bobot: [5, 4, 2, 2, 1] },
+            { id: 103, kategori: "TKP", tanya: "Ketika atasan tidak adil dalam pembagian tugas, saya...", opsi: ["A. Menyampaikan dengan sopan", "B. Diam saja", "C. Mengeluh kepada rekan", "D. Menolak tugas yang diberikan", "E. Bekerja asal-asalan"], kunci: 0, bobot: [5, 3, 2, 1, 1] },
+            { id: 104, kategori: "TKP", tanya: "Dalam mengevaluasi kinerja sendiri, saya...", opsi: ["A. Jujur dan objektif", "B. Melebih-lebihkan", "C. Meremehkan diri sendiri", "D. Tidak pernah mengevaluasi", "E. Menyalahkan faktor eksternal"], kunci: 0, bobot: [5, 1, 2, 1, 1] },
+            { id: 105, kategori: "TKP", tanya: "Ketika ada kesempatan pelatihan, saya...", opsi: ["A. Antusias mengikutinya", "B. Mengikuti jika diwajibkan", "C. Menghindari pelatihan", "D. Menganggap tidak perlu", "E. Mengikuti setengah hati"], kunci: 0, bobot: [5, 4, 1, 1, 2] },
+            { id: 106, kategori: "TKP", tanya: "Sikap saya terhadap pekerjaan rutin adalah...", opsi: ["A. Tetap bersemangat menyelesaikan", "B. Bosan dan malas", "C. Mencari variasi cara kerja", "D. Menunda-nunda", "E. Menyerahkan kepada orang lain"], kunci: 2, bobot: [4, 1, 5, 2, 1] },
+            { id: 107, kategori: "TKP", tanya: "Ketika diberikan feedback negatif, saya...", opsi: ["A. Menggunakan sebagai bahan perbaikan", "B. Merasa tersinggung", "C. Mengabaikan feedback", "D. Membalas dengan feedback negatif", "E. Berhenti berusaha"], kunci: 0, bobot: [5, 2, 2, 1, 1] },
+            { id: 108, kategori: "TKP", tanya: "Dalam mencapai target kerja, saya lebih mengutamakan...", opsi: ["A. Proses yang benar", "B. Hasil yang dicapai", "C. Kecepatan penyelesaian", "D. Pengakuan atasan", "E. Kemudahan kerja"], kunci: 0, bobot: [5, 4, 3, 2, 1] },
+            { id: 109, kategori: "TKP", tanya: "Ketika menghadapi masalah kompleks, saya...", opsi: ["A. Menganalisis secara sistematis", "B. Langsung bertanya kepada atasan", "C. Menghindari masalah", "D. Bekerja sesuai feeling", "E. Menyerah sebelum mencoba"], kunci: 0, bobot: [5, 4, 1, 2, 1] },
+            { id: 110, kategori: "TKP", tanya: "Terhadap budaya organisasi di tempat kerja, saya...", opsi: ["A. Berusaha memahami dan menyesuaikan", "B. Memaksakan budaya pribadi", "C. Mengkritik budaya tersebut", "D. Mengabaikan budaya organisasi", "E. Mencari tempat kerja lain"], kunci: 0, bobot: [5, 1, 2, 2, 1] }
+        ];
 
         let currentIdx = 0;
         let jawabanUser = new Array(110).fill(null);
@@ -157,7 +307,7 @@
         const timerInterval = setInterval(() => {
             if (time <= 0) {
                 clearInterval(timerInterval);
-                kalkulasiDanSelesai();
+                showStatistik();
             }
             time--;
             const m = Math.floor(time / 60);
@@ -165,49 +315,79 @@
             timerEl.innerText = `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
         }, 1000);
 
-        // FUNGSI UTAMA UNTUK MENGHITUNG SKOR REAL
-        function kalkulasiDanSelesai() {
-            let skor = { twk: 0, tiu: 0, tkp: 0, total: 0 };
+        function showStatistik() {
+            const twk = jawabanUser.slice(0, 30).filter(j => j !== null).length;
+            const tiu = jawabanUser.slice(30, 65).filter(j => j !== null).length;
+            const tkp = jawabanUser.slice(65, 110).filter(j => j !== null).length;
+            const total = twk + tiu + tkp;
+            
+            document.getElementById('statistikTerjawab').innerText = 
+                `Anda telah menjawab ${total} dari 110 soal (${Math.round(total/110*100)}%).`;
+            document.getElementById('statTWK').innerText = twk;
+            document.getElementById('statTIU').innerText = tiu;
+            document.getElementById('statTKP').innerText = tkp;
+            
+            document.getElementById('modalKonfirmasi').style.display = 'block';
+        }
 
-            bankSoal.forEach((soal, index) => {
-                const jawab = jawabanUser[index];
-                if (jawab === null) return;
+        function tutupModal() {
+            document.getElementById('modalKonfirmasi').style.display = 'none';
+        }
 
-                if (soal.kategori === "TWK" || soal.kategori === "TIU") {
-                    if (jawab === soal.kunci) {
-                        if (soal.kategori === "TWK") skor.twk += 5;
-                        else skor.tiu += 5;
+        function kirimHasil() {
+            // Hitung skor sebenarnya
+            let skorTWK = 0, skorTIU = 0, skorTKP = 0;
+            
+            bankSoal.forEach((soal, idx) => {
+                const jawab = jawabanUser[idx];
+                if (jawab !== null) {
+                    if (soal.kategori === "TWK") {
+                        if (jawab === soal.kunci) skorTWK += 5;
+                    } else if (soal.kategori === "TIU") {
+                        if (jawab === soal.kunci) skorTIU += 5;
+                    } else {
+                        // TKP: hitung berdasarkan bobot
+                        if (soal.bobot) skorTKP += soal.bobot[jawab];
                     }
-                } else {
-                    // Skor TKP (Skala 1-5, asumsi index 0=5, index 1=4, dst)
-                    skor.tkp += (5 - jawab);
                 }
             });
-
-            skor.total = skor.twk + skor.tiu + skor.tkp;
-
-            // Simpan ke LocalStorage agar bisa dibaca halaman hasil
+            
+            const totalSkor = skorTWK + skorTIU + skorTKP;
+            
             const resultData = {
-                pin: pinAkses,
+                pin: ID_PESERTA,
                 paket: ID_PAKET,
-                twk: skor.twk,
-                tiu: skor.tiu,
-                tkp: skor.tkp,
-                total: skor.total
+                twk: skorTWK,
+                tiu: skorTIU,
+                tkp: skorTKP,
+                total: totalSkor,
+                twkJawab: jawabanUser.slice(0, 30).filter(j => j !== null).length,
+                tiuJawab: jawabanUser.slice(30, 65).filter(j => j !== null).length,
+                tkpJawab: jawabanUser.slice(65, 110).filter(j => j !== null).length
             };
-            localStorage.setItem(`hasil_${pinAkses}`, JSON.stringify(resultData));
-
-            window.location.href = `hasilujiansoalpaket${ID_PAKET}.html?id=${pinAkses}`;
+            
+            localStorage.setItem(`hasil_${ID_PESERTA}`, JSON.stringify(resultData));
+            
+            // Lanjut ke halaman hasil
+            window.location.href = `hasilujiansoalpaket${ID_PAKET}.html?id=${ID_PESERTA}`;
         }
 
         function selesaiUjian() {
-            const terjawab = jawabanUser.filter(j => j !== null).length;
-            if(confirm(`Anda telah menjawab ${terjawab} dari 110 soal. Yakin ingin mengakhiri?`)) {
-                kalkulasiDanSelesai();
-            }
+            clearInterval(timerInterval);
+            showStatistik();
         }
 
         displaySoal();
+
+        // Tambahan: fitur tombol keyboard
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') nextSoal();
+            if (e.key === 'ArrowLeft') prevSoal();
+            if (e.key >= '1' && e.key <= '5') {
+                const idx = parseInt(e.key) - 1;
+                pilihJawaban(idx);
+            }
+        });
     </script>
 </body>
 </html>
