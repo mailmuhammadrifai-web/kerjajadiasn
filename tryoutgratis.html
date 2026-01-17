@@ -11,22 +11,48 @@
         body { font-family: 'Plus Jakarta Sans', sans-serif; }
         
         /* Animasi halus untuk pop-up */
-        .modal-enter { animation: modalFadeIn 0.3s ease-out forwards; }
+        .modal-enter { animation: modalFadeIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
         @keyframes modalFadeIn {
             from { opacity: 0; transform: scale(0.9) translateY(-20px); }
             to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+        .nav-glass {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
         }
     </style>
 </head>
 <body class="bg-slate-50 min-h-screen">
 
-    <nav class="p-6 bg-white border-b border-slate-100">
-        <div class="container mx-auto flex justify-between items-center">
+    <div id="statusModal" class="fixed inset-0 z-[100] flex items-center justify-center hidden px-4">
+        <div class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm"></div>
+        <div id="modalContent" class="bg-white rounded-3xl p-8 max-w-sm w-full text-center shadow-2xl z-10 modal-enter">
+            <div id="modalIconBox" class="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
+                <i id="modalIcon" class="text-5xl"></i>
+            </div>
+            <h3 id="modalTitle" class="text-2xl font-extrabold text-slate-900 mb-2"></h3>
+            <p id="modalDesc" class="text-slate-500 mb-6 leading-relaxed"></p>
+            
+            <div id="loadingDots" class="hidden flex justify-center gap-1 mb-2">
+                <div class="w-2 h-2 bg-green-500 rounded-full animate-bounce"></div>
+                <div class="w-2 h-2 bg-green-500 rounded-full animate-bounce [animation-delay:-0.15s]"></div>
+                <div class="w-2 h-2 bg-green-500 rounded-full animate-bounce [animation-delay:-0.3s]"></div>
+            </div>
+
+            <button id="closeBtn" onclick="closeStatusModal()" class="hidden w-full bg-slate-900 text-white font-bold py-3 rounded-xl hover:bg-slate-800 transition">
+                Tutup
+            </button>
+        </div>
+    </div>
+
+    <nav class="sticky top-0 z-50 nav-glass border-b border-slate-100">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
             <a href="index.html" class="text-xl font-extrabold text-blue-600 flex items-center gap-2">
                 <i class="fa-solid fa-arrow-left text-sm"></i>
                 KERJA JADI <span class="text-yellow-500">ASN</span>
             </a>
-            <span class="text-sm font-bold text-green-600 bg-green-50 px-3 py-1 rounded-lg">AKSES GRATIS</span>
+            <span class="text-xs font-bold text-green-600 bg-green-50 px-3 py-1.5 rounded-full border border-green-100">AKSES GRATIS</span>
         </div>
     </nav>
 
@@ -41,44 +67,44 @@
             </div>
 
             <div class="bg-white rounded-3xl shadow-xl shadow-slate-200/60 p-8 border border-slate-100 mb-8">
-                <h2 class="font-bold text-slate-800 mb-4 flex items-center gap-2">
-                    <span class="bg-blue-600 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs">1</span>
+                <h2 class="font-bold text-slate-800 mb-6 flex items-center gap-2">
+                    <span class="bg-blue-600 text-white w-6 h-6 rounded-full flex items-center justify-center text-[10px]">1</span>
                     Daftar untuk Dapatkan PIN
                 </h2>
                 <form id="freeForm" class="space-y-5">
                     <div>
                         <label class="block text-sm font-bold text-slate-700 mb-2">Nama Lengkap</label>
-                        <input type="text" id="nama" required class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-green-500 outline-none transition" placeholder="Masukkan nama Anda">
+                        <input type="text" id="nama" required class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition" placeholder="Masukkan nama Anda">
                     </div>
 
                     <div>
                         <label class="block text-sm font-bold text-slate-700 mb-2">Nomor WhatsApp Aktif</label>
                         <div class="flex gap-2">
                             <span class="bg-slate-100 border border-slate-200 px-4 py-3 rounded-xl font-bold text-slate-500 text-sm flex items-center">+62</span>
-                            <input type="number" id="whatsapp" required class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-green-500 outline-none transition" placeholder="8569640xxxx">
+                            <input type="number" id="whatsapp" required class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition" placeholder="8569640xxxx">
                         </div>
                     </div>
 
                     <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 rounded-2xl shadow-lg transition active:scale-95 flex items-center justify-center gap-3">
                         Kirim Data ke WA Admin
-                        <i class="fa-brands fa-whatsapp"></i>
+                        <i class="fa-brands fa-whatsapp text-lg"></i>
                     </button>
                 </form>
             </div>
 
             <div class="bg-green-600 rounded-3xl shadow-xl p-8 border border-green-500">
-                <h2 class="font-bold text-white mb-4 flex items-center gap-2">
-                    <span class="bg-white text-green-600 w-6 h-6 rounded-full flex items-center justify-center text-xs">2</span>
+                <h2 class="font-bold text-white mb-6 flex items-center gap-2">
+                    <span class="bg-white text-green-600 w-6 h-6 rounded-full flex items-center justify-center text-[10px]">2</span>
                     Sudah Punya PIN? Mulai Sekarang
                 </h2>
                 <div class="space-y-4">
                     <div>
-                        <input type="text" id="inputPinGratis" class="w-full px-4 py-4 bg-white border-none rounded-2xl focus:ring-4 focus:ring-yellow-400 outline-none transition text-center font-bold text-xl tracking-widest uppercase" placeholder="MASUKKAN PIN">
+                        <input type="text" id="inputPinGratis" class="w-full px-4 py-4 bg-white border-none rounded-2xl focus:ring-4 focus:ring-yellow-400 outline-none transition text-center font-bold text-xl tracking-[0.3em] uppercase" placeholder="MASUKKAN PIN">
                     </div>
                     <button onclick="cekPinGratis()" class="w-full bg-yellow-400 hover:bg-yellow-500 text-yellow-950 font-extrabold py-4 rounded-2xl shadow-lg transition active:scale-95">
                         MASUK KE HALAMAN TRYOUT
                     </button>
-                    <p class="text-[11px] text-green-100 text-center">PIN gratis biasanya diawali dengan huruf "GRATIS..."</p>
+                    <p class="text-[11px] text-green-100 text-center font-medium">PIN gratis biasanya diawali dengan kata "GRATIS..."</p>
                 </div>
             </div>
 
@@ -88,33 +114,47 @@
         </div>
     </main>
 
-    <div id="successModal" class="fixed inset-0 z-50 flex items-center justify-center hidden bg-slate-900/60 backdrop-blur-sm px-4">
-        <div class="bg-white rounded-3xl p-8 max-w-sm w-full text-center shadow-2xl modal-enter">
-            <div class="w-20 h-20 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-6">
-                <i class="fa-solid fa-circle-check text-5xl"></i>
-            </div>
-            <h3 class="text-2xl font-extrabold text-slate-900 mb-2">PIN Berhasil!</h3>
-            <p class="text-slate-500 mb-6">Selamat mengerjakan tryout. Menghubungkan Anda ke sistem...</p>
-            
-            <div class="flex justify-center gap-1">
-                <div class="w-2 h-2 bg-green-500 rounded-full animate-bounce"></div>
-                <div class="w-2 h-2 bg-green-500 rounded-full animate-bounce [animation-delay:-0.15s]"></div>
-                <div class="w-2 h-2 bg-green-500 rounded-full animate-bounce [animation-delay:-0.3s]"></div>
-            </div>
-        </div>
-    </div>
-
     <footer class="text-center py-10 text-slate-400 text-xs">
         &copy; 2026 Kerja Jadi ASN. Mulai Langkahmu Jadi PNS.
     </footer>
 
     <script>
+        const noAdmin = "6285696409288";
+        const statusModal = document.getElementById('statusModal');
+        const modalIconBox = document.getElementById('modalIconBox');
+        const modalIcon = document.getElementById('modalIcon');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalDesc = document.getElementById('modalDesc');
+        const loadingDots = document.getElementById('loadingDots');
+        const closeBtn = document.getElementById('closeBtn');
+
+        function showPopUp(type, title, desc) {
+            statusModal.classList.remove('hidden');
+            modalTitle.innerText = title;
+            modalDesc.innerText = desc;
+            
+            if (type === 'success') {
+                modalIconBox.className = "w-20 h-20 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-6";
+                modalIcon.className = "fa-solid fa-circle-check text-5xl";
+                loadingDots.classList.remove('hidden');
+                closeBtn.classList.add('hidden');
+            } else {
+                modalIconBox.className = "w-20 h-20 bg-red-100 text-red-600 rounded-full flex items-center justify-center mx-auto mb-6";
+                modalIcon.className = "fa-solid fa-circle-xmark text-5xl";
+                loadingDots.classList.add('hidden');
+                closeBtn.classList.remove('hidden');
+            }
+        }
+
+        function closeStatusModal() {
+            statusModal.classList.add('hidden');
+        }
+
         // SCRIPT 1: KIRIM WA
         document.getElementById('freeForm').addEventListener('submit', function(e) {
             e.preventDefault();
             const nama = document.getElementById('nama').value;
             const wa = document.getElementById('whatsapp').value;
-            const noAdmin = "6285696409288";
 
             const pesan = `Halo Admin Kerja Jadi ASN,%0A%0A` + 
                           `Saya ingin mencoba *Tryout Gratis*. Berikut data saya:%0A` +
@@ -126,25 +166,21 @@
             window.open(url, '_blank');
         });
 
-        // SCRIPT 2: CEK PIN DAN MODAL OTOMATIS
+        // SCRIPT 2: CEK PIN
         function cekPinGratis() {
-            const pinUser = document.getElementById('inputPinGratis').value.toUpperCase();
-            const PIN_BENAR = "GRATISASN2026"; // PIN ANDA
-            const modal = document.getElementById('successModal');
+            const pinUser = document.getElementById('inputPinGratis').value.toUpperCase().trim();
+            const PIN_BENAR = "GRATISASN2026"; 
 
             if (pinUser === "") {
-                alert("Harap masukkan PIN Anda terlebih dahulu!");
+                showPopUp('error', 'PIN Kosong', 'Harap masukkan PIN akses gratis Anda terlebih dahulu.');
             } else if (pinUser === PIN_BENAR) {
-                // Tampilkan Modal Pop-up
-                modal.classList.remove('hidden');
+                showPopUp('success', 'PIN Berhasil!', 'Selamat mengerjakan tryout. Sedang mengalihkan Anda ke halaman simulasi...');
                 
-                // Redirect otomatis setelah 3 detik
                 setTimeout(function() {
                     window.location.href = "mulaitogratis.html";
-                }, 3000); 
-                
+                }, 2500); 
             } else {
-                alert("PIN Salah atau Kadaluarsa. Silakan hubungi admin via WhatsApp.");
+                showPopUp('error', 'PIN Salah', 'PIN yang Anda masukkan tidak valid atau telah kadaluarsa. Silakan chat admin untuk PIN terbaru.');
             }
         }
     </script>
