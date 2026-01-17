@@ -14,9 +14,26 @@
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
         }
+        /* Animasi Pop Up */
+        .modal-enter { transform: scale(0.9); opacity: 0; }
+        .modal-show { transform: scale(1); opacity: 1; transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); }
     </style>
 </head>
 <body class="bg-slate-50 flex flex-col min-h-screen">
+
+    <div id="errorModal" class="hidden fixed inset-0 z-[100] flex items-center justify-center px-4">
+        <div class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm"></div>
+        <div id="modalContent" class="bg-white rounded-3xl p-8 max-w-sm w-full shadow-2xl z-10 text-center modal-enter">
+            <div class="w-16 h-16 bg-red-100 text-red-600 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl">
+                <i class="fa-solid fa-circle-exclamation"></i>
+            </div>
+            <h3 class="text-xl font-extrabold text-slate-900 mb-2">PIN Tidak Valid</h3>
+            <p class="text-slate-500 text-sm mb-6 leading-relaxed">PIN yang Anda masukkan salah atau tidak terdaftar. Silakan cek kembali pesan WhatsApp dari Admin.</p>
+            <button onclick="closeModal()" class="w-full bg-slate-900 text-white font-bold py-3 rounded-xl hover:bg-slate-800 transition">
+                Coba Lagi
+            </button>
+        </div>
+    </div>
 
     <nav class="sticky top-0 z-50 nav-glass border-b border-slate-200/60">
         <div class="container mx-auto px-4 md:px-6 py-4">
@@ -34,7 +51,6 @@
                         <span class="text-[10px] font-bold text-slate-400 tracking-widest uppercase mt-1">Platform Tryout No. 1</span>
                     </a>
                 </div>
-                
                 <div class="bg-blue-600 text-white p-2 px-4 rounded-full text-[10px] font-bold uppercase tracking-wider shadow-md shadow-blue-200">
                     Member Area
                 </div>
@@ -46,8 +62,8 @@
         <div class="max-w-md w-full">
             <div class="bg-white rounded-3xl shadow-xl shadow-slate-200/60 p-8 md:p-10 border border-slate-100">
                 <div class="text-center mb-8">
-                    <div class="w-20 h-20 bg-blue-50 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                        <i class="fa-solid fa-key text-3xl text-blue-600"></i>
+                    <div class="w-20 h-20 bg-blue-50 rounded-2xl flex items-center justify-center mx-auto mb-4 text-blue-600">
+                        <i class="fa-solid fa-key text-3xl"></i>
                     </div>
                     <h1 class="text-2xl font-extrabold text-slate-900">Selamat Datang!</h1>
                     <p class="text-slate-500 mt-2">Masukkan PIN akses Anda untuk masuk ke dashboard.</p>
@@ -62,7 +78,7 @@
                             </span>
                             <input type="text" id="pinInput" name="pin" maxlength="6" 
                                 class="w-full pl-12 pr-4 py-4 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition font-mono tracking-[0.3em] text-lg uppercase text-center" 
-                                placeholder="******" required>
+                                placeholder="******" required autocomplete="off">
                         </div>
                     </div>
 
@@ -78,7 +94,7 @@
                             Daftar & Beli Paket Sekarang
                         </a>
                         <span class="text-slate-400 text-xs font-bold uppercase tracking-widest">Atau</span>
-                        <a href="https://wa.me/6285696409288?text=Halo%20Admin,%20saya%20sudah%20bayar%20tapi%20belum%20dapat%20PIN" 
+                        <a href="https://wa.me/6281234567890?text=Halo%20Admin,%20saya%20sudah%20bayar%20tapi%20belum%20dapat%20PIN" 
                            target="_blank" 
                            class="inline-flex items-center justify-center gap-2 text-green-600 font-bold hover:text-green-700">
                             <i class="fa-brands fa-whatsapp text-lg"></i>
@@ -95,28 +111,36 @@
     </footer>
 
     <script>
-        // Database 50 PIN Unik (Terbagi dalam 3 Paket)
         const pinDatabase = {
-            "paket1": [
-                "7XK9WP", "B4ZM1Q", "9TV2NL", "RS8MX3", "5CR1VT", "KP9MZ4", "G6HD2S", "1VT8NR", "FN2VK5", "2YM4BX",
-                "MR2VT8", "5HG9SL", "XP3KZ7", "2YN5VQ", "8WQ4PZ", "VS7NL2"
-            ],
-            "paket2": [
-                "9ZW1RF", "4FB6NT", "7XK1WP", "B2MK9P", "LP9QX4", "Y7CR2V", "4FB8NR", "9TW1MZ", "SK3JP7", "1VT5NR",
-                "FN9VK3", "2YM7BX", "SK9JP4", "MR7VT1", "3ZW7RB", "KP1MX9", "G6HD1S"
-            ],
-            "paket3": [
-                "VS4NL8", "RT9XM2", "B2MK8P", "7XL1WQ", "5HG2SD", "9ZW4RB", "KP8MX3", "FN5VK2", "8WQ4PZ", "2YM9BX",
-                "7KP1RT", "5HG6SD", "9ZW3RF", "RS4ML9", "VN7VK1", "8WQ3PZ", "4FB1NT"
-            ]
+            "paket1": ["7XK9WP", "B4ZM1Q", "9TV2NL", "RS8MX3", "5CR1VT", "KP9MZ4", "G6HD2S", "1VT8NR", "FN2VK5", "2YM4BX", "MR2VT8", "5HG9SL", "XP3KZ7", "2YN5VQ", "8WQ4PZ", "VS7NL2"],
+            "paket2": ["9ZW1RF", "4FB6NT", "7XK1WP", "B2MK9P", "LP9QX4", "Y7CR2V", "4FB8NR", "9TW1MZ", "SK3JP7", "1VT5NR", "FN9VK3", "2YM7BX", "SK9JP4", "MR7VT1", "3ZW7RB", "KP1MX9", "G6HD1S"],
+            "paket3": ["VS4NL8", "RT9XM2", "B2MK8P", "7XL1WQ", "5HG2SD", "9ZW4RB", "KP8MX3", "FN5VK2", "8WQ4PZ", "2YM9BX", "7KP1RT", "5HG6SD", "9ZW3RF", "RS4ML9", "VN7VK1", "8WQ3PZ", "4FB1NT"]
         };
+
+        const errorModal = document.getElementById('errorModal');
+        const modalContent = document.getElementById('modalContent');
+
+        function showError() {
+            errorModal.classList.remove('hidden');
+            setTimeout(() => {
+                modalContent.classList.remove('modal-enter');
+                modalContent.classList.add('modal-show');
+            }, 10);
+        }
+
+        function closeModal() {
+            modalContent.classList.remove('modal-show');
+            modalContent.classList.add('modal-enter');
+            setTimeout(() => {
+                errorModal.classList.add('hidden');
+            }, 300);
+        }
 
         document.getElementById('loginForm').addEventListener('submit', function(e) {
             e.preventDefault();
             const inputVal = document.getElementById('pinInput').value.toUpperCase().trim();
             let found = false;
 
-            // Logika pengecekan PIN
             if (pinDatabase.paket1.includes(inputVal)) {
                 window.location.href = `dashboardpaket1.html?id=${inputVal}`;
                 found = true;
@@ -131,7 +155,7 @@
             }
 
             if (!found) {
-                alert("PIN tidak valid! Pastikan Anda memasukkan 6 karakter PIN yang benar dari WhatsApp Admin.");
+                showError();
             }
         });
     </script>
