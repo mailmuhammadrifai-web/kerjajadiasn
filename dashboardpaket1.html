@@ -269,7 +269,7 @@
         </div>
     </div>
 
-    <!-- PERBAIKAN: Hapus Maintenance Mode Overlay atau tambahkan class hidden secara default -->
+    <!-- Maintenance Mode Overlay -->
     <div id="maintenance-overlay" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center hidden">
         <div class="bg-white rounded-2xl p-8 max-w-md mx-4 text-center">
             <div class="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -882,7 +882,6 @@
         let sessionTimer = null;
         let isSortedAsc = true;
         let currentFilter = 'all';
-        let isMaintenanceMode = false; // Tambahkan variabel untuk mode maintenance
 
         // ========== 2. INITIALIZATION ==========
         document.addEventListener('DOMContentLoaded', async function() {
@@ -897,12 +896,8 @@
             // Setup event listeners
             setupEventListeners();
             
-            // PERBAIKAN: Hapus pemanggilan checkMaintenance() atau buat opsional
-            // Hanya cek jika ada parameter maintenance di URL
-            const urlParams = new URLSearchParams(window.location.search);
-            if (urlParams.get('maintenance') === 'true') {
-                checkMaintenance();
-            }
+            // Check for maintenance mode
+            checkMaintenance();
             
             // Setup service worker for PWA
             setupServiceWorker();
@@ -932,8 +927,8 @@
                 // Initialize session
                 await initializeSession();
                 
-                // Update PIN displays - PERBAIKAN: Perbaiki typo nama fungsi
-                updatePINDisplays();
+                // Update PIN displays
+                updatePINDispays();
                 
                 // Load soal list
                 await renderSoalList();
@@ -1094,8 +1089,7 @@
         }
 
         // ========== 5. PIN MANAGEMENT ==========
-        // PERBAIKAN: Perbaiki nama fungsi dari updatePINDispays menjadi updatePINDisplays
-        function updatePINDisplays() {
+        function updatePINDispays() {
             // Update all PIN displays
             const pinElements = [
                 'displayPin',
@@ -1709,41 +1703,15 @@
         }
 
         // ========== 12. MAINTENANCE MODE ==========
-        // PERBAIKAN BESAR: Hapus logika random maintenance yang mengganggu
         function checkMaintenance() {
-            // Sekarang maintenance hanya akan muncul jika secara eksplisit diaktifkan
-            // Misalnya dari server atau parameter URL
-            const urlParams = new URLSearchParams(window.location.search);
+            // Simulate maintenance check
+            const isMaintenance = Math.random() < 0.1; // 10% chance for demo
             
-            // Cek dari localStorage untuk flag maintenance (bisa di-set dari admin)
-            const maintenanceFlag = localStorage.getItem('maintenance_mode') === 'true';
-            
-            // Cek dari parameter URL
-            const urlMaintenance = urlParams.get('maintenance') === 'true';
-            
-            if (maintenanceFlag || urlMaintenance) {
-                isMaintenanceMode = true;
+            if (isMaintenance) {
                 document.getElementById('maintenance-overlay').classList.remove('hidden');
                 document.body.style.overflow = 'hidden';
-                trackActivity('maintenance_mode_activated', { source: maintenanceFlag ? 'localStorage' : 'url' });
-            } else {
-                // Default: tidak ada maintenance
-                isMaintenanceMode = false;
-                document.getElementById('maintenance-overlay').classList.add('hidden');
-                document.body.style.overflow = 'auto';
+                trackActivity('maintenance_mode_activated');
             }
-        }
-
-        // Fungsi untuk admin mengaktifkan maintenance mode
-        function enableMaintenanceMode() {
-            localStorage.setItem('maintenance_mode', 'true');
-            checkMaintenance();
-        }
-
-        // Fungsi untuk admin menonaktifkan maintenance mode
-        function disableMaintenanceMode() {
-            localStorage.setItem('maintenance_mode', 'false');
-            checkMaintenance();
         }
 
         // ========== 13. ANALYTICS & TELEMETRY ==========
@@ -1791,7 +1759,7 @@
                 const profileMenu = document.getElementById('profileMenu');
                 const profileButton = document.querySelector('[onclick="toggleProfileMenu()"]');
                 
-                if (profileMenu && profileButton && !profileMenu.contains(event.target) && !profileButton.contains(event.target)) {
+                if (profileMenu && !profileMenu.contains(event.target) && !profileButton.contains(event.target)) {
                     profileMenu.classList.add('hidden');
                 }
                 
@@ -1881,51 +1849,19 @@
         }
 
         // ========== 18. INITIAL SETUP ==========
-        // Add confetti on significant events (misalnya ketika menyelesaikan paket)
-        // Hapus confetti random yang mungkin mengganggu
-        function triggerConfetti() {
+        // Add confetti on significant events
+        setInterval(() => {
+            if (Math.random() < 0.01) { // 1% chance every interval
+                createConfetti();
+            }
+        }, 1000);
+
+        // Initial confetti burst
+        setTimeout(() => {
             for (let i = 0; i < 20; i++) {
                 setTimeout(createConfetti, i * 100);
             }
-        }
-
-        // Fungsi untuk memicu confetti saat pencapaian tertentu
-        function checkForAchievements() {
-            const completedCount = parseInt(document.getElementById('completedCount').textContent);
-            
-            // Confetti ketika menyelesaikan paket pertama
-            if (completedCount === 1) {
-                triggerConfetti();
-            }
-            
-            // Confetti ketika menyelesaikan semua paket
-            if (completedCount === 10) {
-                setTimeout(triggerConfetti, 500);
-                showNotification('success', 'Selamat!', 'Anda telah menyelesaikan semua paket tryout!');
-            }
-        }
-
-        // Update fungsi renderSoalList untuk memeriksa pencapaian
-        async function renderSoalList() {
-            try {
-                // ... [kode sebelumnya tetap sama] ...
-                
-                // Render soal list
-                renderSoalCards(soalList);
-                
-                // Update completed count
-                const completedCount = soalList.filter(s => s.isCompleted).length;
-                updateCompletedCount(completedCount);
-                
-                // PERBAIKAN: Cek pencapaian setelah update count
-                checkForAchievements();
-                
-                // ... [kode setelahnya tetap sama] ...
-                
-            } catch (error) {
-                // ... [error handling tetap sama] ...
-            }
-        }
+        }, 1000);
 
     </script>
 
