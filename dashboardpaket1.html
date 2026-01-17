@@ -239,6 +239,15 @@
             background-color: rgba(59, 130, 246, 0.3);
             color: #1e293b;
         }
+    /* Tambahkan di bagian CSS */
+.whatsapp-link {
+    transition: all 0.2s ease;
+}
+
+.whatsapp-link:hover {
+    transform: translateY(-1px);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
     </style>
 </head>
 <body class="min-h-screen bg-slate-50">
@@ -654,33 +663,47 @@
                 </div>
 
                 <!-- Buy Package Card -->
-                <div class="bg-gradient-to-br from-yellow-400 via-orange-400 to-amber-500 rounded-2xl p-6 shadow-lg card-hover animate-float">
-                    <div class="flex items-center gap-3 mb-4">
-                        <div class="w-10 h-10 bg-white/20 backdrop-blur-sm rounded-lg flex items-center justify-center">
-                            <i class="fa-solid fa-gem text-white"></i>
-                        </div>
-                        <div>
-                            <h4 class="font-black text-white text-lg">Butuh Lebih Banyak?</h4>
-                            <p class="text-white/90 text-xs">Upgrade pengalaman belajar Anda</p>
-                        </div>
-                    </div>
+<div class="bg-gradient-to-br from-yellow-400 via-orange-400 to-amber-500 rounded-2xl p-6 shadow-lg card-hover animate-float">
+    <div class="flex items-center gap-3 mb-4">
+        <div class="w-10 h-10 bg-white/20 backdrop-blur-sm rounded-lg flex items-center justify-center">
+            <i class="fa-solid fa-gem text-white"></i>
+        </div>
+        <div>
+            <h4 class="font-black text-white text-lg">Butuh Lebih Banyak?</h4>
+            <p class="text-white/90 text-xs">Upgrade pengalaman belajar Anda</p>
+        </div>
+    </div>
 
-                    <div class="bg-white/20 backdrop-blur-sm rounded-xl p-4 mb-5 border border-white/30">
-                        <div class="flex justify-between items-center mb-2">
-                            <span class="text-white text-sm font-bold">Paket Tambahan</span>
-                            <span class="bg-white text-amber-600 px-3 py-1 rounded-full text-xs font-black">Rp 25.000</span>
-                        </div>
-                        <p class="text-white/90 text-xs">+1 paket simulasi premium dengan pembahasan lengkap</p>
-                    </div>
+    <div class="bg-white/20 backdrop-blur-sm rounded-xl p-4 mb-5 border border-white/30">
+        <div class="flex justify-between items-center mb-2">
+            <span class="text-white text-sm font-bold">Paket Tambahan</span>
+            <span class="bg-white text-amber-600 px-3 py-1 rounded-full text-xs font-black">Rp 25.000</span>
+        </div>
+        <p class="text-white/90 text-xs mb-2">+1 paket simulasi premium dengan pembahasan lengkap</p>
+        <div class="flex items-center gap-2 text-white/80">
+            <i class="fa-solid fa-whatsapp text-xs"></i>
+            <span class="text-[10px] font-medium">WhatsApp Admin: 0856-9640-9288</span>
+        </div>
+    </div>
 
-                    <button onclick="tambahPaket()" class="w-full bg-white text-amber-700 font-black py-3 rounded-xl hover:bg-gray-100 transition-all active:scale-95 shadow-lg flex items-center justify-center gap-2">
-                        <i class="fa-solid fa-cart-shopping"></i> Beli Paket Tambahan
-                    </button>
+    <button onclick="tambahPaket()" class="w-full bg-white text-amber-700 font-black py-3 rounded-xl hover:bg-gray-100 transition-all active:scale-95 shadow-lg flex items-center justify-center gap-2">
+        <i class="fa-solid fa-cart-shopping"></i> Beli Paket Tambahan
+    </button>
 
-                    <p class="text-white/80 text-xs text-center mt-4">
-                        <i class="fa-solid fa-bolt"></i> Proses instan • Akses langsung
-                    </p>
-                </div>
+    <p class="text-white/80 text-xs text-center mt-4">
+        <i class="fa-solid fa-bolt"></i> Proses instan • Akses langsung
+    </p>
+    
+    <!-- WhatsApp Quick Action -->
+    <div class="mt-4 pt-4 border-t border-white/20">
+        <a href="https://wa.me/6285696409288?text=Halo%20Admin%20Kerja%20Jadi%20ASN,%20saya%20ingin%20bertanya%20tentang%20paket%20tambahan" 
+           target="_blank"
+           class="flex items-center justify-center gap-2 text-white/90 hover:text-white text-xs font-medium transition-colors">
+            <i class="fa-brands fa-whatsapp"></i>
+            <span>Tanya langsung via WhatsApp</span>
+        </a>
+    </div>
+</div>
             </div>
         </div>
     </main>
@@ -1832,6 +1855,29 @@
                 setTimeout(createConfetti, i * 100);
             }
         }, 1000);
+    
+    // ========== PACKAGE PURCHASE ==========
+function tambahPaket() {
+    const phoneNumber = "6285696409288"; // Format internasional
+    const pinInfo = pinAkses ? `%0A*PIN Peserta:* ${pinAkses}%0A` : '';
+    
+    const message = `Halo Admin Kerja Jadi ASN,%0A%0ASaya ingin *Tambah 1 Paket Tryout* (Rp 25.000).${pinInfo}*Paket:* Premium%0A%0AMohon diproses informasinya. Terima kasih!`;
+    
+    // Konfirmasi sebelum mengarahkan
+    if (confirm('Anda akan diarahkan ke WhatsApp untuk pembelian paket tambahan. Lanjutkan?')) {
+        window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank', 'noopener,noreferrer');
+        trackActivity('click_buy_package', { via: 'whatsapp' });
+    }
+}
+
+// Quick WhatsApp Chat function
+function chatWhatsApp() {
+    const phoneNumber = "6285696409288";
+    const message = "Halo Admin Kerja Jadi ASN, saya ingin bertanya tentang paket tambahan tryout.";
+    
+    window.open(`https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`, '_blank', 'noopener,noreferrer');
+    trackActivity('whatsapp_chat_initiated');
+}
 
     </script>
 
