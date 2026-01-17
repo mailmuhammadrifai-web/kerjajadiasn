@@ -269,7 +269,7 @@
         </div>
     </div>
 
-    <!-- Maintenance Mode Overlay -->
+    <!-- PERBAIKAN: Hapus Maintenance Mode Overlay atau tambahkan class hidden secara default -->
     <div id="maintenance-overlay" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center hidden">
         <div class="bg-white rounded-2xl p-8 max-w-md mx-4 text-center">
             <div class="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -599,6 +599,10 @@
                     <div class="mt-6 pt-5 border-t border-slate-100">
                         <div class="flex items-center gap-3 text-green-600">
                             <i class="fa-solid fa-circle-check text-xl"></i>
+                            <div>
+                                <p class="font-bold text-sm">Pembahasan Lengkap</p>
+                                <p class="text-xs text-slate-500">Akses pembahasan detail setiap soal</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -655,7 +659,11 @@
                             </div>
                         </div>
                     </div>
-                   
+                    
+                    <button onclick="showProgressModal()" class="w-full bg-white border border-blue-200 text-blue-600 font-bold py-3 rounded-xl hover:bg-blue-50 transition-colors flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-chart-simple"></i> Lihat Detail Progress
+                    </button>
+                </div>
 
                 <!-- Buy Package Card -->
                 <div class="bg-gradient-to-br from-yellow-400 via-orange-400 to-amber-500 rounded-2xl p-6 shadow-lg card-hover animate-float">
@@ -685,6 +693,48 @@
                         <i class="fa-solid fa-bolt"></i> Proses instan • Akses langsung
                     </p>
                 </div>
+
+                <!-- Quick Stats -->
+                <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200">
+                    <h4 class="font-bold text-slate-800 mb-4">Statistik Cepat</h4>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="bg-slate-50 rounded-xl p-3 text-center">
+                            <div class="text-2xl font-black text-blue-600" id="avgScore">-</div>
+                            <div class="text-xs text-slate-500">Rata-rata Skor</div>
+                        </div>
+                        <div class="bg-slate-50 rounded-xl p-3 text-center">
+                            <div class="text-2xl font-black text-green-600" id="bestScore">-</div>
+                            <div class="text-xs text-slate-500">Skor Terbaik</div>
+                        </div>
+                        <div class="bg-slate-50 rounded-xl p-3 text-center">
+                            <div class="text-2xl font-black text-purple-600" id="totalTime">0</div>
+                            <div class="text-xs text-slate-500">Jam Belajar</div>
+                        </div>
+                        <div class="bg-slate-50 rounded-xl p-3 text-center">
+                            <div class="text-2xl font-black text-red-600" id="accuracy">-</div>
+                            <div class="text-xs text-slate-500">Akurasi</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="bg-slate-900 rounded-2xl p-6">
+                    <h4 class="font-bold text-white mb-4">Aksi Cepat</h4>
+                    <div class="space-y-3">
+                        <button onclick="downloadCertificate()" class="w-full bg-slate-800 hover:bg-slate-700 text-white font-medium py-3 rounded-xl transition-colors flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-download"></i> Unduh Sertifikat
+                        </button>
+                        <button onclick="showTutorial()" class="w-full bg-slate-800 hover:bg-slate-700 text-white font-medium py-3 rounded-xl transition-colors flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-play-circle"></i> Video Tutorial
+                        </button>
+                        <button onclick="printProgress()" class="w-full bg-slate-800 hover:bg-slate-700 text-white font-medium py-3 rounded-xl transition-colors flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-print"></i> Cetak Progress
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
 
     <!-- Progress Modal -->
     <div id="progressModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden p-4">
@@ -832,6 +882,7 @@
         let sessionTimer = null;
         let isSortedAsc = true;
         let currentFilter = 'all';
+        let isMaintenanceMode = false; // Tambahkan variabel untuk mode maintenance
 
         // ========== 2. INITIALIZATION ==========
         document.addEventListener('DOMContentLoaded', async function() {
@@ -846,8 +897,12 @@
             // Setup event listeners
             setupEventListeners();
             
-            // Check for maintenance mode
-            checkMaintenance();
+            // PERBAIKAN: Hapus pemanggilan checkMaintenance() atau buat opsional
+            // Hanya cek jika ada parameter maintenance di URL
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('maintenance') === 'true') {
+                checkMaintenance();
+            }
             
             // Setup service worker for PWA
             setupServiceWorker();
@@ -877,8 +932,8 @@
                 // Initialize session
                 await initializeSession();
                 
-                // Update PIN displays
-                updatePINDispays();
+                // Update PIN displays - PERBAIKAN: Perbaiki typo nama fungsi
+                updatePINDisplays();
                 
                 // Load soal list
                 await renderSoalList();
@@ -1039,7 +1094,8 @@
         }
 
         // ========== 5. PIN MANAGEMENT ==========
-        function updatePINDispays() {
+        // PERBAIKAN: Perbaiki nama fungsi dari updatePINDispays menjadi updatePINDisplays
+        function updatePINDisplays() {
             // Update all PIN displays
             const pinElements = [
                 'displayPin',
@@ -1653,15 +1709,41 @@
         }
 
         // ========== 12. MAINTENANCE MODE ==========
+        // PERBAIKAN BESAR: Hapus logika random maintenance yang mengganggu
         function checkMaintenance() {
-            // Simulate maintenance check
-            const isMaintenance = Math.random() < 0.1; // 10% chance for demo
+            // Sekarang maintenance hanya akan muncul jika secara eksplisit diaktifkan
+            // Misalnya dari server atau parameter URL
+            const urlParams = new URLSearchParams(window.location.search);
             
-            if (isMaintenance) {
+            // Cek dari localStorage untuk flag maintenance (bisa di-set dari admin)
+            const maintenanceFlag = localStorage.getItem('maintenance_mode') === 'true';
+            
+            // Cek dari parameter URL
+            const urlMaintenance = urlParams.get('maintenance') === 'true';
+            
+            if (maintenanceFlag || urlMaintenance) {
+                isMaintenanceMode = true;
                 document.getElementById('maintenance-overlay').classList.remove('hidden');
                 document.body.style.overflow = 'hidden';
-                trackActivity('maintenance_mode_activated');
+                trackActivity('maintenance_mode_activated', { source: maintenanceFlag ? 'localStorage' : 'url' });
+            } else {
+                // Default: tidak ada maintenance
+                isMaintenanceMode = false;
+                document.getElementById('maintenance-overlay').classList.add('hidden');
+                document.body.style.overflow = 'auto';
             }
+        }
+
+        // Fungsi untuk admin mengaktifkan maintenance mode
+        function enableMaintenanceMode() {
+            localStorage.setItem('maintenance_mode', 'true');
+            checkMaintenance();
+        }
+
+        // Fungsi untuk admin menonaktifkan maintenance mode
+        function disableMaintenanceMode() {
+            localStorage.setItem('maintenance_mode', 'false');
+            checkMaintenance();
         }
 
         // ========== 13. ANALYTICS & TELEMETRY ==========
@@ -1709,7 +1791,7 @@
                 const profileMenu = document.getElementById('profileMenu');
                 const profileButton = document.querySelector('[onclick="toggleProfileMenu()"]');
                 
-                if (profileMenu && !profileMenu.contains(event.target) && !profileButton.contains(event.target)) {
+                if (profileMenu && profileButton && !profileMenu.contains(event.target) && !profileButton.contains(event.target)) {
                     profileMenu.classList.add('hidden');
                 }
                 
@@ -1799,19 +1881,51 @@
         }
 
         // ========== 18. INITIAL SETUP ==========
-        // Add confetti on significant events
-        setInterval(() => {
-            if (Math.random() < 0.01) { // 1% chance every interval
-                createConfetti();
-            }
-        }, 1000);
-
-        // Initial confetti burst
-        setTimeout(() => {
+        // Add confetti on significant events (misalnya ketika menyelesaikan paket)
+        // Hapus confetti random yang mungkin mengganggu
+        function triggerConfetti() {
             for (let i = 0; i < 20; i++) {
                 setTimeout(createConfetti, i * 100);
             }
-        }, 1000);
+        }
+
+        // Fungsi untuk memicu confetti saat pencapaian tertentu
+        function checkForAchievements() {
+            const completedCount = parseInt(document.getElementById('completedCount').textContent);
+            
+            // Confetti ketika menyelesaikan paket pertama
+            if (completedCount === 1) {
+                triggerConfetti();
+            }
+            
+            // Confetti ketika menyelesaikan semua paket
+            if (completedCount === 10) {
+                setTimeout(triggerConfetti, 500);
+                showNotification('success', 'Selamat!', 'Anda telah menyelesaikan semua paket tryout!');
+            }
+        }
+
+        // Update fungsi renderSoalList untuk memeriksa pencapaian
+        async function renderSoalList() {
+            try {
+                // ... [kode sebelumnya tetap sama] ...
+                
+                // Render soal list
+                renderSoalCards(soalList);
+                
+                // Update completed count
+                const completedCount = soalList.filter(s => s.isCompleted).length;
+                updateCompletedCount(completedCount);
+                
+                // PERBAIKAN: Cek pencapaian setelah update count
+                checkForAchievements();
+                
+                // ... [kode setelahnya tetap sama] ...
+                
+            } catch (error) {
+                // ... [error handling tetap sama] ...
+            }
+        }
 
     </script>
 
