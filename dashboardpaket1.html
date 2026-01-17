@@ -10,129 +10,26 @@
     <meta name="theme-color" content="#2563eb">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap');
-        
+
         body { 
             font-family: 'Plus Jakarta Sans', sans-serif;
             min-height: 100vh;
             background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            overflow-x: hidden;
         }
-        
-        /* Animasi Loading */
+
+        /* Loading Animation */
         .loading-skeleton {
             background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
             background-size: 200% 100%;
             animation: loading 1.5s infinite;
         }
-        
+
         @keyframes loading {
             0% { background-position: 200% 0; }
             100% { background-position: -200% 0; }
         }
-        
-        /* Responsive Improvements */
-        @media (max-width: 768px) {
-            .nav-content {
-                flex-direction: column;
-                gap: 1rem;
-                padding: 1rem;
-            }
-            
-            .nav-right {
-                width: 100%;
-                justify-content: space-between;
-            }
-            
-            .gradient-header {
-                padding: 1.5rem !important;
-                text-align: center;
-            }
-            
-            .grid-cols-1 {
-                grid-template-columns: 1fr !important;
-            }
-            
-            .soal-card {
-                flex-direction: column;
-                align-items: stretch;
-                gap: 1rem;
-                padding: 1.5rem !important;
-            }
-            
-            .soal-card-action {
-                width: 100%;
-                justify-content: center;
-            }
-        }
-        
-        @media (max-width: 640px) {
-            .container {
-                padding-left: 1rem;
-                padding-right: 1rem;
-            }
-            
-            .main-grid {
-                grid-template-columns: 1fr !important;
-                gap: 1.5rem;
-            }
-        }
-        
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-            height: 8px;
-        }
-        
-        ::-webkit-scrollbar-track {
-            background: #f1f5f9;
-            border-radius: 4px;
-        }
-        
-        ::-webkit-scrollbar-thumb {
-            background: #cbd5e1;
-            border-radius: 4px;
-        }
-        
-        ::-webkit-scrollbar-thumb:hover {
-            background: #94a3b8;
-        }
-        
-        /* Custom Animations */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        @keyframes slideInRight {
-            from { opacity: 0; transform: translateX(20px); }
-            to { opacity: 1; transform: translateX(0); }
-        }
-        
-        .animate-fadeIn {
-            animation: fadeIn 0.5s ease-out;
-        }
-        
-        .animate-slideInRight {
-            animation: slideInRight 0.3s ease-out;
-        }
-        
-        /* Card Hover Effects */
-        .card-hover {
-            transition: all 0.3s ease;
-            border: 1px solid #e2e8f0;
-        }
-        
-        .card-hover:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 10px 25px -5px rgba(59, 130, 246, 0.1),
-                        0 10px 10px -5px rgba(59, 130, 246, 0.04);
-            border-color: #93c5fd;
-        }
-        
-        /* Progress Bar Animation */
-        .progress-bar {
-            transition: width 1s ease-in-out;
-        }
-        
+
         /* Status Badges */
         .status-badge {
             font-size: 0.65rem;
@@ -142,29 +39,50 @@
             letter-spacing: 0.05em;
             text-transform: uppercase;
         }
-        
-        .status-active {
-            background-color: #10b981;
-            color: white;
+
+        .status-active { background-color: #10b981; color: white; }
+        .status-pending { background-color: #f59e0b; color: white; }
+        .status-completed { background-color: #3b82f6; color: white; }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
-        
-        .status-pending {
-            background-color: #f59e0b;
-            color: white;
+
+        @keyframes slideInRight {
+            from { opacity: 0; transform: translateX(20px); }
+            to { opacity: 1; transform: translateX(0); }
         }
-        
-        .status-completed {
-            background-color: #3b82f6;
-            color: white;
+
+        .animate-fadeIn { animation: fadeIn 0.5s ease-out; }
+        .animate-slideInRight { animation: slideInRight 0.3s ease-out; }
+
+        /* Card Hover Effects */
+        .card-hover {
+            transition: all 0.3s ease;
+            border: 1px solid #e2e8f0;
         }
-        
+
+        .card-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px -5px rgba(59, 130, 246, 0.1),
+                        0 10px 10px -5px rgba(59, 130, 246, 0.04);
+            border-color: #93c5fd;
+        }
+
+        /* Progress Bar Animation */
+        .progress-bar {
+            transition: width 1s ease-in-out;
+        }
+
         /* Glassmorphism Effect */
         .glass-effect {
             background: rgba(255, 255, 255, 0.7);
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.2);
         }
-        
+
         /* Shimmer Effect */
         .shimmer {
             background: linear-gradient(
@@ -176,37 +94,28 @@
             background-size: 200% 100%;
             animation: shimmer 2s infinite;
         }
-        
+
         @keyframes shimmer {
             0% { background-position: -200% 0; }
             100% { background-position: 200% 0; }
         }
-        
+
         /* Floating Animation */
         @keyframes float {
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-5px); }
         }
-        
+
         .animate-float {
             animation: float 3s ease-in-out infinite;
         }
-        
-        /* Confetti Effect */
-        .confetti {
-            position: fixed;
-            width: 10px;
-            height: 10px;
-            background-color: #f00;
-            opacity: 0.7;
-            z-index: 1000;
-        }
-        
+
         /* Tooltip */
         .tooltip {
             position: relative;
+            cursor: pointer;
         }
-        
+
         .tooltip-text {
             visibility: hidden;
             position: absolute;
@@ -217,34 +126,118 @@
             background-color: #1e293b;
             color: white;
             text-align: center;
-            padding: 0.5rem;
+            padding: 0.5rem 0.75rem;
             border-radius: 0.375rem;
             font-size: 0.75rem;
             white-space: nowrap;
             opacity: 0;
             transition: opacity 0.3s;
+            pointer-events: none;
         }
-        
+
         .tooltip:hover .tooltip-text {
             visibility: visible;
             opacity: 1;
         }
-        
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+
         /* Print Styles */
         @media print {
             .no-print {
                 display: none !important;
             }
-            
+
             body {
                 background: white !important;
                 color: black !important;
             }
-            
+
             .card-hover {
                 box-shadow: none !important;
                 border: 1px solid #ddd !important;
             }
+        }
+
+        /* Responsive Improvements */
+        @media (max-width: 768px) {
+            .nav-content {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1rem;
+            }
+
+            .nav-right {
+                width: 100%;
+                justify-content: space-between;
+            }
+
+            .gradient-header {
+                padding: 1.5rem !important;
+                text-align: center;
+            }
+
+            .soal-card {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 1rem;
+                padding: 1.5rem !important;
+            }
+
+            .soal-card-action {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .main-grid {
+                grid-template-columns: 1fr !important;
+                gap: 1.5rem;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .container {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+
+            .filter-tabs {
+                flex-wrap: wrap;
+            }
+        }
+
+        /* Confetti */
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            opacity: 0.7;
+            z-index: 1000;
+            pointer-events: none;
+        }
+
+        /* Selection */
+        ::selection {
+            background-color: rgba(59, 130, 246, 0.3);
+            color: #1e293b;
         }
     </style>
 </head>
@@ -262,7 +255,7 @@
                     <h4 id="toast-title" class="font-bold text-slate-800"></h4>
                     <p id="toast-message" class="text-sm text-slate-600 mt-1"></p>
                 </div>
-                <button onclick="hideToast()" class="text-slate-400 hover:text-slate-600">
+                <button onclick="hideToast()" class="text-slate-400 hover:text-slate-600 transition-colors">
                     <i class="fa-solid fa-times"></i>
                 </button>
             </div>
@@ -277,7 +270,7 @@
             </div>
             <h3 class="text-xl font-bold text-slate-800 mb-2">Sedang Pemeliharaan</h3>
             <p class="text-slate-600 mb-6">Sistem sedang dalam pemeliharaan untuk pengalaman yang lebih baik. Silakan coba lagi nanti.</p>
-            <button onclick="checkMaintenance()" class="bg-blue-600 text-white px-6 py-2 rounded-lg font-bold">
+            <button onclick="checkMaintenance()" class="bg-blue-600 text-white px-6 py-2 rounded-lg font-bold hover:bg-blue-700 transition-colors">
                 <i class="fa-solid fa-rotate"></i> Coba Lagi
             </button>
         </div>
@@ -297,23 +290,24 @@
                     </div>
                     <span class="status-badge status-active hidden md:inline-flex">Premium</span>
                 </div>
-                
+
                 <div class="flex items-center gap-4 nav-right">
                     <div class="text-right">
                         <p class="text-[10px] font-bold text-slate-500 uppercase tracking-wider">PIN Peserta</p>
                         <div class="flex items-center gap-2">
                             <p id="displayPin" class="text-sm font-black text-slate-800 tracking-wide font-mono">MEMUAT...</p>
-                            <button onclick="copyPin()" class="text-slate-400 hover:text-blue-600 tooltip" title="Salin PIN">
+                            <button onclick="copyPin()" class="text-slate-400 hover:text-blue-600 tooltip transition-colors">
+                                <span class="tooltip-text">Salin PIN</span>
                                 <i class="fa-regular fa-copy text-xs"></i>
                             </button>
                         </div>
                     </div>
-                    
+
                     <div class="relative">
                         <button onclick="toggleProfileMenu()" class="w-10 h-10 rounded-full bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-100 flex items-center justify-center hover:shadow-md transition-all">
                             <i class="fa-solid fa-user text-blue-600"></i>
                         </button>
-                        
+
                         <!-- Profile Dropdown Menu -->
                         <div id="profileMenu" class="absolute right-0 top-12 w-56 bg-white rounded-xl shadow-lg border border-slate-200 py-2 hidden z-50 animate-fadeIn">
                             <div class="px-4 py-3 border-b border-slate-100">
@@ -321,30 +315,30 @@
                                 <p id="menuPin" class="text-sm font-black text-slate-800 truncate"></p>
                                 <p class="text-xs text-slate-500 mt-1">Paket 1 - 10 Tryout</p>
                             </div>
-                            
+
                             <div class="py-1">
-                                <a href="#" onclick="showProgressModal()" class="flex items-center gap-3 px-4 py-2 text-sm text-slate-700 hover:bg-blue-50 hover:text-blue-600 transition-colors">
+                                <a href="#" onclick="showProgressModal(); return false;" class="flex items-center gap-3 px-4 py-2 text-sm text-slate-700 hover:bg-blue-50 hover:text-blue-600 transition-colors">
                                     <i class="fa-solid fa-chart-line w-5 text-blue-500"></i>
                                     Progress Belajar
                                 </a>
-                                <a href="#" onclick="showAchievements()" class="flex items-center gap-3 px-4 py-2 text-sm text-slate-700 hover:bg-blue-50 hover:text-blue-600 transition-colors">
+                                <a href="#" onclick="showAchievements(); return false;" class="flex items-center gap-3 px-4 py-2 text-sm text-slate-700 hover:bg-blue-50 hover:text-blue-600 transition-colors">
                                     <i class="fa-solid fa-trophy w-5 text-yellow-500"></i>
                                     Pencapaian
                                 </a>
-                                <a href="#" onclick="showSettings()" class="flex items-center gap-3 px-4 py-2 text-sm text-slate-700 hover:bg-blue-50 hover:text-blue-600 transition-colors">
+                                <a href="#" onclick="showSettings(); return false;" class="flex items-center gap-3 px-4 py-2 text-sm text-slate-700 hover:bg-blue-50 hover:text-blue-600 transition-colors">
                                     <i class="fa-solid fa-gear w-5 text-slate-500"></i>
                                     Pengaturan
                                 </a>
                             </div>
-                            
+
                             <div class="border-t border-slate-100 my-1"></div>
-                            
+
                             <div class="py-1">
-                                <a href="#" onclick="showHelpModal()" class="flex items-center gap-3 px-4 py-2 text-sm text-slate-700 hover:bg-blue-50 hover:text-blue-600 transition-colors">
+                                <a href="#" onclick="showHelpModal(); return false;" class="flex items-center gap-3 px-4 py-2 text-sm text-slate-700 hover:bg-blue-50 hover:text-blue-600 transition-colors">
                                     <i class="fa-solid fa-circle-question w-5 text-green-500"></i>
                                     Bantuan & Panduan
                                 </a>
-                                <a href="#" onclick="confirmLogout()" class="flex items-center gap-3 px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors">
+                                <a href="#" onclick="confirmLogout(); return false;" class="flex items-center gap-3 px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors">
                                     <i class="fa-solid fa-arrow-right-from-bracket w-5"></i>
                                     Keluar Dashboard
                                 </a>
@@ -369,7 +363,7 @@
                         <p class="text-xs text-yellow-700">Simpan progress Anda sebelum sesi berakhir</p>
                     </div>
                 </div>
-                <button onclick="extendSession()" class="text-sm font-bold text-yellow-700 hover:text-yellow-800">
+                <button onclick="extendSession()" class="text-sm font-bold text-yellow-700 hover:text-yellow-800 transition-colors">
                     <i class="fa-solid fa-plus"></i> Perpanjang
                 </button>
             </div>
@@ -388,10 +382,10 @@
                                 <span class="status-badge bg-white/20 backdrop-blur-sm border border-white/30">Paket Premium 1</span>
                             </div>
                         </div>
-                        
+
                         <h2 class="text-2xl md:text-3xl font-bold mb-3">Siap Maksimalkan Persiapan ASN Anda!</h2>
                         <p class="text-blue-100 opacity-95 mb-6 max-w-2xl">Gunakan 10 kuota tryout premium dengan strategi. Analisis hasil, tingkatkan akurasi, dan raih skor terbaik!</p>
-                        
+
                         <div class="flex flex-wrap gap-4">
                             <div class="flex items-center gap-3 bg-white/10 border border-white/20 px-4 py-3 rounded-xl backdrop-blur-sm">
                                 <div class="w-10 h-10 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-lg flex items-center justify-center shadow-lg">
@@ -402,7 +396,7 @@
                                     <p id="welcomePin" class="text-lg md:text-xl font-black tracking-wide font-mono shimmer">-------</p>
                                 </div>
                             </div>
-                            
+
                             <div class="flex items-center gap-3 bg-white/10 border border-white/20 px-4 py-3 rounded-xl backdrop-blur-sm">
                                 <div class="w-10 h-10 bg-gradient-to-br from-green-400 to-emerald-500 rounded-lg flex items-center justify-center shadow-lg">
                                     <i class="fa-solid fa-bolt"></i>
@@ -417,7 +411,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="hidden md:block">
                         <div class="w-48 h-48 relative">
                             <div class="absolute inset-0 bg-white/10 rounded-full backdrop-blur-sm"></div>
@@ -428,7 +422,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <!-- Background Elements -->
             <div class="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full -translate-y-32 translate-x-32"></div>
             <div class="absolute bottom-0 left-0 w-96 h-96 bg-white/5 rounded-full translate-y-48 -translate-x-48"></div>
@@ -446,7 +440,7 @@
                         </h3>
                         <p class="text-sm text-slate-600 mt-1">Pilih paket tryout untuk dikerjakan</p>
                     </div>
-                    
+
                     <div class="flex items-center gap-3">
                         <div class="bg-blue-50 rounded-lg px-3 py-2">
                             <p class="text-xs text-slate-500 font-bold uppercase">Selesai</p>
@@ -456,12 +450,14 @@
                                 <span class="text-slate-700 font-bold">10</span>
                             </div>
                         </div>
-                        
+
                         <div class="flex items-center gap-2">
-                            <button onclick="refreshSoalList()" class="w-9 h-9 rounded-lg bg-slate-100 hover:bg-slate-200 flex items-center justify-center transition-colors tooltip" title="Refresh daftar">
+                            <button onclick="refreshSoalList()" class="w-9 h-9 rounded-lg bg-slate-100 hover:bg-slate-200 flex items-center justify-center transition-colors tooltip">
+                                <span class="tooltip-text">Refresh daftar</span>
                                 <i class="fa-solid fa-rotate text-slate-600"></i>
                             </button>
-                            <button onclick="toggleSort()" id="sortButton" class="w-9 h-9 rounded-lg bg-slate-100 hover:bg-slate-200 flex items-center justify-center transition-colors tooltip" title="Urutkan">
+                            <button onclick="toggleSort()" id="sortButton" class="w-9 h-9 rounded-lg bg-slate-100 hover:bg-slate-200 flex items-center justify-center transition-colors tooltip">
+                                <span class="tooltip-text">Urutkan</span>
                                 <i class="fa-solid fa-arrow-down-a-z text-slate-600"></i>
                             </button>
                         </div>
@@ -469,17 +465,17 @@
                 </div>
 
                 <!-- Filter Tabs -->
-                <div class="flex gap-2 mb-4 overflow-x-auto pb-2">
-                    <button onclick="filterSoal('all')" id="filter-all" class="px-4 py-2 rounded-lg bg-blue-600 text-white text-sm font-bold transition-colors">
+                <div class="flex gap-2 mb-4 overflow-x-auto pb-2 filter-tabs">
+                    <button onclick="filterSoal('all')" id="filter-all" class="px-4 py-2 rounded-lg bg-blue-600 text-white text-sm font-bold transition-colors whitespace-nowrap">
                         Semua (10)
                     </button>
-                    <button onclick="filterSoal('completed')" id="filter-completed" class="px-4 py-2 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 text-sm font-bold transition-colors">
+                    <button onclick="filterSoal('completed')" id="filter-completed" class="px-4 py-2 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 text-sm font-bold transition-colors whitespace-nowrap">
                         <i class="fa-solid fa-check mr-2 text-green-500"></i>Selesai
                     </button>
-                    <button onclick="filterSoal('pending')" id="filter-pending" class="px-4 py-2 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 text-sm font-bold transition-colors">
+                    <button onclick="filterSoal('pending')" id="filter-pending" class="px-4 py-2 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 text-sm font-bold transition-colors whitespace-nowrap">
                         <i class="fa-solid fa-clock mr-2 text-yellow-500"></i>Belum
                     </button>
-                    <button onclick="filterSoal('best')" id="filter-best" class="px-4 py-2 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 text-sm font-bold transition-colors">
+                    <button onclick="filterSoal('best')" id="filter-best" class="px-4 py-2 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 text-sm font-bold transition-colors whitespace-nowrap">
                         <i class="fa-solid fa-crown mr-2 text-purple-500"></i>Terbaik
                     </button>
                 </div>
@@ -497,8 +493,7 @@
                             <div class="loading-skeleton w-24 h-10 rounded-xl"></div>
                         </div>
                     </div>
-                    
-                    <!-- Repeat skeleton for 3 items -->
+
                     <div class="bg-white p-5 rounded-2xl border border-slate-200">
                         <div class="flex items-center gap-4">
                             <div class="loading-skeleton w-12 h-12 rounded-xl"></div>
@@ -509,7 +504,7 @@
                             <div class="loading-skeleton w-24 h-10 rounded-xl"></div>
                         </div>
                     </div>
-                    
+
                     <div class="bg-white p-5 rounded-2xl border border-slate-200">
                         <div class="flex items-center gap-4">
                             <div class="loading-skeleton w-12 h-12 rounded-xl"></div>
@@ -567,7 +562,7 @@
                             <p class="text-xs text-slate-500">Informasi paket premium Anda</p>
                         </div>
                     </div>
-                    
+
                     <div class="space-y-4">
                         <div class="flex justify-between items-center">
                             <div class="flex items-center gap-2">
@@ -576,7 +571,7 @@
                             </div>
                             <span class="font-bold text-green-600 text-sm">12 Bulan</span>
                         </div>
-                        
+
                         <div class="flex justify-between items-center">
                             <div class="flex items-center gap-2">
                                 <i class="fa-solid fa-layer-group text-blue-500"></i>
@@ -584,7 +579,7 @@
                             </div>
                             <span class="font-bold text-blue-600 text-sm">10 Paket</span>
                         </div>
-                        
+
                         <div class="pt-2">
                             <div class="flex justify-between text-xs text-slate-500 mb-1">
                                 <span>Tersedia</span>
@@ -595,10 +590,11 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="mt-6 pt-5 border-t border-slate-100">
                         <div class="flex items-center gap-3 text-green-600">
                             <i class="fa-solid fa-circle-check text-xl"></i>
+                            <span class="text-sm font-bold">Aktif Premium</span>
                         </div>
                     </div>
                 </div>
@@ -606,7 +602,7 @@
                 <!-- Progress Ring Card -->
                 <div class="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl p-6 border border-blue-100 card-hover">
                     <h4 class="font-bold text-slate-800 mb-6 text-center">Progress Keseluruhan</h4>
-                    
+
                     <div class="flex flex-col items-center justify-center mb-6">
                         <div class="relative w-40 h-40 mb-4">
                             <svg class="w-full h-full transform -rotate-90" viewBox="0 0 36 36">
@@ -643,7 +639,7 @@
                                 <span class="text-xs text-slate-500 mt-1">Selesai</span>
                             </div>
                         </div>
-                        
+
                         <div class="grid grid-cols-2 gap-4 w-full">
                             <div class="text-center">
                                 <div class="text-2xl font-black text-blue-600" id="completedCountSmall">0</div>
@@ -654,7 +650,8 @@
                                 <div class="text-xs text-slate-500">Tersisa</div>
                             </div>
                         </div>
-
+                    </div>
+                </div>
 
                 <!-- Buy Package Card -->
                 <div class="bg-gradient-to-br from-yellow-400 via-orange-400 to-amber-500 rounded-2xl p-6 shadow-lg card-hover animate-float">
@@ -667,7 +664,7 @@
                             <p class="text-white/90 text-xs">Upgrade pengalaman belajar Anda</p>
                         </div>
                     </div>
-                    
+
                     <div class="bg-white/20 backdrop-blur-sm rounded-xl p-4 mb-5 border border-white/30">
                         <div class="flex justify-between items-center mb-2">
                             <span class="text-white text-sm font-bold">Paket Tambahan</span>
@@ -675,11 +672,11 @@
                         </div>
                         <p class="text-white/90 text-xs">+1 paket simulasi premium dengan pembahasan lengkap</p>
                     </div>
-                    
+
                     <button onclick="tambahPaket()" class="w-full bg-white text-amber-700 font-black py-3 rounded-xl hover:bg-gray-100 transition-all active:scale-95 shadow-lg flex items-center justify-center gap-2">
                         <i class="fa-solid fa-cart-shopping"></i> Beli Paket Tambahan
                     </button>
-                    
+
                     <p class="text-white/80 text-xs text-center mt-4">
                         <i class="fa-solid fa-bolt"></i> Proses instan • Akses langsung
                     </p>
@@ -696,17 +693,17 @@
                     <h3 class="text-xl font-bold text-slate-800">Detail Progress Belajar</h3>
                     <p class="text-sm text-slate-500">PIN: <span id="modalPin" class="font-mono font-bold"></span></p>
                 </div>
-                <button onclick="hideProgressModal()" class="text-slate-400 hover:text-slate-600 text-xl">
+                <button onclick="hideProgressModal()" class="text-slate-400 hover:text-slate-600 text-xl transition-colors">
                     <i class="fa-solid fa-times"></i>
                 </button>
             </div>
-            
+
             <div class="p-6 overflow-y-auto max-h-[calc(90vh-120px)]">
                 <div id="progressContent">
                     <!-- Progress content will be loaded here -->
                 </div>
             </div>
-            
+
             <div class="border-t border-slate-200 p-4 bg-slate-50">
                 <button onclick="shareProgress()" class="w-full bg-blue-600 text-white font-bold py-3 rounded-xl hover:bg-blue-700 transition-colors flex items-center justify-center gap-2">
                     <i class="fa-solid fa-share"></i> Bagikan Progress
@@ -720,11 +717,11 @@
         <div class="bg-white rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-hidden">
             <div class="sticky top-0 bg-white border-b border-slate-200 p-6 flex justify-between items-center">
                 <h3 class="text-xl font-bold text-slate-800">Bantuan & Panduan</h3>
-                <button onclick="hideHelpModal()" class="text-slate-400 hover:text-slate-600 text-xl">
+                <button onclick="hideHelpModal()" class="text-slate-400 hover:text-slate-600 text-xl transition-colors">
                     <i class="fa-solid fa-times"></i>
                 </button>
             </div>
-            
+
             <div class="p-6 overflow-y-auto max-h-[calc(90vh-120px)]">
                 <div class="space-y-6">
                     <div class="bg-blue-50 rounded-xl p-4">
@@ -750,7 +747,7 @@
                             </li>
                         </ul>
                     </div>
-                    
+
                     <div class="grid md:grid-cols-2 gap-4">
                         <div class="bg-slate-50 rounded-xl p-4">
                             <h4 class="font-bold text-slate-800 mb-2 flex items-center gap-2">
@@ -761,7 +758,7 @@
                                 <i class="fa-brands fa-whatsapp"></i> WhatsApp Support
                             </a>
                         </div>
-                        
+
                         <div class="bg-slate-50 rounded-xl p-4">
                             <h4 class="font-bold text-slate-800 mb-2 flex items-center gap-2">
                                 <i class="fa-solid fa-file"></i> Dokumen Penting
@@ -793,19 +790,19 @@
                         Platform tryout ASN premium dengan sistem pembelajaran adaptif dan pembahasan lengkap.
                     </p>
                 </div>
-                
+
                 <div class="text-center md:text-right">
                     <div class="flex justify-center md:justify-end gap-4 mb-4">
-                        <a href="#" class="text-slate-400 hover:text-blue-600">
+                        <a href="#" class="text-slate-400 hover:text-blue-600 transition-colors">
                             <i class="fab fa-facebook text-lg"></i>
                         </a>
-                        <a href="#" class="text-slate-400 hover:text-blue-400">
+                        <a href="#" class="text-slate-400 hover:text-blue-400 transition-colors">
                             <i class="fab fa-twitter text-lg"></i>
                         </a>
-                        <a href="#" class="text-slate-400 hover:text-pink-600">
+                        <a href="#" class="text-slate-400 hover:text-pink-600 transition-colors">
                             <i class="fab fa-instagram text-lg"></i>
                         </a>
-                        <a href="#" class="text-slate-400 hover:text-green-600">
+                        <a href="#" class="text-slate-400 hover:text-green-600 transition-colors">
                             <i class="fab fa-whatsapp text-lg"></i>
                         </a>
                     </div>
@@ -814,93 +811,92 @@
                     </p>
                 </div>
             </div>
-            
+
             <div class="mt-8 pt-6 border-t border-slate-100 text-center">
                 <div class="flex flex-wrap justify-center gap-4 text-xs text-slate-500">
-                    <a href="#" class="hover:text-blue-600">Kebijakan Privasi</a>
-                    <a href="#" class="hover:text-blue-600">Syarat & Ketentuan</a>
-                    <a href="#" class="hover:text-blue-600">FAQ</a>
-                    <a href="#" class="hover:text-blue-600">Kontak Kami</a>
-                    <a href="#" class="hover:text-blue-600">Karir</a>
+                    <a href="#" class="hover:text-blue-600 transition-colors">Kebijakan Privasi</a>
+                    <a href="#" class="hover:text-blue-600 transition-colors">Syarat & Ketentuan</a>
+                    <a href="#" class="hover:text-blue-600 transition-colors">FAQ</a>
+                    <a href="#" class="hover:text-blue-600 transition-colors">Kontak Kami</a>
+                    <a href="#" class="hover:text-blue-600 transition-colors">Karir</a>
                 </div>
             </div>
         </div>
     </footer>
 
     <script>
-        // ========== 1. GLOBAL VARIABLES ==========
+        // ========== GLOBAL VARIABLES ==========
         let pinAkses = null;
-        let sessionInterval = null;
         let sessionTimer = null;
         let isSortedAsc = true;
         let currentFilter = 'all';
 
-        // ========== 2. INITIALIZATION ==========
+        // ========== INITIALIZATION ==========
         document.addEventListener('DOMContentLoaded', async function() {
             console.log('Dashboard initializing...');
-            
+
             // Set current year in footer
             document.getElementById('currentYear').textContent = new Date().getFullYear();
-            
+
             // Initialize dashboard
             await initializeDashboard();
-            
+
             // Setup event listeners
             setupEventListeners();
-            
+
             // Check for maintenance mode
             checkMaintenance();
-            
+
             // Setup service worker for PWA
             setupServiceWorker();
-            
+
             console.log('Dashboard initialized successfully');
         });
 
-        // ========== 3. DASHBOARD INITIALIZATION ==========
+        // ========== DASHBOARD INITIALIZATION ==========
         async function initializeDashboard() {
             try {
                 // Get PIN from URL
                 const urlParams = new URLSearchParams(window.location.search);
                 pinAkses = urlParams.get('id');
-                
+
                 if (!pinAkses) {
                     throw new Error('PIN tidak ditemukan');
                 }
-                
+
                 // Validate PIN (alphanumeric, min 4 chars)
                 if (!/^[a-zA-Z0-9]{4,}$/.test(pinAkses)) {
                     throw new Error('Format PIN tidak valid. Gunakan huruf dan angka (minimal 4 karakter)');
                 }
-                
+
                 // Show loading state
                 showLoading();
-                
+
                 // Initialize session
                 await initializeSession();
-                
+
                 // Update PIN displays
                 updatePINDispays();
-                
+
                 // Load soal list
                 await renderSoalList();
-                
+
                 // Update progress and stats
                 updateProgressStats();
-                
+
                 // Hide loading state
                 hideLoading();
-                
+
                 // Show welcome notification
                 showNotification('success', 'Berhasil Login!', `Selamat datang di dashboard Paket 1, PIN: ${pinAkses}`);
-                
+
                 // Track activity
                 trackActivity('dashboard_loaded', { pin: pinAkses });
-                
+
             } catch (error) {
                 console.error('Initialization error:', error);
                 showNotification('error', 'Kesalahan Login', error.message || 'Terjadi kesalahan saat login');
-                
+
                 // Redirect to login after delay
                 setTimeout(() => {
                     window.location.href = 'login.html?error=' + encodeURIComponent(error.message);
@@ -908,7 +904,7 @@
             }
         }
 
-        // ========== 4. SESSION MANAGEMENT ==========
+        // ========== SESSION MANAGEMENT ==========
         async function initializeSession() {
             const sessionData = {
                 pin: pinAkses,
@@ -917,14 +913,14 @@
                 expired: new Date(Date.now() + 12 * 60 * 60 * 1000).toISOString(), // 12 hours
                 lastActivity: new Date().toISOString()
             };
-            
+
             // Save to localStorage
             localStorage.setItem(`session_${pinAkses}`, JSON.stringify(sessionData));
             sessionStorage.setItem('currentSession', JSON.stringify(sessionData));
-            
+
             // Setup session timer
             setupSessionTimer();
-            
+
             // Setup activity tracker
             setupActivityTracker();
         }
@@ -932,27 +928,27 @@
         function setupSessionTimer() {
             // Clear existing timer
             if (sessionTimer) clearInterval(sessionTimer);
-            
+
             sessionTimer = setInterval(() => {
                 const sessionStr = sessionStorage.getItem('currentSession');
                 if (!sessionStr) {
                     handleSessionExpired();
                     return;
                 }
-                
+
                 const session = JSON.parse(sessionStr);
                 const expired = new Date(session.expired);
                 const now = new Date();
                 const diff = expired - now;
-                
+
                 if (diff <= 0) {
                     handleSessionExpired();
                     return;
                 }
-                
+
                 // Update session timer display
                 updateSessionDisplay(diff);
-                
+
                 // Show warning if less than 5 minutes remaining
                 if (diff < 5 * 60 * 1000) {
                     showSessionWarning(diff);
@@ -964,17 +960,17 @@
             const hours = Math.floor(diff / (1000 * 60 * 60));
             const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-            
+
             const timerStr = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-            
+
             // Update session timer
             const sessionTimerElement = document.getElementById('sessionTimer');
             const sessionIndicator = document.getElementById('sessionIndicator');
-            
+
             if (sessionTimerElement) {
                 sessionTimerElement.textContent = timerStr;
             }
-            
+
             // Update indicator color based on time remaining
             if (sessionIndicator) {
                 if (hours < 1) {
@@ -990,12 +986,12 @@
         function showSessionWarning(diff) {
             const warningElement = document.getElementById('sessionWarning');
             const countdownElement = document.getElementById('sessionCountdown');
-            
+
             if (!warningElement || !countdownElement) return;
-            
+
             const minutes = Math.floor(diff / (1000 * 60));
             const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-            
+
             countdownElement.textContent = `${minutes}m ${seconds}s`;
             warningElement.classList.remove('hidden');
         }
@@ -1003,22 +999,22 @@
         function extendSession() {
             const sessionStr = sessionStorage.getItem('currentSession');
             if (!sessionStr) return;
-            
+
             const session = JSON.parse(sessionStr);
             session.expired = new Date(Date.now() + 12 * 60 * 60 * 1000).toISOString();
-            
+
             sessionStorage.setItem('currentSession', JSON.stringify(session));
             localStorage.setItem(`session_${pinAkses}`, JSON.stringify(session));
-            
+
             document.getElementById('sessionWarning').classList.add('hidden');
             showNotification('success', 'Sesi Diperpanjang', 'Sesi Anda telah diperpanjang 12 jam');
         }
 
         function handleSessionExpired() {
             if (sessionTimer) clearInterval(sessionTimer);
-            
+
             showNotification('warning', 'Sesi Berakhir', 'Sesi Anda telah berakhir. Silakan login kembali.');
-            
+
             setTimeout(() => {
                 logout('session_expired');
             }, 3000);
@@ -1026,21 +1022,21 @@
 
         function setupActivityTracker() {
             // Update last activity on user interaction
-            document.addEventListener('click', updateLastActivity);
-            document.addEventListener('keypress', updateLastActivity);
-            document.addEventListener('scroll', updateLastActivity);
+            const updateActivity = () => {
+                const sessionStr = sessionStorage.getItem('currentSession');
+                if (!sessionStr) return;
+
+                const session = JSON.parse(sessionStr);
+                session.lastActivity = new Date().toISOString();
+                sessionStorage.setItem('currentSession', JSON.stringify(session));
+            };
+
+            document.addEventListener('click', updateActivity);
+            document.addEventListener('keypress', updateActivity);
+            document.addEventListener('scroll', updateActivity);
         }
 
-        function updateLastActivity() {
-            const sessionStr = sessionStorage.getItem('currentSession');
-            if (!sessionStr) return;
-            
-            const session = JSON.parse(sessionStr);
-            session.lastActivity = new Date().toISOString();
-            sessionStorage.setItem('currentSession', JSON.stringify(session));
-        }
-
-        // ========== 5. PIN MANAGEMENT ==========
+        // ========== PIN MANAGEMENT ==========
         function updatePINDispays() {
             // Update all PIN displays
             const pinElements = [
@@ -1049,7 +1045,7 @@
                 'menuPin',
                 'modalPin'
             ];
-            
+
             pinElements.forEach(id => {
                 const element = document.getElementById(id);
                 if (element) {
@@ -1059,6 +1055,11 @@
         }
 
         function copyPin() {
+            if (!pinAkses) {
+                showNotification('error', 'PIN Tidak Tersedia', 'PIN belum dimuat');
+                return;
+            }
+
             navigator.clipboard.writeText(pinAkses)
                 .then(() => {
                     showNotification('success', 'PIN Disalin', 'PIN telah disalin ke clipboard');
@@ -1069,7 +1070,7 @@
                 });
         }
 
-        // ========== 6. SOAL LIST MANAGEMENT ==========
+        // ========== SOAL LIST MANAGEMENT ==========
         async function renderSoalList() {
             try {
                 // Show loading state
@@ -1077,14 +1078,14 @@
                 document.getElementById('errorState').classList.add('hidden');
                 document.getElementById('soalListContainer').classList.add('hidden');
                 document.getElementById('emptyState').classList.add('hidden');
-                
+
                 // Simulate API delay
                 await new Promise(resolve => setTimeout(resolve, 1000));
-                
+
                 // Get progress data
                 const progressKey = `progress_${pinAkses}`;
                 const progress = JSON.parse(localStorage.getItem(progressKey)) || {};
-                
+
                 // Generate soal list
                 const soalList = [];
                 for (let i = 1; i <= 10; i++) {
@@ -1092,7 +1093,7 @@
                     const score = progress[`score_${i}`] || null;
                     const completionTime = progress[`time_${i}`] || null;
                     const accuracy = progress[`accuracy_${i}`] || null;
-                    
+
                     soalList.push({
                         id: i,
                         title: `Simulasi SKD Utama Paket #${i}`,
@@ -1105,50 +1106,52 @@
                         bestScore: score && score >= 450
                     });
                 }
-                
+
                 // Render soal list
                 renderSoalCards(soalList);
-                
+
                 // Update completed count
                 const completedCount = soalList.filter(s => s.isCompleted).length;
                 updateCompletedCount(completedCount);
-                
+
                 // Hide loading state
                 document.getElementById('loadingState').classList.add('hidden');
                 document.getElementById('soalListContainer').classList.remove('hidden');
-                
+
                 // Apply current filter
                 filterSoal(currentFilter);
-                
+
             } catch (error) {
                 console.error('Error rendering soal list:', error);
                 document.getElementById('loadingState').classList.add('hidden');
                 document.getElementById('errorState').classList.remove('hidden');
-                
+
                 trackActivity('soal_list_error', { error: error.message });
             }
         }
 
         function renderSoalCards(soalList) {
             const container = document.getElementById('soalListContainer');
-            container.innerHTML = '';
+            if (!container) return;
             
+            container.innerHTML = '';
+
             if (soalList.length === 0) {
                 document.getElementById('emptyState').classList.remove('hidden');
                 return;
             }
-            
-            soalList.forEach((soal, index) => {
-                const card = createSoalCard(soal, index);
+
+            soalList.forEach((soal) => {
+                const card = createSoalCard(soal);
                 container.innerHTML += card;
             });
         }
 
-        function createSoalCard(soal, index) {
+        function createSoalCard(soal) {
             const badge = soal.isCompleted 
                 ? `<span class="status-badge status-completed"><i class="fa-solid fa-check mr-1"></i>Selesai</span>`
                 : `<span class="status-badge status-pending"><i class="fa-solid fa-clock mr-1"></i>Belum</span>`;
-            
+
             const scoreDisplay = soal.score 
                 ? `<div class="flex items-center gap-2">
                         <div class="text-xs font-bold ${soal.score >= 450 ? 'text-green-600' : 'text-yellow-600'}">
@@ -1157,12 +1160,12 @@
                         ${soal.bestScore ? '<span class="text-xs bg-purple-100 text-purple-700 px-2 py-1 rounded-full"><i class="fa-solid fa-crown"></i> Terbaik</span>' : ''}
                    </div>`
                 : '';
-            
+
             const buttonText = soal.isCompleted ? '<i class="fa-solid fa-redo"></i> ULANGI' : '<i class="fa-solid fa-play"></i> KERJAKAN';
             const buttonClass = soal.isCompleted 
                 ? 'bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700'
                 : 'bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700';
-            
+
             return `
                 <div class="bg-white p-5 rounded-2xl border border-slate-200 card-hover soal-card" data-id="${soal.id}" data-completed="${soal.isCompleted}" data-score="${soal.score || 0}" data-best="${soal.bestScore}">
                     <div class="flex items-center justify-between">
@@ -1188,7 +1191,7 @@
                                 ${buttonText}
                             </a>
                             ${soal.isCompleted ? `
-                                <button onclick="showSoalDetail(${soal.id})" class="text-xs text-slate-500 hover:text-blue-600 flex items-center gap-1">
+                                <button onclick="showSoalDetail(${soal.id})" class="text-xs text-slate-500 hover:text-blue-600 flex items-center gap-1 transition-colors">
                                     <i class="fa-solid fa-chart-bar"></i> Detail Hasil
                                 </button>
                             ` : ''}
@@ -1203,33 +1206,33 @@
                 'completedCount',
                 'completedCountSmall'
             ];
-            
+
             elements.forEach(id => {
                 const element = document.getElementById(id);
                 if (element) {
                     element.textContent = count;
                 }
             });
-            
+
             // Update remaining count
             const remainingElement = document.getElementById('remainingCount');
             if (remainingElement) {
                 remainingElement.textContent = 10 - count;
             }
-            
+
             // Update quota display
             const quotaElement = document.getElementById('quotaUsed');
             if (quotaElement) {
                 quotaElement.textContent = `${count}/10`;
             }
-            
+
             // Update progress bar
             const progressPercentage = (count / 10) * 100;
             const progressBar = document.getElementById('quotaProgress');
             if (progressBar) {
                 progressBar.style.width = `${progressPercentage}%`;
             }
-            
+
             // Update progress ring
             updateProgressRing(progressPercentage);
         }
@@ -1237,16 +1240,16 @@
         function updateProgressRing(percentage) {
             const progressRing = document.getElementById('progressRing');
             const progressPercentageElement = document.getElementById('progressPercentage');
-            
+
             if (progressRing && progressPercentageElement) {
                 const circumference = 2 * Math.PI * 15.9155;
                 const dashOffset = circumference - (percentage / 100) * circumference;
-                
+
                 progressRing.setAttribute('stroke-dasharray', `${circumference} ${circumference}`);
                 progressRing.setAttribute('stroke-dashoffset', dashOffset);
-                
+
                 progressPercentageElement.textContent = `${Math.round(percentage)}%`;
-                
+
                 // Update color based on percentage
                 if (percentage >= 80) {
                     progressRing.setAttribute('stroke', '#10b981'); // Green
@@ -1267,30 +1270,32 @@
         function toggleSort() {
             const container = document.getElementById('soalListContainer');
             const cards = Array.from(container.children);
-            
+
             cards.sort((a, b) => {
                 const aId = parseInt(a.dataset.id);
                 const bId = parseInt(b.dataset.id);
-                
+
                 return isSortedAsc ? aId - bId : bId - aId;
             });
-            
+
             // Clear and reappend sorted cards
             container.innerHTML = '';
             cards.forEach(card => container.appendChild(card));
-            
+
             // Update sort button
             const sortButton = document.getElementById('sortButton');
             const icon = sortButton.querySelector('i');
-            
+
             if (isSortedAsc) {
                 icon.className = 'fa-solid fa-arrow-up-a-z';
                 sortButton.title = 'Urutkan Z-A';
+                sortButton.querySelector('.tooltip-text').textContent = 'Urutkan Z-A';
             } else {
                 icon.className = 'fa-solid fa-arrow-down-a-z';
                 sortButton.title = 'Urutkan A-Z';
+                sortButton.querySelector('.tooltip-text').textContent = 'Urutkan A-Z';
             }
-            
+
             isSortedAsc = !isSortedAsc;
             trackActivity('toggle_sort', { direction: isSortedAsc ? 'asc' : 'desc' });
         }
@@ -1299,27 +1304,27 @@
             currentFilter = filter;
             const container = document.getElementById('soalListContainer');
             const cards = container.querySelectorAll('.soal-card');
-            
+
             // Update active filter button
             document.querySelectorAll('[onclick^="filterSoal"]').forEach(button => {
                 button.classList.remove('bg-blue-600', 'text-white');
                 button.classList.add('bg-slate-100', 'text-slate-700');
             });
-            
+
             const activeButton = document.getElementById(`filter-${filter}`);
             if (activeButton) {
                 activeButton.classList.remove('bg-slate-100', 'text-slate-700');
                 activeButton.classList.add('bg-blue-600', 'text-white');
             }
-            
+
             // Filter cards
             cards.forEach(card => {
                 const isCompleted = card.dataset.completed === 'true';
                 const score = parseInt(card.dataset.score);
                 const isBest = card.dataset.best === 'true';
-                
+
                 let shouldShow = true;
-                
+
                 switch (filter) {
                     case 'completed':
                         shouldShow = isCompleted;
@@ -1333,60 +1338,66 @@
                     default: // 'all'
                         shouldShow = true;
                 }
-                
+
                 card.style.display = shouldShow ? 'block' : 'none';
             });
-            
+
             trackActivity('filter_soal', { filter: filter });
         }
 
-        // ========== 7. PROGRESS & STATISTICS ==========
+        // ========== PROGRESS & STATISTICS ==========
         function updateProgressStats() {
             const progressKey = `progress_${pinAkses}`;
             const progress = JSON.parse(localStorage.getItem(progressKey)) || {};
-            
+
             let totalScore = 0;
             let completedCount = 0;
             let bestScore = 0;
             let totalAccuracy = 0;
             let totalTime = 0;
-            
+
             for (let i = 1; i <= 10; i++) {
                 if (progress[`paket_${i}`]) {
                     completedCount++;
-                    
+
                     const score = progress[`score_${i}`] || 0;
                     totalScore += score;
-                    
+
                     if (score > bestScore) {
                         bestScore = score;
                     }
-                    
+
                     const accuracy = progress[`accuracy_${i}`] || 0;
                     totalAccuracy += accuracy;
-                    
+
                     // Assuming each paket takes about 2 hours
                     totalTime += 2;
                 }
             }
-            
+
             // Update stats display
-            const avgScore = completedCount > 0 ? Math.round(totalScore / completedCount) : '-';
-            const avgAccuracy = completedCount > 0 ? Math.round(totalAccuracy / completedCount) : '-';
-            
-            document.getElementById('avgScore').textContent = avgScore;
-            document.getElementById('bestScore').textContent = bestScore > 0 ? bestScore : '-';
-            document.getElementById('totalTime').textContent = totalTime;
-            document.getElementById('accuracy').textContent = avgAccuracy !== '-' ? `${avgAccuracy}%` : '-';
+            const avgScore = completedCount > 0 ? Math.round(totalScore / completedCount) : 0;
+            const avgAccuracy = completedCount > 0 ? Math.round(totalAccuracy / completedCount) : 0;
+
+            // Update UI elements if they exist
+            const avgScoreElement = document.getElementById('avgScore');
+            const bestScoreElement = document.getElementById('bestScore');
+            const totalTimeElement = document.getElementById('totalTime');
+            const accuracyElement = document.getElementById('accuracy');
+
+            if (avgScoreElement) avgScoreElement.textContent = avgScore;
+            if (bestScoreElement) bestScoreElement.textContent = bestScore > 0 ? bestScore : '-';
+            if (totalTimeElement) totalTimeElement.textContent = totalTime;
+            if (accuracyElement) accuracyElement.textContent = avgAccuracy > 0 ? `${avgAccuracy}%` : '-';
         }
 
         function showProgressModal() {
             const modal = document.getElementById('progressModal');
             const content = document.getElementById('progressContent');
-            
+
             const progressKey = `progress_${pinAkses}`;
             const progress = JSON.parse(localStorage.getItem(progressKey)) || {};
-            
+
             let progressHTML = `
                 <div class="mb-6">
                     <h4 class="font-bold text-slate-800 mb-3">Ringkasan Progress</h4>
@@ -1404,7 +1415,7 @@
                             <div class="text-sm text-slate-600">Total Waktu</div>
                         </div>
                         <div class="bg-yellow-50 rounded-xl p-4 text-center">
-                            <div class="text-2xl font-black text-yellow-600">${progress.avgAccuracy || '-'}%</div>
+                            <div class="text-2xl font-black text-yellow-600">${progress.avgAccuracy || '0'}%</div>
                             <div class="text-sm text-slate-600">Rata-rata Akurasi</div>
                         </div>
                     </div>
@@ -1413,13 +1424,13 @@
                 <h4 class="font-bold text-slate-800 mb-3">Detail per Paket</h4>
                 <div class="space-y-3">
             `;
-            
+
             for (let i = 1; i <= 10; i++) {
                 const isCompleted = progress[`paket_${i}`] || false;
                 const score = progress[`score_${i}`] || '-';
                 const accuracy = progress[`accuracy_${i}`] || '-';
                 const completionTime = progress[`time_${i}`] || '-';
-                
+
                 progressHTML += `
                     <div class="flex items-center justify-between p-3 bg-slate-50 rounded-lg">
                         <div class="flex items-center gap-3">
@@ -1440,14 +1451,14 @@
                     </div>
                 `;
             }
-            
+
             progressHTML += `</div>`;
             content.innerHTML = progressHTML;
             modal.classList.remove('hidden');
-            
+
             // Update modal PIN display
             document.getElementById('modalPin').textContent = pinAkses;
-            
+
             trackActivity('show_progress_modal');
         }
 
@@ -1458,11 +1469,11 @@
         function showSoalDetail(paketId) {
             const progressKey = `progress_${pinAkses}`;
             const progress = JSON.parse(localStorage.getItem(progressKey)) || {};
-            
+
             const score = progress[`score_${paketId}`] || '-';
             const accuracy = progress[`accuracy_${paketId}`] || '-';
             const completionTime = progress[`time_${paketId}`] || '-';
-            
+
             const detail = `
                 <div class="bg-white rounded-xl p-4">
                     <h4 class="font-bold text-slate-800 mb-3">Detail Hasil Paket ${paketId}</h4>
@@ -1486,18 +1497,18 @@
                     </div>
                 </div>
             `;
-            
+
             showNotification('info', `Hasil Paket ${paketId}`, detail, true);
             trackActivity('show_soal_detail', { paketId: paketId });
         }
 
-        // ========== 8. NOTIFICATION SYSTEM ==========
+        // ========== NOTIFICATION SYSTEM ==========
         function showNotification(type, title, message, isHTML = false) {
             const toast = document.getElementById('notification-toast');
             const toastIcon = document.getElementById('toast-icon');
             const toastTitle = document.getElementById('toast-title');
             const toastMessage = document.getElementById('toast-message');
-            
+
             // Set icon and colors based on type
             let iconClass, bgColor;
             switch (type) {
@@ -1517,25 +1528,25 @@
                     iconClass = 'fa-solid fa-circle-info text-blue-500';
                     bgColor = 'bg-blue-50 border-blue-200';
             }
-            
+
             toastIcon.className = iconClass;
             toastTitle.textContent = title;
-            
+
             if (isHTML) {
                 toastMessage.innerHTML = message;
             } else {
                 toastMessage.textContent = message;
             }
-            
+
             // Update toast background
             toast.querySelector('div').className = `rounded-xl shadow-lg border p-4 max-w-sm animate-slideInRight ${bgColor}`;
-            
+
             // Show toast
             toast.classList.remove('hidden');
-            
+
             // Auto hide after 5 seconds
             setTimeout(hideToast, 5000);
-            
+
             trackActivity('show_notification', { type: type, title: title });
         }
 
@@ -1543,7 +1554,7 @@
             document.getElementById('notification-toast').classList.add('hidden');
         }
 
-        // ========== 9. UI HELPER FUNCTIONS ==========
+        // ========== UI HELPER FUNCTIONS ==========
         function toggleProfileMenu() {
             const menu = document.getElementById('profileMenu');
             menu.classList.toggle('hidden');
@@ -1577,16 +1588,6 @@
             trackActivity('show_settings');
         }
 
-        function showTutorial() {
-            showNotification('info', 'Video Tutorial', 'Video tutorial akan segera tersedia!');
-            trackActivity('show_tutorial');
-        }
-
-        function downloadCertificate() {
-            showNotification('success', 'Sertifikat', 'Sertifikat akan diunduh setelah menyelesaikan semua paket!');
-            trackActivity('download_certificate');
-        }
-
         function downloadGuide() {
             showNotification('success', 'Panduan', 'Panduan pengguna berhasil diunduh!');
             trackActivity('download_guide');
@@ -1603,27 +1604,30 @@
                     title: 'Progress Belajar ASN',
                     text: `Saya telah menyelesaikan ${document.getElementById('completedCount').textContent}/10 paket tryout ASN!`,
                     url: window.location.href
+                }).then(() => {
+                    trackActivity('share_progress');
+                }).catch(err => {
+                    console.log('Share cancelled:', err);
                 });
             } else {
                 showNotification('info', 'Bagikan', 'Salin tautan untuk membagikan progress Anda');
             }
-            trackActivity('share_progress');
         }
 
-        // ========== 10. PACKAGE PURCHASE ==========
+        // ========== PACKAGE PURCHASE ==========
         function tambahPaket() {
             if (!confirm('Anda akan diarahkan ke WhatsApp untuk pembelian paket tambahan. Lanjutkan?')) {
                 return;
             }
-            
+
             const noAdmin = "6285696409288"; 
             const pesan = `Halo Admin Kerja Jadi ASN,%0A%0ASaya ingin *Tambah 1 Paket Tryout* (Rp 25.000).%0A*PIN Peserta:* ${pinAkses}%0A*Paket:* Premium%0A%0AMohon diproses informasinya. Terima kasih!`;
 
-            window.open(`https://api.whatsapp.com/send?phone=${noAdmin}&text=${pesan}`, '_blank');
+            window.open(`https://api.whatsapp.com/send?phone=${noAdmin}&text=${pesen}`, '_blank');
             trackActivity('click_buy_package');
         }
 
-        // ========== 11. LOGOUT FUNCTION ==========
+        // ========== LOGOUT FUNCTION ==========
         function confirmLogout() {
             if (confirm('Apakah Anda yakin ingin keluar dari dashboard? Semua progress yang belum disimpan akan hilang.')) {
                 logout('user_initiated');
@@ -1632,41 +1636,43 @@
 
         function logout(reason = 'unknown') {
             // Clear intervals
-            if (sessionInterval) clearInterval(sessionInterval);
             if (sessionTimer) clearInterval(sessionTimer);
-            
+
             // Track logout
             trackActivity('logout', { reason: reason });
-            
+
             // Clear session data
             sessionStorage.removeItem('currentSession');
-            
+
             // Show logout message
             showNotification('success', 'Berhasil Logout', 'Anda telah keluar dari dashboard');
-            
+
             // Redirect to login
             setTimeout(() => {
                 const redirectUrl = reason === 'session_expired' 
                     ? 'login.html?message=session_expired'
                     : 'login.html?message=logout_success';
-                
+
                 window.location.href = redirectUrl;
             }, 1500);
         }
 
-        // ========== 12. MAINTENANCE MODE ==========
+        // ========== MAINTENANCE MODE ==========
         function checkMaintenance() {
-            // Simulate maintenance check
-            const isMaintenance = Math.random() < 0.1; // 10% chance for demo
-            
+            // Simulate maintenance check (10% chance for demo)
+            const isMaintenance = Math.random() < 0.1;
+
             if (isMaintenance) {
                 document.getElementById('maintenance-overlay').classList.remove('hidden');
                 document.body.style.overflow = 'hidden';
                 trackActivity('maintenance_mode_activated');
+            } else {
+                document.getElementById('maintenance-overlay').classList.add('hidden');
+                document.body.style.overflow = 'auto';
             }
         }
 
-        // ========== 13. ANALYTICS & TELEMETRY ==========
+        // ========== ANALYTICS & TELEMETRY ==========
         function trackActivity(action, detail = {}) {
             const activity = {
                 pin: pinAkses,
@@ -1677,19 +1683,23 @@
                 platform: navigator.platform,
                 ...detail
             };
-            
+
             // Save to localStorage for debugging
-            const activities = JSON.parse(localStorage.getItem('userActivities') || '[]');
-            activities.push(activity);
-            localStorage.setItem('userActivities', JSON.stringify(activities.slice(-50)));
-            
+            try {
+                const activities = JSON.parse(localStorage.getItem('userActivities') || '[]');
+                activities.push(activity);
+                localStorage.setItem('userActivities', JSON.stringify(activities.slice(-50)));
+            } catch (e) {
+                console.error('Failed to save activity:', e);
+            }
+
             // In production, send to analytics server
             // sendToAnalytics(activity);
-            
+
             console.debug('[Activity]', action, detail);
         }
 
-        // ========== 14. SERVICE WORKER SETUP ==========
+        // ========== SERVICE WORKER SETUP ==========
         function setupServiceWorker() {
             if ('serviceWorker' in navigator) {
                 window.addEventListener('load', () => {
@@ -1704,29 +1714,29 @@
             }
         }
 
-        // ========== 15. EVENT LISTENERS SETUP ==========
+        // ========== EVENT LISTENERS SETUP ==========
         function setupEventListeners() {
             // Close dropdowns when clicking outside
             document.addEventListener('click', (event) => {
                 const profileMenu = document.getElementById('profileMenu');
                 const profileButton = document.querySelector('[onclick="toggleProfileMenu()"]');
-                
-                if (profileMenu && !profileMenu.contains(event.target) && !profileButton.contains(event.target)) {
+
+                if (profileMenu && !profileMenu.contains(event.target) && 
+                    profileButton && !profileButton.contains(event.target)) {
                     profileMenu.classList.add('hidden');
                 }
-                
+
                 // Close modals when clicking outside
                 const modals = ['progressModal', 'helpModal'];
                 modals.forEach(modalId => {
                     const modal = document.getElementById(modalId);
-                    const modalContent = modal?.querySelector('div > div');
-                    
-                    if (modal && !modal.classList.contains('hidden') && modalContent && !modalContent.contains(event.target)) {
+                    if (modal && !modal.contains(event.target) && 
+                        !event.target.closest(`[onclick*="${modalId.replace('Modal', '').toLowerCase()}"]`)) {
                         modal.classList.add('hidden');
                     }
                 });
             });
-            
+
             // Keyboard shortcuts
             document.addEventListener('keydown', (event) => {
                 // Refresh with F5
@@ -1734,36 +1744,44 @@
                     event.preventDefault();
                     refreshSoalList();
                 }
-                
+
                 // Logout with Ctrl+Q
                 if (event.ctrlKey && event.key === 'q') {
                     event.preventDefault();
                     confirmLogout();
                 }
-                
+
                 // Help with F1
                 if (event.key === 'F1') {
                     event.preventDefault();
                     showHelpModal();
                 }
             });
-            
+
             // Handle offline/online events
             window.addEventListener('online', () => {
                 showNotification('success', 'Koneksi Pulih', 'Anda kembali online');
                 trackActivity('connection_restored');
             });
-            
+
             window.addEventListener('offline', () => {
                 showNotification('warning', 'Koneksi Hilang', 'Anda sedang offline. Beberapa fitur mungkin tidak tersedia');
                 trackActivity('connection_lost');
             });
+
+            // Prevent context menu on certain elements
+            document.addEventListener('contextmenu', (e) => {
+                if (e.target.closest('.soal-card')) {
+                    e.preventDefault();
+                }
+            });
         }
 
-        // ========== 16. CONFETTI EFFECT ==========
+        // ========== CONFETTI EFFECT ==========
         function createConfetti() {
-            if (document.getElementById('confetti-container').children.length > 50) return;
-            
+            const container = document.getElementById('confetti-container');
+            if (!container || container.children.length > 50) return;
+
             const colors = ['#3b82f6', '#8b5cf6', '#10b981', '#f59e0b', '#ef4444'];
             const confetti = document.createElement('div');
             confetti.className = 'confetti';
@@ -1772,35 +1790,35 @@
             confetti.style.width = Math.random() * 10 + 5 + 'px';
             confetti.style.height = Math.random() * 10 + 5 + 'px';
             confetti.style.transform = `rotate(${Math.random() * 360}deg)`;
-            
-            document.getElementById('confetti-container').appendChild(confetti);
-            
+
+            container.appendChild(confetti);
+
             // Animate
             let position = 0;
             const speed = Math.random() * 3 + 2;
             const rotation = Math.random() * 10 - 5;
-            
+
             const animate = () => {
                 position += speed;
                 confetti.style.top = position + 'px';
                 confetti.style.transform = `rotate(${rotation * position}deg)`;
-                
+
                 if (position < window.innerHeight) {
                     requestAnimationFrame(animate);
                 } else {
                     confetti.remove();
                 }
             };
-            
+
             animate();
         }
 
-        // ========== 17. GO TO LOGIN ==========
+        // ========== GO TO LOGIN ==========
         function goToLogin() {
             window.location.href = 'login.html';
         }
 
-        // ========== 18. INITIAL SETUP ==========
+        // ========== INITIAL SETUP ==========
         // Add confetti on significant events
         setInterval(() => {
             if (Math.random() < 0.01) { // 1% chance every interval
