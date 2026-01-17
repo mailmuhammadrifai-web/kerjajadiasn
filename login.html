@@ -9,20 +9,40 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap');
         body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .nav-glass {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
     </style>
 </head>
 <body class="bg-slate-50 flex flex-col min-h-screen">
 
-    <nav class="p-6">
-        <div class="container mx-auto">
-            <a href="index.html" class="text-xl font-extrabold text-blue-600 flex items-center gap-2">
-                <i class="fa-solid fa-arrow-left text-sm"></i>
-                KERJA JADI <span class="text-yellow-500">ASN</span>
-            </a>
+    <nav class="sticky top-0 z-50 nav-glass border-b border-slate-200/60">
+        <div class="container mx-auto px-4 md:px-6 py-4">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center gap-4">
+                    <a href="index.html" class="group flex items-center gap-2 bg-slate-100 hover:bg-slate-200 p-2 px-3 rounded-xl transition-all">
+                        <i class="fa-solid fa-arrow-left text-slate-600 group-hover:-translate-x-1 transition-transform"></i>
+                        <span class="text-sm font-bold text-slate-600 hidden md:block">Kembali</span>
+                    </a>
+                    <div class="h-8 w-[1px] bg-slate-200 hidden md:block"></div>
+                    <a href="index.html" class="flex flex-col">
+                        <span class="text-xl font-extrabold tracking-tight text-blue-600 leading-none">
+                            KERJA JADI <span class="text-yellow-500">ASN</span>
+                        </span>
+                        <span class="text-[10px] font-bold text-slate-400 tracking-widest uppercase mt-1">Platform Tryout No. 1</span>
+                    </a>
+                </div>
+                
+                <div class="bg-blue-600 text-white p-2 px-4 rounded-full text-[10px] font-bold uppercase tracking-wider shadow-md shadow-blue-200">
+                    Member Area
+                </div>
+            </div>
         </div>
     </nav>
 
-    <main class="flex-grow flex items-center justify-center px-4 pb-20">
+    <main class="flex-grow flex items-center justify-center px-4 py-12">
         <div class="max-w-md w-full">
             <div class="bg-white rounded-3xl shadow-xl shadow-slate-200/60 p-8 md:p-10 border border-slate-100">
                 <div class="text-center mb-8">
@@ -35,14 +55,14 @@
 
                 <form id="loginForm" class="space-y-6">
                     <div>
-                        <label for="pin" class="block text-sm font-bold text-slate-700 mb-2">PIN Akses</label>
+                        <label for="pinInput" class="block text-sm font-bold text-slate-700 mb-2">PIN Akses</label>
                         <div class="relative">
                             <span class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">
                                 <i class="fa-solid fa-lock"></i>
                             </span>
-                            <input type="text" id="pinInput" name="pin" maxlength="10" 
-                                class="w-full pl-12 pr-4 py-4 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition font-mono tracking-widest text-lg uppercase" 
-                                placeholder="CONTOH: ASN1P1" required>
+                            <input type="text" id="pinInput" name="pin" maxlength="6" 
+                                class="w-full pl-12 pr-4 py-4 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition font-mono tracking-[0.3em] text-lg uppercase text-center" 
+                                placeholder="******" required>
                         </div>
                     </div>
 
@@ -58,7 +78,7 @@
                             Daftar & Beli Paket Sekarang
                         </a>
                         <span class="text-slate-400 text-xs font-bold uppercase tracking-widest">Atau</span>
-                        <a href="https://wa.me/6285696409288?text=Halo%20Admin,%20saya%20sudah%20bayar%20tapi%20belum%20dapat%20PIN" 
+                        <a href="https://wa.me/6281234567890?text=Halo%20Admin,%20saya%20sudah%20bayar%20tapi%20belum%20dapat%20PIN" 
                            target="_blank" 
                            class="inline-flex items-center justify-center gap-2 text-green-600 font-bold hover:text-green-700">
                             <i class="fa-brands fa-whatsapp text-lg"></i>
@@ -70,44 +90,50 @@
         </div>
     </main>
 
+    <footer class="py-6 text-center text-slate-400 text-xs">
+        &copy; 2026 Kerja Jadi ASN. Member Area Aman Terlindungi.
+    </footer>
+
     <script>
-        // Database PIN Statis (5 PIN per Paket)
+        // Database 50 PIN Unik (Terbagi dalam 3 Paket)
         const pinDatabase = {
-            "paket1": ["ASN1P1", "ASN1P2", "ASN1P3", "ASN1P4", "ASN1P5"],
-            "paket2": ["ASN2P1", "ASN2P2", "ASN2P3", "ASN2P4", "ASN2P5"],
-            "paket3": ["ASN3P1", "ASN3P2", "ASN3P3", "ASN3P4", "ASN3P5"]
+            "paket1": [
+                "7XK9WP", "B4ZM1Q", "9TV2NL", "RS8MX3", "5CR1VT", "KP9MZ4", "G6HD2S", "1VT8NR", "FN2VK5", "2YM4BX",
+                "MR2VT8", "5HG9SL", "XP3KZ7", "2YN5VQ", "8WQ4PZ", "VS7NL2"
+            ],
+            "paket2": [
+                "9ZW1RF", "4FB6NT", "7XK1WP", "B2MK9P", "LP9QX4", "Y7CR2V", "4FB8NR", "9TW1MZ", "SK3JP7", "1VT5NR",
+                "FN9VK3", "2YM7BX", "SK9JP4", "MR7VT1", "3ZW7RB", "KP1MX9", "G6HD1S"
+            ],
+            "paket3": [
+                "VS4NL8", "RT9XM2", "B2MK8P", "7XL1WQ", "5HG2SD", "9ZW4RB", "KP8MX3", "FN5VK2", "8WQ4PZ", "2YM9BX",
+                "7KP1RT", "5HG6SD", "9ZW3RF", "RS4ML9", "VN7VK1", "8WQ3PZ", "4FB1NT"
+            ]
         };
 
         document.getElementById('loginForm').addEventListener('submit', function(e) {
             e.preventDefault();
-            const inputVal = document.getElementById('pinInput').value.toUpperCase();
+            const inputVal = document.getElementById('pinInput').value.toUpperCase().trim();
             let found = false;
 
-            // Cek di Paket 1
+            // Logika pengecekan PIN
             if (pinDatabase.paket1.includes(inputVal)) {
                 window.location.href = `dashboardpaket1.html?id=${inputVal}`;
                 found = true;
             } 
-            // Cek di Paket 2
             else if (pinDatabase.paket2.includes(inputVal)) {
                 window.location.href = `dashboardpaket2.html?id=${inputVal}`;
                 found = true;
             } 
-            // Cek di Paket 3
             else if (pinDatabase.paket3.includes(inputVal)) {
                 window.location.href = `dashboardpaket3.html?id=${inputVal}`;
                 found = true;
             }
 
             if (!found) {
-                alert("PIN tidak valid atau salah! Silakan hubungi admin jika ada kendala.");
+                alert("PIN tidak valid! Pastikan Anda memasukkan 6 karakter PIN yang benar dari WhatsApp Admin.");
             }
         });
     </script>
-
-    <footer class="py-6 text-center text-slate-400 text-xs">
-        &copy; 2026 Kerja Jadi ASN. Member Area.
-    </footer>
-
 </body>
 </html>
