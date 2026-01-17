@@ -80,22 +80,130 @@
         const pinAkses = urlParams.get('id') || "GUEST";
 
         const bankSoal = [
-            { id: 1, kategori: "TWK", tanya: "Lambang negara Indonesia adalah Garuda Pancasila dengan semboyan Bhinneka Tunggal Ika. Makna dari semboyan tersebut adalah...", opsi: ["A. Berbeda-beda tapi tetap satu", "B. Bersatu kita teguh bercerai kita runtuh", "C. Kekuatan dalam perbedaan", "D. Indonesia milik bersama", "E. Keberagaman yang hakiki"], kunci: 0 },
-            { id: 2, kategori: "TIU", tanya: "Jika 2x + 5 = 15, maka nilai x adalah...", opsi: ["A. 2", "B. 3", "C. 4", "D. 5", "E. 6"], kunci: 3 },
-            { id: 3, kategori: "TKP", tanya: "Rekan kerja Anda melakukan kecurangan kecil dalam laporan keuangan. Sikap Anda adalah...", opsi: ["A. Mendiamkannya", "B. Melaporkan langsung ke atasan", "C. Mengingatkannya secara baik-baik", "D. Ikut melakukannya", "E. Membicarakannya di belakang"], kunci: 2, bobot: [1, 2, 5, 1, 1] }
-        ];
+            // === TES WAWASAN KEBANGSAAN (TWK) - 30 Soal ===
+            { id: 1, kategori: "TWK", tanya: "Nilai-nilai Pancasila selain sebagai dasar negara juga berfungsi sebagai...", opsi: ["A. Paradigma pembangunan", "B. Sumber hukum tertinggi", "C. Dasar berdirinya negara", "D. Ideologi terbuka", "E. Alat pemersatu bangsa"], kunci: 3 },
+            { id: 2, kategori: "TWK", tanya: "Dalam UUD 1945, hak untuk mendapatkan jaminan sosial dan hidup layak diatur dalam Pasal...", opsi: ["A. 28A", "B. 28H ayat (1) dan (3)", "C. 28I ayat (1)", "D. 34 ayat (1)", "E. 33 ayat (3)"], kunci: 1 },
+            { id: 3, kategori: "TWK", tanya: "Secara yuridis, Pancasila sebagai dasar negara tertuang dalam...", opsi: ["A. Alinea keempat Pembukaan UUD 1945", "B. Ketetapan MPR", "C. Penjelasan UUD 1945", "D. Keputusan Presiden", "E. Batang Tubuh UUD 1945"], kunci: 0 },
+            { id: 4, kategori: "TWK", tanya: "Berikut yang bukan termasuk lembaga negara menurut perubahan UUD 1945 adalah...", opsi: ["A. Mahkamah Konstitusi", "B. Komisi Yudisial", "C. Dewan Perwakilan Daerah", "D. Badan Pemeriksa Keuangan", "E. Dewan Pertimbangan Agung"], kunci: 4 },
+            { id: 5, kategori: "TWK", tanya: "Sikap saling menghormati dan kerja sama antarumat beragama merupakan perwujudan dari nilai Pancasila sila ke...", opsi: ["A. 1", "B. 2", "C. 3", "D. 4", "E. 5"], kunci: 2 },
+            { id: 6, kategori: "TWK", tanya: "Konsep Wawasan Nusantara merupakan penjabaran dari Pancasila terutama sila...", opsi: ["A. Ketuhanan Yang Maha Esa", "B. Kemanusiaan yang adil dan beradab", "C. Persatuan Indonesia", "D. Kerakyatan yang dipimpin oleh hikmat kebijaksanaan dalam permusyawaratan/perwakilan", "E. Keadilan sosial bagi seluruh rakyat Indonesia"], kunci: 2 },
+            { id: 7, kategori: "TWK", tanya: "Sumpah Pemuda 1928 memiliki nilai strategis bagi perjuangan bangsa karena...", opsi: ["A. Menyatukan berbagai kelompok perjuangan", "B. Menjadi dasar pembentukan organisasi PETA", "C. Mempercepat penjajahan Belanda", "D. Menetapkan Bahasa Indonesia sebagai bahasa resmi", "E. Menyatukan para pemuda dari seluruh Indonesia"], kunci: 4 },
+            { id: 8, kategori: "TWK", tanya: "Implementasi nilai integritas dalam kehidupan sehari-hari adalah...", opsi: ["A. Selalu mematuhi peraturan", "B. Menyelesaikan pekerjaan tepat waktu", "C. Konsisten antara perkataan dan perbuatan", "D. Bekerja sama dengan baik", "E. Menghargai pendapat orang lain"], kunci: 2 },
+            { id: 9, kategori: "TWK", tanya: "Berikut adalah contoh perilaku bela negara di lingkungan sekolah, kecuali...", opsi: ["A. Mengikuti upacara bendera dengan khidmat", "B. Menghafal lagu-lagu perjuangan", "C. Aktif dalam organisasi siswa", "D. Memperhatikan pelajaran kewarganegaraan", "E. Mengikuti kegiatan pramuka"], kunci: 1 },
+            { id: 10, kategori: "TWK", tanya: "Yang termasuk sikap nasionalisme adalah...", opsi: ["A. Bangga menggunakan produk luar negeri", "B. Mengutamakan kepentingan daerah", "C. Menjaga persatuan dan kesatuan bangsa", "D. Tidak peduli dengan politik", "E. Mengikuti tren budaya asing"], kunci: 2 },
+            // TWK 11-20 (Contoh lanjutan)
+            { id: 11, kategori: "TWK", tanya: "Bhinneka Tunggal Ika bermakna bahwa perbedaan suku, agama, dan budaya harus...", opsi: ["A. Dihindari untuk menjaga keseragaman", "B. Diperkuat untuk identitas daerah", "C. Dijadikan alat politik praktis", "D. Dihargai dalam bingkai persatuan", "E. Dihilangkan demi kesatuan"], kunci: 3 },
+            { id: 12, kategori: "TWK", tanya: "Ketetapan MPRS No. XX/1966 berisi tentang...", opsi: ["A. Dasar negara Pancasila", "B. Pengukuhan Supersemar", "C. Penegasan Orde Baru", "D. Memorandum DPR-GR", "E. Penetapan Hari Kesaktian Pancasila"], kunci: 0 },
+            { id: 13, kategori: "TWK", tanya: "Sistem pemerintahan Indonesia berdasarkan UUD 1945 adalah...", opsi: ["A. Presidensial", "B. Parlementer", "C. Monarki", "D. Federal", "E. Komunis"], kunci: 0 },
+            { id: 14, kategori: "TWK", tanya: "Undang-Undang Dasar 1945 pertama kali diubah pada tahun...", opsi: ["A. 1998", "B. 1999", "C. 2000", "D. 2001", "E. 2002"], kunci: 1 },
+            { id: 15, kategori: "TWK", tanya: "Lembaga yang berwenang mengubah UUD 1945 adalah...", opsi: ["A. Presiden", "B. MPR", "C. DPR", "D. Mahkamah Konstitusi", "E. Komisi Yudisial"], kunci: 1 },
+            { id: 16, kategori: "TWK", tanya: "Pancasila sebagai pandangan hidup bangsa berarti...", opsi: ["A. Pedoman dalam bertingkah laku", "B. Sumber dari segala sumber hukum", "C. Lambang negara", "D. Alat pemersatu bangsa", "E. Dasar berdirinya negara"], kunci: 0 },
+            { id: 17, kategori: "TWK", tanya: "Sila pertama Pancasila dilambangkan dengan...", opsi: ["A. Bintang", "B. Rantai", "C. Pohon beringin", "D. Kepala banteng", "E. Padi dan kapas"], kunci: 0 },
+            { id: 18, kategori: "TWK", tanya: "Pancasila sebagai ideologi terbuka mengandung makna bahwa nilai-nilai Pancasila...", opsi: ["A. Statis dan tidak berubah", "B. Dapat dikembangkan sesuai zaman", "C. Hanya berlaku untuk Indonesia", "D. Bersifat kaku dan mutlak", "E. Tertutup terhadap pengaruh luar"], kunci: 1 },
+            { id: 19, kategori: "TWK", tanya: "Kewenangan Mahkamah Konstitusi berdasarkan UUD 1945 adalah...", opsi: ["A. Menguji undang-undang terhadap UUD", "B. Memutus sengketa pemilu legislatif", "C. Memberhentikan presiden", "D. Mengangkat hakim agung", "E. Menetapkan peraturan pemerintah"], kunci: 0 },
+            { id: 20, kategori: "TWK", tanya: "Contoh pelaksanaan demokrasi Pancasila di lingkungan sekolah adalah...", opsi: ["A. Pemilihan ketua kelas secara langsung", "B. Keputusan oleh kepala sekolah mutlak", "C. Musyawarah menentukan kegiatan kelas", "D. Aturan dari guru tanpa diskusi", "E. Pemungutan suara untuk segala hal"], kunci: 2 },
+            // TWK 21-30 (Contoh lanjutan)
+            { id: 21, kategori: "TWK", tanya: "Pancasila sebagai dasar negara Indonesia disahkan pada tanggal...", opsi: ["A. 17 Agustus 1945", "B. 18 Agustus 1945", "C. 1 Juni 1945", "D. 22 Juni 1945", "E. 29 Mei 1945"], kunci: 1 },
+            { id: 22, kategori: "TWK", tanya: "Pembukaan UUD 1945 terdiri dari... alinea", opsi: ["A. 3", "B. 4", "C. 5", "D. 6", "E. 7"], kunci: 1 },
+            { id: 23, kategori: "TWK", tanya: "Yang bukan termasuk nilai-nilai Pancasila adalah...", opsi: ["A. Ketuhanan", "B. Kemanusiaan", "C. Keadilan", "D. Kebenaran", "E. Persatuan"], kunci: 3 },
+            { id: 24, kategori: "TWK", tanya: "Fungsi Pancasila sebagai ideologi negara adalah...", opsi: ["A. Menjadi pedoman hidup bernegara", "B. Dasar kegiatan pemerintahan", "C. Sumber hukum nasional", "D. Lambang persatuan bangsa", "E. Pedoman hubungan internasional"], kunci: 0 },
+            { id: 25, kategori: "TWK", tanya: "Sikap positif terhadap nilai-nilai Pancasila dapat diwujudkan dengan...", opsi: ["A. Menghafal sila-sila Pancasila", "B. Mengamalkan dalam kehidupan sehari-hari", "C. Memasang lambang Garuda di rumah", "D. Ikut upacara setiap hari Senin", "E. Memperingati hari lahir Pancasila"], kunci: 1 },
+            { id: 26, kategori: "TWK", tanya: "Implementasi sila kedua Pancasila dalam kehidupan berbangsa adalah...", opsi: ["A. Menghormati hak asasi manusia", "B. Menjalankan ibadah sesuai agama", "C. Musyawarah untuk mufakat", "D. Bekerja keras untuk kemajuan", "E. Membela tanah air"], kunci: 0 },
+            { id: 27, kategori: "TWK", tanya: "Pancasila sebagai falsafah negara mengandung arti bahwa Pancasila merupakan...", opsi: ["A. Dasar perilaku warga negara", "B. Pedoman penyelenggaraan negara", "C. Sumber inspirasi budaya bangsa", "D. Landasan berpikir bangsa Indonesia", "E. Alat pemersatu suku bangsa"], kunci: 3 },
+            { id: 28, kategori: "TWK", tanya: "Pancasila sebagai sumber dari segala sumber hukum berarti...", opsi: ["A. Semua hukum harus berdasarkan Pancasila", "B. Hanya Pancasila yang berlaku di Indonesia", "C. Pancasila menggantikan hukum positif", "D. Hukum tidak diperlukan jika ada Pancasila", "E. Pancasila sama dengan undang-undang"], kunci: 0 },
+            { id: 29, kategori: "TWK", tanya: "Sikap yang mencerminkan nilai persatuan Indonesia adalah...", opsi: ["A. Menggunakan produk dalam negeri", "B. Bergaul tanpa membedakan suku", "C. Menjaga kebersihan lingkungan", "D. Belajar dengan tekun", "E. Menghormati orang tua"], kunci: 1 },
+            { id: 30, kategori: "TWK", tanya: "Pancasila sebagai jiwa bangsa Indonesia mengandung arti bahwa Pancasila...", opsi: ["A. Menjiwai segala aktivitas bangsa", "B. Hanya untuk orang Indonesia", "C. Merupakan karakter bangsa", "D. Dibuat oleh para pendiri bangsa", "E. Tidak dapat diubah oleh siapapun"], kunci: 0 },
 
-        for(let i=4; i<=110; i++) {
-            let kat = i <= 30 ? "TWK" : (i <= 65 ? "TIU" : "TKP");
-            bankSoal.push({ 
-                id: i, 
-                kategori: kat, 
-                tanya: `[SIMULASI] Pertanyaan Soal ${kat} ke-${i}.`, 
-                opsi: ["Opsi A", "Opsi B", "Opsi C", "Opsi D", "Opsi E"], 
-                kunci: 0,
-                bobot: kat === "TKP" ? [5, 4, 3, 2, 1] : null 
-            });
-        }
+            // === TES INTELEGENSI UMUM (TIU) - 35 Soal ===
+            { id: 31, kategori: "TIU", tanya: "PREVALENSI ≈", opsi: ["A. Kelaziman", "B. Pencegahan", "C. Penangguhan", "D. Keterkaitan", "E. Perkiraan"], kunci: 0 },
+            { id: 32, kategori: "TIU", tanya: "APATIS ><", opsi: ["A. Peduli", "B. Acuh", "C. Diam", "D. Pasif", "E. Netral"], kunci: 0 },
+            { id: 33, kategori: "TIU", tanya: "SASTRA : PENULIS = ... : ...", opsi: ["A. Lukisan : Pelukis", "B. Musik : Komposer", "C. Panggung : Aktor", "D. Arsitektur : Insinyur", "E. Puisi : Penyair"], kunci: 1 },
+            { id: 34, kategori: "TIU", tanya: "2, 6, 12, 20, 30, ...", opsi: ["A. 40", "B. 42", "C. 44", "D. 46", "E. 48"], kunci: 1 },
+            { id: 35, kategori: "TIU", tanya: "5, 13, 9, 18, 15, 25, 23, 34, ...", opsi: ["A. 28", "B. 30", "C. 33", "D. 35", "E. 38"], kunci: 2 },
+            { id: 36, kategori: "TIU", tanya: "Sebuah proyek dapat diselesaikan 15 pekerja dalam 20 hari. Setelah 8 hari bekerja, proyek dihentikan 4 hari. Agar selesai tepat waktu, pekerja tambahan yang dibutuhkan adalah...", opsi: ["A. 5", "B. 6", "C. 8", "D. 10", "E. 12"], kunci: 3 },
+            { id: 37, kategori: "TIU", tanya: "Jika semua X adalah Y, dan tidak ada Y yang Z, maka...", opsi: ["A. Beberapa X adalah Z", "B. Semua X bukan Z", "C. Beberapa Y adalah X", "D. Semua Z adalah Y", "E. Tidak dapat disimpulkan"], kunci: 1 },
+            { id: 38, kategori: "TIU", tanya: "Delapan orang (A-H) duduk melingkar. A bersebelahan dengan B dan C. D tidak bersebelahan dengan B. E berhadapan dengan A. Jika F di sebelah D, maka posisi G dan H...", opsi: ["A. Bersebelahan dengan E", "B. Berhadapan dengan C", "C. Di antara B dan D", "D. Di sebelah F", "E. Tidak dapat ditentukan"], kunci: 4 },
+            { id: 39, kategori: "TIU", tanya: "x = 75% dari 0,8; y = 0,8% dari 75. Maka...", opsi: ["A. x > y", "B. x < y", "C. x = y", "D. Hubungan tidak dapat ditentukan"], kunci: 2 },
+            { id: 40, kategori: "TIU", tanya: "Gambar: (deskripsi pola) Pilih gambar yang berbeda", opsi: ["A. Gambar A", "B. Gambar B", "C. Gambar C", "D. Gambar D", "E. Gambar E"], kunci: 1 },
+            // TIU 41-50
+            { id: 41, kategori: "TIU", tanya: "TAKSA ≈", opsi: ["A. Jelas", "B. Ambigu", "C. Terang", "D. Pasti", "E. Tegas"], kunci: 1 },
+            { id: 42, kategori: "TIU", tanya: "KONVENSI ><", opsi: ["A. Kebiasaan", "B. Inovasi", "C. Tradisi", "D. Perjanjian", "E. Kesepakatan"], kunci: 1 },
+            { id: 43, kategori: "TIU", tanya: "AIR : HAUS = MAKANAN : ...", opsi: ["A. Kenyang", "B. Lapar", "C. Minum", "D. Enak", "E. Sehat"], kunci: 1 },
+            { id: 44, kategori: "TIU", tanya: "3, 7, 15, 31, 63, ...", opsi: ["A. 95", "B. 111", "C. 127", "D. 135", "E. 143"], kunci: 2 },
+            { id: 45, kategori: "TIU", tanya: "A, C, F, J, O, ...", opsi: ["A. T", "B. U", "C. V", "D. W", "E. X"], kunci: 1 },
+            { id: 46, kategori: "TIU", tanya: "Sebuah mobil menempuh jarak 120 km dengan kecepatan 60 km/jam. Jika ingin waktu tempuh berkurang 20 menit, kecepatan yang harus digunakan adalah...", opsi: ["A. 70 km/jam", "B. 72 km/jam", "C. 75 km/jam", "D. 80 km/jam", "E. 90 km/jam"], kunci: 1 },
+            { id: 47, kategori: "TIU", tanya: "Semua dokter adalah sarjana. Beberapa sarjana adalah peneliti. Simpulan yang tepat adalah...", opsi: ["A. Semua dokter adalah peneliti", "B. Beberapa dokter adalah peneliti", "C. Semua peneliti adalah dokter", "D. Beberapa peneliti adalah dokter", "E. Tidak ada kesimpulan pasti"], kunci: 4 },
+            { id: 48, kategori: "TIU", tanya: "Umur Ayah 3 kali umur Anak. Jika selisih umur mereka 24 tahun, maka umur Anak adalah...", opsi: ["A. 8 tahun", "B. 10 tahun", "C. 12 tahun", "D. 14 tahun", "E. 16 tahun"], kunci: 2 },
+            { id: 49, kategori: "TIU", tanya: "Perbandingan uang A:B = 2:3, B:C = 4:5. Jika uang A Rp 80.000, maka uang C adalah...", opsi: ["A. Rp 120.000", "B. Rp 150.000", "C. Rp 180.000", "D. Rp 200.000", "E. Rp 240.000"], kunci: 1 },
+            { id: 50, kategori: "TIU", tanya: "Jika 4x² - 9 = 0, maka nilai x adalah...", opsi: ["A. 1.5 atau -1.5", "B. 2 atau -2", "C. 2.25 atau -2.25", "D. 3 atau -3", "E. 4 atau -4"], kunci: 0 },
+            // TIU 51-65
+            { id: 51, kategori: "TIU", tanya: "PROLIFERASI ≈", opsi: ["A. Penyusutan", "B. Perkembangan", "C. Pembekuan", "D. Penghancuran", "E. Pengurangan"], kunci: 1 },
+            { id: 52, kategori: "TIU", tanya: "KONSENSUS ><", opsi: ["A. Persetujuan", "B. Perbedaan", "C. Perdebatan", "D. Penolakan", "E. Pertentangan"], kunci: 4 },
+            { id: 53, kategori: "TIU", tanya: "BUKU : PERPUSTAKAAN = UANG : ...", opsi: ["A. Bank", "B. Dompet", "C. Pasar", "D. Toko", "E. Kantor"], kunci: 0 },
+            { id: 54, kategori: "TIU", tanya: "2, 5, 10, 17, 26, ...", opsi: ["A. 35", "B. 37", "C. 39", "D. 41", "E. 43"], kunci: 1 },
+            { id: 55, kategori: "TIU", tanya: "B, D, G, K, P, ...", opsi: ["A. U", "B. V", "C. W", "D. X", "E. Y"], kunci: 1 },
+            { id: 56, kategori: "TIU", tanya: "Sebuah lingkaran memiliki diameter 14 cm. Luas lingkaran tersebut adalah... (π = 22/7)", opsi: ["A. 154 cm²", "B. 308 cm²", "C. 616 cm²", "D. 1232 cm²", "E. 2464 cm²"], kunci: 0 },
+            { id: 57, kategori: "TIU", tanya: "Jika harga 5 buku dan 3 pensil adalah Rp 27.500, sedangkan harga 3 buku dan 2 pensil adalah Rp 16.500, maka harga 1 buku adalah...", opsi: ["A. Rp 3.000", "B. Rp 3.500", "C. Rp 4.000", "D. Rp 4.500", "E. Rp 5.000"], kunci: 2 },
+            { id: 58, kategori: "TIU", tanya: "Sebuah segitiga memiliki alas 12 cm dan tinggi 8 cm. Luas segitiga tersebut adalah...", opsi: ["A. 48 cm²", "B. 56 cm²", "C. 64 cm²", "D. 72 cm²", "E. 96 cm²"], kunci: 0 },
+            { id: 59, kategori: "TIU", tanya: "Nilai dari 75% dari 0,8 adalah...", opsi: ["A. 0,5", "B. 0,6", "C. 0,7", "D. 0,8", "E. 0,9"], kunci: 1 },
+            { id: 60, kategori: "TIU", tanya: "Sebuah persegi panjang memiliki panjang 15 cm dan lebar 10 cm. Keliling persegi panjang tersebut adalah...", opsi: ["A. 25 cm", "B. 50 cm", "C. 75 cm", "D. 100 cm", "E. 150 cm"], kunci: 1 },
+            { id: 61, kategori: "TIU", tanya: "Jika a = 3 dan b = 4, maka nilai dari a² + b² adalah...", opsi: ["A. 7", "B. 12", "C. 16", "D. 25", "E. 49"], kunci: 3 },
+            { id: 62, kategori: "TIU", tanya: "Suatu pekerjaan dapat diselesaikan oleh 8 orang dalam 12 hari. Jika pekerjaan tersebut harus selesai dalam 8 hari, maka banyak pekerja tambahan yang diperlukan adalah...", opsi: ["A. 4 orang", "B. 6 orang", "C. 8 orang", "D. 10 orang", "E. 12 orang"], kunci: 0 },
+            { id: 63, kategori: "TIU", tanya: "Sebuah toko memberikan diskon 20% untuk semua barang. Jika harga sebuah barang setelah diskon adalah Rp 80.000, maka harga barang sebelum diskon adalah...", opsi: ["A. Rp 90.000", "B. Rp 95.000", "C. Rp 100.000", "D. Rp 105.000", "E. Rp 110.000"], kunci: 2 },
+            { id: 64, kategori: "TIU", tanya: "Jika 3x - 7 = 8, maka nilai x adalah...", opsi: ["A. 3", "B. 4", "C. 5", "D. 6", "E. 7"], kunci: 2 },
+            { id: 65, kategori: "TIU", tanya: "Sebuah kereta bergerak dengan kecepatan 80 km/jam. Jarak yang ditempuh dalam 45 menit adalah...", opsi: ["A. 50 km", "B. 55 km", "C. 60 km", "D. 65 km", "E. 70 km"], kunci: 2 },
+
+            // === TES KARAKTERISTIK PRIBADI (TKP) - 45 Soal ===
+            { id: 66, kategori: "TKP", tanya: "Saat mengetahui rekan kerja melakukan kecurangan administratif ringan, saya...", opsi: ["A. Langsung melapor ke atasan tanpa bicara padanya", "B. Mengingatkan dan menegurnya secara baik-baik", "C. Diam saja karena bukan urusan saya", "D. Ikut melakukannya jika menguntungkan", "E. Membicarakannya dengan rekan lain"], kunci: 1, bobot: [2, 5, 3, 1, 2] },
+            { id: 67, kategori: "TKP", tanya: "Atasan saya memberikan tugas mendadak di luar job desk saya. Saya...", opsi: ["A. Menerima sambil protes dalam hati", "B. Menerima dan berusaha mengerjakan sebaik mungkin", "C. Menolak karena bukan tanggung jawab saya", "D. Meminta penjelasan dan negosiasi deadline", "E. Langsung meminta diajarkan cara mengerjakannya"], kunci: 3, bobot: [2, 4, 1, 5, 3] },
+            { id: 68, kategori: "TKP", tanya: "Dalam rapat tim, ide saya tidak diterima. Saya...", opsi: ["A. Kecewa dan menarik diri", "B. Menerima dan mendukung ide terbaik untuk tim", "C. Mempertahankan pendapat sampai disetujui", "D. Diam dan tidak berpartisipasi lagi", "E. Mencari dukungan rekan lain di luar rapat"], kunci: 1, bobot: [1, 5, 3, 2, 2] },
+            { id: 69, kategori: "TKP", tanya: "Ada warga yang marah-marah karena merasa dilayani lambat. Saya...", opsi: ["A. Membiarkannya sampai tenang sendiri", "B. Menjelaskan prosedur dengan sabar", "C. Meminta security mengamankan", "D. Membalas dengan nada tinggi", "E. Langsung melayani untuk menghindari konflik"], kunci: 1, bobot: [2, 5, 3, 1, 4] },
+            { id: 70, kategori: "TKP", tanya: "Saya ditugaskan memimpin proyek yang sebagian anggotanya lebih senior. Saya...", opsi: ["A. Memimpin dengan tegas tanpa melibatkan mereka", "B. Berdiskusi dan menghargai masukan mereka", "C. Menyerahkan kepemimpinan pada yang senior", "D. Hanya memberi tugas tanpa koordinasi", "E. Biarkan mereka bekerja sendiri-sendiri"], kunci: 1, bobot: [2, 5, 3, 1, 1] },
+            { id: 71, kategori: "TKP", tanya: "Bawahan saya melakukan kesalahan fatal. Sebagai atasan, saya...", opsi: ["A. Menghukumnya dengan skorsing", "B. Memanggil, menegur, dan membimbing perbaikan", "C. Melaporkan ke HRD untuk sanksi", "D. Meminta yang lain memperbaikinya", "E. Membiarkan agar ia belajar sendiri"], kunci: 1, bobot: [2, 5, 3, 2, 1] },
+            { id: 72, kategori: "TKP", tanya: "Saya mengetahui atasan terlibat rekayasa laporan. Saya...", opsi: ["A. Dalam hati tidak menyetujui", "B. Mengikuti perintah atasan", "C. Melaporkan melalui jalur yang benar dan whistleblowing system", "D. Pura-pura tidak tahu", "E. Membicarakannya di kantor"], kunci: 2, bobot: [2, 1, 5, 3, 1] },
+            { id: 73, kategori: "TKP", tanya: "Saya melihat lowongan internal yang lebih baik, padahal posisi saya sekarang belum genap satu tahun. Saya...", opsi: ["A. Langsung mendaftar tanpa pikir panjang", "B. Mendaftar setelah bicara dengan atasan langsung", "C. Tidak mendaftar karena takut dianggap tidak loyal", "D. Mendaftar diam-diam", "E. Menunggu ditawari"], kunci: 1, bobot: [2, 5, 3, 1, 2] },
+            { id: 74, kategori: "TKP", tanya: "Saya mendapat kritik pedas dari publik melalui media sosial. Saya...", opsi: ["A. Membalas dengan menjelaskan panjang lebar", "B. Mengecek kebenarannya dan menanggapi secara profesional", "C. Mengabaikannya", "D. Melapor ke pihak berwajib", "E. Menghapus komentar tersebut"], kunci: 1, bobot: [2, 5, 3, 2, 1] },
+            { id: 75, kategori: "TKP", tanya: "Di lingkungan baru, budaya kerja sangat berbeda dengan kebiasaan saya. Saya...", opsi: ["A. Tetap pada cara kerja lama saya", "B. Mempelajari dan beradaptasi dengan budaya baru", "C. Mencoba mengubah budaya kerja mereka", "D. Merasa tertekan dan ingin pindah", "E. Hanya fokus pada pekerjaan tanpa peduli budaya"], kunci: 1, bobot: [2, 5, 3, 1, 2] },
+            // TKP 76-85
+            { id: 76, kategori: "TKP", tanya: "Rekan kerja saya sering terlambat datang. Sikap saya adalah...", opsi: ["A. Melaporkan ke atasan", "B. Menegur dengan baik-baik", "C. Membiarkan saja", "D. Ikut terlambat", "E. Memperingatkan melalui chat grup"], kunci: 1, bobot: [3, 5, 2, 1, 4] },
+            { id: 77, kategori: "TKP", tanya: "Saya menemukan kesalahan dalam dokumen yang sudah disetujui atasan. Saya...", opsi: ["A. Diam saja karena sudah disetujui", "B. Memberi tahu atasan dengan sopan", "C. Memperbaikinya sendiri", "D. Menyimpan untuk bahan kritik", "E. Memberitahu rekan kerja"], kunci: 1, bobot: [2, 5, 4, 1, 3] },
+            { id: 78, kategori: "TKP", tanya: "Atasan memberikan penilaian kinerja yang menurut saya tidak adil. Saya...", opsi: ["A. Menerima dengan lapang dada", "B. Meminta klarifikasi dengan sopan", "C. Mengajukan banding ke HRD", "D. Mengundurkan diri", "E. Mengumpat dalam hati"], kunci: 1, bobot: [3, 5, 4, 1, 2] },
+            { id: 79, kategori: "TKP", tanya: "Saya diminta bekerja lembur mendadak padahal sudah ada janji keluarga. Saya...", opsi: ["A. Menolak dengan tegas", "B. Meminta pengertian atasan", "C. Membatalkan janji keluarga", "D. Bekerja dengan setengah hati", "E. Mencari alasan untuk pulang"], kunci: 1, bobot: [2, 5, 4, 1, 2] },
+            { id: 80, kategori: "TKP", tanya: "Saya melihat teman mengambil pulpen milik kantor untuk anaknya. Saya...", opsi: ["A. Melaporkan ke security", "B. Menegurnya dengan halus", "C. Membiarkan saja", "D. Ikut mengambil", "E. Memberitahu atasan"], kunci: 1, bobot: [4, 5, 2, 1, 3] },
+            { id: 81, kategori: "TKP", tanya: "Saya mendapatkan informasi rahasia tentang rencana perusahaan. Saya...", opsi: ["A. Menyimpannya untuk diri sendiri", "B. Hanya memberi tahu keluarga", "C. Menyebarkan ke rekan dekat", "D. Tetap merahasiakan", "E. Menjual informasi"], kunci: 3, bobot: [2, 1, 1, 5, 1] },
+            { id: 82, kategori: "TKP", tanya: "Saya diminta menjadi saksi untuk kasus teman di kantor. Saya...", opsi: ["A. Membela teman sepenuhnya", "B. Bersikap netral", "C. Menolak menjadi saksi", "D. Berkata sesuai fakta", "E. Memihak atasan"], kunci: 3, bobot: [2, 3, 1, 5, 2] },
+            { id: 83, kategori: "TKP", tanya: "Dalam tim, ada anggota yang tidak kooperatif. Saya...", opsi: ["A. Mengeluarkannya dari tim", "B. Mengajak diskusi untuk mencari solusi", "C. Mengeluh ke atasan", "D. Bekerja sendiri saja", "E. Membiarkan dia tidak bekerja"], kunci: 1, bobot: [2, 5, 3, 1, 1] },
+            { id: 84, kategori: "TKP", tanya: "Saya memiliki ide untuk meningkatkan efisiensi kerja. Saya...", opsi: ["A. Menyimpannya sendiri", "B. Menerapkannya sendiri", "C. Menyampaikan ke atasan", "D. Diskusikan dengan tim", "E. Menunggu ditanya"], kunci: 3, bobot: [1, 3, 5, 4, 2] },
+            { id: 85, kategori: "TKP", tanya: "Ketika rapat, atasan salah menyebut data. Saya...", opsi: ["A. Membiarkan saja", "B. Membetulkan di tempat", "C. Memberi catatan kecil", "D. Membetulkan setelah rapat", "E. Menyuruh orang lain membetulkan"], kunci: 3, bobot: [2, 3, 4, 5, 1] },
+            // TKP 86-95
+            { id: 86, kategori: "TKP", tanya: "Saya ditugaskan di daerah terpencil. Sikap saya...", opsi: ["A. Menolak dengan tegas", "B. Menerima dengan berat hati", "C. Menerima sebagai tantangan", "D. Mengajukan keberatan", "E. Mencari alasan untuk tidak berangkat"], kunci: 2, bobot: [1, 3, 5, 2, 1] },
+            { id: 87, kategori: "TKP", tanya: "Saya melihat atasan menerima hadiah dari rekanan. Saya...", opsi: ["A. Melaporkan ke KPK", "B. Membicarakannya dengan rekan", "C. Menganggapnya biasa", "D. Menanyakan ke atasan", "E. Mencatat sebagai bukti"], kunci: 3, bobot: [4, 2, 1, 5, 3] },
+            { id: 88, kategori: "TKP", tanya: "Ada peluang kerja sampingan yang menguntungkan tapi menyita waktu kerja. Saya...", opsi: ["A. Mengambilnya", "B. Menolak karena tidak etis", "C. Mengambil dengan sembunyi", "D. Meminta izin atasan", "E. Menunggu sampai pensiun"], kunci: 3, bobot: [1, 4, 1, 5, 2] },
+            { id: 89, kategori: "TKP", tanya: "Saya diminta menyelesaikan pekerjaan yang belum pernah saya lakukan. Saya...", opsi: ["A. Menolak mentah-mentah", "B. Mencoba belajar sendiri", "C. Minta diajari atasan", "D. Menyerahkan ke orang lain", "E. Pura-pura bisa"], kunci: 2, bobot: [1, 5, 4, 2, 1] },
+            { id: 90, kategori: "TKP", tanya: "Saya merasa jenuh dengan pekerjaan rutin. Saya...", opsi: ["A. Mengundurkan diri", "B. Bekerja asal-asalan", "C. Mencari variasi dalam kerja", "D. Mengeluh ke teman", "E. Meminta mutasi"], kunci: 2, bobot: [1, 1, 5, 2, 3] },
+            { id: 91, kategori: "TKP", tanya: "Saya mengetahui ada pungutan liar di instansi. Saya...", opsi: ["A. Ikut memungut", "B. Membiarkan saja", "C. Melaporkan ke atasan", "D. Melaporkan ke polisi", "E. Memperingatkan pelaku"], kunci: 4, bobot: [1, 2, 4, 5, 3] },
+            { id: 92, kategori: "TKP", tanya: "Saya sering ditegur atasan karena kesalahan kecil. Saya...", opsi: ["A. Membenci atasan", "B. Menerima dan memperbaiki", "C. Membalas dengan sindiran", "D. Pindah bagian", "E. Mengabaikan teguran"], kunci: 1, bobot: [1, 5, 1, 3, 1] },
+            { id: 93, kategori: "TKP", tanya: "Ada warga miskin meminta bantuan padahal bukan tugas saya. Saya...", opsi: ["A. Mengusirnya", "B. Membiarkan saja", "C. Membantu semampu saya", "D. Mengarahkan ke bagian terkait", "E. Meminta uang padanya"], kunci: 3, bobot: [1, 2, 4, 5, 1] },
+            { id: 94, kategori: "TKP", tanya: "Saya melihat teman mengambil cuti padahal tidak sakit. Saya...", opsi: ["A. Melaporkan ke HRD", "B. Menegurnya", "C. Membiarkan saja", "D. Ikut mengambil cuti", "E. Memberi tahu atasan"], kunci: 2, bobot: [3, 5, 2, 1, 4] },
+            { id: 95, kategori: "TKP", tanya: "Saya diminta memberi keterangan yang tidak sebenarnya. Saya...", opsi: ["A. Menolak dengan tegas", "B. Menerima dengan terpaksa", "C. Meminta waktu berpikir", "D. Melakukan dengan setengah hati", "E. Melaporkan ke atasan lebih tinggi"], kunci: 0, bobot: [5, 1, 3, 2, 4] },
+            // TKP 96-105
+            { id: 96, kategori: "TKP", tanya: "Saya melihat anak atasan melanggar peraturan. Saya...", opsi: ["A. Membiarkan saja", "B. Menegur dengan sopan", "C. Melaporkan ke atasan", "D. Pura-pura tidak lihat", "E. Memberi sanksi ringan"], kunci: 1, bobot: [2, 5, 4, 1, 3] },
+            { id: 97, kategori: "TKP", tanya: "Saya harus memilih antara menyelesaikan pekerjaan tepat waktu atau dengan kualitas terbaik. Saya...", opsi: ["A. Tepat waktu saja", "B. Kualitas terbaik", "C. Kompromi keduanya", "D. Minta bantuan rekan", "E. Minta tambahan waktu"], kunci: 2, bobot: [3, 4, 5, 2, 4] },
+            { id: 98, kategori: "TKP", tanya: "Saya melihat teman bekerja sambil main game. Saya...", opsi: ["A. Bergabung bermain", "B. Menegurnya", "C. Melaporkan ke atasan", "D. Membiarkan saja", "E. Mengingatkan dengan baik"], kunci: 4, bobot: [1, 4, 3, 2, 5] },
+            { id: 99, kategori: "TKP", tanya: "Saya diminta bekerja pada hari libur. Saya...", opsi: ["A. Menolak dengan halus", "B. Menerima dengan ikhlas", "C. Minta ganti rugi", "D. Bekerja dengan malas", "E. Minta diwakilkan"], kunci: 1, bobot: [3, 5, 4, 1, 2] },
+            { id: 100, kategori: "TKP", tanya: "Saya menemukan dompet berisi uang di kantor. Saya...", opsi: ["A. Mengambil uangnya", "B. Menyerahkan ke security", "C. Membiarkan saja", "D. Membawa pulang", "E. Mencari pemiliknya"], kunci: 4, bobot: [1, 4, 2, 1, 5] },
+            { id: 101, kategori: "TKP", tanya: "Atasan meminta pendapat tentang rekan kerja. Saya...", opsi: ["A. Mengatakan yang baik saja", "B. Berkata jujur apa adanya", "C. Menolak memberi pendapat", "D. Mengatakan yang buruk", "E. Minta waktu berpikir"], kunci: 1, bobot: [3, 5, 2, 1, 4] },
+            { id: 102, kategori: "TKP", tanya: "Saya diminta menggantikan rekan yang sakit. Saya...", opsi: ["A. Menolak karena sibuk", "B. Menerima dengan senang", "C. Menerima dengan berat hati", "D. Minta imbalan", "E. Mengeluh ke atasan"], kunci: 1, bobot: [1, 5, 3, 1, 2] },
+            { id: 103, kategori: "TKP", tanya: "Saya menghadapi masalah pribadi yang mengganggu kerja. Saya...", opsi: ["A. Bekerja seperti biasa", "B. Mengambil cuti", "C. Bekerja setengah hati", "D. Cerita ke rekan kerja", "E. Minta bantuan psikolog"], kunci: 1, bobot: [4, 5, 1, 2, 3] },
+            { id: 104, kategori: "TKP", tanya: "Saya tidak setuju dengan kebijakan baru. Saya...", opsi: ["A. Melanggar diam-diam", "B. Menerima dengan patuh", "C. Menyampaikan pendapat dengan sopan", "D. Memprotes keras", "E. Mengajak rekan untuk menolak"], kunci: 2, bobot: [1, 3, 5, 2, 1] },
+            { id: 105, kategori: "TKP", tanya: "Saya melihat teman memanipulasi data. Saya...", opsi: ["A. Bergabung memanipulasi", "B. Membiarkan saja", "C. Menegur dengan tegas", "D. Melaporkan ke atasan", "E. Memperingatkan secara baik"], kunci: 4, bobot: [1, 2, 4, 5, 5] },
+            // TKP 106-110
+            { id: 106, kategori: "TKP", tanya: "Saya harus memutuskan antara kepentingan pribadi dan tugas negara. Saya...", opsi: ["A. Mengutamakan pribadi", "B. Mengutamakan tugas", "C. Mencari jalan tengah", "D. Menyerahkan pada atasan", "E. Mengundurkan diri"], kunci: 1, bobot: [1, 5, 4, 3, 1] },
+            { id: 107, kategori: "TKP", tanya: "Saya mendapat tugas yang tidak saya sukai. Saya...", opsi: ["A. Menolak tegas", "B. Menerima dengan profesional", "C. Mengerjakan asal-asalan", "D. Minta ditukar", "E. Menunda-nunda"], kunci: 1, bobot: [1, 5, 1, 3, 1] },
+            { id: 108, kategori: "TKP", tanya: "Saya melihat fasilitas negara disalahgunakan. Saya...", opsi: ["A. Ikut menggunakan", "B. Membiarkan saja", "C. Melaporkan ke yang berwajib", "D. Menegur pelaku", "E. Mengambil untuk diri sendiri"], kunci: 2, bobot: [1, 2, 5, 4, 1] },
+            { id: 109, kategori: "TKP", tanya: "Saya harus bekerja dengan orang yang tidak saya sukai. Saya...", opsi: ["A. Menolak bekerja sama", "B. Bekerja profesional", "C. Bekerja dengan tidak serius", "D. Minta pindah tim", "E. Mengeluh ke atasan"], kunci: 1, bobot: [1, 5, 1, 3, 2] },
+            { id: 110, kategori: "TKP", tanya: "Saya diminta menyimpan rahasia negara. Saya...", opsi: ["A. Menyebarkan ke media", "B. Menyimpan dengan baik", "C. Memberi tahu keluarga", "D. Menjual informasi", "E. Membicarakan dengan rekan"], kunci: 1, bobot: [1, 5, 2, 1, 1] }
+        ];
 
         let currentIdx = 0;
         let jawabanUser = new Array(110).fill(null);
@@ -171,7 +279,7 @@
                     } else {
                         if (soal.kategori === "TKP") {
                             sTKP += soal.bobot ? soal.bobot[jawab] : 0;
-                            benar++; // TKP selalu dianggap mengisi
+                            benar++;
                         } else {
                             if (jawab === soal.kunci) {
                                 benar++;
@@ -184,7 +292,15 @@
                     }
                 });
 
-                const hasil = { total: sTWK + sTIU + sTKP, twk: sTWK, tiu: sTIU, tkp: sTKP, benar, salah, kosong };
+                const hasil = { 
+                    total: sTWK + sTIU + sTKP, 
+                    twk: sTWK, 
+                    tiu: sTIU, 
+                    tkp: sTKP, 
+                    benar, 
+                    salah, 
+                    kosong 
+                };
                 localStorage.setItem(`hasil_${pinAkses}`, JSON.stringify(hasil));
                 window.location.href = `hasilujian.html?id=${pinAkses}`;
             }
