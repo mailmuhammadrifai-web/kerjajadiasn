@@ -9,129 +9,394 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap');
         body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-thumb { 
+            background: linear-gradient(135deg, #f59e0b, #d97706); 
+            border-radius: 4px;
+        }
+        
+        /* Premium card hover effect */
+        .premium-card {
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .premium-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(245, 158, 11, 0.15);
+        }
+        
+        .premium-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(to bottom, #f59e0b, #d97706);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .premium-card:hover::before {
+            opacity: 1;
+        }
+        
+        /* Animated gradient background */
+        .premium-gradient {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #1e40af 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .premium-gradient::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(245, 158, 11, 0.1) 0%, transparent 70%);
+            animation: pulse 8s infinite alternate;
+        }
+        
+        @keyframes pulse {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Gold badge */
+        .gold-badge {
+            background: linear-gradient(135deg, #fbbf24, #d97706, #92400e);
+            color: white;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+            border: 2px solid rgba(255, 215, 0, 0.3);
+        }
+        
+        /* Shine effect */
+        .shine-effect {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .shine-effect::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 50%;
+            height: 200%;
+            background: linear-gradient(
+                to right,
+                transparent 0%,
+                rgba(255, 255, 255, 0.2) 50%,
+                transparent 100%
+            );
+            transform: rotate(30deg);
+            animation: shine 3s infinite;
+        }
+        
+        @keyframes shine {
+            0% { left: -50%; }
+            100% { left: 150%; }
+        }
     </style>
 </head>
-<body class="bg-slate-50 min-h-screen">
+<body class="bg-gradient-to-br from-slate-50 to-slate-100 min-h-screen">
 
-    <nav class="bg-slate-900 border-b border-slate-800 sticky top-0 z-50 shadow-sm">
+    <!-- Premium Navigation -->
+    <nav class="bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 border-b border-yellow-500/20 sticky top-0 z-50 shadow-2xl">
         <div class="container mx-auto px-6 py-4 flex justify-between items-center">
             <div class="flex items-center gap-4">
-                <span class="bg-yellow-500 text-slate-900 px-3 py-1 rounded-lg font-bold text-[10px] uppercase tracking-tighter">Ultimate Paket 3</span>
-                <h1 class="font-extrabold text-white uppercase tracking-tighter text-lg">KERJA JADI <span class="text-yellow-500">ASN</span></h1>
-            </div>
-            <div class="flex items-center gap-3">
-                <div class="text-right hidden md:block">
-                    <p class="text-[10px] font-bold text-slate-400 uppercase leading-none">ID Member</p>
-                    <p id="displayPin" class="text-sm font-bold text-yellow-500 tracking-wider">MEMUAT...</p>
+                <div class="relative group">
+                    <div class="absolute -inset-1 bg-gradient-to-r from-yellow-500 to-amber-600 rounded-lg blur opacity-25 group-hover:opacity-50 transition duration-300"></div>
+                    <div class="relative flex items-center gap-3 px-4 py-2 bg-slate-900 rounded-lg border border-yellow-500/20">
+                        <i class="fa-solid fa-crown text-yellow-400 text-lg"></i>
+                        <h1 class="font-extrabold text-white uppercase tracking-tighter text-xl">
+                            <span class="bg-gradient-to-r from-yellow-400 to-amber-400 bg-clip-text text-transparent">
+                                ULTIMATE
+                            </span>
+                        </h1>
+                    </div>
                 </div>
-                <div class="w-10 h-10 bg-slate-800 rounded-full flex items-center justify-center border border-slate-700">
-                    <i class="fa-solid fa-gem text-yellow-500"></i>
+                <div class="hidden md:block">
+                    <p class="text-xs font-bold text-slate-400 uppercase tracking-widest">Paket Premium</p>
+                    <p class="text-sm font-black text-white">Akses Tak Terbatas</p>
+                </div>
+            </div>
+            
+            <div class="flex items-center gap-6">
+                <div class="text-right hidden md:block">
+                    <p class="text-[10px] font-bold text-slate-300 uppercase tracking-widest">ID Member Exclusive</p>
+                    <p id="displayPin" class="text-lg font-black bg-gradient-to-r from-yellow-400 to-amber-400 bg-clip-text text-transparent tracking-wider">MEMUAT...</p>
+                </div>
+                
+                <div class="relative group">
+                    <div class="absolute -inset-1 bg-gradient-to-r from-yellow-500 to-amber-600 rounded-full blur opacity-20 group-hover:opacity-30 transition duration-300"></div>
+                    <div class="relative w-12 h-12 bg-gradient-to-br from-slate-800 to-slate-900 rounded-full flex items-center justify-center border-2 border-yellow-500/30 shadow-xl">
+                        <i class="fa-solid fa-gem text-yellow-400 text-xl"></i>
+                        <div class="absolute -top-1 -right-1 w-5 h-5 bg-gradient-to-r from-yellow-500 to-amber-600 rounded-full flex items-center justify-center border-2 border-slate-900">
+                            <i class="fa-solid fa-star text-[8px] text-white"></i>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </nav>
 
     <main class="container mx-auto px-4 py-8">
-        <div class="bg-gradient-to-br from-slate-900 via-slate-800 to-blue-900 rounded-3xl p-8 mb-8 text-white relative overflow-hidden shadow-2xl">
+        <!-- Premium Hero Section -->
+        <div class="premium-gradient rounded-3xl p-8 mb-10 text-white relative overflow-hidden shadow-2xl border border-yellow-500/20">
             <div class="relative z-10">
-                <div class="inline-block px-3 py-1 bg-yellow-500 text-slate-900 text-[10px] font-black rounded-full mb-4 uppercase tracking-widest">Akses Tak Terbatas</div>
-                <h2 class="text-3xl font-black mb-2 text-yellow-500">Selamat Datang, Member Ultimate!</h2>
-                <p class="text-slate-300 opacity-90 max-w-lg text-sm">Anda telah membuka seluruh fitur: 20 Paket Tryout, Materi Lengkap, dan Strategi Lolos Formasi.</p>
+                <div class="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-yellow-500 to-amber-600 rounded-full mb-6 text-xs font-black uppercase tracking-widest shadow-lg">
+                    <i class="fa-solid fa-bolt"></i>
+                    <span>Akses Ultimate Unlimited</span>
+                </div>
+                
+                <h2 class="text-4xl font-black mb-4 leading-tight">
+                    <span class="bg-gradient-to-r from-yellow-400 via-amber-300 to-yellow-400 bg-clip-text text-transparent">
+                        Selamat Bergabung,<br>Member Elite!
+                    </span>
+                </h2>
+                
+                <p class="text-slate-200 opacity-90 max-w-xl text-sm mb-6 leading-relaxed">
+                    Anda sekarang memiliki akses penuh ke seluruh platform. Nikmati 20 paket tryout premium, 
+                    materi lengkap terupdate, dan strategi khusus untuk memaksimalkan peluang lolos ASN.
+                </p>
+                
+                <div class="flex flex-wrap gap-4">
+                    <div class="flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-xl border border-white/20">
+                        <i class="fa-solid fa-infinity text-yellow-400"></i>
+                        <span class="text-xs font-bold">Tryout Unlimited</span>
+                    </div>
+                    <div class="flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-xl border border-white/20">
+                        <i class="fa-solid fa-book-open text-yellow-400"></i>
+                        <span class="text-xs font-bold">Materi Premium</span>
+                    </div>
+                    <div class="flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-xl border border-white/20">
+                        <i class="fa-solid fa-chart-line text-yellow-400"></i>
+                        <span class="text-xs font-bold">Analisis Detil</span>
+                    </div>
+                </div>
             </div>
-            <i class="fa-solid fa-bolt-lightning absolute -right-6 -bottom-6 text-[12rem] text-yellow-500/10 rotate-12"></i>
+            
+            <div class="absolute right-0 top-1/2 -translate-y-1/2 opacity-10 md:opacity-20">
+                <i class="fa-solid fa-crown text-[20rem] text-yellow-400"></i>
+            </div>
+            
+            <div class="absolute -bottom-10 -left-10 w-40 h-40 bg-gradient-to-r from-yellow-500/10 to-amber-600/10 rounded-full blur-3xl"></div>
+            <div class="absolute -top-10 -right-10 w-40 h-40 bg-gradient-to-r from-blue-500/10 to-cyan-600/10 rounded-full blur-3xl"></div>
         </div>
 
         <div class="grid lg:grid-cols-3 gap-8">
+            <!-- Left Column - Main Content -->
             <div class="lg:col-span-2 space-y-8">
                 
+                <!-- Exclusive Features Section -->
                 <div>
-                    <h3 class="font-bold text-slate-800 text-xl flex items-center gap-3 mb-4">
-                        <i class="fa-solid fa-star text-yellow-500"></i>
-                        Fitur Eksklusif Ultimate
-                    </h3>
-                    <div class="grid md:grid-cols-2 gap-4">
-                        <a href="tips-formasi.html" class="p-5 bg-white rounded-2xl border-2 border-yellow-100 shadow-sm hover:border-yellow-500 transition group flex items-start gap-4">
-                            <div class="w-12 h-12 bg-yellow-50 rounded-xl flex items-center justify-center text-yellow-600 shrink-0">
-                                <i class="fa-solid fa-map-location-dot text-xl"></i>
+                    <div class="flex items-center justify-between mb-6">
+                        <h3 class="font-bold text-slate-800 text-2xl flex items-center gap-3">
+                            <div class="w-10 h-10 bg-gradient-to-br from-yellow-500 to-amber-600 rounded-xl flex items-center justify-center shadow-lg">
+                                <i class="fa-solid fa-star text-white"></i>
                             </div>
-                            <div>
-                                <h4 class="font-bold text-slate-800 text-sm">Tips Memilih Formasi</h4>
-                                <p class="text-[10px] text-slate-500 mt-1">Strategi memilih instansi dengan peluang lolos tertinggi.</p>
+                            Fitur Eksklusif Ultimate
+                        </h3>
+                        <span class="text-xs font-bold text-yellow-600 bg-yellow-50 px-3 py-1 rounded-full border border-yellow-100">
+                            20+ Fitur Premium
+                        </span>
+                    </div>
+                    
+                    <div class="grid md:grid-cols-2 gap-5">
+                        <a href="tips-formasi.html" class="premium-card p-6 bg-white rounded-2xl border border-slate-200 shadow-md group">
+                            <div class="flex items-start gap-5">
+                                <div class="w-14 h-14 bg-gradient-to-br from-yellow-50 to-amber-50 rounded-xl flex items-center justify-center border border-yellow-100 shadow-sm group-hover:shadow-md transition-shadow">
+                                    <i class="fa-solid fa-map-location-dot text-2xl text-amber-600"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="flex items-center gap-2 mb-2">
+                                        <h4 class="font-bold text-slate-800 text-base">Tips Memilih Formasi</h4>
+                                        <span class="text-[8px] font-black bg-amber-100 text-amber-800 px-2 py-1 rounded-full">NEW</span>
+                                    </div>
+                                    <p class="text-xs text-slate-600 leading-relaxed">
+                                        Strategi cerdas memilih instansi dengan peluang lolos tertinggi berdasarkan data tahun lalu.
+                                    </p>
+                                    <div class="mt-4 flex items-center text-xs font-bold text-amber-600">
+                                        <span>Buka Panduan</span>
+                                        <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+                                    </div>
+                                </div>
                             </div>
                         </a>
-                        <a href="strategi-skd.html" class="p-5 bg-white rounded-2xl border-2 border-yellow-100 shadow-sm hover:border-yellow-500 transition group flex items-start gap-4">
-                            <div class="w-12 h-12 bg-yellow-50 rounded-xl flex items-center justify-center text-yellow-600 shrink-0">
-                                <i class="fa-solid fa-brain text-xl"></i>
-                            </div>
-                            <div>
-                                <h4 class="font-bold text-slate-800 text-sm">Strategi Mengerjakan SKD</h4>
-                                <p class="text-[10px] text-slate-500 mt-1">Teknik menjawab soal dalam 54 detik per soal.</p>
+                        
+                        <a href="strategi-skd.html" class="premium-card p-6 bg-white rounded-2xl border border-slate-200 shadow-md group">
+                            <div class="flex items-start gap-5">
+                                <div class="w-14 h-14 bg-gradient-to-br from-blue-50 to-cyan-50 rounded-xl flex items-center justify-center border border-blue-100 shadow-sm group-hover:shadow-md transition-shadow">
+                                    <i class="fa-solid fa-brain text-2xl text-blue-600"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <h4 class="font-bold text-slate-800 text-base mb-2">Strategi Mengerjakan SKD</h4>
+                                    <p class="text-xs text-slate-600 leading-relaxed">
+                                        Teknik khusus menjawab soal dalam 54 detik per soal dengan akurasi tinggi.
+                                    </p>
+                                    <div class="mt-4 flex items-center text-xs font-bold text-blue-600">
+                                        <span>Pelajari Strategi</span>
+                                        <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+                                    </div>
+                                </div>
                             </div>
                         </a>
                     </div>
                 </div>
 
+                <!-- Tryout Simulation Section -->
                 <div>
-                    <h3 class="font-bold text-slate-800 text-xl flex items-center gap-3 mb-4">
-                        <i class="fa-solid fa-laptop-code text-blue-600"></i>
-                        Simulasi Tryout (20 Paket)
-                    </h3>
-                    <div id="soalListContainer" class="space-y-3"></div>
+                    <div class="flex items-center justify-between mb-6">
+                        <h3 class="font-bold text-slate-800 text-2xl flex items-center gap-3">
+                            <div class="w-10 h-10 bg-gradient-to-br from-slate-900 to-slate-800 rounded-xl flex items-center justify-center shadow-lg">
+                                <i class="fa-solid fa-laptop-code text-white"></i>
+                            </div>
+                            Simulasi Tryout Ultimate
+                        </h3>
+                        <div class="text-right">
+                            <p class="text-xs font-bold text-slate-500">Total Paket Tersedia</p>
+                            <p class="text-lg font-black text-slate-800">20 Paket Premium</p>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-gradient-to-br from-white to-slate-50 rounded-2xl border border-slate-200 shadow-md p-1">
+                        <div id="soalListContainer" class="space-y-3 max-h-[500px] overflow-y-auto p-4"></div>
+                    </div>
                 </div>
             </div>
 
+            <!-- Right Column - Sidebar -->
             <div class="space-y-6">
-                <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-100">
-                    <h4 class="font-bold text-slate-800 mb-4 tracking-tight uppercase text-xs">Status Akun</h4>
-                    <div class="p-4 bg-yellow-50 rounded-2xl border border-yellow-100 mb-4 flex items-center gap-3">
-                        <div class="w-10 h-10 bg-yellow-500 rounded-full flex items-center justify-center text-white shadow-md">
-                            <i class="fa-solid fa-shield-halved"></i>
+                <!-- Account Status Card -->
+                <div class="premium-card bg-gradient-to-br from-slate-900 to-slate-800 p-6 rounded-3xl shadow-xl border border-yellow-500/20 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-yellow-500/10 to-amber-600/10 rounded-full -translate-y-10 translate-x-10"></div>
+                    
+                    <h4 class="font-bold text-white mb-6 tracking-tight uppercase text-sm flex items-center gap-2">
+                        <i class="fa-solid fa-id-card text-yellow-400"></i>
+                        Status Akun Elite
+                    </h4>
+                    
+                    <div class="p-5 bg-gradient-to-r from-yellow-500/10 to-amber-600/10 rounded-2xl border border-yellow-500/20 mb-6 flex items-center gap-4 backdrop-blur-sm">
+                        <div class="w-12 h-12 bg-gradient-to-br from-yellow-500 to-amber-600 rounded-full flex items-center justify-center text-white shadow-lg shine-effect">
+                            <i class="fa-solid fa-crown text-lg"></i>
                         </div>
                         <div>
-                            <p class="text-[10px] font-bold text-yellow-700 uppercase leading-none">Level Akun</p>
-                            <p class="text-sm font-black text-slate-900">MEMBER ULTIMATE</p>
+                            <p class="text-[10px] font-bold text-yellow-300 uppercase leading-none">Tier Akun</p>
+                            <p class="text-lg font-black text-white">ULTIMATE ELITE</p>
                         </div>
                     </div>
-                    <div class="space-y-2">
-                        <div class="flex justify-between text-xs font-bold">
-                            <span class="text-slate-500">Kuota Tryout</span>
-                            <span class="text-slate-800">20 / 20 Tersedia</span>
+                    
+                    <div class="space-y-4">
+                        <div>
+                            <div class="flex justify-between text-xs font-bold mb-2">
+                                <span class="text-slate-300">Kuota Tryout Ultimate</span>
+                                <span class="text-yellow-400">∞ Unlimited</span>
+                            </div>
+                            <div class="w-full bg-slate-700 h-3 rounded-full overflow-hidden">
+                                <div class="bg-gradient-to-r from-yellow-500 to-amber-600 h-full w-full relative">
+                                    <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent animate-shimmer"></div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
-                            <div class="bg-yellow-500 h-full w-full"></div>
+                        
+                        <div class="grid grid-cols-2 gap-3 pt-4 border-t border-slate-700">
+                            <div class="text-center">
+                                <div class="text-2xl font-black text-white">20</div>
+                                <div class="text-[10px] font-bold text-slate-400 uppercase">Paket Tryout</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-2xl font-black text-white">3</div>
+                                <div class="text-[10px] font-bold text-slate-400 uppercase">Modul Lengkap</div>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-100">
-                    <h4 class="font-bold text-slate-800 mb-4 tracking-tight uppercase text-xs">Modul Materi</h4>
-                    <div class="grid grid-cols-3 gap-2">
-                        <a href="modul-twk.html" class="flex flex-col items-center p-2 hover:bg-slate-50 rounded-xl transition">
-                            <i class="fa-solid fa-book-open text-blue-500 mb-1"></i>
-                            <span class="text-[8px] font-bold">TWK</span>
+                <!-- Module Materials -->
+                <div class="premium-card bg-white p-6 rounded-3xl shadow-lg border border-slate-200">
+                    <h4 class="font-bold text-slate-800 mb-6 tracking-tight uppercase text-sm flex items-center gap-2">
+                        <i class="fa-solid fa-graduation-cap text-blue-600"></i>
+                        Modul Materi Premium
+                    </h4>
+                    
+                    <div class="grid grid-cols-3 gap-3">
+                        <a href="modul-twk.html" class="flex flex-col items-center p-4 hover:bg-gradient-to-br hover:from-blue-50 hover:to-cyan-50 rounded-xl transition-all duration-300 group border border-transparent hover:border-blue-200">
+                            <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-cyan-600 rounded-xl flex items-center justify-center mb-2 shadow-md group-hover:shadow-lg transition-shadow">
+                                <i class="fa-solid fa-book-open text-white text-lg"></i>
+                            </div>
+                            <span class="text-xs font-bold text-slate-800">TWK</span>
+                            <span class="text-[10px] text-slate-500 mt-1">110 Materi</span>
                         </a>
-                        <a href="modul-tiu.html" class="flex flex-col items-center p-2 hover:bg-slate-50 rounded-xl transition">
-                            <i class="fa-solid fa-calculator text-blue-500 mb-1"></i>
-                            <span class="text-[8px] font-bold">TIU</span>
+                        
+                        <a href="modul-tiu.html" class="flex flex-col items-center p-4 hover:bg-gradient-to-br hover:from-emerald-50 hover:to-teal-50 rounded-xl transition-all duration-300 group border border-transparent hover:border-emerald-200">
+                            <div class="w-12 h-12 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-xl flex items-center justify-center mb-2 shadow-md group-hover:shadow-lg transition-shadow">
+                                <i class="fa-solid fa-calculator text-white text-lg"></i>
+                            </div>
+                            <span class="text-xs font-bold text-slate-800">TIU</span>
+                            <span class="text-[10px] text-slate-500 mt-1">95 Materi</span>
                         </a>
-                        <a href="modul-tkp.html" class="flex flex-col items-center p-2 hover:bg-slate-50 rounded-xl transition">
-                            <i class="fa-solid fa-users text-blue-500 mb-1"></i>
-                            <span class="text-[8px] font-bold">TKP</span>
+                        
+                        <a href="modul-tkp.html" class="flex flex-col items-center p-4 hover:bg-gradient-to-br hover:from-violet-50 hover:to-purple-50 rounded-xl transition-all duration-300 group border border-transparent hover:border-violet-200">
+                            <div class="w-12 h-12 bg-gradient-to-br from-violet-500 to-purple-600 rounded-xl flex items-center justify-center mb-2 shadow-md group-hover:shadow-lg transition-shadow">
+                                <i class="fa-solid fa-users text-white text-lg"></i>
+                            </div>
+                            <span class="text-xs font-bold text-slate-800">TKP</span>
+                            <span class="text-[10px] text-slate-500 mt-1">120 Materi</span>
+                        </a>
+                    </div>
+                    
+                    <div class="mt-6 text-center">
+                        <a href="#" class="text-xs font-bold text-blue-600 hover:text-blue-800 transition-colors inline-flex items-center gap-1">
+                            <i class="fa-solid fa-download"></i>
+                            Download Semua Modul
                         </a>
                     </div>
                 </div>
 
-                <div class="bg-yellow-400 rounded-3xl p-6 shadow-xl shadow-yellow-100">
-                    <p class="text-[10px] font-black uppercase text-yellow-900 mb-1">Add-On</p>
-                    <h4 class="font-black text-yellow-950 text-lg leading-tight mb-4">Beli 1 Tryout Tambahan?</h4>
-                    <button onclick="tambahPaket()" class="w-full bg-yellow-950 text-white font-bold py-3 rounded-2xl hover:bg-black transition text-sm flex items-center justify-center gap-2">
-                        Beli Rp 25.000
-                    </button>
+                <!-- Add-on Section -->
+                <div class="premium-card bg-gradient-to-br from-yellow-500 via-amber-500 to-orange-500 rounded-3xl p-6 shadow-2xl relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-white/10 to-transparent rounded-full -translate-y-8 translate-x-8"></div>
+                    
+                    <div class="relative z-10">
+                        <p class="text-[10px] font-black uppercase text-amber-900 mb-2 flex items-center gap-1">
+                            <i class="fa-solid fa-bolt"></i>
+                            Upgrade Eksklusif
+                        </p>
+                        
+                        <h4 class="font-black text-amber-950 text-xl leading-tight mb-4">
+                            Ingin Lebih?<br>Tambah Paket Tryout!
+                        </h4>
+                        
+                        <div class="bg-white/20 backdrop-blur-sm rounded-2xl p-4 mb-6 border border-amber-200/30">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-xs font-bold text-amber-900">1 Paket Tambahan</span>
+                                <span class="text-lg font-black text-amber-950">Rp 25.000</span>
+                            </div>
+                            <p class="text-[10px] text-amber-800">110 soal premium + analisis detil</p>
+                        </div>
+                        
+                        <button onclick="tambahPaket()" class="w-full bg-amber-950 text-white font-bold py-3.5 rounded-2xl hover:bg-black transition-all duration-300 text-sm flex items-center justify-center gap-3 shadow-lg hover:shadow-xl active:scale-[0.98] group">
+                            <i class="fa-solid fa-cart-shopping group-hover:animate-bounce"></i>
+                            Beli Sekarang
+                        </button>
+                    </div>
                 </div>
 
-                <a href="login.html" class="flex items-center justify-center gap-2 text-slate-400 font-bold text-xs hover:text-red-500 transition mt-6">
-                    <i class="fa-solid fa-right-from-bracket"></i> LOGOUT
-                </a>
+                <!-- Logout -->
+                <div class="text-center pt-4">
+                    <a href="login.html" class="inline-flex items-center gap-2 text-slate-500 font-bold text-sm hover:text-red-600 transition-all duration-300 hover:gap-3 group">
+                        <i class="fa-solid fa-right-from-bracket group-hover:animate-pulse"></i>
+                        Keluar dari Akun
+                    </a>
+                </div>
             </div>
         </div>
     </main>
@@ -147,7 +412,10 @@
             // Simpan info bahwa user ini adalah pemilik PAKET 3 (ULTIMATE)
             localStorage.setItem(`paket_peserta_${pinAkses}`, "3");
 
-            document.getElementById('displayPin').innerText = pinAkses;
+            // Format PIN untuk display
+            const formattedPin = pinAkses.toUpperCase();
+            document.getElementById('displayPin').innerText = formattedPin;
+            
             renderSoalList();
         }
 
@@ -159,18 +427,32 @@
                 const linkTujuan = `soalpaket${i}.html?id=${pinAkses}`;
                 
                 const soalCard = `
-                    <div class="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm flex items-center justify-between hover:border-yellow-400 transition group">
+                    <div class="premium-card p-4 bg-white rounded-xl border border-slate-200 shadow-sm flex items-center justify-between hover:border-yellow-400 transition-all duration-300 group">
                         <div class="flex items-center gap-4">
-                            <div class="w-12 h-12 bg-slate-900 text-yellow-500 rounded-xl flex items-center justify-center font-black group-hover:scale-110 transition">
-                                ${i}
+                            <div class="relative">
+                                <div class="w-12 h-12 bg-gradient-to-br from-slate-900 to-slate-800 text-white rounded-xl flex items-center justify-center font-black group-hover:scale-110 transition-transform duration-300 shadow-md">
+                                    ${i}
+                                </div>
+                                ${i <= 5 ? `<div class="absolute -top-1 -right-1 w-4 h-4 bg-gradient-to-r from-yellow-500 to-amber-600 rounded-full border border-white"></div>` : ''}
                             </div>
-                            <div>
-                                <h4 class="font-bold text-slate-800 text-sm">Simulasi SKD Ultimate #${i}</h4>
-                                <p class="text-[10px] text-slate-400 font-bold uppercase tracking-widest">Premium Question • 110 Soal</p>
+                            <div class="flex-1">
+                                <div class="flex items-center gap-2 mb-1">
+                                    <h4 class="font-bold text-slate-800 text-sm">Simulasi Ultimate #${i}</h4>
+                                    ${i <= 3 ? `<span class="text-[8px] font-black bg-yellow-100 text-yellow-800 px-2 py-0.5 rounded-full">RECOMMENDED</span>` : ''}
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <span class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">
+                                        <i class="fa-solid fa-clock text-yellow-500"></i> 110 Soal
+                                    </span>
+                                    <span class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">
+                                        <i class="fa-solid fa-chart-bar text-blue-500"></i> Analisis Detil
+                                    </span>
+                                </div>
                             </div>
                         </div>
-                        <a href="${linkTujuan}" class="bg-slate-900 text-yellow-500 px-5 py-2 rounded-xl text-xs font-black hover:bg-yellow-500 hover:text-slate-900 transition shadow-lg active:scale-95">
-                            MULAI
+                        <a href="${linkTujuan}" class="bg-gradient-to-r from-slate-900 to-slate-800 text-white px-5 py-2.5 rounded-xl text-xs font-bold hover:from-yellow-600 hover:to-amber-700 transition-all duration-300 shadow-lg hover:shadow-xl active:scale-95 group/btn">
+                            <span class="group-hover/btn:hidden">MULAI</span>
+                            <span class="hidden group-hover/btn:inline">GO!</span>
                         </a>
                     </div>
                 `;
@@ -181,14 +463,38 @@
         function tambahPaket() {
             const noAdmin = "6285696409288"; 
             const pesan = `Halo Admin,%0A%0A` +
-                          `Saya member *PAKET 3 (ULTIMATE)* (PIN: ${pinAkses}).%0A` +
-                          `Ingin beli tambahan 1 paket tryout (Rp 25.000).%0A` +
-                          `Mohon instruksinya.`;
+                          `Saya member *PAKET 3 (ULTIMATE ELITE)* (PIN: ${pinAkses}).%0A` +
+                          `Ingin membeli tambahan 1 paket tryout premium (Rp 25.000).%0A` +
+                          `Mohon instruksi pembayaran dan aktivasinya.%0A%0A` +
+                          `Terima kasih.`;
             window.open(`https://api.whatsapp.com/send?phone=${noAdmin}&text=${pesan}`, '_blank');
         }
+        
+        // Add shimmer animation style
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes shimmer {
+                0% { transform: translateX(-100%); }
+                100% { transform: translateX(100%); }
+            }
+            .animate-shimmer {
+                animation: shimmer 2s infinite;
+            }
+        `;
+        document.head.appendChild(style);
     </script>
-    <footer class="py-10 text-center text-slate-400 text-[10px] font-bold uppercase tracking-widest">
-        &copy; 2026 Kerja Jadi ASN. Member Ultimate Eksklusif.
+    
+    <footer class="py-10 text-center text-slate-400 text-xs font-bold uppercase tracking-widest mt-12">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row items-center justify-center gap-4 mb-6">
+                <div class="w-8 h-8 bg-gradient-to-br from-yellow-500 to-amber-600 rounded-lg flex items-center justify-center">
+                    <i class="fa-solid fa-crown text-white text-sm"></i>
+                </div>
+                <p class="text-sm font-black text-slate-700">Kerja Jadi ASN - Paket Ultimate Elite</p>
+            </div>
+            <p>&copy; 2026 Kerja Jadi ASN. Hak Cipta Dilindungi.</p>
+            <p class="text-[10px] text-slate-500 mt-2 font-normal normal-case">Versi 3.0 Premium - Akses Tak Terbatas</p>
+        </div>
     </footer>
 </body>
 </html>
