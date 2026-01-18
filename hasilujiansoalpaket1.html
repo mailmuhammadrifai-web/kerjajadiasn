@@ -7,134 +7,95 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
+        /* CSS styles tetap sama seperti sebelumnya */
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap');
         body { 
             font-family: 'Plus Jakarta Sans', sans-serif;
             background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
             min-height: 100vh;
         }
-        
-        /* Custom Animations */
+
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        
+
         @keyframes scoreIncrement {
             from { transform: scale(0.5); opacity: 0; }
             to { transform: scale(1); opacity: 1; }
         }
-        
+
         @keyframes confettiFall {
             0% { transform: translateY(-100px) rotate(0deg); opacity: 1; }
             100% { transform: translateY(1000px) rotate(360deg); opacity: 0; }
         }
-        
+
         @keyframes pulse {
             0%, 100% { transform: scale(1); }
             50% { transform: scale(1.05); }
         }
-        
+
         .animate-fadeIn {
             animation: fadeIn 0.6s ease-out;
         }
-        
+
         .animate-score {
             animation: scoreIncrement 1s ease-out;
         }
-        
+
         .animate-pulse-slow {
             animation: pulse 2s infinite;
         }
-        
-        /* Progress Bar */
+
         .progress-bar {
             transition: width 1.5s ease-in-out;
         }
-        
-        /* Score Ring */
+
         .score-ring {
             transform: rotate(-90deg);
         }
-        
+
         .score-ring-circle {
             transition: stroke-dasharray 1.5s ease-in-out;
         }
-        
-        /* Glass Effect */
+
         .glass-effect {
             background: rgba(255, 255, 255, 0.7);
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.2);
         }
-        
-        /* Print Styles */
+
         @media print {
             .no-print {
                 display: none !important;
             }
-            
             body {
                 background: white !important;
                 color: black !important;
             }
-            
             .glass-effect {
                 background: white !important;
                 backdrop-filter: none !important;
                 border: 1px solid #ddd !important;
             }
-            
             .shadow-*, .shadow-* {
                 box-shadow: none !important;
             }
         }
-        
-        /* Custom Scrollbar */
+
         ::-webkit-scrollbar {
             width: 6px;
         }
-        
         ::-webkit-scrollbar-track {
             background: #f1f5f9;
             border-radius: 3px;
         }
-        
         ::-webkit-scrollbar-thumb {
             background: #cbd5e1;
             border-radius: 3px;
         }
-        
         ::-webkit-scrollbar-thumb:hover {
             background: #94a3b8;
-        }
-        
-        /* Tooltip */
-        .tooltip {
-            position: relative;
-        }
-        
-        .tooltip-text {
-            visibility: hidden;
-            position: absolute;
-            z-index: 100;
-            bottom: 125%;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: #1e293b;
-            color: white;
-            text-align: center;
-            padding: 0.5rem;
-            border-radius: 0.375rem;
-            font-size: 0.75rem;
-            white-space: nowrap;
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-        
-        .tooltip:hover .tooltip-text {
-            visibility: visible;
-            opacity: 1;
         }
     </style>
 </head>
@@ -166,7 +127,6 @@
                 <h3 class="text-xl font-bold text-slate-800">Bagikan Hasil</h3>
                 <p class="text-sm text-slate-600 mt-1">Bagikan hasil ujian Anda dengan teman atau mentor</p>
             </div>
-            
             <div class="p-6">
                 <div class="grid grid-cols-2 gap-3 mb-6">
                     <button onclick="shareToWhatsApp()" class="p-4 bg-green-50 hover:bg-green-100 rounded-xl border border-green-200 flex flex-col items-center justify-center gap-2 transition-colors">
@@ -186,12 +146,10 @@
                         <span class="text-sm font-bold text-purple-700">Salin Link</span>
                     </button>
                 </div>
-                
                 <div class="mt-4 p-4 bg-slate-50 rounded-xl border border-slate-200">
                     <label class="text-sm font-medium text-slate-700 mb-2 block">Pesan Kustom</label>
                     <textarea id="shareMessage" rows="3" class="w-full p-3 border border-slate-300 rounded-lg text-sm resize-none" placeholder="Tambahkan pesan Anda...">Saya baru saja menyelesaikan simulasi CAT CPNS dengan skor yang memuaskan!</textarea>
                 </div>
-                
                 <div class="mt-6 flex gap-3">
                     <button onclick="hideShareModal()" class="flex-1 px-4 py-3 bg-slate-100 text-slate-700 font-bold rounded-xl hover:bg-slate-200 transition-colors">
                         Batal
@@ -210,17 +168,14 @@
             <div class="sticky top-0 bg-white border-b border-slate-200 p-6 flex justify-between items-center">
                 <div>
                     <h3 class="text-xl font-bold text-slate-800">Analisis Detail Hasil</h3>
-                    <p class="text-sm text-slate-500">PIN: <span id="analysisPin" class="font-mono font-bold"></span></p>
+                    <p class="text-sm text-slate-500">PIN: <span id="analysisPin" class="font-mono font-bold"></span> | Paket: <span id="analysisPaket" class="font-bold"></span></p>
                 </div>
                 <button onclick="hideAnalysisModal()" class="text-slate-400 hover:text-slate-600 text-xl">
                     <i class="fa-solid fa-times"></i>
                 </button>
             </div>
-            
             <div class="p-6 overflow-y-auto max-h-[calc(90vh-120px)]">
-                <div id="analysisContent">
-                    <!-- Analysis content will be loaded here -->
-                </div>
+                <div id="analysisContent"></div>
             </div>
         </div>
     </div>
@@ -232,40 +187,37 @@
                     <div class="w-8 h-8 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-lg flex items-center justify-center">
                         <i class="fa-solid fa-chart-line text-white"></i>
                     </div>
-                    <h1 class="font-extrabold text-blue-600 text-lg md:text-xl">
-                        KERJA JADI <span class="text-yellow-500">ASN</span>
-                    </h1>
+                    <div>
+                        <h1 class="font-extrabold text-blue-600 text-lg md:text-xl">
+                            KERJA JADI <span class="text-yellow-500">ASN</span>
+                        </h1>
+                        <p class="text-[10px] text-slate-500 font-bold uppercase tracking-wider">
+                            Paket <span id="paketNumber">-</span> • PIN: <span id="displayPaketPin" class="font-mono">MEMUAT...</span>
+                        </p>
+                    </div>
                 </div>
-                
                 <div class="flex items-center gap-4">
                     <div class="text-right hidden md:block">
                         <p class="text-[10px] font-bold text-slate-500 uppercase tracking-wider">PIN Peserta</p>
                         <p id="displayPin" class="text-sm font-black text-slate-800 tracking-wide font-mono">MEMUAT...</p>
                     </div>
-                    
                     <div class="relative">
                         <button onclick="toggleResultMenu()" class="w-10 h-10 rounded-full bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-100 flex items-center justify-center hover:shadow-md transition-all">
                             <i class="fa-solid fa-ellipsis-vertical text-blue-600"></i>
                         </button>
-                        
-                        <!-- Result Menu -->
                         <div id="resultMenu" class="absolute right-0 top-12 w-48 bg-white rounded-xl shadow-lg border border-slate-200 py-2 hidden z-50 animate-fadeIn">
                             <button onclick="showShareModal()" class="flex items-center gap-3 px-4 py-2 text-sm text-slate-700 hover:bg-blue-50 hover:text-blue-600 transition-colors w-full text-left">
-                                <i class="fa-solid fa-share w-5 text-green-500"></i>
-                                Bagikan Hasil
+                                <i class="fa-solid fa-share w-5 text-green-500"></i> Bagikan Hasil
                             </button>
                             <button onclick="showAnalysisModal()" class="flex items-center gap-3 px-4 py-2 text-sm text-slate-700 hover:bg-blue-50 hover:text-blue-600 transition-colors w-full text-left">
-                                <i class="fa-solid fa-chart-bar w-5 text-purple-500"></i>
-                                Analisis Detail
+                                <i class="fa-solid fa-chart-bar w-5 text-purple-500"></i> Analisis Detail
                             </button>
                             <button onclick="downloadCertificate()" class="flex items-center gap-3 px-4 py-2 text-sm text-slate-700 hover:bg-blue-50 hover:text-blue-600 transition-colors w-full text-left">
-                                <i class="fa-solid fa-certificate w-5 text-yellow-500"></i>
-                                Sertifikat
+                                <i class="fa-solid fa-certificate w-5 text-yellow-500"></i> Sertifikat
                             </button>
                             <div class="border-t border-slate-100 my-1"></div>
                             <button onclick="printResult()" class="flex items-center gap-3 px-4 py-2 text-sm text-slate-700 hover:bg-blue-50 hover:text-blue-600 transition-colors w-full text-left">
-                                <i class="fa-solid fa-print w-5 text-slate-500"></i>
-                                Cetak Hasil
+                                <i class="fa-solid fa-print w-5 text-slate-500"></i> Cetak Hasil
                             </button>
                         </div>
                     </div>
@@ -304,44 +256,22 @@
             <!-- Header Section -->
             <div class="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 rounded-2xl md:rounded-[2.5rem] p-6 md:p-8 shadow-2xl shadow-blue-100/50 border border-white/20 mb-8 relative overflow-hidden">
                 <div class="relative z-10">
-                    <div id="statusBadge" class="inline-flex items-center gap-2 px-6 py-2 rounded-full font-black text-xs uppercase tracking-[0.2em] mb-4 transition-colors duration-500 animate-pulse-slow">
-                        <!-- Badge will be filled dynamically -->
-                    </div>
-                    
+                    <div id="statusBadge" class="inline-flex items-center gap-2 px-6 py-2 rounded-full font-black text-xs uppercase tracking-[0.2em] mb-4 transition-colors duration-500 animate-pulse-slow"></div>
                     <h2 class="text-white/80 font-bold uppercase text-xs tracking-widest mb-2">Total Skor Anda</h2>
                     <div id="totalSkor" class="text-6xl md:text-7xl font-black text-white mb-6 animate-score">0</div>
-                    
                     <div class="flex flex-col md:flex-row items-center justify-between gap-6">
                         <div class="text-center md:text-left">
-                            <p id="pesanKelulusan" class="text-white/90 text-sm md:text-base max-w-md leading-relaxed">
-                                <!-- Message will be filled dynamically -->
-                            </p>
+                            <p id="pesanKelulusan" class="text-white/90 text-sm md:text-base max-w-md leading-relaxed"></p>
                             <div class="mt-4 flex items-center justify-center md:justify-start gap-2 text-white/70">
                                 <i class="fa-solid fa-clock"></i>
                                 <span class="text-sm" id="waktuPengerjaan">-</span>
                             </div>
                         </div>
-                        
                         <div class="hidden md:block">
                             <div class="w-32 h-32 relative">
                                 <svg class="w-full h-full score-ring" viewBox="0 0 36 36">
-                                    <path d="M18 2.0845
-                                        a 15.9155 15.9155 0 0 1 0 31.831
-                                        a 15.9155 15.9155 0 0 1 0 -31.831"
-                                        fill="none"
-                                        stroke="rgba(255,255,255,0.2)"
-                                        stroke-width="3"
-                                    />
-                                    <path id="totalScoreRing" class="score-ring-circle"
-                                        d="M18 2.0845
-                                        a 15.9155 15.9155 0 0 1 0 31.831
-                                        a 15.9155 15.9155 0 0 1 0 -31.831"
-                                        fill="none"
-                                        stroke="white"
-                                        stroke-width="3"
-                                        stroke-dasharray="0, 100"
-                                        stroke-linecap="round"
-                                    />
+                                    <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="3"/>
+                                    <path id="totalScoreRing" class="score-ring-circle" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="white" stroke-width="3" stroke-dasharray="0, 100" stroke-linecap="round"/>
                                 </svg>
                                 <div class="absolute inset-0 flex flex-col items-center justify-center">
                                     <span id="scorePercentage" class="text-2xl font-black text-white">0%</span>
@@ -351,17 +281,14 @@
                         </div>
                     </div>
                 </div>
-                
-                <!-- Background Elements -->
                 <div class="absolute top-0 left-0 w-full h-full overflow-hidden">
                     <div class="absolute -top-20 -left-20 w-60 h-60 bg-white/10 rounded-full blur-3xl"></div>
                     <div class="absolute -bottom-20 -right-20 w-60 h-60 bg-purple-400/20 rounded-full blur-3xl"></div>
                 </div>
-                
                 <i class="fa-solid fa-trophy absolute bottom-4 right-4 text-8xl text-white/10 hidden md:block"></i>
             </div>
 
-            <!-- Stats Grid -->
+            <!-- Stats Grid (TWK, TIU, TKP cards - tetap sama) -->
             <div class="grid md:grid-cols-3 gap-4 md:gap-6 mb-8">
                 <!-- TWK Card -->
                 <div class="bg-white p-5 md:p-6 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
@@ -380,19 +307,15 @@
                             <div class="text-xs font-black text-slate-800">65</div>
                         </div>
                     </div>
-                    
                     <div class="mb-4">
                         <div class="flex justify-between items-center mb-1">
                             <span id="skorTWK" class="text-3xl md:text-4xl font-black text-slate-800 animate-score">0</span>
-                            <span id="statusTWK" class="text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full">
-                                <!-- Status will be filled dynamically -->
-                            </span>
+                            <span id="statusTWK" class="text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full"></span>
                         </div>
                         <div class="text-xs text-slate-500">
                             <span id="twkInfo">0 dari 30 soal</span>
                         </div>
                     </div>
-                    
                     <div class="mb-3">
                         <div class="flex justify-between text-xs text-slate-500 mb-1">
                             <span>Progress</span>
@@ -402,7 +325,6 @@
                             <div id="progressTWK" class="h-full bg-gradient-to-r from-blue-500 to-blue-600 progress-bar" style="width: 0%"></div>
                         </div>
                     </div>
-                    
                     <div class="grid grid-cols-2 gap-2 text-xs">
                         <div class="bg-blue-50 rounded-lg p-2 text-center">
                             <div class="font-bold text-blue-600" id="twkJawab">0</div>
@@ -432,19 +354,15 @@
                             <div class="text-xs font-black text-slate-800">80</div>
                         </div>
                     </div>
-                    
                     <div class="mb-4">
                         <div class="flex justify-between items-center mb-1">
                             <span id="skorTIU" class="text-3xl md:text-4xl font-black text-slate-800 animate-score">0</span>
-                            <span id="statusTIU" class="text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full">
-                                <!-- Status will be filled dynamically -->
-                            </span>
+                            <span id="statusTIU" class="text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full"></span>
                         </div>
                         <div class="text-xs text-slate-500">
                             <span id="tiuInfo">0 dari 35 soal</span>
                         </div>
                     </div>
-                    
                     <div class="mb-3">
                         <div class="flex justify-between text-xs text-slate-500 mb-1">
                             <span>Progress</span>
@@ -454,7 +372,6 @@
                             <div id="progressTIU" class="h-full bg-gradient-to-r from-green-500 to-green-600 progress-bar" style="width: 0%"></div>
                         </div>
                     </div>
-                    
                     <div class="grid grid-cols-2 gap-2 text-xs">
                         <div class="bg-green-50 rounded-lg p-2 text-center">
                             <div class="font-bold text-green-600" id="tiuJawab">0</div>
@@ -484,19 +401,15 @@
                             <div class="text-xs font-black text-slate-800">166</div>
                         </div>
                     </div>
-                    
                     <div class="mb-4">
                         <div class="flex justify-between items-center mb-1">
                             <span id="skorTKP" class="text-3xl md:text-4xl font-black text-slate-800 animate-score">0</span>
-                            <span id="statusTKP" class="text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full">
-                                <!-- Status will be filled dynamically -->
-                            </span>
+                            <span id="statusTKP" class="text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full"></span>
                         </div>
                         <div class="text-xs text-slate-500">
                             <span id="tkpInfo">0 dari 45 soal</span>
                         </div>
                     </div>
-                    
                     <div class="mb-3">
                         <div class="flex justify-between text-xs text-slate-500 mb-1">
                             <span>Progress</span>
@@ -506,7 +419,6 @@
                             <div id="progressTKP" class="h-full bg-gradient-to-r from-purple-500 to-purple-600 progress-bar" style="width: 0%"></div>
                         </div>
                     </div>
-                    
                     <div class="grid grid-cols-2 gap-2 text-xs">
                         <div class="bg-purple-50 rounded-lg p-2 text-center">
                             <div class="font-bold text-purple-600" id="tkpJawab">0</div>
@@ -526,7 +438,6 @@
                     <i class="fa-solid fa-chart-simple"></i>
                     Statistik Cepat
                 </h3>
-                
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                     <div class="bg-white/10 rounded-xl p-4 text-center backdrop-blur-sm">
                         <div class="text-2xl font-black mb-1" id="totalSoal">0</div>
@@ -545,7 +456,6 @@
                         <div class="text-sm text-white/80">Peringkat</div>
                     </div>
                 </div>
-                
                 <div class="mt-6 pt-6 border-t border-white/20">
                     <div class="flex flex-wrap gap-4 justify-between">
                         <div class="flex items-center gap-2">
@@ -587,10 +497,7 @@
                         <i class="fa-solid fa-lightbulb text-yellow-500"></i>
                         Rekomendasi Belajar
                     </h3>
-                    
-                    <div id="recommendationsContent" class="space-y-3">
-                        <!-- Recommendations will be filled dynamically -->
-                    </div>
+                    <div id="recommendationsContent" class="space-y-3"></div>
                 </div>
             </div>
 
@@ -601,7 +508,6 @@
                         <i class="fa-solid fa-award text-emerald-500"></i>
                         Sertifikat Penyelesaian
                     </h3>
-                    
                     <div class="flex flex-col md:flex-row items-center justify-between gap-6">
                         <div class="flex-1">
                             <p class="text-slate-600 mb-4">Selamat! Anda telah menyelesaikan simulasi tryout dengan baik. Unduh sertifikat digital sebagai bukti penyelesaian.</p>
@@ -618,7 +524,6 @@
         </div>
     </main>
 
-    <!-- Footer -->
     <footer class="mt-12 pt-8 pb-6 border-t border-slate-200 bg-white">
         <div class="container mx-auto px-4 text-center">
             <div class="flex flex-col md:flex-row justify-between items-center gap-4 mb-6">
@@ -633,21 +538,12 @@
                     </div>
                     <p class="text-slate-500 text-xs">Platform Tryout CAT CPNS Premium</p>
                 </div>
-                
                 <div class="text-center">
                     <div class="flex justify-center gap-4 mb-2">
-                        <a href="#" class="text-slate-400 hover:text-blue-600">
-                            <i class="fab fa-facebook"></i>
-                        </a>
-                        <a href="#" class="text-slate-400 hover:text-blue-400">
-                            <i class="fab fa-twitter"></i>
-                        </a>
-                        <a href="#" class="text-slate-400 hover:text-pink-600">
-                            <i class="fab fa-instagram"></i>
-                        </a>
-                        <a href="#" class="text-slate-400 hover:text-green-600">
-                            <i class="fab fa-whatsapp"></i>
-                        </a>
+                        <a href="#" class="text-slate-400 hover:text-blue-600"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="text-slate-400 hover:text-blue-400"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-slate-400 hover:text-pink-600"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-slate-400 hover:text-green-600"><i class="fab fa-whatsapp"></i></a>
                     </div>
                     <p class="text-slate-400 text-[10px] font-bold uppercase tracking-widest">
                         &copy; <span id="currentYear"></span> Kerja Jadi ASN. All rights reserved.
@@ -662,28 +558,42 @@
         let pinAkses = null;
         let resultData = null;
         let paketNumber = null;
+        let paketPin = null;
+
+        // Database PIN sesuai dengan login.html
+        const pinDatabase = {
+            "paket1": ["7XK9WP", "B4ZM1Q", "9TV2NL", "RS8MX3", "5CR1VT", "KP9MZ4", "G6HD2S", "1VT8NR", "FN2VK5", "2YM4BX", "MR2VT8", "5HG9SL", "XP3KZ7", "2YN5VQ", "8WQ4PZ", "VS7NL2"],
+            "paket2": ["9ZW1RF", "4FB6NT", "7XK1WP", "B2MK9P", "LP9QX4", "Y7CR2V", "4FB8NR", "9TW1MZ", "SK3JP7", "1VT5NR", "FN9VK3", "2YM7BX", "SK9JP4", "MR7VT1", "3ZW7RB", "KP1MX9", "G6HD1S"],
+            "paket3": ["VS4NL8", "RT9XM2", "B2MK8P", "7XL1WQ", "5HG2SD", "9ZW4RB", "KP8MX3", "FN5VK2", "8WQ4PZ", "2YM9BX", "7KP1RT", "5HG6SD", "9ZW3RF", "RS4ML9", "VN7VK1", "8WQ3PZ", "4FB1NT"]
+        };
 
         // ========== 2. INITIALIZATION ==========
         document.addEventListener('DOMContentLoaded', function() {
             console.log('Hasil page initializing...');
-            
-            // Set current year
             document.getElementById('currentYear').textContent = new Date().getFullYear();
-            
-            // Load result data
             loadResultData();
-            
-            // Setup event listeners
             setupEventListeners();
-            
             console.log('Hasil page initialized');
         });
 
-        // ========== 3. LOAD RESULT DATA ==========
+        // ========== 3. FUNGSI DETEKSI PAKET DARI PIN ==========
+        function detectPaketFromPin(pin) {
+            for (const paket in pinDatabase) {
+                if (pinDatabase[paket].includes(pin)) {
+                    return {
+                        paketNumber: paket.replace('paket', ''),
+                        paketName: paket
+                    };
+                }
+            }
+            return { paketNumber: "1", paketName: "paket1" };
+        }
+
+        // ========== 4. LOAD RESULT DATA ==========
         function loadResultData() {
             const urlParams = new URLSearchParams(window.location.search);
             pinAkses = urlParams.get('id');
-            
+
             if (!pinAkses) {
                 showErrorState();
                 showToast('error', 'PIN Tidak Valid', 'Redirecting to dashboard...');
@@ -692,69 +602,146 @@
                 }, 3000);
                 return;
             }
-            
+
+            // Deteksi paket berdasarkan PIN
+            const paketInfo = detectPaketFromPin(pinAkses);
+            paketNumber = paketInfo.paketNumber;
+            paketPin = pinAkses;
+
+            // Tampilkan informasi paket dan PIN
             document.getElementById('displayPin').textContent = pinAkses;
+            document.getElementById('displayPaketPin').textContent = pinAkses;
+            document.getElementById('paketNumber').textContent = paketNumber;
             document.getElementById('analysisPin').textContent = pinAkses;
-            
-            // Coba cari data hasil dari berbagai format key
+            document.getElementById('analysisPaket').textContent = paketNumber;
+
+            // CARI DATA DARI BERBAGAI SUMBER
+            // Karena soalpaket1.html digunakan untuk semua PIN, data bisa disimpan dengan berbagai format
             const possibleKeys = [
+                // Format terbaru: berdasarkan paket yang terdeteksi
+                `hasil_paket${paketNumber}_${pinAkses}`,
+                
+                // Format lama: semua data disimpan sebagai paket1 (karena soalpaket1.html)
                 `hasil_paket1_${pinAkses}`,
+                
+                // Format alternatif
                 `hasil_${pinAkses}`,
-                `hasil_paket_${pinAkses}`
+                `hasil_paket_${pinAkses}`,
+                `quiz_result_${pinAkses}`,
+                `simulasi_hasil_${pinAkses}`,
+                
+                // Coba semua paket untuk kompatibilitas
+                `hasil_paket2_${pinAkses}`,
+                `hasil_paket3_${pinAkses}`
             ];
-            
+
+            console.log('Mencari data hasil untuk PIN:', pinAkses, 'Paket:', paketNumber);
+            console.log('Kunci yang dicari:', possibleKeys);
+
             let foundData = null;
+            let foundKey = null;
+            
+            // Coba semua kemungkinan kunci
             for (const key of possibleKeys) {
                 const storedData = localStorage.getItem(key);
                 if (storedData) {
-                    foundData = JSON.parse(storedData);
-                    console.log('Found result data with key:', key);
-                    break;
+                    try {
+                        foundData = JSON.parse(storedData);
+                        foundKey = key;
+                        console.log('✅ Data ditemukan dengan kunci:', key);
+                        break;
+                    } catch (e) {
+                        console.error('Error parsing data dari kunci:', key, e);
+                    }
                 }
             }
-            
+
+            // Jika tidak ditemukan, cari semua kunci yang mengandung PIN
+            if (!foundData) {
+                console.log('🔍 Mencari semua kunci di localStorage yang mengandung PIN...');
+                for (let i = 0; i < localStorage.length; i++) {
+                    const key = localStorage.key(i);
+                    if (key.includes(pinAkses)) {
+                        console.log('Kunci ditemukan:', key);
+                        try {
+                            const data = JSON.parse(localStorage.getItem(key));
+                            // Validasi apakah ini data hasil
+                            if (data && (data.total !== undefined || data.twk !== undefined)) {
+                                foundData = data;
+                                foundKey = key;
+                                console.log('✅ Data hasil ditemukan di kunci:', key);
+                                break;
+                            }
+                        } catch (e) {
+                            console.error('Error parsing data dari:', key, e);
+                        }
+                    }
+                }
+            }
+
             if (!foundData) {
                 showErrorState();
-                showToast('error', 'Data Hasil Tidak Ditemukan', 'Silakan coba lagi atau hubungi admin');
+                showToast('error', 'Data Hasil Tidak Ditemukan', 
+                    `Tidak dapat menemukan data hasil untuk PIN ${pinAkses}. 
+                     Pastikan Anda telah menyelesaikan ujian atau coba kembali ke dashboard.`);
+                
+                // Log semua data untuk debugging
+                console.log('=== DEBUG: Semua data di localStorage ===');
+                for (let i = 0; i < localStorage.length; i++) {
+                    const key = localStorage.key(i);
+                    console.log(key, ':', localStorage.getItem(key));
+                }
                 return;
             }
-            
+
             resultData = foundData;
-            paketNumber = resultData.paket || "1";
+            console.log('Data hasil berhasil dimuat:', resultData);
             
-            // Process and display result
+            // Pastikan data memiliki properti paket
+            if (!resultData.paket) {
+                resultData.paket = paketNumber;
+            }
+
+            // Simpan data dengan format standar untuk konsistensi
+            const standardKey = `hasil_paket${paketNumber}_${pinAkses}`;
+            if (foundKey !== standardKey) {
+                localStorage.setItem(standardKey, JSON.stringify(resultData));
+                console.log('✅ Data disimpan dengan format standar:', standardKey);
+            }
+
+            // Proses dan tampilkan hasil
             processResult();
         }
 
-        // ========== 4. PROCESS RESULT ==========
+        // ========== 5. PROCESS RESULT ==========
         function processResult() {
             if (!resultData) return;
-            
+
             // Show loading state first
             document.getElementById('loadingState').classList.add('hidden');
             document.getElementById('successState').classList.remove('hidden');
-            
+
             // Calculate additional stats
             const totalSoal = 110;
             const totalTerjawab = (resultData.twkJawab || 0) + (resultData.tiuJawab || 0) + (resultData.tkpJawab || 0);
             const totalBenar = (resultData.twkBenar || 0) + (resultData.tiuBenar || 0);
             const akurasi = totalTerjawab > 0 ? Math.round((totalBenar / (resultData.twkJawab + resultData.tiuJawab || 1)) * 100) : 0;
-            const totalScoreMax = 650; // TWK(150) + TIU(175) + TKP(166) = 491, tapi kita hitung dari skor maksimal
+            const totalScoreMax = 650;
             const scorePercentage = Math.round((resultData.total / totalScoreMax) * 100);
-            
+
             // Check passing grade
             const PG = { twk: 65, tiu: 80, tkp: 166 };
             const lulusTWK = resultData.twk >= PG.twk;
             const lulusTIU = resultData.tiu >= PG.tiu;
             const lulusTKP = resultData.tkp >= PG.tkp;
             const semuaLulus = lulusTWK && lulusTIU && lulusTKP;
-            
+
             // Update UI
             updateScores(resultData, totalSoal, totalTerjawab, akurasi, scorePercentage);
             updatePassingStatus(lulusTWK, lulusTIU, lulusTKP, semuaLulus);
             updateProgressBars(resultData, PG);
             updateRecommendations(lulusTWK, lulusTIU, lulusTKP);
-            
+
             // Trigger animations
             setTimeout(() => {
                 triggerAnimations();
@@ -763,10 +750,10 @@
                     showCertificateSection();
                 }
             }, 500);
-            
+
             // Save to progress history
             saveToProgressHistory();
-            
+
             // Show toast
             if (semuaLulus) {
                 showToast('success', 'Selamat!', 'Anda berhasil melewati semua passing grade! 🎉');
@@ -778,21 +765,21 @@
         function updateScores(data, totalSoal, totalTerjawab, akurasi, scorePercentage) {
             // Animate total score
             animateCounter('totalSkor', 0, data.total, 1500);
-            
+
             // Update category scores
             document.getElementById('skorTWK').textContent = data.twk;
             document.getElementById('skorTIU').textContent = data.tiu;
             document.getElementById('skorTKP').textContent = data.tkp;
-            
+
             // Update score percentage
             document.getElementById('scorePercentage').textContent = `${scorePercentage}%`;
             updateScoreRing(scorePercentage);
-            
+
             // Update info text
             document.getElementById('twkInfo').textContent = `${data.twkJawab || 0} dari 30 soal`;
             document.getElementById('tiuInfo').textContent = `${data.tiuJawab || 0} dari 35 soal`;
             document.getElementById('tkpInfo').textContent = `${data.tkpJawab || 0} dari 45 soal`;
-            
+
             // Update stats
             document.getElementById('twkJawab').textContent = data.twkJawab || 0;
             document.getElementById('twkBenar').textContent = data.twkBenar || 0;
@@ -800,20 +787,20 @@
             document.getElementById('tiuBenar').textContent = data.tiuBenar || 0;
             document.getElementById('tkpJawab').textContent = data.tkpJawab || 0;
             document.getElementById('tkpRagu').textContent = data.ragu || 0;
-            
+
             // Update waktu pengerjaan
             if (data.waktu) {
                 document.getElementById('waktuPengerjaan').textContent = `Selesai dalam ${data.waktu}`;
                 document.getElementById('totalWaktu').textContent = data.waktu;
             }
-            
+
             // Update quick stats
             document.getElementById('totalSoal').textContent = totalSoal;
             document.getElementById('totalTerjawab').textContent = totalTerjawab;
             document.getElementById('akurasi').textContent = `${akurasi}%`;
             document.getElementById('totalBookmarks').textContent = data.bookmarks || 0;
             document.getElementById('totalRagu').textContent = data.ragu || 0;
-            
+
             // Update peringkat (simulated)
             const peringkat = Math.floor(Math.random() * 50) + 1;
             document.getElementById('peringkat').textContent = `#${peringkat}`;
@@ -824,38 +811,23 @@
             updateStatusLabel('statusTWK', lulusTWK, 'TWK');
             updateStatusLabel('statusTIU', lulusTIU, 'TIU');
             updateStatusLabel('statusTKP', lulusTKP, 'TKP');
-            
+
             // Update main status badge
             const statusBadge = document.getElementById('statusBadge');
             const pesanKelulusan = document.getElementById('pesanKelulusan');
-            
+
             if (semuaLulus) {
-                statusBadge.innerHTML = `
-                    <i class="fa-solid fa-check-circle"></i>
-                    LULUS PASSING GRADE
-                `;
+                statusBadge.innerHTML = `<i class="fa-solid fa-check-circle"></i> LULUS PASSING GRADE`;
                 statusBadge.className = 'inline-flex items-center gap-2 px-6 py-2 rounded-full font-black text-xs uppercase tracking-[0.2em] mb-4 bg-gradient-to-r from-green-100 to-emerald-100 text-green-700 border border-green-200 animate-pulse-slow';
-                pesanKelulusan.innerHTML = `
-                    <strong>Selamat!</strong> Anda berhasil melampaui semua ambang batas passing grade. 
-                    Pertahankan performa ini dengan terus berlatih dan mempelajari materi yang belum dikuasai.
-                `;
+                pesanKelulusan.innerHTML = `<strong>Selamat!</strong> Anda berhasil melampaui semua ambang batas passing grade. Pertahankan performa ini dengan terus berlatih dan mempelajari materi yang belum dikuasai.`;
             } else {
-                statusBadge.innerHTML = `
-                    <i class="fa-solid fa-exclamation-triangle"></i>
-                    PERLU PERBAIKAN
-                `;
+                statusBadge.innerHTML = `<i class="fa-solid fa-exclamation-triangle"></i> PERLU PERBAIKAN`;
                 statusBadge.className = 'inline-flex items-center gap-2 px-6 py-2 rounded-full font-black text-xs uppercase tracking-[0.2em] mb-4 bg-gradient-to-r from-yellow-100 to-amber-100 text-amber-700 border border-amber-200 animate-pulse-slow';
-                
                 const belumLulus = [];
                 if (!lulusTWK) belumLulus.push('TWK');
                 if (!lulusTIU) belumLulus.push('TIU');
                 if (!lulusTKP) belumLulus.push('TKP');
-                
-                pesanKelulusan.innerHTML = `
-                    <strong>Perhatian!</strong> Anda belum mencapai ambang batas di materi 
-                    <strong>${belumLulus.join(', ')}</strong>. Fokuskan latihan pada materi tersebut 
-                    dan pelajari pembahasan soal untuk meningkatkan pemahaman.
-                `;
+                pesanKelulusan.innerHTML = `<strong>Perhatian!</strong> Anda belum mencapai ambang batas di materi <strong>${belumLulus.join(', ')}</strong>. Fokuskan latihan pada materi tersebut dan pelajari pembahasan soal untuk meningkatkan pemahaman.`;
             }
         }
 
@@ -864,13 +836,13 @@
             const twkProgress = Math.min((data.twk / PG.twk) * 100, 100);
             const tiuProgress = Math.min((data.tiu / PG.tiu) * 100, 100);
             const tkpProgress = Math.min((data.tkp / PG.tkp) * 100, 100);
-            
+
             // Update progress bars with animation
             setTimeout(() => {
                 document.getElementById('progressTWK').style.width = `${twkProgress}%`;
                 document.getElementById('progressTIU').style.width = `${tiuProgress}%`;
                 document.getElementById('progressTKP').style.width = `${tkpProgress}%`;
-                
+
                 document.getElementById('twkProgressText').textContent = `${Math.round(twkProgress)}%`;
                 document.getElementById('tiuProgressText').textContent = `${Math.round(tiuProgress)}%`;
                 document.getElementById('tkpProgressText').textContent = `${Math.round(tkpProgress)}%`;
@@ -882,7 +854,6 @@
             if (progressRing) {
                 const circumference = 2 * Math.PI * 15.9155;
                 const dashOffset = circumference - (percentage / 100) * circumference;
-                
                 setTimeout(() => {
                     progressRing.setAttribute('stroke-dasharray', `${circumference} ${circumference}`);
                     progressRing.setAttribute('stroke-dashoffset', dashOffset);
@@ -901,26 +872,21 @@
             }
         }
 
-        // ========== 5. ANIMATIONS ==========
+        // ========== 6. ANIMATIONS ==========
         function animateCounter(elementId, start, end, duration) {
             const element = document.getElementById(elementId);
             const range = end - start;
             const increment = end > start ? 1 : -1;
             const stepTime = Math.abs(Math.floor(duration / range));
             let current = start;
-            
             const timer = setInterval(() => {
                 current += increment;
                 element.textContent = current;
-                
-                if (current === end) {
-                    clearInterval(timer);
-                }
+                if (current === end) clearInterval(timer);
             }, stepTime);
         }
 
         function triggerAnimations() {
-            // Add animation class to score elements
             const scoreElements = document.querySelectorAll('.animate-score');
             scoreElements.forEach(el => {
                 el.classList.add('animate-score');
@@ -931,7 +897,6 @@
         function createConfetti() {
             const colors = ['#3b82f6', '#8b5cf6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6'];
             const container = document.getElementById('confetti-container');
-            
             for (let i = 0; i < 150; i++) {
                 setTimeout(() => {
                     const confetti = document.createElement('div');
@@ -945,10 +910,7 @@
                     confetti.style.borderRadius = '2px';
                     confetti.style.opacity = '0.8';
                     confetti.style.transform = `rotate(${Math.random() * 360}deg)`;
-                    
                     container.appendChild(confetti);
-                    
-                    // Animate
                     const animation = confetti.animate([
                         { transform: 'translateY(0) rotate(0deg)', opacity: 1 },
                         { transform: `translateY(${window.innerHeight}px) rotate(${Math.random() * 720}deg)`, opacity: 0 }
@@ -956,16 +918,14 @@
                         duration: Math.random() * 3000 + 2000,
                         easing: 'cubic-bezier(0.215, 0.610, 0.355, 1)'
                     });
-                    
                     animation.onfinish = () => confetti.remove();
                 }, i * 20);
             }
         }
 
-        // ========== 6. RECOMMENDATIONS ==========
+        // ========== 7. RECOMMENDATIONS ==========
         function updateRecommendations(lulusTWK, lulusTIU, lulusTKP) {
             const recommendations = [];
-            
             if (!lulusTWK) {
                 recommendations.push({
                     title: 'Perkuat Wawasan Kebangsaan',
@@ -974,7 +934,6 @@
                     color: 'blue'
                 });
             }
-            
             if (!lulusTIU) {
                 recommendations.push({
                     title: 'Tingkatkan Kemampuan Numerik & Verbal',
@@ -983,7 +942,6 @@
                     color: 'green'
                 });
             }
-            
             if (!lulusTKP) {
                 recommendations.push({
                     title: 'Kembangkan Karakter Kepribadian',
@@ -992,7 +950,6 @@
                     color: 'purple'
                 });
             }
-            
             if (recommendations.length === 0) {
                 recommendations.push({
                     title: 'Pertahankan Performa',
@@ -1001,19 +958,15 @@
                     color: 'yellow'
                 });
             }
-            
-            // Always add general recommendation
             recommendations.push({
                 title: 'Gunakan Fitur Pembahasan',
                 message: 'Pelajari pembahasan setiap soal untuk memahami konsep dan cara penyelesaian.',
                 icon: 'fa-book-open',
                 color: 'indigo'
             });
-            
-            // Update recommendations UI
+
             const container = document.getElementById('recommendationsContent');
             container.innerHTML = '';
-            
             recommendations.forEach(rec => {
                 const colorClasses = {
                     blue: 'bg-blue-50 border-blue-200',
@@ -1022,7 +975,6 @@
                     yellow: 'bg-yellow-50 border-yellow-200',
                     indigo: 'bg-indigo-50 border-indigo-200'
                 };
-                
                 const iconColors = {
                     blue: 'text-blue-600',
                     green: 'text-green-600',
@@ -1030,7 +982,6 @@
                     yellow: 'text-yellow-600',
                     indigo: 'text-indigo-600'
                 };
-                
                 const item = `
                     <div class="flex items-start gap-3 p-3 rounded-xl ${colorClasses[rec.color]} border">
                         <div class="w-8 h-8 rounded-lg ${colorClasses[rec.color].split(' ')[0]} flex items-center justify-center">
@@ -1044,8 +995,6 @@
                 `;
                 container.innerHTML += item;
             });
-            
-            // Show recommendations section
             document.getElementById('recommendationsSection').classList.remove('hidden');
         }
 
@@ -1053,22 +1002,29 @@
             document.getElementById('certificateSection').classList.remove('hidden');
         }
 
-        // ========== 7. ACTION FUNCTIONS ==========
+        // ========== 8. ACTION FUNCTIONS ==========
         function kembaliDashboard() {
-            const tipePaketUser = localStorage.getItem(`paket_peserta_${pinAkses}`) || "1";
-            window.location.href = `dashboardpaket${tipePaketUser}.html?id=${pinAkses}`;
+            // Gunakan paketNumber yang sudah dideteksi dari PIN
+            window.location.href = `dashboardpaket${paketNumber}.html?id=${pinAkses}`;
         }
 
         function ulangiTryout() {
             if (confirm('Apakah Anda yakin ingin mengulang tryout ini? Progress sebelumnya akan dihapus.')) {
-                // Delete progress and result data
-                localStorage.removeItem(`progress_paket${paketNumber}_${pinAkses}`);
-                localStorage.removeItem(`hasil_paket${paketNumber}_${pinAkses}`);
-                
+                // Hapus semua data yang terkait dengan PIN ini
+                const keysToDelete = [];
+                for (let i = 0; i < localStorage.length; i++) {
+                    const key = localStorage.key(i);
+                    if (key.includes(pinAkses)) {
+                        keysToDelete.push(key);
+                    }
+                }
+                keysToDelete.forEach(key => {
+                    localStorage.removeItem(key);
+                    console.log('Data dihapus:', key);
+                });
                 showToast('success', 'Reset Berhasil', 'Mengarahkan ke halaman soal...');
-                
                 setTimeout(() => {
-                    window.location.href = `soalpaket${paketNumber}.html?id=${pinAkses}`;
+                    window.location.href = `soalpaket1.html?id=${pinAkses}`;
                 }, 1500);
             }
         }
@@ -1080,10 +1036,9 @@
 
         function downloadCertificate() {
             showToast('info', 'Sertifikat', 'Fitur unduh sertifikat akan segera hadir!');
-            // In production, this would generate and download a PDF certificate
         }
 
-        // ========== 8. SHARE FUNCTIONS ==========
+        // ========== 9. SHARE FUNCTIONS ==========
         function showShareModal() {
             document.getElementById('shareModal').classList.remove('hidden');
         }
@@ -1109,9 +1064,7 @@
 
         function copyResultLink() {
             navigator.clipboard.writeText(window.location.href)
-                .then(() => {
-                    showToast('success', 'Link Disalin', 'Tautan hasil telah disalin ke clipboard');
-                })
+                .then(() => showToast('success', 'Link Disalin', 'Tautan hasil telah disalin ke clipboard'))
                 .catch(err => {
                     console.error('Failed to copy:', err);
                     showToast('error', 'Gagal Menyalin', 'Tidak dapat menyalin tautan');
@@ -1121,7 +1074,6 @@
         function shareResult() {
             const message = document.getElementById('shareMessage').value;
             const shareText = `${message}\n\nSkor Total: ${resultData.total}\nTWK: ${resultData.twk} | TIU: ${resultData.tiu} | TKP: ${resultData.tkp}\n\n${window.location.href}`;
-            
             if (navigator.share) {
                 navigator.share({
                     title: 'Hasil Simulasi CAT CPNS',
@@ -1130,15 +1082,12 @@
                 });
             } else {
                 navigator.clipboard.writeText(shareText)
-                    .then(() => {
-                        showToast('success', 'Teks Disalin', 'Hasil telah disalin ke clipboard');
-                    })
+                    .then(() => showToast('success', 'Teks Disalin', 'Hasil telah disalin ke clipboard'))
                     .catch(err => {
                         console.error('Failed to copy:', err);
                         showToast('error', 'Gagal Membagikan', 'Tidak dapat membagikan hasil');
                     });
             }
-            
             hideShareModal();
         }
 
@@ -1147,20 +1096,18 @@
             const lulusTIU = resultData.tiu >= 80;
             const lulusTKP = resultData.tkp >= 166;
             const semuaLulus = lulusTWK && lulusTIU && lulusTKP;
-            
             let status = semuaLulus ? '🎉 LULUS SEMUA PASSING GRADE!' : '📚 PERLU PERBAIKAN';
-            
             return `Saya baru saja menyelesaikan simulasi CAT CPNS!\n\n` +
                    `Skor Total: ${resultData.total}\n` +
                    `TWK: ${resultData.twk} | TIU: ${resultData.tiu} | TKP: ${resultData.tkp}\n` +
-                   `Status: ${status}\n\n` +
+                   `Status: ${status}\n` +
+                   `Paket: ${paketNumber} | PIN: ${pinAkses}\n\n` +
                    `Coba simulasi ini di: ${window.location.origin}`;
         }
 
-        // ========== 9. ANALYSIS FUNCTIONS ==========
+        // ========== 10. ANALYSIS FUNCTIONS ==========
         function showAnalysisModal() {
             const content = document.getElementById('analysisContent');
-            
             const analysisHTML = `
                 <div class="space-y-6">
                     <div>
@@ -1195,7 +1142,6 @@
                             </div>
                         </div>
                     </div>
-                    
                     <div class="grid grid-cols-2 gap-4">
                         <div class="bg-slate-50 rounded-xl p-4">
                             <h5 class="font-bold text-slate-800 text-sm mb-2">Statistik Umum</h5>
@@ -1218,7 +1164,6 @@
                                 </div>
                             </div>
                         </div>
-                        
                         <div class="bg-slate-50 rounded-xl p-4">
                             <h5 class="font-bold text-slate-800 text-sm mb-2">Akurasi Jawaban</h5>
                             <div class="space-y-2">
@@ -1237,34 +1182,19 @@
                             </div>
                         </div>
                     </div>
-                    
                     <div class="bg-blue-50 rounded-xl p-4 border border-blue-100">
                         <h5 class="font-bold text-blue-800 text-sm mb-2 flex items-center gap-2">
-                            <i class="fa-solid fa-lightbulb"></i>
-                            Tips Perbaikan
+                            <i class="fa-solid fa-lightbulb"></i> Tips Perbaikan
                         </h5>
                         <ul class="text-sm text-blue-700 space-y-2">
-                            <li class="flex items-start gap-2">
-                                <i class="fa-solid fa-check mt-1 text-xs"></i>
-                                <span>Review soal yang dijawab dengan ragu-ragu</span>
-                            </li>
-                            <li class="flex items-start gap-2">
-                                <i class="fa-solid fa-check mt-1 text-xs"></i>
-                                <span>Fokus pada materi dengan skor terendah</span>
-                            </li>
-                            <li class="flex items-start gap-2">
-                                <i class="fa-solid fa-check mt-1 text-xs"></i>
-                                <span>Latihan soal dengan waktu terbatas</span>
-                            </li>
-                            <li class="flex items-start gap-2">
-                                <i class="fa-solid fa-check mt-1 text-xs"></i>
-                                <span>Pelajari pembahasan setiap soal</span>
-                            </li>
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-check mt-1 text-xs"></i><span>Review soal yang dijawab dengan ragu-ragu</span></li>
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-check mt-1 text-xs"></i><span>Fokus pada materi dengan skor terendah</span></li>
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-check mt-1 text-xs"></i><span>Latihan soal dengan waktu terbatas</span></li>
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-check mt-1 text-xs"></i><span>Pelajari pembahasan setiap soal</span></li>
                         </ul>
                     </div>
                 </div>
             `;
-            
             content.innerHTML = analysisHTML;
             document.getElementById('analysisModal').classList.remove('hidden');
         }
@@ -1273,26 +1203,20 @@
             document.getElementById('analysisModal').classList.add('hidden');
         }
 
-        // ========== 10. PROGRESS HISTORY ==========
+        // ========== 11. PROGRESS HISTORY ==========
         function saveToProgressHistory() {
             if (!pinAkses || !resultData) return;
-            
             const historyKey = `progress_${pinAkses}`;
             let progress = JSON.parse(localStorage.getItem(historyKey)) || {};
-            
             progress[`paket_${paketNumber}`] = true;
             progress[`score_${paketNumber}`] = resultData.total;
             progress[`time_${paketNumber}`] = resultData.waktu || '-';
-            progress[`accuracy_${paketNumber}`] = Math.round(
-                ((resultData.twkBenar || 0) + (resultData.tiuBenar || 0)) / 
-                ((resultData.twkJawab || 0) + (resultData.tiuJawab || 0) + 1) * 100
-            );
+            progress[`accuracy_${paketNumber}`] = Math.round(((resultData.twkBenar || 0) + (resultData.tiuBenar || 0)) / ((resultData.twkJawab || 0) + (resultData.tiuJawab || 0) + 1) * 100);
             progress[`completed_${paketNumber}`] = new Date().toISOString();
-            
             localStorage.setItem(historyKey, JSON.stringify(progress));
         }
 
-        // ========== 11. UI HELPER FUNCTIONS ==========
+        // ========== 12. UI HELPER FUNCTIONS ==========
         function showErrorState() {
             document.getElementById('loadingState').classList.add('hidden');
             document.getElementById('errorState').classList.remove('hidden');
@@ -1308,7 +1232,6 @@
             const toastIcon = document.getElementById('toast-icon');
             const toastTitle = document.getElementById('toast-title');
             const toastMessage = document.getElementById('toast-message');
-            
             let iconClass, bgColor;
             switch (type) {
                 case 'success':
@@ -1323,13 +1246,11 @@
                     iconClass = 'fa-solid fa-circle-info text-blue-500';
                     bgColor = 'bg-blue-50 border-blue-200';
             }
-            
             toastIcon.className = iconClass;
             toastTitle.textContent = title;
             toastMessage.textContent = message;
             toast.querySelector('div').className = `bg-white rounded-xl shadow-lg border p-4 max-w-sm animate-fadeIn ${bgColor}`;
             toast.classList.remove('hidden');
-            
             setTimeout(hideToast, 5000);
         }
 
@@ -1337,49 +1258,34 @@
             document.getElementById('notification-toast').classList.add('hidden');
         }
 
-        // ========== 12. EVENT LISTENERS SETUP ==========
+        // ========== 13. EVENT LISTENERS SETUP ==========
         function setupEventListeners() {
-            // Close dropdowns when clicking outside
             document.addEventListener('click', (event) => {
                 const resultMenu = document.getElementById('resultMenu');
                 const resultButton = document.querySelector('[onclick="toggleResultMenu()"]');
-                
                 if (resultMenu && !resultMenu.contains(event.target) && resultButton && !resultButton.contains(event.target)) {
                     resultMenu.classList.add('hidden');
                 }
-                
-                // Close modals when clicking outside
                 const modals = ['shareModal', 'analysisModal'];
                 modals.forEach(modalId => {
                     const modal = document.getElementById(modalId);
                     const modalContent = modal?.querySelector('div > div');
-                    
                     if (modal && !modal.classList.contains('hidden') && modalContent && !modalContent.contains(event.target)) {
                         modal.classList.add('hidden');
                     }
                 });
             });
-            
-            // Keyboard shortcuts
             document.addEventListener('keydown', (e) => {
                 if (e.key === 'Escape') {
-                    if (!document.getElementById('shareModal').classList.contains('hidden')) {
-                        hideShareModal();
-                    }
-                    if (!document.getElementById('analysisModal').classList.contains('hidden')) {
-                        hideAnalysisModal();
-                    }
+                    if (!document.getElementById('shareModal').classList.contains('hidden')) hideShareModal();
+                    if (!document.getElementById('analysisModal').classList.contains('hidden')) hideAnalysisModal();
                 }
-                
-                // Print with Ctrl+P
                 if (e.ctrlKey && e.key === 'p') {
                     e.preventDefault();
                     printResult();
                 }
             });
         }
-
     </script>
-
 </body>
 </html>
