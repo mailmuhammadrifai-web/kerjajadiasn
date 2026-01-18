@@ -26,6 +26,10 @@
             background: linear-gradient(135deg, #e5e7eb 0%, #d1d5db 25%, #9ca3af 50%, #6b7280 75%);
         }
 
+        .emerald-gradient {
+            background: linear-gradient(135deg, #10b981 0%, #059669 25%, #047857 50%, #065f46 75%);
+        }
+
         .premium-glow {
             box-shadow: 0 0 30px rgba(245, 158, 11, 0.3);
         }
@@ -133,6 +137,11 @@
             50% { opacity: 0.7; }
         }
 
+        @keyframes pulse-emerald {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
         .animate-fadeIn {
             animation: fadeIn 0.5s ease-out;
         }
@@ -143,6 +152,10 @@
 
         .animate-pulse-gold {
             animation: pulse-gold 2s infinite;
+        }
+
+        .animate-pulse-emerald {
+            animation: pulse-emerald 2s infinite;
         }
 
         /* Card Hover Effects Premium */
@@ -182,6 +195,11 @@
         }
 
         .status-vip {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+        }
+
+        .status-emerald {
             background: linear-gradient(135deg, #10b981, #059669);
             color: white;
         }
@@ -289,6 +307,12 @@
             text-shadow: 0 0 10px rgba(245, 158, 11, 0.7),
                          0 0 20px rgba(245, 158, 11, 0.5),
                          0 0 30px rgba(245, 158, 11, 0.3);
+        }
+
+        .neon-emerald {
+            text-shadow: 0 0 10px rgba(16, 185, 129, 0.7),
+                         0 0 20px rgba(16, 185, 129, 0.5),
+                         0 0 30px rgba(16, 185, 129, 0.3);
         }
 
         /* Diamond Background Pattern */
@@ -445,13 +469,14 @@
                             <div>
                                 <span class="status-badge-premium bg-amber-500/30 backdrop-blur-sm border border-amber-500/50">Paket 3 Ultimate</span>
                                 <span class="status-ultimate bg-gradient-to-r from-purple-600 to-blue-600 ml-2 border border-purple-500/50">Eksklusif</span>
+                                <span class="status-emerald bg-gradient-to-r from-emerald-600 to-green-600 ml-2 border border-emerald-500/50">20+ Paket</span>
                             </div>
                         </div>
 
                         <h2 class="text-2xl md:text-4xl font-bold mb-3 bg-gradient-to-r from-amber-300 via-yellow-300 to-amber-400 bg-clip-text text-transparent">
                             Akses Ultimate Persiapan ASN!
                         </h2>
-                        <p class="text-slate-300 opacity-95 mb-6 max-w-2xl">20 tryout premium + semua modul lengkap + fitur eksklusif grup WA khusus!</p>
+                        <p class="text-slate-300 opacity-95 mb-6 max-w-2xl">20 tryout premium + semua modul lengkap + fitur eksklusif grup WA khusus + bisa tambah paket!</p>
 
                         <div class="flex flex-wrap gap-4">
                             <div class="flex items-center gap-3 bg-amber-500/10 border border-amber-500/30 px-4 py-3 rounded-xl backdrop-blur-sm">
@@ -483,7 +508,10 @@
                                 </div>
                                 <div>
                                     <p class="text-[10px] font-bold text-blue-300 uppercase mb-1">Total Paket</p>
-                                    <p class="text-sm font-bold text-blue-300">20 Paket</p>
+                                    <div class="flex items-center gap-1">
+                                        <p class="text-sm font-bold text-blue-300">20</p>
+                                        <span id="extraPackagesCount" class="text-xs bg-emerald-500/20 text-emerald-300 px-1 rounded">+0 tambahan</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -497,6 +525,9 @@
                             </div>
                             <div class="absolute -top-2 -right-2 w-16 h-16 bg-gradient-to-br from-purple-600 to-blue-600 rounded-full flex items-center justify-center text-2xl text-white">
                                 <i class="fa-solid fa-3"></i>
+                            </div>
+                            <div class="absolute -bottom-2 -left-2 w-12 h-12 emerald-gradient rounded-full flex items-center justify-center text-lg text-white">
+                                <i class="fa-solid fa-plus"></i>
                             </div>
                         </div>
                     </div>
@@ -646,7 +677,7 @@
                                 </div>
                             </div>
                             <p class="text-sm text-slate-300 mb-4">Akses ke grup WhatsApp khusus member Paket 3 untuk konsultasi langsung dengan mentor dan diskusi premium</p>
-                            <a href="https://chat.whatsapp.com/invite/grup-paket3" target="_blank" class="inline-flex items-center text-green-400 text-sm font-bold hover:text-green-300">
+                            <a href="https://wa.me/6285696409288?text=Halo%20admin,%20saya%20peserta%20Paket%203%20Ultimate%20mau%20join%20grup%20WA%20khusus" target="_blank" class="inline-flex items-center text-green-400 text-sm font-bold hover:text-green-300">
                                 <span>Join Grup Premium</span>
                                 <i class="fa-solid fa-arrow-right ml-2 transform group-hover:translate-x-2 transition-transform"></i>
                             </a>
@@ -658,11 +689,11 @@
                                     <i class="fa-solid fa-book text-amber-400"></i>
                                 </div>
                                 <div>
-                                    <h4 class="font-bold text-amber-300">20 Paket Tryout</h4>
-                                    <p class="text-xs text-slate-400">Simulasi terlengkap</p>
+                                    <h4 class="font-bold text-amber-300">20+ Paket Tryout</h4>
+                                    <p class="text-xs text-slate-400">Simulasi terlengkap + bisa tambah</p>
                                 </div>
                             </div>
-                            <p class="text-sm text-slate-300 mb-4">Akses ke 20 paket tryout lengkap dengan berbagai tingkat kesulitan untuk persiapan maksimal</p>
+                            <p class="text-sm text-slate-300 mb-4">Akses ke 20 paket tryout lengkap dan bisa tambah paket jika ingin latihan lebih intensif</p>
                             <div class="flex items-center text-amber-400 text-sm font-bold">
                                 <span>Mulai Belajar</span>
                                 <i class="fa-solid fa-arrow-right ml-2"></i>
@@ -676,9 +707,9 @@
                     <div>
                         <h3 class="font-bold text-amber-300 text-xl flex items-center gap-2">
                             <i class="fa-solid fa-laptop-code text-amber-400"></i>
-                            Simulasi Tryout Ultimate (20 Paket)
+                            Simulasi Tryout Ultimate (20+ Paket)
                         </h3>
-                        <p class="text-sm text-slate-400 mt-1">Pilih paket tryout premium untuk dikerjakan</p>
+                        <p class="text-sm text-slate-400 mt-1">Pilih paket tryout premium untuk dikerjakan <span class="text-emerald-400">(+bisa tambah paket)</span></p>
                     </div>
 
                     <div class="flex items-center gap-3">
@@ -688,6 +719,7 @@
                                 <span id="completedCount" class="text-lg font-black text-amber-400">0</span>
                                 <span class="text-slate-400">/</span>
                                 <span class="text-slate-300 font-bold">20</span>
+                                <span id="extraCompletedCount" class="text-xs bg-emerald-500/20 text-emerald-300 px-1 rounded">+0</span>
                             </div>
                         </div>
 
@@ -701,6 +733,9 @@
                             <button onclick="showAllTips()" class="w-10 h-10 rounded-lg bg-purple-500/20 hover:bg-purple-500/30 flex items-center justify-center transition-colors tooltip-premium" title="Tips Cepat">
                                 <i class="fa-solid fa-lightbulb text-purple-300"></i>
                             </button>
+                            <button onclick="tambahPaketTryout()" class="w-10 h-10 rounded-lg emerald-gradient flex items-center justify-center transition-colors tooltip-premium animate-pulse-emerald" title="Tambah Paket">
+                                <i class="fa-solid fa-plus text-white"></i>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -708,7 +743,7 @@
                 <!-- Filter Tabs Premium -->
                 <div class="flex gap-2 mb-4 overflow-x-auto pb-2">
                     <button onclick="filterSoal('all')" id="filter-all" class="px-4 py-2 rounded-lg gold-gradient text-slate-900 text-sm font-bold transition-colors hover:shadow-lg hover:shadow-amber-500/30">
-                        Semua (20)
+                        Semua (20+)
                     </button>
                     <button onclick="filterSoal('completed')" id="filter-completed" class="px-4 py-2 rounded-lg bg-slate-700 hover:bg-slate-600 text-slate-300 text-sm font-bold transition-colors">
                         <i class="fa-solid fa-check mr-2 text-green-400"></i>Selesai
@@ -721,6 +756,9 @@
                     </button>
                     <button onclick="filterSoal('hardest')" id="filter-hardest" class="px-4 py-2 rounded-lg bg-slate-700 hover:bg-slate-600 text-slate-300 text-sm font-bold transition-colors">
                         <i class="fa-solid fa-fire mr-2 text-red-400"></i>Tersulit
+                    </button>
+                    <button onclick="filterSoal('extra')" id="filter-extra" class="px-4 py-2 rounded-lg bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 text-sm font-bold transition-colors border border-emerald-500/30">
+                        <i class="fa-solid fa-plus mr-2"></i>Tambahan
                     </button>
                 </div>
 
@@ -833,7 +871,7 @@
                                 <i class="fa-solid fa-layer-group text-blue-400"></i>
                                 <span class="text-sm font-medium text-slate-300">Kuota Tryout</span>
                             </div>
-                            <span class="font-bold text-amber-400 text-sm">20 Paket</span>
+                            <span class="font-bold text-amber-400 text-sm">20+ Paket</span>
                         </div>
 
                         <div class="flex justify-between items-center">
@@ -847,7 +885,7 @@
                         <div class="pt-2">
                             <div class="flex justify-between text-xs text-slate-400 mb-1">
                                 <span>Progress Tryout Ultimate</span>
-                                <span id="quotaUsed">0/20</span>
+                                <span id="quotaUsed">0/20+</span>
                             </div>
                             <div class="w-full bg-slate-700 h-2 rounded-full overflow-hidden">
                                 <div id="quotaProgress" class="h-full gold-gradient progress-bar rounded-full" style="width: 0%"></div>
@@ -958,12 +996,49 @@
                         </div>
                     </div>
 
-                    <a href="https://chat.whatsapp.com/invite/grup-paket3" target="_blank" class="block w-full bg-gradient-to-r from-green-500 to-emerald-600 text-white font-black py-3 rounded-xl hover:from-green-600 hover:to-emerald-700 transition-all active:scale-95 shadow-lg flex items-center justify-center gap-2">
+                    <a href="https://wa.me/6285696409288?text=Halo%20Admin%20Kerja%20Jadi%20ASN,%20saya%20peserta%20Paket%203%20Ultimate%20dengan%20PIN:%20${pinAkses}%20mau%20join%20grup%20WA%20premium" target="_blank" class="block w-full bg-gradient-to-r from-green-500 to-emerald-600 text-white font-black py-3 rounded-xl hover:from-green-600 hover:to-emerald-700 transition-all active:scale-95 shadow-lg flex items-center justify-center gap-2">
                         <i class="fa-brands fa-whatsapp"></i> Join Grup WhatsApp
                     </a>
 
                     <p class="text-white/80 text-xs text-center mt-4">
                         <i class="fa-solid fa-users"></i> 100+ member premium • Daily coaching
+                    </p>
+                </div>
+
+                <!-- Tambah Tryout Card -->
+                <div class="bg-gradient-to-br from-emerald-900 to-green-900 rounded-2xl p-6 shadow-lg card-hover-premium">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center border border-emerald-500/30">
+                            <i class="fa-solid fa-plus text-white text-xl"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-black text-white text-lg neon-emerald">Tambah Tryout</h4>
+                            <p class="text-white/90 text-xs">Butuh lebih banyak latihan?</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-white/10 backdrop-blur-sm rounded-xl p-4 mb-5 border border-white/20">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-white text-sm font-bold">Paket Tambahan</span>
+                            <span class="bg-white text-emerald-600 px-3 py-1 rounded-full text-xs font-black">Rp 25.000</span>
+                        </div>
+                        <p class="text-white/90 text-xs mb-3">+1 paket simulasi premium dengan pembahasan lengkap</p>
+                        <div class="flex items-center gap-2 text-xs text-emerald-300">
+                            <i class="fa-solid fa-bolt"></i>
+                            <span>Proses instan via WhatsApp</span>
+                        </div>
+                        <div class="flex items-center gap-2 text-xs text-emerald-300 mt-2">
+                            <i class="fa-solid fa-rocket"></i>
+                            <span>Akses langsung setelah pembayaran</span>
+                        </div>
+                    </div>
+
+                    <button onclick="tambahPaketTryout()" class="w-full bg-gradient-to-r from-emerald-500 to-green-600 text-white font-black py-3 rounded-xl hover:from-emerald-600 hover:to-green-700 transition-all active:scale-95 shadow-lg flex items-center justify-center gap-2 animate-pulse-emerald">
+                        <i class="fa-solid fa-whatsapp"></i> Pesan via WhatsApp
+                    </button>
+
+                    <p class="text-white/80 text-xs text-center mt-4">
+                        <i class="fa-solid fa-circle-check"></i> Akses langsung • Pembahasan lengkap
                     </p>
                 </div>
 
@@ -1013,7 +1088,7 @@
                         </div>
                         <div class="bg-white/10 backdrop-blur-sm rounded-lg p-3 border border-white/20">
                             <p class="text-white text-sm font-bold mb-1">Gunakan Semua Paket</p>
-                            <p class="text-white/70 text-xs">Manfaatkan 20 paket tryout untuk pengalaman maksimal</p>
+                            <p class="text-white/70 text-xs">Manfaatkan 20+ paket tryout untuk pengalaman maksimal</p>
                         </div>
                     </div>
 
@@ -1102,7 +1177,7 @@
                             </li>
                             <li class="flex items-start gap-2">
                                 <i class="fa-solid fa-crown mt-1 text-xs"></i>
-                                <span>Pelajari tips memilih formasi untuk strategi pendaftaran yang tepat</span>
+                                <span>Tambahkan paket tryout jika ingin latihan lebih intensif (Rp 25.000/paket)</span>
                             </li>
                         </ul>
                     </div>
@@ -1123,10 +1198,34 @@
                                 <i class="fa-brands fa-whatsapp"></i> Grup WhatsApp Premium
                             </h4>
                             <p class="text-sm text-slate-300 mb-2">Bergabung dengan komunitas eksklusif</p>
-                            <a href="https://chat.whatsapp.com/invite/grup-paket3" target="_blank" class="inline-flex items-center gap-2 bg-green-500/20 text-green-300 px-3 py-2 rounded-lg text-sm font-bold hover:bg-green-500/30 transition-colors border border-green-500/30">
+                            <a href="https://wa.me/6285696409288?text=Halo%20admin,%20saya%20peserta%20Paket%203%20Ultimate%20mau%20join%20grup%20WA%20khusus" target="_blank" class="inline-flex items-center gap-2 bg-green-500/20 text-green-300 px-3 py-2 rounded-lg text-sm font-bold hover:bg-green-500/30 transition-colors border border-green-500/30">
                                 <i class="fa-brands fa-whatsapp"></i> Join Grup Premium
                             </a>
                         </div>
+                    </div>
+
+                    <div class="bg-slate-700/50 rounded-xl p-4 border border-emerald-500/20">
+                        <h4 class="font-bold text-emerald-300 mb-2 flex items-center gap-2">
+                            <i class="fa-solid fa-plus"></i> Tambah Paket Tryout
+                        </h4>
+                        <p class="text-sm text-slate-300 mb-3">Ingin lebih banyak latihan? Anda bisa menambah paket tryout!</p>
+                        <div class="space-y-2">
+                            <div class="flex items-center gap-2">
+                                <i class="fa-solid fa-check text-emerald-400 text-xs"></i>
+                                <span class="text-sm text-slate-300">Hanya Rp 25.000 per paket tambahan</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <i class="fa-solid fa-check text-emerald-400 text-xs"></i>
+                                <span class="text-sm text-slate-300">Pembahasan lengkap semua soal</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <i class="fa-solid fa-check text-emerald-400 text-xs"></i>
+                                <span class="text-sm text-slate-300">Akses langsung setelah pembayaran</span>
+                            </div>
+                        </div>
+                        <button onclick="tambahPaketTryout()" class="w-full mt-3 emerald-gradient text-white font-bold py-2 rounded-lg hover:shadow-lg hover:shadow-emerald-500/30 transition-all flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-whatsapp"></i> Pesan Paket Tambahan
+                        </button>
                     </div>
 
                     <div class="bg-slate-700/50 rounded-xl p-4 border border-blue-500/20">
@@ -1150,6 +1249,14 @@
                                 <i class="fa-solid fa-check text-green-400 text-xs"></i>
                                 <span class="text-sm text-slate-300">Grup WhatsApp</span>
                             </div>
+                            <div class="flex items-center gap-2">
+                                <i class="fa-solid fa-check text-green-400 text-xs"></i>
+                                <span class="text-sm text-slate-300">Bisa Tambah Paket</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <i class="fa-solid fa-check text-green-400 text-xs"></i>
+                                <span class="text-sm text-slate-300">Support Prioritas</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1170,7 +1277,7 @@
                         </h2>
                     </div>
                     <p class="text-slate-400 text-sm max-w-md">
-                        Platform tryout ASN ultimate paket lengkap dengan fitur premium, 20 paket tryout, dan grup belajar eksklusif.
+                        Platform tryout ASN ultimate paket lengkap dengan fitur premium, 20+ paket tryout, grup belajar eksklusif, dan bisa tambah paket.
                     </p>
                 </div>
 
@@ -1185,7 +1292,7 @@
                         <a href="#" class="text-slate-400 hover:text-amber-400">
                             <i class="fab fa-instagram text-lg"></i>
                         </a>
-                        <a href="#" class="text-slate-400 hover:text-green-400">
+                        <a href="https://wa.me/6285696409288" target="_blank" class="text-slate-400 hover:text-green-400">
                             <i class="fab fa-whatsapp text-lg"></i>
                         </a>
                     </div>
@@ -1200,8 +1307,9 @@
                     <a href="#" class="hover:text-amber-400">Kebijakan Privasi Premium</a>
                     <a href="#" class="hover:text-amber-400">Syarat & Ketentuan Ultimate</a>
                     <a href="#" class="hover:text-amber-400">FAQ Premium</a>
-                    <a href="#" class="hover:text-amber-400">Kontak Prioritas</a>
+                    <a href="https://wa.me/6285696409288" target="_blank" class="hover:text-amber-400">Kontak Prioritas</a>
                     <a href="#" class="hover:text-amber-400">Karir Eksklusif</a>
+                    <a href="#" onclick="tambahPaketTryout()" class="hover:text-emerald-400 text-emerald-300 font-bold">Tambah Paket Tryout</a>
                 </div>
             </div>
         </div>
@@ -1215,6 +1323,7 @@
         let isSortedAsc = true;
         let currentFilter = 'all';
         let isMaintenanceMode = false;
+        let extraPackages = [];
 
         // ========== 2. INITIALIZATION ==========
         document.addEventListener('DOMContentLoaded', async function() {
@@ -1260,6 +1369,9 @@
                 // Simpan info bahwa user ini adalah pemilik PAKET 3
                 localStorage.setItem(`paket_peserta_${pinAkses}`, "3");
 
+                // Load extra packages
+                loadExtraPackages();
+
                 // Show loading state
                 showLoading();
 
@@ -1281,11 +1393,16 @@
                 // Show welcome notification with premium confetti
                 showNotification('success', 'Selamat Datang di Ultimate!', `Akses penuh Paket 3 Ultimate untuk PIN: ${pinAkses}`);
                 
+                // Show feature notification
+                setTimeout(() => {
+                    showNotification('info', 'Fitur Baru Tersedia!', 'Sekarang Anda bisa membeli paket tryout tambahan untuk latihan lebih intensif. Cek di sidebar!');
+                }, 2000);
+                
                 // Premium confetti burst
                 createPremiumConfettiBurst();
 
                 // Track activity
-                trackActivity('dashboard_loaded', { pin: pinAkses, paket: 3, type: 'ultimate' });
+                trackActivity('dashboard_loaded', { pin: pinAkses, paket: 3, type: 'ultimate', extra_packages: extraPackages.length });
 
             } catch (error) {
                 console.error('Initialization error:', error);
@@ -1476,8 +1593,10 @@
                 const progressKey = `progress_${pinAkses}`;
                 const progress = JSON.parse(localStorage.getItem(progressKey)) || {};
 
-                // Generate soal list (20 paket untuk paket 3 Ultimate)
+                // Generate soal list (20 paket untuk paket 3 Ultimate + extra packages)
                 const soalList = [];
+                
+                // Main packages (1-20)
                 for (let i = 1; i <= 20; i++) {
                     const isCompleted = progress[`paket_${i}`] || false;
                     const score = progress[`score_${i}`] || null;
@@ -1494,18 +1613,44 @@
                         completionTime,
                         accuracy,
                         difficulty,
-                        link: `soalpaket${i}.html?id=${pinAkses}`, // PERUBAHAN: Link ke soalpaket1.html, soalpaket2.html, dst.
+                        link: `soalpaket${i}.html?id=${pinAkses}`,
                         bestScore: score && score >= 480,
-                        isHardest: difficulty === 3
+                        isHardest: difficulty === 3,
+                        isExtra: false
                     });
                 }
+
+                // Extra packages
+                extraPackages.forEach((extra, index) => {
+                    const extraId = 100 + index + 1; // Start from 101
+                    const isCompleted = progress[`paket_extra_${extraId}`] || false;
+                    const score = progress[`score_extra_${extraId}`] || null;
+                    const completionTime = progress[`time_extra_${extraId}`] || null;
+                    const accuracy = progress[`accuracy_extra_${extraId}`] || null;
+
+                    soalList.push({
+                        id: extraId,
+                        title: `Simulasi Tambahan #${index + 1}`,
+                        description: 'TWK • TIU • TKP (110 Soal) • Paket Tambahan',
+                        isCompleted,
+                        score,
+                        completionTime,
+                        accuracy,
+                        difficulty: 2, // Default medium
+                        link: `soaltambahan${index + 1}.html?id=${pinAkses}`,
+                        bestScore: score && score >= 480,
+                        isHardest: false,
+                        isExtra: true
+                    });
+                });
 
                 // Render soal list
                 renderSoalCards(soalList);
 
                 // Update completed count
-                const completedCount = soalList.filter(s => s.isCompleted).length;
-                updateCompletedCount(completedCount);
+                const completedCount = soalList.filter(s => s.isCompleted && !s.isExtra).length;
+                const extraCompletedCount = soalList.filter(s => s.isCompleted && s.isExtra).length;
+                updateCompletedCount(completedCount, extraCompletedCount);
 
                 // Hide loading state
                 document.getElementById('loadingState').classList.add('hidden');
@@ -1542,6 +1687,10 @@
             const badge = soal.isCompleted 
                 ? `<span class="status-badge-premium"><i class="fa-solid fa-check mr-1"></i>Selesai</span>`
                 : `<span class="status-ultimate"><i class="fa-solid fa-clock mr-1"></i>Belum</span>`;
+            
+            const extraBadge = soal.isExtra 
+                ? `<span class="status-emerald text-xs px-2 py-1 rounded-full"><i class="fa-solid fa-plus mr-1"></i>Tambahan</span>`
+                : '';
 
             const difficultyStars = '★'.repeat(soal.difficulty) + '☆'.repeat(3-soal.difficulty);
             const difficultyColor = soal.difficulty === 1 ? 'text-green-400' : soal.difficulty === 2 ? 'text-yellow-400' : 'text-red-400';
@@ -1559,37 +1708,43 @@
             const buttonText = soal.isCompleted ? '<i class="fa-solid fa-redo"></i> ULANGI ULTIMATE' : '<i class="fa-solid fa-play"></i> KERJAKAN ULTIMATE';
             const buttonClass = soal.isCompleted 
                 ? 'bg-gradient-to-r from-green-600 to-emerald-700 hover:from-green-700 hover:to-emerald-800'
-                : 'gold-gradient hover:shadow-lg hover:shadow-amber-500/30';
+                : soal.isExtra 
+                    ? 'emerald-gradient hover:shadow-lg hover:shadow-emerald-500/30'
+                    : 'gold-gradient hover:shadow-lg hover:shadow-amber-500/30';
+
+            const cardNumber = soal.isExtra ? `T${soal.id - 100}` : soal.id;
 
             return `
-                <div class="bg-slate-800 p-5 rounded-2xl border border-amber-500/20 card-hover-premium soal-card" data-id="${soal.id}" data-completed="${soal.isCompleted}" data-score="${soal.score || 0}" data-best="${soal.bestScore}" data-difficulty="${soal.difficulty}" data-hardest="${soal.isHardest}">
+                <div class="bg-slate-800 p-5 rounded-2xl border ${soal.isExtra ? 'border-emerald-500/30' : 'border-amber-500/20'} card-hover-premium soal-card" data-id="${soal.id}" data-completed="${soal.isCompleted}" data-score="${soal.score || 0}" data-best="${soal.bestScore}" data-difficulty="${soal.difficulty}" data-hardest="${soal.isHardest}" data-extra="${soal.isExtra}">
                     <div class="flex items-center justify-between">
                         <div class="flex items-center gap-4 flex-1">
                             <div class="relative">
-                                <div class="w-12 h-12 ${soal.isCompleted ? 'gold-gradient text-slate-900' : 'bg-slate-700 text-amber-300 border border-amber-500/20'} rounded-xl flex items-center justify-center font-black text-lg shadow-sm">
-                                    ${soal.id}
+                                <div class="w-12 h-12 ${soal.isExtra ? 'emerald-gradient text-white' : soal.isCompleted ? 'gold-gradient text-slate-900' : 'bg-slate-700 text-amber-300 border border-amber-500/20'} rounded-xl flex items-center justify-center font-black text-lg shadow-sm">
+                                    ${cardNumber}
                                     ${soal.isCompleted ? '<i class="fa-solid fa-crown absolute -top-1 -right-1 text-xs bg-amber-500 text-slate-900 rounded-full w-5 h-5 flex items-center justify-center"></i>' : ''}
+                                    ${soal.isExtra && !soal.isCompleted ? '<i class="fa-solid fa-plus absolute -top-1 -right-1 text-xs bg-emerald-500 text-white rounded-full w-5 h-5 flex items-center justify-center"></i>' : ''}
                                 </div>
                             </div>
                             <div class="flex-1">
                                 <div class="flex flex-wrap items-center gap-2 mb-1">
-                                    <h4 class="font-extrabold text-amber-300 text-base">${soal.title}</h4>
+                                    <h4 class="font-extrabold ${soal.isExtra ? 'text-emerald-300' : 'text-amber-300'} text-base">${soal.title}</h4>
                                     ${badge}
+                                    ${extraBadge}
                                 </div>
                                 <div class="flex items-center gap-3 mb-1">
                                     <p class="text-xs text-slate-400 font-medium uppercase tracking-wider">${soal.description}</p>
-                                    <span class="text-xs ${difficultyColor} font-bold">${difficultyStars}</span>
+                                    ${!soal.isExtra ? `<span class="text-xs ${difficultyColor} font-bold">${difficultyStars}</span>` : ''}
                                 </div>
                                 ${scoreDisplay}
                                 ${soal.completionTime ? `<p class="text-xs text-slate-500 mt-1"><i class="fa-regular fa-clock"></i> ${soal.completionTime}</p>` : ''}
                             </div>
                         </div>
                         <div class="flex flex-col items-end gap-2">
-                            <a href="${soal.link}" class="${buttonClass} text-slate-900 px-5 py-3 rounded-xl text-sm font-bold shadow-lg hover:shadow-xl transition-all active:scale-95 flex items-center gap-2 whitespace-nowrap soal-card-action">
+                            <a href="${soal.link}" class="${buttonClass} ${soal.isExtra ? 'text-white' : 'text-slate-900'} px-5 py-3 rounded-xl text-sm font-bold shadow-lg hover:shadow-xl transition-all active:scale-95 flex items-center gap-2 whitespace-nowrap soal-card-action">
                                 ${buttonText}
                             </a>
                             ${soal.isCompleted ? `
-                                <button onclick="showSoalDetail(${soal.id})" class="text-xs text-slate-400 hover:text-amber-400 flex items-center gap-1">
+                                <button onclick="showSoalDetail(${soal.id}, ${soal.isExtra})" class="text-xs text-slate-400 hover:${soal.isExtra ? 'text-emerald-400' : 'text-amber-400'} flex items-center gap-1">
                                     <i class="fa-solid fa-chart-bar"></i> Detail Ultimate
                                 </button>
                             ` : ''}
@@ -1599,7 +1754,7 @@
             `;
         }
 
-        function updateCompletedCount(count) {
+        function updateCompletedCount(count, extraCount = 0) {
             const elements = [
                 'completedCount',
                 'completedCountSmall'
@@ -1612,20 +1767,34 @@
                 }
             });
 
+            // Update extra completed count
+            const extraElement = document.getElementById('extraCompletedCount');
+            if (extraElement) {
+                extraElement.textContent = extraCount > 0 ? `+${extraCount}` : '+0';
+            }
+
+            // Update extra packages count in header
+            const extraPackagesElement = document.getElementById('extraPackagesCount');
+            if (extraPackagesElement) {
+                extraPackagesElement.textContent = extraPackages.length > 0 ? `+${extraPackages.length} tambahan` : '+0 tambahan';
+            }
+
             // Update remaining count
             const remainingElement = document.getElementById('remainingCount');
             if (remainingElement) {
-                remainingElement.textContent = 20 - count;
+                remainingElement.textContent = 20 + extraPackages.length - count - extraCount;
             }
 
             // Update quota display
             const quotaElement = document.getElementById('quotaUsed');
             if (quotaElement) {
-                quotaElement.textContent = `${count}/20`;
+                quotaElement.textContent = `${count}/20+`;
             }
 
             // Update progress bar
-            const progressPercentage = (count / 20) * 100;
+            const totalPackages = 20 + extraPackages.length;
+            const completedTotal = count + extraCount;
+            const progressPercentage = totalPackages > 0 ? (completedTotal / totalPackages) * 100 : 0;
             const progressBar = document.getElementById('quotaProgress');
             if (progressBar) {
                 progressBar.style.width = `${progressPercentage}%`;
@@ -1703,14 +1872,18 @@
 
             // Update active filter button
             document.querySelectorAll('[onclick^="filterSoal"]').forEach(button => {
-                button.classList.remove('gold-gradient', 'text-slate-900');
+                button.classList.remove('gold-gradient', 'text-slate-900', 'bg-emerald-500/20', 'text-emerald-300', 'border-emerald-500/30');
                 button.classList.add('bg-slate-700', 'text-slate-300');
             });
 
             const activeButton = document.getElementById(`filter-${filter}`);
             if (activeButton) {
                 activeButton.classList.remove('bg-slate-700', 'text-slate-300');
-                activeButton.classList.add('gold-gradient', 'text-slate-900');
+                if (filter === 'extra') {
+                    activeButton.classList.add('bg-emerald-500/20', 'text-emerald-300', 'border-emerald-500/30');
+                } else {
+                    activeButton.classList.add('gold-gradient', 'text-slate-900');
+                }
             }
 
             // Filter cards
@@ -1719,6 +1892,7 @@
                 const score = parseInt(card.dataset.score);
                 const isBest = card.dataset.best === 'true';
                 const isHardest = card.dataset.hardest === 'true';
+                const isExtra = card.dataset.extra === 'true';
                 const difficulty = parseInt(card.dataset.difficulty);
 
                 let shouldShow = true;
@@ -1736,6 +1910,9 @@
                     case 'hardest':
                         shouldShow = isHardest || difficulty === 3;
                         break;
+                    case 'extra':
+                        shouldShow = isExtra;
+                        break;
                     default: // 'all'
                         shouldShow = true;
                 }
@@ -1746,7 +1923,87 @@
             trackActivity('filter_soal', { filter: filter });
         }
 
-        // ========== 8. PROGRESS & STATISTICS ==========
+        // ========== 7. LOAD EXTRA PACKAGES ==========
+        function loadExtraPackages() {
+            const extraKey = `extra_packages_${pinAkses}`;
+            const storedExtra = localStorage.getItem(extraKey);
+            
+            if (storedExtra) {
+                extraPackages = JSON.parse(storedExtra);
+                console.log(`Loaded ${extraPackages.length} extra packages for PIN ${pinAkses}`);
+            } else {
+                extraPackages = [];
+                console.log(`No extra packages found for PIN ${pinAkses}`);
+            }
+        }
+
+        function saveExtraPackages() {
+            const extraKey = `extra_packages_${pinAkses}`;
+            localStorage.setItem(extraKey, JSON.stringify(extraPackages));
+        }
+
+        // ========== 8. TAMBAH PAKET TRYOUT ==========
+        function tambahPaketTryout() {
+            if (!confirm('Anda akan diarahkan ke WhatsApp untuk pembelian paket tryout tambahan. Lanjutkan?')) {
+                return;
+            }
+
+            const noAdmin = "6285696409288";
+            const pesan = `Halo Admin Kerja Jadi ASN,%0A%0ASaya ingin *Tambah 1 Paket Tryout* (Rp 25.000).%0A%0A*Detail Peserta:*%0A• PIN: ${pinAkses}%0A• Paket: 3 Ultimate Premium%0A• Total Paket Saat Ini: 20 tryout utama + ${extraPackages.length} tambahan%0A%0A*Permintaan:*%0A+1 paket tryout tambahan dengan pembahasan lengkap%0A%0AMohon diproses dan informasikan cara pembayarannya. Terima kasih!`;
+
+            const whatsappUrl = `https://api.whatsapp.com/send?phone=${noAdmin}&text=${pesan}`;
+            
+            // Open WhatsApp
+            window.open(whatsappUrl, '_blank');
+            
+            // Track activity
+            trackActivity('click_tambah_paket', { 
+                action: 'buy_extra_package',
+                price: 25000,
+                pin: pinAkses,
+                current_extra: extraPackages.length
+            });
+            
+            // Show notification
+            showNotification('info', 'Pembelian Paket Tambahan', 'Anda akan diarahkan ke WhatsApp untuk pemesanan paket tryout tambahan. Setelah pembayaran, paket akan ditambahkan ke akun Anda.');
+            
+            // Create emerald confetti
+            createEmeraldConfettiBurst();
+        }
+
+        function addExtraPackage() {
+            const newPackage = {
+                id: Date.now(),
+                purchasedAt: new Date().toISOString(),
+                price: 25000,
+                status: 'active'
+            };
+            
+            extraPackages.push(newPackage);
+            saveExtraPackages();
+            
+            // Update UI
+            updateCompletedCount(
+                document.getElementById('completedCount').textContent,
+                extraPackages.filter(p => p.status === 'completed').length
+            );
+            
+            // Refresh soal list
+            setTimeout(() => {
+                renderSoalList();
+            }, 1000);
+            
+            showNotification('success', 'Paket Ditambahkan!', 'Paket tryout tambahan telah ditambahkan ke akun Anda. Silakan refresh halaman untuk melihatnya.');
+            
+            // Track activity
+            trackActivity('extra_package_added', { 
+                package_id: newPackage.id,
+                total_extra: extraPackages.length,
+                pin: pinAkses 
+            });
+        }
+
+        // ========== 9. PROGRESS & STATISTICS ==========
         function updateProgressStats() {
             const progressKey = `progress_${pinAkses}`;
             const progress = JSON.parse(localStorage.getItem(progressKey)) || {};
@@ -1757,6 +2014,7 @@
             let totalAccuracy = 0;
             let totalTime = 0;
 
+            // Count main packages (1-20)
             for (let i = 1; i <= 20; i++) {
                 if (progress[`paket_${i}`]) {
                     completedCount++;
@@ -1776,9 +2034,28 @@
                 }
             }
 
+            // Count extra packages
+            extraPackages.forEach((extra, index) => {
+                const extraId = 100 + index + 1;
+                if (progress[`paket_extra_${extraId}`]) {
+                    const score = progress[`score_extra_${extraId}`] || 0;
+                    totalScore += score;
+                    
+                    if (score > bestScore) {
+                        bestScore = score;
+                    }
+                    
+                    const accuracy = progress[`accuracy_extra_${extraId}`] || 0;
+                    totalAccuracy += accuracy;
+                    
+                    totalTime += 2;
+                }
+            });
+
             // Update stats display
-            const avgScore = completedCount > 0 ? Math.round(totalScore / completedCount) : '-';
-            const avgAccuracy = completedCount > 0 ? Math.round(totalAccuracy / completedCount) : '-';
+            const totalCompleted = completedCount + extraPackages.filter((p, i) => progress[`paket_extra_${100 + i + 1}`]).length;
+            const avgScore = totalCompleted > 0 ? Math.round(totalScore / totalCompleted) : '-';
+            const avgAccuracy = totalCompleted > 0 ? Math.round(totalAccuracy / totalCompleted) : '-';
 
             document.getElementById('avgScore').textContent = avgScore;
             document.getElementById('bestScore').textContent = bestScore > 0 ? bestScore : '-';
@@ -1824,11 +2101,12 @@
                 
                 <div class="flex items-center justify-between mb-3">
                     <h4 class="font-bold text-amber-300">Detail per Paket</h4>
-                    <span class="text-xs text-slate-400">20 Paket Ultimate</span>
+                    <span class="text-xs text-slate-400">20 Paket Utama + ${extraPackages.length} Tambahan</span>
                 </div>
                 <div class="space-y-3">
             `;
 
+            // Main packages
             for (let i = 1; i <= 20; i++) {
                 const isCompleted = progress[`paket_${i}`] || false;
                 const score = progress[`score_${i}`] || '-';
@@ -1857,6 +2135,56 @@
                 `;
             }
 
+            // Extra packages
+            if (extraPackages.length > 0) {
+                progressHTML += `
+                    <div class="mt-6 pt-6 border-t border-emerald-500/30">
+                        <h4 class="font-bold text-emerald-300 mb-3">Paket Tambahan</h4>
+                `;
+
+                extraPackages.forEach((extra, index) => {
+                    const extraId = 100 + index + 1;
+                    const isCompleted = progress[`paket_extra_${extraId}`] || false;
+                    const score = progress[`score_extra_${extraId}`] || '-';
+                    const accuracy = progress[`accuracy_extra_${extraId}`] || '-';
+                    const completionTime = progress[`time_extra_${extraId}`] || '-';
+
+                    progressHTML += `
+                        <div class="flex items-center justify-between p-3 bg-emerald-900/10 rounded-lg border ${isCompleted ? 'border-emerald-500/30' : 'border-emerald-900/30'} mb-2">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-lg ${isCompleted ? 'emerald-gradient text-white' : 'bg-emerald-900/30 text-emerald-500'} flex items-center justify-center font-bold border ${isCompleted ? 'border-emerald-500/30' : 'border-emerald-900/30'}">
+                                    T${index + 1}
+                                </div>
+                                <div>
+                                    <p class="text-sm font-medium ${isCompleted ? 'text-emerald-300' : 'text-emerald-400/80'}">Paket Tambahan ${index + 1}</p>
+                                    <p class="text-xs text-emerald-500/70">${isCompleted ? completionTime : 'Belum dimulai'} • Rp 25.000</p>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-sm font-bold ${isCompleted ? (score >= 480 ? 'text-emerald-400' : score >= 450 ? 'text-green-400' : 'text-yellow-400') : 'text-emerald-500/70'}">
+                                    ${isCompleted ? `Skor: ${score}` : '-'}
+                                </p>
+                                ${isCompleted ? `<p class="text-xs text-emerald-400/80">Akurasi: ${accuracy}%</p>` : ''}
+                            </div>
+                        </div>
+                    `;
+                });
+
+                progressHTML += `</div>`;
+            } else {
+                progressHTML += `
+                    <div class="mt-6 pt-6 border-t border-slate-700">
+                        <h4 class="font-bold text-slate-300 mb-3">Ingin Lebih Banyak Tryout?</h4>
+                        <div class="bg-slate-700/30 border border-slate-600 rounded-xl p-4">
+                            <p class="text-sm text-slate-300 mb-3">Tambahkan paket tryout untuk latihan yang lebih intensif!</p>
+                            <button onclick="tambahPaketTryout()" class="w-full emerald-gradient text-white font-bold py-2 rounded-lg hover:shadow-lg hover:shadow-emerald-500/30 transition-all flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-plus"></i> Beli Paket Tambahan (Rp 25.000)
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }
+
             progressHTML += `</div>`;
             content.innerHTML = progressHTML;
             modal.classList.remove('hidden');
@@ -1864,29 +2192,29 @@
             // Update modal PIN display
             document.getElementById('modalPin').textContent = pinAkses;
 
-            trackActivity('show_progress_modal');
+            trackActivity('show_progress_modal', { extra_packages: extraPackages.length });
         }
 
         function hideProgressModal() {
             document.getElementById('progressModal').classList.add('hidden');
         }
 
-        function showSoalDetail(paketId) {
+        function showSoalDetail(paketId, isExtra = false) {
             const progressKey = `progress_${pinAkses}`;
             const progress = JSON.parse(localStorage.getItem(progressKey)) || {};
 
-            const score = progress[`score_${paketId}`] || '-';
-            const accuracy = progress[`accuracy_${paketId}`] || '-';
-            const completionTime = progress[`time_${paketId}`] || '-';
-            const difficulty = progress[`difficulty_${paketId}`] || 1;
+            const score = isExtra ? progress[`score_extra_${paketId}`] : progress[`score_${paketId}`] || '-';
+            const accuracy = isExtra ? progress[`accuracy_extra_${paketId}`] : progress[`accuracy_${paketId}`] || '-';
+            const completionTime = isExtra ? progress[`time_extra_${paketId}`] : progress[`time_${paketId}`] || '-';
+            const difficulty = isExtra ? 2 : progress[`difficulty_${paketId}`] || 1;
 
             const detail = `
-                <div class="bg-slate-700/30 rounded-xl p-4 border border-amber-500/30">
-                    <h4 class="font-bold text-amber-300 mb-3">Detail Hasil Paket ${paketId} Ultimate</h4>
+                <div class="bg-slate-700/30 rounded-xl p-4 border ${isExtra ? 'border-emerald-500/30' : 'border-amber-500/30'}">
+                    <h4 class="font-bold ${isExtra ? 'text-emerald-300' : 'text-amber-300'} mb-3">Detail Hasil ${isExtra ? 'Paket Tambahan' : 'Paket'} ${isExtra ? paketId - 100 : paketId} Ultimate</h4>
                     <div class="space-y-2">
                         <div class="flex justify-between">
                             <span class="text-slate-400">Skor:</span>
-                            <span class="font-bold ${score >= 480 ? 'text-amber-400' : score >= 450 ? 'text-green-400' : 'text-yellow-400'}">${score}</span>
+                            <span class="font-bold ${score >= 480 ? (isExtra ? 'text-emerald-400' : 'text-amber-400') : score >= 450 ? 'text-green-400' : 'text-yellow-400'}">${score}</span>
                         </div>
                         <div class="flex justify-between">
                             <span class="text-slate-400">Akurasi:</span>
@@ -1896,23 +2224,31 @@
                             <span class="text-slate-400">Waktu Pengerjaan:</span>
                             <span class="font-bold">${completionTime}</span>
                         </div>
+                        ${!isExtra ? `
                         <div class="flex justify-between">
                             <span class="text-slate-400">Tingkat Kesulitan:</span>
                             <span class="font-bold ${difficulty === 3 ? 'text-red-400' : difficulty === 2 ? 'text-yellow-400' : 'text-green-400'}">${['Mudah', 'Sedang', 'Sulit'][difficulty-1]}</span>
                         </div>
+                        ` : ''}
                         <div class="flex justify-between">
                             <span class="text-slate-400">Status:</span>
-                            <span class="font-bold text-amber-400">Selesai Ultimate</span>
+                            <span class="font-bold ${isExtra ? 'text-emerald-400' : 'text-amber-400'}">Selesai Ultimate</span>
                         </div>
+                        ${isExtra ? `
+                        <div class="flex justify-between">
+                            <span class="text-slate-400">Tipe:</span>
+                            <span class="font-bold text-emerald-400">Paket Tambahan (Rp 25.000)</span>
+                        </div>
+                        ` : ''}
                     </div>
                 </div>
             `;
 
-            showNotification('info', `Hasil Paket ${paketId} Ultimate`, detail, true);
-            trackActivity('show_soal_detail', { paketId: paketId });
+            showNotification('info', `Hasil ${isExtra ? 'Paket Tambahan' : 'Paket'} ${isExtra ? paketId - 100 : paketId} Ultimate`, detail, true);
+            trackActivity('show_soal_detail', { paketId: paketId, isExtra: isExtra });
         }
 
-        // ========== 9. NOTIFICATION SYSTEM ==========
+        // ========== 10. NOTIFICATION SYSTEM ==========
         function showNotification(type, title, message, isHTML = false) {
             const toast = document.getElementById('notification-toast');
             const toastIcon = document.getElementById('toast-icon');
@@ -1933,6 +2269,10 @@
                 case 'warning':
                     iconClass = 'fa-solid fa-triangle-exclamation text-yellow-400';
                     bgColor = 'bg-yellow-900/30 border-yellow-500/50';
+                    break;
+                case 'info':
+                    iconClass = 'fa-solid fa-circle-info text-blue-400';
+                    bgColor = 'bg-blue-900/30 border-blue-500/50';
                     break;
                 default:
                     iconClass = 'fa-solid fa-circle-info text-blue-400';
@@ -1964,7 +2304,7 @@
             document.getElementById('notification-toast').classList.add('hidden');
         }
 
-        // ========== 10. UI HELPER FUNCTIONS ==========
+        // ========== 11. UI HELPER FUNCTIONS ==========
         function toggleProfileMenu() {
             const menu = document.getElementById('profileMenu');
             menu.classList.toggle('hidden');
@@ -2024,10 +2364,13 @@
         }
 
         function shareProgress() {
+            const completedCount = document.getElementById('completedCount').textContent;
+            const extraCount = extraPackages.length;
+            
             if (navigator.share) {
                 navigator.share({
                     title: 'Progress Ultimate ASN - Paket 3',
-                    text: `Saya telah menyelesaikan ${document.getElementById('completedCount').textContent}/20 paket tryout ultimate ASN dengan semua fitur premium!`,
+                    text: `Saya telah menyelesaikan ${completedCount}/20 paket tryout utama dan memiliki ${extraCount} paket tambahan di dashboard Ultimate ASN!`,
                     url: window.location.href
                 });
             } else {
@@ -2036,7 +2379,7 @@
             trackActivity('share_progress');
         }
 
-        // ========== 11. LOGOUT FUNCTION ==========
+        // ========== 12. LOGOUT FUNCTION ==========
         function confirmLogout() {
             if (confirm('Apakah Anda yakin ingin keluar dari dashboard ultimate? Semua progress premium yang belum disimpan akan hilang.')) {
                 logout('user_initiated');
@@ -2049,7 +2392,7 @@
             if (sessionTimer) clearInterval(sessionTimer);
 
             // Track logout
-            trackActivity('logout', { reason: reason, paket: 3, type: 'ultimate' });
+            trackActivity('logout', { reason: reason, paket: 3, type: 'ultimate', extra_packages: extraPackages.length });
 
             // Clear session data
             sessionStorage.removeItem('currentSession');
@@ -2067,7 +2410,7 @@
             }, 1500);
         }
 
-        // ========== 12. MAINTENANCE MODE ==========
+        // ========== 13. MAINTENANCE MODE ==========
         function checkMaintenance() {
             const urlParams = new URLSearchParams(window.location.search);
             const maintenanceFlag = localStorage.getItem('maintenance_mode_ultimate') === 'true';
@@ -2085,7 +2428,7 @@
             }
         }
 
-        // ========== 13. ANALYTICS & TELEMETRY ==========
+        // ========== 14. ANALYTICS & TELEMETRY ==========
         function trackActivity(action, detail = {}) {
             const activity = {
                 pin: pinAkses,
@@ -2096,6 +2439,7 @@
                 platform: navigator.platform,
                 paket: 3,
                 type: 'ultimate',
+                extra_packages_count: extraPackages.length,
                 ...detail
             };
 
@@ -2107,7 +2451,7 @@
             console.debug('[Activity Ultimate]', action, detail);
         }
 
-        // ========== 14. SERVICE WORKER SETUP ==========
+        // ========== 15. SERVICE WORKER SETUP ==========
         function setupServiceWorker() {
             if ('serviceWorker' in navigator) {
                 window.addEventListener('load', () => {
@@ -2122,7 +2466,7 @@
             }
         }
 
-        // ========== 15. EVENT LISTENERS SETUP ==========
+        // ========== 16. EVENT LISTENERS SETUP ==========
         function setupEventListeners() {
             // Close dropdowns when clicking outside
             document.addEventListener('click', (event) => {
@@ -2164,6 +2508,12 @@
                     event.preventDefault();
                     showHelpModal();
                 }
+
+                // Add package with Ctrl+P
+                if (event.ctrlKey && event.key === 'p') {
+                    event.preventDefault();
+                    tambahPaketTryout();
+                }
             });
 
             // Handle offline/online events
@@ -2178,7 +2528,7 @@
             });
         }
 
-        // ========== 16. CONFETTI EFFECT PREMIUM ==========
+        // ========== 17. CONFETTI EFFECT PREMIUM ==========
         function createPremiumConfetti() {
             if (document.getElementById('confetti-container').children.length > 80) return;
 
@@ -2236,18 +2586,67 @@
             animate();
         }
 
+        function createEmeraldConfetti() {
+            if (document.getElementById('confetti-container').children.length > 80) return;
+
+            const colors = ['#10b981', '#059669', '#047857', '#065f46', '#34d399'];
+            const confetti = document.createElement('div');
+            
+            confetti.className = 'confetti-premium';
+            confetti.style.left = Math.random() * 100 + 'vw';
+            confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+            confetti.style.borderRadius = '50%';
+            confetti.style.width = Math.random() * 10 + 6 + 'px';
+            confetti.style.height = confetti.style.width;
+
+            document.getElementById('confetti-container').appendChild(confetti);
+
+            // Animate
+            let position = 0;
+            const speed = Math.random() * 4 + 3;
+            const rotation = Math.random() * 20 - 10;
+
+            const animate = () => {
+                position += speed;
+                confetti.style.top = position + 'px';
+                confetti.style.transform = `rotate(${rotation * position}deg)`;
+
+                if (position < window.innerHeight) {
+                    requestAnimationFrame(animate);
+                } else {
+                    confetti.remove();
+                }
+            };
+
+            animate();
+        }
+
         function createPremiumConfettiBurst() {
             for (let i = 0; i < 30; i++) {
                 setTimeout(createPremiumConfetti, i * 50);
             }
         }
 
-        // ========== 17. GO TO LOGIN ==========
+        function createEmeraldConfettiBurst() {
+            for (let i = 0; i < 20; i++) {
+                setTimeout(createEmeraldConfetti, i * 50);
+            }
+        }
+
+        // ========== 18. GO TO LOGIN ==========
         function goToLogin() {
             window.location.href = 'login.html';
         }
 
-        // ========== 18. INITIAL SETUP ==========
+        // ========== 19. DEMO FUNCTION FOR TESTING ==========
+        // Fungsi ini hanya untuk testing/demo, bisa dihapus di production
+        function addDemoExtraPackage() {
+            if (confirm('Fitur demo: Tambahkan paket tryout tambahan untuk testing?')) {
+                addExtraPackage();
+            }
+        }
+
+        // ========== 20. INITIAL SETUP ==========
         // Add premium confetti on significant events
         setInterval(() => {
             if (Math.random() < 0.02) { // 2% chance every interval for premium
