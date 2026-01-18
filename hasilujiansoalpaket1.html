@@ -4,67 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hasil Simulasi - Kerja Jadi ASN</title>
-    <!-- Meta Tags untuk SEO dan PWA -->
-    <meta name="description" content="Lihat hasil simulasi CAT CPNS Anda dengan analisis detail dan rekomendasi belajar.">
-    <meta name="theme-color" content="#3b82f6">
-    <meta property="og:title" content="Hasil Simulasi CAT CPNS - Kerja Jadi ASN">
-    <meta property="og:description" content="Skor saya dalam simulasi CAT CPNS:">
-    <meta property="og:image" content="/og-image.png">
-    <meta property="og:url" content="">
-    
-    <!-- Manifest PWA -->
-    <link rel="manifest" href="/manifest.json">
-    
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" href="/favicon.png">
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-    
-    <!-- CSS Libraries -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    
-    <!-- jsPDF untuk sertifikat -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    
-    <!-- SheetJS untuk export Excel -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
-    
     <style>
-        /* Critical CSS Inline */
+        /* CSS styles tetap sama seperti sebelumnya */
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap');
-        
-        :root {
-            --primary: #3b82f6;
-            --secondary: #8b5cf6;
-            --success: #10b981;
-            --warning: #f59e0b;
-            --danger: #ef4444;
-            --dark: #1e293b;
-            --light: #f8fafc;
-        }
-        
-        [data-theme="dark"] {
-            --primary: #60a5fa;
-            --secondary: #a78bfa;
-            --success: #34d399;
-            --warning: #fbbf24;
-            --danger: #f87171;
-            --dark: #f1f5f9;
-            --light: #0f172a;
-        }
-        
         body { 
             font-family: 'Plus Jakarta Sans', sans-serif;
             background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
             min-height: 100vh;
-            transition: background-color 0.3s ease;
-        }
-        
-        [data-theme="dark"] body {
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
         }
 
-        /* Animations */
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
@@ -84,18 +34,7 @@
             0%, 100% { transform: scale(1); }
             50% { transform: scale(1.05); }
         }
-        
-        @keyframes shimmer {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(100%); }
-        }
 
-        @keyframes slideIn {
-            from { transform: translateX(-100%); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
-        }
-
-        /* Utility Classes */
         .animate-fadeIn {
             animation: fadeIn 0.6s ease-out;
         }
@@ -106,14 +45,6 @@
 
         .animate-pulse-slow {
             animation: pulse 2s infinite;
-        }
-        
-        .animate-shimmer {
-            animation: shimmer 2s infinite;
-        }
-        
-        .animate-slideIn {
-            animation: slideIn 0.5s ease-out;
         }
 
         .progress-bar {
@@ -133,39 +64,7 @@
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.2);
         }
-        
-        [data-theme="dark"] .glass-effect {
-            background: rgba(30, 41, 59, 0.7);
-            border: 1px solid rgba(51, 65, 85, 0.2);
-        }
 
-        /* Dark Mode Overrides */
-        [data-theme="dark"] .bg-white {
-            background-color: #1e293b !important;
-            color: #e2e8f0;
-        }
-        
-        [data-theme="dark"] .text-slate-800 {
-            color: #f1f5f9 !important;
-        }
-        
-        [data-theme="dark"] .text-slate-600 {
-            color: #cbd5e1 !important;
-        }
-        
-        [data-theme="dark"] .text-slate-500 {
-            color: #94a3b8 !important;
-        }
-        
-        [data-theme="dark"] .bg-slate-100 {
-            background-color: #334155 !important;
-        }
-        
-        [data-theme="dark"] .border-slate-200 {
-            border-color: #475569 !important;
-        }
-
-        /* Print Styles */
         @media print {
             .no-print {
                 display: none !important;
@@ -173,7 +72,6 @@
             body {
                 background: white !important;
                 color: black !important;
-                font-size: 12pt !important;
             }
             .glass-effect {
                 background: white !important;
@@ -183,146 +81,80 @@
             .shadow-*, .shadow-* {
                 box-shadow: none !important;
             }
-            .bg-gradient-to-r {
-                background: #3b82f6 !important;
-                color: white !important;
-            }
-            button, .no-print-button {
-                display: none !important;
-            }
         }
 
-        /* Custom Scrollbar */
         ::-webkit-scrollbar {
-            width: 8px;
-            height: 8px;
+            width: 6px;
         }
         ::-webkit-scrollbar-track {
             background: #f1f5f9;
-            border-radius: 4px;
+            border-radius: 3px;
         }
         ::-webkit-scrollbar-thumb {
             background: #cbd5e1;
-            border-radius: 4px;
+            border-radius: 3px;
         }
         ::-webkit-scrollbar-thumb:hover {
             background: #94a3b8;
         }
-        
-        [data-theme="dark"] ::-webkit-scrollbar-track {
-            background: #334155;
-        }
-        
-        [data-theme="dark"] ::-webkit-scrollbar-thumb {
-            background: #475569;
-        }
-        
-        [data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
-            background: #64748b;
-        }
-
-        /* Screen Reader Only */
-        .sr-only {
-            position: absolute;
-            width: 1px;
-            height: 1px;
-            padding: 0;
-            margin: -1px;
-            overflow: hidden;
-            clip: rect(0, 0, 0, 0);
-            white-space: nowrap;
-            border: 0;
-        }
-
-        /* Loading Skeleton */
-        .skeleton {
-            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
-            background-size: 200% 100%;
-            animation: shimmer 1.5s infinite;
-        }
-        
-        [data-theme="dark"] .skeleton {
-            background: linear-gradient(90deg, #334155 25%, #475569 50%, #334155 75%);
-        }
-
-        /* Focus Styles */
-        :focus-visible {
-            outline: 2px solid var(--primary);
-            outline-offset: 2px;
-            border-radius: 4px;
-        }
-
-        /* Selection */
-        ::selection {
-            background-color: rgba(59, 130, 246, 0.3);
-            color: inherit;
-        }
     </style>
 </head>
-<body class="min-h-screen pb-20" data-theme="light">
-
-    <!-- Dark Mode Toggle -->
-    <button id="darkModeToggle" class="fixed bottom-6 right-6 z-40 w-12 h-12 rounded-full bg-white dark:bg-slate-800 shadow-lg flex items-center justify-center border border-slate-200 dark:border-slate-700 no-print" aria-label="Toggle dark mode">
-        <i id="darkModeIcon" class="fas fa-moon text-slate-700 dark:text-yellow-400"></i>
-    </button>
+<body class="min-h-screen pb-20">
 
     <!-- Confetti Container -->
     <div id="confetti-container" class="fixed inset-0 pointer-events-none z-0"></div>
 
     <!-- Notification Toast -->
-    <div id="notification-toast" class="fixed top-4 right-4 z-50 hidden" role="alert" aria-live="assertive">
-        <div class="bg-white dark:bg-slate-800 rounded-xl shadow-lg border border-slate-200 dark:border-slate-700 p-4 max-w-sm animate-fadeIn">
+    <div id="notification-toast" class="fixed top-4 right-4 z-50 hidden">
+        <div class="bg-white rounded-xl shadow-lg border border-slate-200 p-4 max-w-sm animate-fadeIn">
             <div class="flex items-start gap-3">
-                <div id="toast-icon" class="text-xl" aria-hidden="true"></div>
+                <div id="toast-icon" class="text-xl"></div>
                 <div class="flex-1">
-                    <h4 id="toast-title" class="font-bold text-slate-800 dark:text-slate-100"></h4>
-                    <p id="toast-message" class="text-sm text-slate-600 dark:text-slate-300 mt-1"></p>
+                    <h4 id="toast-title" class="font-bold text-slate-800"></h4>
+                    <p id="toast-message" class="text-sm text-slate-600 mt-1"></p>
                 </div>
-                <button onclick="hideToast()" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200" aria-label="Tutup notifikasi">
+                <button onclick="hideToast()" class="text-slate-400 hover:text-slate-600">
                     <i class="fa-solid fa-times"></i>
                 </button>
-            </div>
-            <div class="mt-2 h-1 w-full bg-slate-100 dark:bg-slate-700 rounded-full overflow-hidden">
-                <div id="toast-progress" class="h-full bg-blue-500"></div>
             </div>
         </div>
     </div>
 
     <!-- Share Modal -->
-    <div id="shareModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden p-4" aria-hidden="true">
-        <div class="bg-white dark:bg-slate-800 rounded-2xl w-full max-w-md overflow-hidden" role="dialog" aria-labelledby="share-modal-title">
-            <div class="p-6 border-b border-slate-200 dark:border-slate-700">
-                <h3 id="share-modal-title" class="text-xl font-bold text-slate-800 dark:text-slate-100">Bagikan Hasil</h3>
-                <p class="text-sm text-slate-600 dark:text-slate-300 mt-1">Bagikan hasil ujian Anda dengan teman atau mentor</p>
+    <div id="shareModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden p-4">
+        <div class="bg-white rounded-2xl w-full max-w-md overflow-hidden">
+            <div class="p-6 border-b border-slate-200">
+                <h3 class="text-xl font-bold text-slate-800">Bagikan Hasil</h3>
+                <p class="text-sm text-slate-600 mt-1">Bagikan hasil ujian Anda dengan teman atau mentor</p>
             </div>
             <div class="p-6">
                 <div class="grid grid-cols-2 gap-3 mb-6">
-                    <button onclick="shareToWhatsApp()" class="p-4 bg-green-50 dark:bg-green-900/20 hover:bg-green-100 dark:hover:bg-green-900/40 rounded-xl border border-green-200 dark:border-green-800 flex flex-col items-center justify-center gap-2 transition-colors" aria-label="Bagikan ke WhatsApp">
-                        <i class="fab fa-whatsapp text-green-600 dark:text-green-400 text-2xl"></i>
-                        <span class="text-sm font-bold text-green-700 dark:text-green-300">WhatsApp</span>
+                    <button onclick="shareToWhatsApp()" class="p-4 bg-green-50 hover:bg-green-100 rounded-xl border border-green-200 flex flex-col items-center justify-center gap-2 transition-colors">
+                        <i class="fab fa-whatsapp text-green-600 text-2xl"></i>
+                        <span class="text-sm font-bold text-green-700">WhatsApp</span>
                     </button>
-                    <button onclick="shareToFacebook()" class="p-4 bg-blue-50 dark:bg-blue-900/20 hover:bg-blue-100 dark:hover:bg-blue-900/40 rounded-xl border border-blue-200 dark:border-blue-800 flex flex-col items-center justify-center gap-2 transition-colors" aria-label="Bagikan ke Facebook">
-                        <i class="fab fa-facebook text-blue-600 dark:text-blue-400 text-2xl"></i>
-                        <span class="text-sm font-bold text-blue-700 dark:text-blue-300">Facebook</span>
+                    <button onclick="shareToFacebook()" class="p-4 bg-blue-50 hover:bg-blue-100 rounded-xl border border-blue-200 flex flex-col items-center justify-center gap-2 transition-colors">
+                        <i class="fab fa-facebook text-blue-600 text-2xl"></i>
+                        <span class="text-sm font-bold text-blue-700">Facebook</span>
                     </button>
-                    <button onclick="shareToTwitter()" class="p-4 bg-sky-50 dark:bg-sky-900/20 hover:bg-sky-100 dark:hover:bg-sky-900/40 rounded-xl border border-sky-200 dark:border-sky-800 flex flex-col items-center justify-center gap-2 transition-colors" aria-label="Bagikan ke Twitter">
-                        <i class="fab fa-twitter text-sky-600 dark:text-sky-400 text-2xl"></i>
-                        <span class="text-sm font-bold text-sky-700 dark:text-sky-300">Twitter</span>
+                    <button onclick="shareToTwitter()" class="p-4 bg-sky-50 hover:bg-sky-100 rounded-xl border border-sky-200 flex flex-col items-center justify-center gap-2 transition-colors">
+                        <i class="fab fa-twitter text-sky-600 text-2xl"></i>
+                        <span class="text-sm font-bold text-sky-700">Twitter</span>
                     </button>
-                    <button onclick="copyResultLink()" class="p-4 bg-purple-50 dark:bg-purple-900/20 hover:bg-purple-100 dark:hover:bg-purple-900/40 rounded-xl border border-purple-200 dark:border-purple-800 flex flex-col items-center justify-center gap-2 transition-colors" aria-label="Salin link hasil">
-                        <i class="fa-solid fa-link text-purple-600 dark:text-purple-400 text-2xl"></i>
-                        <span class="text-sm font-bold text-purple-700 dark:text-purple-300">Salin Link</span>
+                    <button onclick="copyResultLink()" class="p-4 bg-purple-50 hover:bg-purple-100 rounded-xl border border-purple-200 flex flex-col items-center justify-center gap-2 transition-colors">
+                        <i class="fa-solid fa-link text-purple-600 text-2xl"></i>
+                        <span class="text-sm font-bold text-purple-700">Salin Link</span>
                     </button>
                 </div>
-                <div class="mt-4 p-4 bg-slate-50 dark:bg-slate-900/50 rounded-xl border border-slate-200 dark:border-slate-700">
-                    <label for="shareMessage" class="text-sm font-medium text-slate-700 dark:text-slate-300 mb-2 block">Pesan Kustom</label>
-                    <textarea id="shareMessage" rows="3" class="w-full p-3 border border-slate-300 dark:border-slate-600 dark:bg-slate-800 dark:text-slate-100 rounded-lg text-sm resize-none" placeholder="Tambahkan pesan Anda...">Saya baru saja menyelesaikan simulasi CAT CPNS dengan skor yang memuaskan!</textarea>
+                <div class="mt-4 p-4 bg-slate-50 rounded-xl border border-slate-200">
+                    <label class="text-sm font-medium text-slate-700 mb-2 block">Pesan Kustom</label>
+                    <textarea id="shareMessage" rows="3" class="w-full p-3 border border-slate-300 rounded-lg text-sm resize-none" placeholder="Tambahkan pesan Anda...">Saya baru saja menyelesaikan simulasi CAT CPNS dengan skor yang memuaskan!</textarea>
                 </div>
                 <div class="mt-6 flex gap-3">
-                    <button onclick="hideShareModal()" class="flex-1 px-4 py-3 bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 font-bold rounded-xl hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors" aria-label="Batal">
+                    <button onclick="hideShareModal()" class="flex-1 px-4 py-3 bg-slate-100 text-slate-700 font-bold rounded-xl hover:bg-slate-200 transition-colors">
                         Batal
                     </button>
-                    <button onclick="shareResult()" class="flex-1 px-4 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold rounded-xl hover:from-blue-700 hover:to-indigo-700 transition-all" aria-label="Bagikan hasil">
+                    <button onclick="shareResult()" class="flex-1 px-4 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold rounded-xl hover:from-blue-700 hover:to-indigo-700 transition-all">
                         Bagikan
                     </button>
                 </div>
@@ -331,14 +163,14 @@
     </div>
 
     <!-- Analysis Modal -->
-    <div id="analysisModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden p-4" aria-hidden="true">
-        <div class="bg-white dark:bg-slate-800 rounded-2xl w-full max-w-4xl max-h-[90vh] overflow-hidden" role="dialog" aria-labelledby="analysis-modal-title">
-            <div class="sticky top-0 bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 p-6 flex justify-between items-center">
+    <div id="analysisModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden p-4">
+        <div class="bg-white rounded-2xl w-full max-w-4xl max-h-[90vh] overflow-hidden">
+            <div class="sticky top-0 bg-white border-b border-slate-200 p-6 flex justify-between items-center">
                 <div>
-                    <h3 id="analysis-modal-title" class="text-xl font-bold text-slate-800 dark:text-slate-100">Analisis Detail Hasil</h3>
-                    <p class="text-sm text-slate-500 dark:text-slate-400">PIN: <span id="analysisPin" class="font-mono font-bold"></span> | Paket: <span id="analysisPaket" class="font-bold"></span></p>
+                    <h3 class="text-xl font-bold text-slate-800">Analisis Detail Hasil</h3>
+                    <p class="text-sm text-slate-500">PIN: <span id="analysisPin" class="font-mono font-bold"></span> | Paket: <span id="analysisPaket" class="font-bold"></span></p>
                 </div>
-                <button onclick="hideAnalysisModal()" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 text-xl" aria-label="Tutup analisis">
+                <button onclick="hideAnalysisModal()" class="text-slate-400 hover:text-slate-600 text-xl">
                     <i class="fa-solid fa-times"></i>
                 </button>
             </div>
@@ -348,117 +180,7 @@
         </div>
     </div>
 
-    <!-- Export Modal -->
-    <div id="exportModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden p-4">
-        <div class="bg-white dark:bg-slate-800 rounded-2xl w-full max-w-md overflow-hidden">
-            <div class="p-6 border-b border-slate-200 dark:border-slate-700">
-                <h3 class="text-xl font-bold text-slate-800 dark:text-slate-100">Ekspor Data</h3>
-                <p class="text-sm text-slate-600 dark:text-slate-300 mt-1">Pilih format untuk mengekspor data hasil</p>
-            </div>
-            <div class="p-6">
-                <div class="space-y-4">
-                    <button onclick="exportToPDF()" class="w-full p-4 bg-red-50 dark:bg-red-900/20 hover:bg-red-100 dark:hover:bg-red-900/40 rounded-xl border border-red-200 dark:border-red-800 flex items-center justify-between transition-colors">
-                        <div class="flex items-center gap-3">
-                            <i class="fa-solid fa-file-pdf text-red-600 dark:text-red-400 text-2xl"></i>
-                            <div class="text-left">
-                                <div class="font-bold text-red-700 dark:text-red-300">PDF Report</div>
-                                <div class="text-xs text-red-600 dark:text-red-400">Laporan lengkap dalam PDF</div>
-                            </div>
-                        </div>
-                        <i class="fa-solid fa-download text-red-400"></i>
-                    </button>
-                    
-                    <button onclick="exportToExcel()" class="w-full p-4 bg-green-50 dark:bg-green-900/20 hover:bg-green-100 dark:hover:bg-green-900/40 rounded-xl border border-green-200 dark:border-green-800 flex items-center justify-between transition-colors">
-                        <div class="flex items-center gap-3">
-                            <i class="fa-solid fa-file-excel text-green-600 dark:text-green-400 text-2xl"></i>
-                            <div class="text-left">
-                                <div class="font-bold text-green-700 dark:text-green-300">Excel Data</div>
-                                <div class="text-xs text-green-600 dark:text-green-400">Data mentah untuk analisis</div>
-                            </div>
-                        </div>
-                        <i class="fa-solid fa-download text-green-400"></i>
-                    </button>
-                    
-                    <button onclick="exportToJSON()" class="w-full p-4 bg-yellow-50 dark:bg-yellow-900/20 hover:bg-yellow-100 dark:hover:bg-yellow-900/40 rounded-xl border border-yellow-200 dark:border-yellow-800 flex items-center justify-between transition-colors">
-                        <div class="flex items-center gap-3">
-                            <i class="fa-solid fa-code text-yellow-600 dark:text-yellow-400 text-2xl"></i>
-                            <div class="text-left">
-                                <div class="font-bold text-yellow-700 dark:text-yellow-300">JSON Data</div>
-                                <div class="text-xs text-yellow-600 dark:text-yellow-400">Format data untuk pengembangan</div>
-                            </div>
-                        </div>
-                        <i class="fa-solid fa-download text-yellow-400"></i>
-                    </button>
-                </div>
-                <div class="mt-6 pt-6 border-t border-slate-200 dark:border-slate-700">
-                    <div class="flex gap-3">
-                        <button onclick="hideExportModal()" class="flex-1 px-4 py-3 bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 font-bold rounded-xl hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors">
-                            Batal
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Tutorial Modal -->
-    <div id="tutorialModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden p-4">
-        <div class="bg-white dark:bg-slate-800 rounded-2xl w-full max-w-2xl overflow-hidden">
-            <div class="p-6 border-b border-slate-200 dark:border-slate-700">
-                <h3 class="text-xl font-bold text-slate-800 dark:text-slate-100">Panduan Hasil Simulasi</h3>
-                <p class="text-sm text-slate-600 dark:text-slate-300 mt-1">Pahami cara membaca hasil simulasi Anda</p>
-            </div>
-            <div class="p-6">
-                <div class="space-y-6">
-                    <div class="flex items-start gap-4">
-                        <div class="w-8 h-8 bg-blue-100 dark:bg-blue-900/30 rounded-lg flex items-center justify-center flex-shrink-0">
-                            <i class="fa-solid fa-chart-line text-blue-600 dark:text-blue-400"></i>
-                        </div>
-                        <div>
-                            <h4 class="font-bold text-slate-800 dark:text-slate-100 mb-2">Skor & Passing Grade</h4>
-                            <p class="text-sm text-slate-600 dark:text-slate-300">Setiap kategori memiliki passing grade berbeda: TWK ≥65, TIU ≥80, TKP ≥166. Skor Anda akan ditampilkan dengan progress bar.</p>
-                        </div>
-                    </div>
-                    
-                    <div class="flex items-start gap-4">
-                        <div class="w-8 h-8 bg-green-100 dark:bg-green-900/30 rounded-lg flex items-center justify-center flex-shrink-0">
-                            <i class="fa-solid fa-lightbulb text-green-600 dark:text-green-400"></i>
-                        </div>
-                        <div>
-                            <h4 class="font-bold text-slate-800 dark:text-slate-100 mb-2">Rekomendasi Belajar</h4>
-                            <p class="text-sm text-slate-600 dark:text-slate-300">Berdasarkan performa Anda, sistem akan memberikan rekomendasi belajar spesifik untuk meningkatkan skor.</p>
-                        </div>
-                    </div>
-                    
-                    <div class="flex items-start gap-4">
-                        <div class="w-8 h-8 bg-purple-100 dark:bg-purple-900/30 rounded-lg flex items-center justify-center flex-shrink-0">
-                            <i class="fa-solid fa-share-alt text-purple-600 dark:text-purple-400"></i>
-                        </div>
-                        <div>
-                            <h4 class="font-bold text-slate-800 dark:text-slate-100 mb-2">Bagikan Hasil</h4>
-                            <p class="text-sm text-slate-600 dark:text-slate-300">Anda dapat membagikan hasil simulasi ke media sosial atau menyimpannya sebagai PDF untuk referensi.</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="mt-8 pt-6 border-t border-slate-200 dark:border-slate-700">
-                    <label class="flex items-center gap-2">
-                        <input type="checkbox" id="dontShowAgain" class="rounded border-slate-300 dark:border-slate-600">
-                        <span class="text-sm text-slate-600 dark:text-slate-300">Jangan tampilkan lagi</span>
-                    </label>
-                    
-                    <div class="mt-6 flex gap-3">
-                        <button onclick="hideTutorial()" class="flex-1 px-4 py-3 bg-blue-600 text-white font-bold rounded-xl hover:bg-blue-700 transition-colors">
-                            Mengerti, Lanjutkan
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Navigation -->
-    <nav class="bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 sticky top-0 z-40 shadow-sm glass-effect" role="navigation">
+    <nav class="bg-white border-b border-slate-200 sticky top-0 z-40 shadow-sm glass-effect">
         <div class="container mx-auto px-4 py-3">
             <div class="flex justify-between items-center">
                 <div class="flex items-center gap-3">
@@ -466,41 +188,35 @@
                         <i class="fa-solid fa-chart-line text-white"></i>
                     </div>
                     <div>
-                        <h1 class="font-extrabold text-blue-600 dark:text-blue-400 text-lg md:text-xl">
+                        <h1 class="font-extrabold text-blue-600 text-lg md:text-xl">
                             KERJA JADI <span class="text-yellow-500">ASN</span>
                         </h1>
-                        <p class="text-[10px] text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider">
+                        <p class="text-[10px] text-slate-500 font-bold uppercase tracking-wider">
                             Paket <span id="paketNumber">-</span> • PIN: <span id="displayPaketPin" class="font-mono">MEMUAT...</span>
                         </p>
                     </div>
                 </div>
                 <div class="flex items-center gap-4">
                     <div class="text-right hidden md:block">
-                        <p class="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">PIN Peserta</p>
-                        <p id="displayPin" class="text-sm font-black text-slate-800 dark:text-slate-100 tracking-wide font-mono">MEMUAT...</p>
+                        <p class="text-[10px] font-bold text-slate-500 uppercase tracking-wider">PIN Peserta</p>
+                        <p id="displayPin" class="text-sm font-black text-slate-800 tracking-wide font-mono">MEMUAT...</p>
                     </div>
                     <div class="relative">
-                        <button onclick="toggleResultMenu()" class="w-10 h-10 rounded-full bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 border border-blue-100 dark:border-blue-800 flex items-center justify-center hover:shadow-md transition-all" aria-label="Menu hasil" aria-expanded="false">
-                            <i class="fa-solid fa-ellipsis-vertical text-blue-600 dark:text-blue-400"></i>
+                        <button onclick="toggleResultMenu()" class="w-10 h-10 rounded-full bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-100 flex items-center justify-center hover:shadow-md transition-all">
+                            <i class="fa-solid fa-ellipsis-vertical text-blue-600"></i>
                         </button>
-                        <div id="resultMenu" class="absolute right-0 top-12 w-48 bg-white dark:bg-slate-800 rounded-xl shadow-lg border border-slate-200 dark:border-slate-700 py-2 hidden z-50 animate-fadeIn" role="menu">
-                            <button onclick="showShareModal()" class="flex items-center gap-3 px-4 py-2 text-sm text-slate-700 dark:text-slate-200 hover:bg-blue-50 dark:hover:bg-blue-900/20 hover:text-blue-600 dark:hover:text-blue-400 transition-colors w-full text-left" role="menuitem">
+                        <div id="resultMenu" class="absolute right-0 top-12 w-48 bg-white rounded-xl shadow-lg border border-slate-200 py-2 hidden z-50 animate-fadeIn">
+                            <button onclick="showShareModal()" class="flex items-center gap-3 px-4 py-2 text-sm text-slate-700 hover:bg-blue-50 hover:text-blue-600 transition-colors w-full text-left">
                                 <i class="fa-solid fa-share w-5 text-green-500"></i> Bagikan Hasil
                             </button>
-                            <button onclick="showAnalysisModal()" class="flex items-center gap-3 px-4 py-2 text-sm text-slate-700 dark:text-slate-200 hover:bg-blue-50 dark:hover:bg-blue-900/20 hover:text-blue-600 dark:hover:text-blue-400 transition-colors w-full text-left" role="menuitem">
+                            <button onclick="showAnalysisModal()" class="flex items-center gap-3 px-4 py-2 text-sm text-slate-700 hover:bg-blue-50 hover:text-blue-600 transition-colors w-full text-left">
                                 <i class="fa-solid fa-chart-bar w-5 text-purple-500"></i> Analisis Detail
                             </button>
-                            <button onclick="showExportModal()" class="flex items-center gap-3 px-4 py-2 text-sm text-slate-700 dark:text-slate-200 hover:bg-blue-50 dark:hover:bg-blue-900/20 hover:text-blue-600 dark:hover:text-blue-400 transition-colors w-full text-left" role="menuitem">
-                                <i class="fa-solid fa-download w-5 text-blue-500"></i> Ekspor Data
-                            </button>
-                            <button onclick="downloadCertificate()" class="flex items-center gap-3 px-4 py-2 text-sm text-slate-700 dark:text-slate-200 hover:bg-blue-50 dark:hover:bg-blue-900/20 hover:text-blue-600 dark:hover:text-blue-400 transition-colors w-full text-left" role="menuitem">
+                            <button onclick="downloadCertificate()" class="flex items-center gap-3 px-4 py-2 text-sm text-slate-700 hover:bg-blue-50 hover:text-blue-600 transition-colors w-full text-left">
                                 <i class="fa-solid fa-certificate w-5 text-yellow-500"></i> Sertifikat
                             </button>
-                            <div class="border-t border-slate-100 dark:border-slate-700 my-1"></div>
-                            <button onclick="showTutorial()" class="flex items-center gap-3 px-4 py-2 text-sm text-slate-700 dark:text-slate-200 hover:bg-blue-50 dark:hover:bg-blue-900/20 hover:text-blue-600 dark:hover:text-blue-400 transition-colors w-full text-left" role="menuitem">
-                                <i class="fa-solid fa-question-circle w-5 text-slate-500"></i> Panduan
-                            </button>
-                            <button onclick="printResult()" class="flex items-center gap-3 px-4 py-2 text-sm text-slate-700 dark:text-slate-200 hover:bg-blue-50 dark:hover:bg-blue-900/20 hover:text-blue-600 dark:hover:text-blue-400 transition-colors w-full text-left" role="menuitem">
+                            <div class="border-t border-slate-100 my-1"></div>
+                            <button onclick="printResult()" class="flex items-center gap-3 px-4 py-2 text-sm text-slate-700 hover:bg-blue-50 hover:text-blue-600 transition-colors w-full text-left">
                                 <i class="fa-solid fa-print w-5 text-slate-500"></i> Cetak Hasil
                             </button>
                         </div>
@@ -514,43 +230,23 @@
         <!-- Loading State -->
         <div id="loadingState" class="text-center py-12">
             <div class="inline-block animate-spin rounded-full h-16 w-16 border-4 border-blue-600 border-t-transparent"></div>
-            <p class="mt-6 text-lg font-bold text-slate-700 dark:text-slate-300">Memproses hasil ujian Anda...</p>
-            <p class="mt-2 text-sm text-slate-500 dark:text-slate-400">Sedang menganalisis data dan menghitung skor</p>
+            <p class="mt-6 text-lg font-bold text-slate-700">Memproses hasil ujian Anda...</p>
+            <p class="mt-2 text-sm text-slate-500">Sedang menganalisis data dan menghitung skor</p>
         </div>
 
         <!-- Error State -->
         <div id="errorState" class="hidden text-center py-12">
-            <div class="w-20 h-20 bg-red-50 dark:bg-red-900/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                <i class="fa-solid fa-triangle-exclamation text-red-500 dark:text-red-400 text-3xl"></i>
+            <div class="w-20 h-20 bg-red-50 rounded-full flex items-center justify-center mx-auto mb-4">
+                <i class="fa-solid fa-triangle-exclamation text-red-500 text-3xl"></i>
             </div>
-            <h3 class="text-xl font-bold text-slate-800 dark:text-slate-100 mb-2">Data Hasil Tidak Ditemukan</h3>
-            <p class="text-slate-600 dark:text-slate-300 mb-6 max-w-md mx-auto">Tidak dapat menemukan data hasil ujian untuk PIN Anda. Mungkin sesi telah berakhir atau data telah dihapus.</p>
-            <div class="flex flex-col sm:flex-row gap-3 justify-center">
+            <h3 class="text-xl font-bold text-slate-800 mb-2">Data Hasil Tidak Ditemukan</h3>
+            <p class="text-slate-600 mb-6 max-w-md mx-auto">Tidak dapat menemukan data hasil ujian untuk PIN Anda. Mungkin sesi telah berakhir atau data telah dihapus.</p>
+            <div class="flex gap-3 justify-center">
                 <button onclick="kembaliDashboard()" class="bg-blue-600 text-white px-6 py-3 rounded-xl font-bold hover:bg-blue-700 transition-colors">
                     Kembali ke Dashboard
                 </button>
-                <button onclick="location.reload()" class="bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 px-6 py-3 rounded-xl font-bold hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors">
+                <button onclick="location.reload()" class="bg-slate-100 text-slate-700 px-6 py-3 rounded-xl font-bold hover:bg-slate-200 transition-colors">
                     Coba Lagi
-                </button>
-                <button onclick="showDataRecovery()" class="bg-amber-500 text-white px-6 py-3 rounded-xl font-bold hover:bg-amber-600 transition-colors">
-                    Pulihkan Data
-                </button>
-            </div>
-        </div>
-
-        <!-- Data Recovery -->
-        <div id="dataRecovery" class="hidden p-6 bg-amber-50 dark:bg-amber-900/20 rounded-2xl border border-amber-200 dark:border-amber-800 mb-6">
-            <h4 class="font-bold text-amber-800 dark:text-amber-300 mb-3">Pemulihan Data</h4>
-            <p class="text-sm text-amber-700 dark:text-amber-400 mb-4">Coba pulihkan data dari sumber lain:</p>
-            <div class="space-y-3">
-                <button onclick="recoverFromSessionStorage()" class="w-full p-3 bg-white dark:bg-slate-800 border border-amber-200 dark:border-amber-800 rounded-lg text-sm text-amber-700 dark:text-amber-300 hover:bg-amber-50 dark:hover:bg-amber-900/30 transition-colors">
-                    <i class="fa-solid fa-rotate-left mr-2"></i> Cari di Session Storage
-                </button>
-                <button onclick="recoverFromIndexedDB()" class="w-full p-3 bg-white dark:bg-slate-800 border border-amber-200 dark:border-amber-800 rounded-lg text-sm text-amber-700 dark:text-amber-300 hover:bg-amber-50 dark:hover:bg-amber-900/30 transition-colors">
-                    <i class="fa-solid fa-database mr-2"></i> Cari di IndexedDB
-                </button>
-                <button onclick="scanAllStorage()" class="w-full p-3 bg-white dark:bg-slate-800 border border-amber-200 dark:border-amber-800 rounded-lg text-sm text-amber-700 dark:text-amber-300 hover:bg-amber-50 dark:hover:bg-amber-900/30 transition-colors">
-                    <i class="fa-solid fa-search mr-2"></i> Scan Semua Penyimpanan
                 </button>
             </div>
         </div>
@@ -558,22 +254,22 @@
         <!-- Success State -->
         <div id="successState" class="hidden animate-fadeIn">
             <!-- Header Section -->
-            <div class="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 rounded-2xl md:rounded-[2.5rem] p-6 md:p-8 shadow-2xl shadow-blue-100/50 dark:shadow-blue-900/30 border border-white/20 mb-8 relative overflow-hidden">
+            <div class="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 rounded-2xl md:rounded-[2.5rem] p-6 md:p-8 shadow-2xl shadow-blue-100/50 border border-white/20 mb-8 relative overflow-hidden">
                 <div class="relative z-10">
-                    <div id="statusBadge" class="inline-flex items-center gap-2 px-6 py-2 rounded-full font-black text-xs uppercase tracking-[0.2em] mb-4 transition-colors duration-500 animate-pulse-slow" role="status" aria-live="polite"></div>
+                    <div id="statusBadge" class="inline-flex items-center gap-2 px-6 py-2 rounded-full font-black text-xs uppercase tracking-[0.2em] mb-4 transition-colors duration-500 animate-pulse-slow"></div>
                     <h2 class="text-white/80 font-bold uppercase text-xs tracking-widest mb-2">Total Skor Anda</h2>
-                    <div id="totalSkor" class="text-6xl md:text-7xl font-black text-white mb-6 animate-score" aria-live="polite">0</div>
+                    <div id="totalSkor" class="text-6xl md:text-7xl font-black text-white mb-6 animate-score">0</div>
                     <div class="flex flex-col md:flex-row items-center justify-between gap-6">
                         <div class="text-center md:text-left">
-                            <p id="pesanKelulusan" class="text-white/90 text-sm md:text-base max-w-md leading-relaxed" aria-live="polite"></p>
+                            <p id="pesanKelulusan" class="text-white/90 text-sm md:text-base max-w-md leading-relaxed"></p>
                             <div class="mt-4 flex items-center justify-center md:justify-start gap-2 text-white/70">
                                 <i class="fa-solid fa-clock"></i>
                                 <span class="text-sm" id="waktuPengerjaan">-</span>
                             </div>
                         </div>
                         <div class="hidden md:block">
-                            <div class="w-32 h-32 relative" aria-label="Progress lingkaran skor">
-                                <svg class="w-full h-full score-ring" viewBox="0 0 36 36" role="img" aria-label="Progress skor">
+                            <div class="w-32 h-32 relative">
+                                <svg class="w-full h-full score-ring" viewBox="0 0 36 36">
                                     <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="3"/>
                                     <path id="totalScoreRing" class="score-ring-circle" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="white" stroke-width="3" stroke-dasharray="0, 100" stroke-linecap="round"/>
                                 </svg>
@@ -589,32 +285,32 @@
                     <div class="absolute -top-20 -left-20 w-60 h-60 bg-white/10 rounded-full blur-3xl"></div>
                     <div class="absolute -bottom-20 -right-20 w-60 h-60 bg-purple-400/20 rounded-full blur-3xl"></div>
                 </div>
-                <i class="fa-solid fa-trophy absolute bottom-4 right-4 text-8xl text-white/10 hidden md:block" aria-hidden="true"></i>
+                <i class="fa-solid fa-trophy absolute bottom-4 right-4 text-8xl text-white/10 hidden md:block"></i>
             </div>
 
-            <!-- Stats Grid -->
+            <!-- Stats Grid (TWK, TIU, TKP cards - tetap sama) -->
             <div class="grid md:grid-cols-3 gap-4 md:gap-6 mb-8">
                 <!-- TWK Card -->
-                <div class="bg-white dark:bg-slate-800 p-5 md:p-6 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-md transition-shadow" role="region" aria-label="Hasil TWK">
+                <div class="bg-white p-5 md:p-6 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
                     <div class="flex justify-between items-start mb-4">
                         <div class="flex items-center gap-2">
-                            <div class="w-8 h-8 bg-gradient-to-r from-blue-100 to-blue-200 dark:from-blue-900/20 dark:to-blue-800/20 rounded-lg flex items-center justify-center">
-                                <i class="fa-solid fa-landmark text-blue-600 dark:text-blue-400"></i>
+                            <div class="w-8 h-8 bg-gradient-to-r from-blue-100 to-blue-200 rounded-lg flex items-center justify-center">
+                                <i class="fa-solid fa-landmark text-blue-600"></i>
                             </div>
                             <div>
-                                <span class="text-xs font-black text-blue-600 dark:text-blue-400 uppercase">TWK</span>
+                                <span class="text-xs font-black text-blue-600 uppercase">TWK</span>
                                 <p class="text-[10px] font-bold text-slate-400 uppercase">Wawasan Kebangsaan</p>
                             </div>
                         </div>
                         <div class="text-right">
                             <span class="text-[10px] font-bold text-slate-400">Passing Grade</span>
-                            <div class="text-xs font-black text-slate-800 dark:text-slate-100">65</div>
+                            <div class="text-xs font-black text-slate-800">65</div>
                         </div>
                     </div>
                     <div class="mb-4">
                         <div class="flex justify-between items-center mb-1">
-                            <span id="skorTWK" class="text-3xl md:text-4xl font-black text-slate-800 dark:text-slate-100 animate-score">0</span>
-                            <span id="statusTWK" class="text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full" role="status"></span>
+                            <span id="skorTWK" class="text-3xl md:text-4xl font-black text-slate-800 animate-score">0</span>
+                            <span id="statusTWK" class="text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full"></span>
                         </div>
                         <div class="text-xs text-slate-500">
                             <span id="twkInfo">0 dari 30 soal</span>
@@ -625,43 +321,43 @@
                             <span>Progress</span>
                             <span id="twkProgressText">0%</span>
                         </div>
-                        <div class="w-full bg-slate-100 dark:bg-slate-700 h-2 rounded-full overflow-hidden">
-                            <div id="progressTWK" class="h-full bg-gradient-to-r from-blue-500 to-blue-600 progress-bar" style="width: 0%" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                        <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
+                            <div id="progressTWK" class="h-full bg-gradient-to-r from-blue-500 to-blue-600 progress-bar" style="width: 0%"></div>
                         </div>
                     </div>
                     <div class="grid grid-cols-2 gap-2 text-xs">
-                        <div class="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-2 text-center">
-                            <div class="font-bold text-blue-600 dark:text-blue-400" id="twkJawab">0</div>
-                            <div class="text-blue-500 dark:text-blue-400">Terjawab</div>
+                        <div class="bg-blue-50 rounded-lg p-2 text-center">
+                            <div class="font-bold text-blue-600" id="twkJawab">0</div>
+                            <div class="text-blue-500">Terjawab</div>
                         </div>
-                        <div class="bg-green-50 dark:bg-green-900/20 rounded-lg p-2 text-center">
-                            <div class="font-bold text-green-600 dark:text-green-400" id="twkBenar">0</div>
-                            <div class="text-green-500 dark:text-green-400">Benar</div>
+                        <div class="bg-green-50 rounded-lg p-2 text-center">
+                            <div class="font-bold text-green-600" id="twkBenar">0</div>
+                            <div class="text-green-500">Benar</div>
                         </div>
                     </div>
                 </div>
 
                 <!-- TIU Card -->
-                <div class="bg-white dark:bg-slate-800 p-5 md:p-6 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-md transition-shadow" role="region" aria-label="Hasil TIU">
+                <div class="bg-white p-5 md:p-6 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
                     <div class="flex justify-between items-start mb-4">
                         <div class="flex items-center gap-2">
-                            <div class="w-8 h-8 bg-gradient-to-r from-green-100 to-green-200 dark:from-green-900/20 dark:to-green-800/20 rounded-lg flex items-center justify-center">
-                                <i class="fa-solid fa-brain text-green-600 dark:text-green-400"></i>
+                            <div class="w-8 h-8 bg-gradient-to-r from-green-100 to-green-200 rounded-lg flex items-center justify-center">
+                                <i class="fa-solid fa-brain text-green-600"></i>
                             </div>
                             <div>
-                                <span class="text-xs font-black text-green-600 dark:text-green-400 uppercase">TIU</span>
+                                <span class="text-xs font-black text-green-600 uppercase">TIU</span>
                                 <p class="text-[10px] font-bold text-slate-400 uppercase">Tes Intelegensi Umum</p>
                             </div>
                         </div>
                         <div class="text-right">
                             <span class="text-[10px] font-bold text-slate-400">Passing Grade</span>
-                            <div class="text-xs font-black text-slate-800 dark:text-slate-100">80</div>
+                            <div class="text-xs font-black text-slate-800">80</div>
                         </div>
                     </div>
                     <div class="mb-4">
                         <div class="flex justify-between items-center mb-1">
-                            <span id="skorTIU" class="text-3xl md:text-4xl font-black text-slate-800 dark:text-slate-100 animate-score">0</span>
-                            <span id="statusTIU" class="text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full" role="status"></span>
+                            <span id="skorTIU" class="text-3xl md:text-4xl font-black text-slate-800 animate-score">0</span>
+                            <span id="statusTIU" class="text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full"></span>
                         </div>
                         <div class="text-xs text-slate-500">
                             <span id="tiuInfo">0 dari 35 soal</span>
@@ -672,43 +368,43 @@
                             <span>Progress</span>
                             <span id="tiuProgressText">0%</span>
                         </div>
-                        <div class="w-full bg-slate-100 dark:bg-slate-700 h-2 rounded-full overflow-hidden">
-                            <div id="progressTIU" class="h-full bg-gradient-to-r from-green-500 to-green-600 progress-bar" style="width: 0%" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                        <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
+                            <div id="progressTIU" class="h-full bg-gradient-to-r from-green-500 to-green-600 progress-bar" style="width: 0%"></div>
                         </div>
                     </div>
                     <div class="grid grid-cols-2 gap-2 text-xs">
-                        <div class="bg-green-50 dark:bg-green-900/20 rounded-lg p-2 text-center">
-                            <div class="font-bold text-green-600 dark:text-green-400" id="tiuJawab">0</div>
-                            <div class="text-green-500 dark:text-green-400">Terjawab</div>
+                        <div class="bg-green-50 rounded-lg p-2 text-center">
+                            <div class="font-bold text-green-600" id="tiuJawab">0</div>
+                            <div class="text-green-500">Terjawab</div>
                         </div>
-                        <div class="bg-green-50 dark:bg-green-900/20 rounded-lg p-2 text-center">
-                            <div class="font-bold text-green-600 dark:text-green-400" id="tiuBenar">0</div>
-                            <div class="text-green-500 dark:text-green-400">Benar</div>
+                        <div class="bg-green-50 rounded-lg p-2 text-center">
+                            <div class="font-bold text-green-600" id="tiuBenar">0</div>
+                            <div class="text-green-500">Benar</div>
                         </div>
                     </div>
                 </div>
 
                 <!-- TKP Card -->
-                <div class="bg-white dark:bg-slate-800 p-5 md:p-6 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-md transition-shadow" role="region" aria-label="Hasil TKP">
+                <div class="bg-white p-5 md:p-6 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
                     <div class="flex justify-between items-start mb-4">
                         <div class="flex items-center gap-2">
-                            <div class="w-8 h-8 bg-gradient-to-r from-purple-100 to-purple-200 dark:from-purple-900/20 dark:to-purple-800/20 rounded-lg flex items-center justify-center">
-                                <i class="fa-solid fa-users text-purple-600 dark:text-purple-400"></i>
+                            <div class="w-8 h-8 bg-gradient-to-r from-purple-100 to-purple-200 rounded-lg flex items-center justify-center">
+                                <i class="fa-solid fa-users text-purple-600"></i>
                             </div>
                             <div>
-                                <span class="text-xs font-black text-purple-600 dark:text-purple-400 uppercase">TKP</span>
+                                <span class="text-xs font-black text-purple-600 uppercase">TKP</span>
                                 <p class="text-[10px] font-bold text-slate-400 uppercase">Karakteristik Pribadi</p>
                             </div>
                         </div>
                         <div class="text-right">
                             <span class="text-[10px] font-bold text-slate-400">Passing Grade</span>
-                            <div class="text-xs font-black text-slate-800 dark:text-slate-100">166</div>
+                            <div class="text-xs font-black text-slate-800">166</div>
                         </div>
                     </div>
                     <div class="mb-4">
                         <div class="flex justify-between items-center mb-1">
-                            <span id="skorTKP" class="text-3xl md:text-4xl font-black text-slate-800 dark:text-slate-100 animate-score">0</span>
-                            <span id="statusTKP" class="text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full" role="status"></span>
+                            <span id="skorTKP" class="text-3xl md:text-4xl font-black text-slate-800 animate-score">0</span>
+                            <span id="statusTKP" class="text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full"></span>
                         </div>
                         <div class="text-xs text-slate-500">
                             <span id="tkpInfo">0 dari 45 soal</span>
@@ -719,18 +415,18 @@
                             <span>Progress</span>
                             <span id="tkpProgressText">0%</span>
                         </div>
-                        <div class="w-full bg-slate-100 dark:bg-slate-700 h-2 rounded-full overflow-hidden">
-                            <div id="progressTKP" class="h-full bg-gradient-to-r from-purple-500 to-purple-600 progress-bar" style="width: 0%" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                        <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
+                            <div id="progressTKP" class="h-full bg-gradient-to-r from-purple-500 to-purple-600 progress-bar" style="width: 0%"></div>
                         </div>
                     </div>
                     <div class="grid grid-cols-2 gap-2 text-xs">
-                        <div class="bg-purple-50 dark:bg-purple-900/20 rounded-lg p-2 text-center">
-                            <div class="font-bold text-purple-600 dark:text-purple-400" id="tkpJawab">0</div>
-                            <div class="text-purple-500 dark:text-purple-400">Terjawab</div>
+                        <div class="bg-purple-50 rounded-lg p-2 text-center">
+                            <div class="font-bold text-purple-600" id="tkpJawab">0</div>
+                            <div class="text-purple-500">Terjawab</div>
                         </div>
-                        <div class="bg-purple-50 dark:bg-purple-900/20 rounded-lg p-2 text-center">
-                            <div class="font-bold text-purple-600 dark:text-purple-400" id="tkpRagu">0</div>
-                            <div class="text-purple-500 dark:text-purple-400">Ragu-ragu</div>
+                        <div class="bg-purple-50 rounded-lg p-2 text-center">
+                            <div class="font-bold text-purple-600" id="tkpRagu">0</div>
+                            <div class="text-purple-500">Ragu-ragu</div>
                         </div>
                     </div>
                 </div>
@@ -774,34 +470,30 @@
                             <i class="fa-solid fa-clock text-green-400"></i>
                             <span class="text-sm">Waktu: <span id="totalWaktu" class="font-bold">-</span></span>
                         </div>
-                        <div class="flex items-center gap-2">
-                            <i class="fa-solid fa-bolt text-purple-400"></i>
-                            <span class="text-sm">Kecepatan: <span id="kecepatanRata" class="font-bold">-</span> detik/soal</span>
-                        </div>
                     </div>
                 </div>
             </div>
 
             <!-- Action Buttons -->
             <div class="flex flex-col md:flex-row gap-4 justify-center items-center mb-12">
-                <button onclick="kembaliDashboard()" class="w-full md:w-auto bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-8 py-4 rounded-2xl font-bold text-sm hover:from-blue-700 hover:to-indigo-700 transition-all shadow-xl shadow-blue-100 active:scale-95 flex items-center justify-center gap-2 no-print" aria-label="Kembali ke dashboard">
+                <button onclick="kembaliDashboard()" class="w-full md:w-auto bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-8 py-4 rounded-2xl font-bold text-sm hover:from-blue-700 hover:to-indigo-700 transition-all shadow-xl shadow-blue-100 active:scale-95 flex items-center justify-center gap-2 no-print">
                     <i class="fa-solid fa-house"></i> Kembali ke Dashboard
                 </button>
-                <button onclick="showShareModal()" class="w-full md:w-auto bg-gradient-to-r from-green-500 to-emerald-600 text-white px-8 py-4 rounded-2xl font-bold text-sm hover:from-green-600 hover:to-emerald-700 transition-all shadow-xl shadow-green-100 active:scale-95 flex items-center justify-center gap-2 no-print" aria-label="Bagikan hasil">
+                <button onclick="showShareModal()" class="w-full md:w-auto bg-gradient-to-r from-green-500 to-emerald-600 text-white px-8 py-4 rounded-2xl font-bold text-sm hover:from-green-600 hover:to-emerald-700 transition-all shadow-xl shadow-green-100 active:scale-95 flex items-center justify-center gap-2 no-print">
                     <i class="fa-solid fa-share"></i> Bagikan Hasil
                 </button>
-                <button onclick="ulangiTryout()" class="w-full md:w-auto bg-gradient-to-r from-yellow-500 to-amber-600 text-white px-8 py-4 rounded-2xl font-bold text-sm hover:from-yellow-600 hover:to-amber-700 transition-all shadow-xl shadow-yellow-100 active:scale-95 flex items-center justify-center gap-2 no-print" aria-label="Ulangi tryout">
+                <button onclick="ulangiTryout()" class="w-full md:w-auto bg-gradient-to-r from-yellow-500 to-amber-600 text-white px-8 py-4 rounded-2xl font-bold text-sm hover:from-yellow-600 hover:to-amber-700 transition-all shadow-xl shadow-yellow-100 active:scale-95 flex items-center justify-center gap-2 no-print">
                     <i class="fa-solid fa-rotate"></i> Ulangi Tryout
                 </button>
-                <button onclick="printResult()" class="w-full md:w-auto bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 px-8 py-4 rounded-2xl font-bold text-sm border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700 transition-all active:scale-95 flex items-center justify-center gap-2" aria-label="Cetak hasil">
+                <button onclick="printResult()" class="w-full md:w-auto bg-white text-slate-600 px-8 py-4 rounded-2xl font-bold text-sm border border-slate-200 hover:bg-slate-50 transition-all active:scale-95 flex items-center justify-center gap-2">
                     <i class="fa-solid fa-print"></i> Cetak Hasil
                 </button>
             </div>
 
             <!-- Recommendations -->
             <div id="recommendationsSection" class="hidden">
-                <div class="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/10 dark:to-indigo-900/10 rounded-2xl p-6 mb-8 border border-blue-100 dark:border-blue-800">
-                    <h3 class="font-bold text-slate-800 dark:text-slate-100 text-lg mb-4 flex items-center gap-2">
+                <div class="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-6 mb-8 border border-blue-100">
+                    <h3 class="font-bold text-slate-800 text-lg mb-4 flex items-center gap-2">
                         <i class="fa-solid fa-lightbulb text-yellow-500"></i>
                         Rekomendasi Belajar
                     </h3>
@@ -811,22 +503,17 @@
 
             <!-- Certificate Section -->
             <div id="certificateSection" class="hidden">
-                <div class="bg-gradient-to-r from-emerald-50 to-green-50 dark:from-emerald-900/10 dark:to-green-900/10 rounded-2xl p-6 mb-8 border border-emerald-100 dark:border-emerald-800">
-                    <h3 class="font-bold text-slate-800 dark:text-slate-100 text-lg mb-4 flex items-center gap-2">
+                <div class="bg-gradient-to-r from-emerald-50 to-green-50 rounded-2xl p-6 mb-8 border border-emerald-100">
+                    <h3 class="font-bold text-slate-800 text-lg mb-4 flex items-center gap-2">
                         <i class="fa-solid fa-award text-emerald-500"></i>
                         Sertifikat Penyelesaian
                     </h3>
                     <div class="flex flex-col md:flex-row items-center justify-between gap-6">
                         <div class="flex-1">
-                            <p class="text-slate-600 dark:text-slate-300 mb-4">Selamat! Anda telah menyelesaikan simulasi tryout dengan baik. Unduh sertifikat digital sebagai bukti penyelesaian.</p>
-                            <div class="flex flex-wrap gap-3">
-                                <button onclick="downloadCertificate()" class="bg-gradient-to-r from-emerald-500 to-green-600 text-white px-6 py-3 rounded-xl font-bold hover:from-emerald-600 hover:to-green-700 transition-all flex items-center gap-2">
-                                    <i class="fa-solid fa-download"></i> Unduh Sertifikat (PDF)
-                                </button>
-                                <button onclick="shareCertificate()" class="bg-gradient-to-r from-blue-500 to-indigo-600 text-white px-6 py-3 rounded-xl font-bold hover:from-blue-600 hover:to-indigo-700 transition-all flex items-center gap-2">
-                                    <i class="fa-solid fa-share"></i> Bagikan Sertifikat
-                                </button>
-                            </div>
+                            <p class="text-slate-600 mb-4">Selamat! Anda telah menyelesaikan simulasi tryout dengan baik. Unduh sertifikat digital sebagai bukti penyelesaian.</p>
+                            <button onclick="downloadCertificate()" class="bg-gradient-to-r from-emerald-500 to-green-600 text-white px-6 py-3 rounded-xl font-bold hover:from-emerald-600 hover:to-green-700 transition-all flex items-center gap-2">
+                                <i class="fa-solid fa-download"></i> Unduh Sertifikat (PDF)
+                            </button>
                         </div>
                         <div class="w-32 h-32 bg-gradient-to-br from-emerald-400 to-green-500 rounded-2xl flex items-center justify-center shadow-lg">
                             <i class="fa-solid fa-certificate text-white text-5xl"></i>
@@ -837,7 +524,7 @@
         </div>
     </main>
 
-    <footer class="mt-12 pt-8 pb-6 border-t border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800">
+    <footer class="mt-12 pt-8 pb-6 border-t border-slate-200 bg-white">
         <div class="container mx-auto px-4 text-center">
             <div class="flex flex-col md:flex-row justify-between items-center gap-4 mb-6">
                 <div class="text-center md:text-left">
@@ -845,20 +532,20 @@
                         <div class="w-6 h-6 bg-blue-600 rounded flex items-center justify-center">
                             <i class="fa-solid fa-graduation-cap text-white text-xs"></i>
                         </div>
-                        <span class="font-extrabold text-blue-600 dark:text-blue-400">
+                        <span class="font-extrabold text-blue-600">
                             KERJA JADI <span class="text-yellow-500">ASN</span>
                         </span>
                     </div>
-                    <p class="text-slate-500 dark:text-slate-400 text-xs">Platform Tryout CAT CPNS Premium</p>
+                    <p class="text-slate-500 text-xs">Platform Tryout CAT CPNS Premium</p>
                 </div>
                 <div class="text-center">
                     <div class="flex justify-center gap-4 mb-2">
-                        <a href="#" class="text-slate-400 hover:text-blue-600 dark:hover:text-blue-400" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
-                        <a href="#" class="text-slate-400 hover:text-blue-400 dark:hover:text-blue-300" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="text-slate-400 hover:text-pink-600 dark:hover:text-pink-400" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="text-slate-400 hover:text-green-600 dark:hover:text-green-400" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                        <a href="#" class="text-slate-400 hover:text-blue-600"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="text-slate-400 hover:text-blue-400"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-slate-400 hover:text-pink-600"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-slate-400 hover:text-green-600"><i class="fab fa-whatsapp"></i></a>
                     </div>
-                    <p class="text-slate-400 dark:text-slate-500 text-[10px] font-bold uppercase tracking-widest">
+                    <p class="text-slate-400 text-[10px] font-bold uppercase tracking-widest">
                         &copy; <span id="currentYear"></span> Kerja Jadi ASN. All rights reserved.
                     </p>
                 </div>
@@ -867,199 +554,49 @@
     </footer>
 
     <script>
-        // ========== 1. GLOBAL VARIABLES & CONFIG ==========
-        const CONFIG = {
-            PASSING_GRADES: {
-                TWK: 65,
-                TIU: 80,
-                TKP: 166
-            },
-            MAX_SCORES: {
-                TWK: 30 * 5,    // 30 soal × 5 poin
-                TIU: 35 * 5,    // 35 soal × 5 poin
-                TKP: 45 * 5,    // 45 soal × 5 poin
-                TOTAL: 650      // Total maksimal
-            },
-            DATABASE: {
-                PACKAGE_1: ["7XK9WP", "B4ZM1Q", "9TV2NL", "RS8MX3", "5CR1VT", "KP9MZ4", "G6HD2S", "1VT8NR", "FN2VK5", "2YM4BX", "MR2VT8", "5HG9SL", "XP3KZ7", "2YN5VQ", "8WQ4PZ", "VS7NL2"],
-                PACKAGE_2: ["9ZW1RF", "4FB6NT", "7XK1WP", "B2MK9P", "LP9QX4", "Y7CR2V", "4FB8NR", "9TW1MZ", "SK3JP7", "1VT5NR", "FN9VK3", "2YM7BX", "SK9JP4", "MR7VT1", "3ZW7RB", "KP1MX9", "G6HD1S"],
-                PACKAGE_3: ["VS4NL8", "RT9XM2", "B2MK8P", "7XL1WQ", "5HG2SD", "9ZW4RB", "KP8MX3", "FN5VK2", "8WQ4PZ", "2YM9BX", "7KP1RT", "5HG6SD", "9ZW3RF", "RS4ML9", "VN7VK1", "8WQ3PZ", "4FB1NT"]
-            }
-        };
-
+        // ========== 1. GLOBAL VARIABLES ==========
         let pinAkses = null;
         let resultData = null;
         let paketNumber = null;
         let paketPin = null;
-        let toastTimeout = null;
-        let indexedDB = null;
 
-        // ========== 2. SERVICE WORKER REGISTRATION ==========
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('/sw.js')
-                .then(registration => {
-                    console.log('Service Worker registered:', registration);
-                })
-                .catch(error => {
-                    console.log('Service Worker registration failed:', error);
-                });
-        }
+        // Database PIN sesuai dengan login.html
+        const pinDatabase = {
+            "paket1": ["7XK9WP", "B4ZM1Q", "9TV2NL", "RS8MX3", "5CR1VT", "KP9MZ4", "G6HD2S", "1VT8NR", "FN2VK5", "2YM4BX", "MR2VT8", "5HG9SL", "XP3KZ7", "2YN5VQ", "8WQ4PZ", "VS7NL2"],
+            "paket2": ["9ZW1RF", "4FB6NT", "7XK1WP", "B2MK9P", "LP9QX4", "Y7CR2V", "4FB8NR", "9TW1MZ", "SK3JP7", "1VT5NR", "FN9VK3", "2YM7BX", "SK9JP4", "MR7VT1", "3ZW7RB", "KP1MX9", "G6HD1S"],
+            "paket3": ["VS4NL8", "RT9XM2", "B2MK8P", "7XL1WQ", "5HG2SD", "9ZW4RB", "KP8MX3", "FN5VK2", "8WQ4PZ", "2YM9BX", "7KP1RT", "5HG6SD", "9ZW3RF", "RS4ML9", "VN7VK1", "8WQ3PZ", "4FB1NT"]
+        };
 
-        // ========== 3. INITIALIZATION ==========
+        // ========== 2. INITIALIZATION ==========
         document.addEventListener('DOMContentLoaded', function() {
             console.log('Hasil page initializing...');
-            
-            // Set tahun copyright
             document.getElementById('currentYear').textContent = new Date().getFullYear();
-            
-            // Inisialisasi theme
-            initTheme();
-            
-            // Inisialisasi IndexedDB
-            initIndexedDB();
-            
-            // Setup event listeners
-            setupEventListeners();
-            
-            // Load data hasil
             loadResultData();
-            
+            setupEventListeners();
             console.log('Hasil page initialized');
         });
 
-        // ========== 4. THEME MANAGEMENT ==========
-        function initTheme() {
-            const savedTheme = localStorage.getItem('theme') || 
-                              (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-            
-            document.body.setAttribute('data-theme', savedTheme);
-            updateThemeIcon(savedTheme);
-            
-            // Toggle button event
-            document.getElementById('darkModeToggle').addEventListener('click', toggleTheme);
-        }
-
-        function toggleTheme() {
-            const currentTheme = document.body.getAttribute('data-theme');
-            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-            
-            document.body.setAttribute('data-theme', newTheme);
-            localStorage.setItem('theme', newTheme);
-            updateThemeIcon(newTheme);
-            
-            // Dispatch event untuk komponen lain
-            document.dispatchEvent(new CustomEvent('themeChanged', { detail: newTheme }));
-        }
-
-        function updateThemeIcon(theme) {
-            const icon = document.getElementById('darkModeIcon');
-            if (theme === 'dark') {
-                icon.className = 'fas fa-sun text-yellow-400';
-                icon.setAttribute('aria-label', 'Switch to light mode');
-            } else {
-                icon.className = 'fas fa-moon text-slate-700';
-                icon.setAttribute('aria-label', 'Switch to dark mode');
+        // ========== 3. FUNGSI DETEKSI PAKET DARI PIN ==========
+        function detectPaketFromPin(pin) {
+            for (const paket in pinDatabase) {
+                if (pinDatabase[paket].includes(pin)) {
+                    return {
+                        paketNumber: paket.replace('paket', ''),
+                        paketName: paket
+                    };
+                }
             }
+            return { paketNumber: "1", paketName: "paket1" };
         }
 
-        // ========== 5. INDEXEDDB MANAGEMENT ==========
-        function initIndexedDB() {
-            const request = indexedDB.open('SimulasiASN', 1);
-            
-            request.onerror = function(event) {
-                console.error('IndexedDB error:', event.target.error);
-            };
-            
-            request.onupgradeneeded = function(event) {
-                const db = event.target.result;
-                
-                // Buat store untuk hasil
-                if (!db.objectStoreNames.contains('results')) {
-                    const resultsStore = db.createObjectStore('results', { keyPath: 'id' });
-                    resultsStore.createIndex('pin', 'pin', { unique: false });
-                    resultsStore.createIndex('timestamp', 'timestamp', { unique: false });
-                }
-                
-                // Buat store untuk progress
-                if (!db.objectStoreNames.contains('progress')) {
-                    const progressStore = db.createObjectStore('progress', { keyPath: 'pin' });
-                    progressStore.createIndex('lastActivity', 'lastActivity', { unique: false });
-                }
-            };
-            
-            request.onsuccess = function(event) {
-                indexedDB = event.target.result;
-                console.log('IndexedDB initialized');
-            };
-        }
-
-        async function saveToIndexedDB(data) {
-            if (!indexedDB) return;
-            
-            return new Promise((resolve, reject) => {
-                const transaction = indexedDB.transaction(['results'], 'readwrite');
-                const store = transaction.objectStore('results');
-                
-                const record = {
-                    id: `result_${data.pin}_${Date.now()}`,
-                    pin: data.pin,
-                    data: data,
-                    timestamp: new Date().toISOString(),
-                    package: data.paket || 'unknown'
-                };
-                
-                const request = store.add(record);
-                
-                request.onsuccess = function() {
-                    console.log('Data saved to IndexedDB');
-                    resolve();
-                };
-                
-                request.onerror = function(event) {
-                    console.error('Error saving to IndexedDB:', event.target.error);
-                    reject(event.target.error);
-                };
-            });
-        }
-
-        async function recoverFromIndexedDB() {
-            if (!pinAkses || !indexedDB) return null;
-            
-            return new Promise((resolve, reject) => {
-                const transaction = indexedDB.transaction(['results'], 'readonly');
-                const store = transaction.objectStore('results');
-                const index = store.index('pin');
-                
-                const request = index.getAll(pinAkses);
-                
-                request.onsuccess = function(event) {
-                    const results = event.target.result;
-                    if (results.length > 0) {
-                        // Ambil yang terbaru
-                        const latest = results.sort((a, b) => 
-                            new Date(b.timestamp) - new Date(a.timestamp)
-                        )[0];
-                        resolve(latest.data);
-                    } else {
-                        resolve(null);
-                    }
-                };
-                
-                request.onerror = function(event) {
-                    console.error('Error recovering from IndexedDB:', event.target.error);
-                    reject(event.target.error);
-                };
-            });
-        }
-
-        // ========== 6. LOAD RESULT DATA ==========
+        // ========== 4. LOAD RESULT DATA ==========
         function loadResultData() {
             const urlParams = new URLSearchParams(window.location.search);
             pinAkses = urlParams.get('id');
 
-            if (!pinAkses || !validatePIN(pinAkses)) {
+            if (!pinAkses) {
                 showErrorState();
-                showToast('error', 'PIN Tidak Valid', 'PIN harus 6 karakter alfanumerik. Redirecting to dashboard...');
+                showToast('error', 'PIN Tidak Valid', 'Redirecting to dashboard...');
                 setTimeout(() => {
                     window.location.href = 'login.html';
                 }, 3000);
@@ -1071,343 +608,241 @@
             paketNumber = paketInfo.paketNumber;
             paketPin = pinAkses;
 
-            // Update UI dengan PIN dan paket
-            updatePINDisplay(pinAkses, paketNumber);
+            // Tampilkan informasi paket dan PIN
+            document.getElementById('displayPin').textContent = pinAkses;
+            document.getElementById('displayPaketPin').textContent = pinAkses;
+            document.getElementById('paketNumber').textContent = paketNumber;
+            document.getElementById('analysisPin').textContent = pinAkses;
+            document.getElementById('analysisPaket').textContent = paketNumber;
 
-            // Cari data dari berbagai sumber dengan prioritas
-            searchResultData()
-                .then(data => {
-                    if (data) {
-                        resultData = data;
-                        processResult();
-                        saveToIndexedDB(data); // Backup ke IndexedDB
-                    } else {
-                        showErrorState();
-                    }
-                })
-                .catch(error => {
-                    console.error('Error loading result data:', error);
-                    showErrorState();
-                });
-        }
-
-        function validatePIN(pin) {
-            return /^[A-Z0-9]{6}$/.test(pin);
-        }
-
-        function detectPaketFromPin(pin) {
-            // Cek di setiap paket
-            const packages = {
-                '1': CONFIG.DATABASE.PACKAGE_1,
-                '2': CONFIG.DATABASE.PACKAGE_2,
-                '3': CONFIG.DATABASE.PACKAGE_3
-            };
-            
-            for (const [number, pins] of Object.entries(packages)) {
-                if (pins.includes(pin)) {
-                    return {
-                        paketNumber: number,
-                        paketName: `paket${number}`
-                    };
-                }
-            }
-            
-            // Default ke paket 1 jika tidak ditemukan
-            return { paketNumber: "1", paketName: "paket1" };
-        }
-
-        async function searchResultData() {
-            const searchPatterns = [
-                // Format standar berdasarkan paket terdeteksi
+            // CARI DATA DARI BERBAGAI SUMBER
+            // Karena soalpaket1.html digunakan untuk semua PIN, data bisa disimpan dengan berbagai format
+            const possibleKeys = [
+                // Format terbaru: berdasarkan paket yang terdeteksi
                 `hasil_paket${paketNumber}_${pinAkses}`,
                 
-                // Format kompatibilitas
+                // Format lama: semua data disimpan sebagai paket1 (karena soalpaket1.html)
+                `hasil_paket1_${pinAkses}`,
+                
+                // Format alternatif
                 `hasil_${pinAkses}`,
+                `hasil_paket_${pinAkses}`,
                 `quiz_result_${pinAkses}`,
                 `simulasi_hasil_${pinAkses}`,
                 
-                // Coba semua paket untuk kompatibilitas mundur
-                `hasil_paket1_${pinAkses}`,
+                // Coba semua paket untuk kompatibilitas
                 `hasil_paket2_${pinAkses}`,
                 `hasil_paket3_${pinAkses}`
             ];
 
-            console.log('Mencari data hasil untuk PIN:', pinAkses);
+            console.log('Mencari data hasil untuk PIN:', pinAkses, 'Paket:', paketNumber);
+            console.log('Kunci yang dicari:', possibleKeys);
+
+            let foundData = null;
+            let foundKey = null;
             
-            // 1. Cari di localStorage
-            for (const key of searchPatterns) {
+            // Coba semua kemungkinan kunci
+            for (const key of possibleKeys) {
                 const storedData = localStorage.getItem(key);
                 if (storedData) {
                     try {
-                        const data = JSON.parse(storedData);
-                        if (validateResultData(data)) {
-                            console.log('✅ Data ditemukan di localStorage dengan kunci:', key);
-                            return data;
-                        }
+                        foundData = JSON.parse(storedData);
+                        foundKey = key;
+                        console.log('✅ Data ditemukan dengan kunci:', key);
+                        break;
                     } catch (e) {
-                        console.error('Error parsing localStorage data:', e);
+                        console.error('Error parsing data dari kunci:', key, e);
                     }
                 }
             }
 
-            // 2. Cari dengan pattern matching di localStorage
-            for (let i = 0; i < localStorage.length; i++) {
-                const key = localStorage.key(i);
-                if (key.includes(pinAkses)) {
-                    try {
-                        const data = JSON.parse(localStorage.getItem(key));
-                        if (validateResultData(data)) {
-                            console.log('✅ Data ditemukan di localStorage dengan pattern:', key);
-                            return data;
+            // Jika tidak ditemukan, cari semua kunci yang mengandung PIN
+            if (!foundData) {
+                console.log('🔍 Mencari semua kunci di localStorage yang mengandung PIN...');
+                for (let i = 0; i < localStorage.length; i++) {
+                    const key = localStorage.key(i);
+                    if (key.includes(pinAkses)) {
+                        console.log('Kunci ditemukan:', key);
+                        try {
+                            const data = JSON.parse(localStorage.getItem(key));
+                            // Validasi apakah ini data hasil
+                            if (data && (data.total !== undefined || data.twk !== undefined)) {
+                                foundData = data;
+                                foundKey = key;
+                                console.log('✅ Data hasil ditemukan di kunci:', key);
+                                break;
+                            }
+                        } catch (e) {
+                            console.error('Error parsing data dari:', key, e);
                         }
-                    } catch (e) {
-                        console.error('Error parsing pattern match data:', e);
                     }
                 }
             }
 
-            // 3. Cari di sessionStorage
-            for (const key of searchPatterns) {
-                const storedData = sessionStorage.getItem(key);
-                if (storedData) {
-                    try {
-                        const data = JSON.parse(storedData);
-                        if (validateResultData(data)) {
-                            console.log('✅ Data ditemukan di sessionStorage:', key);
-                            return data;
-                        }
-                    } catch (e) {
-                        console.error('Error parsing sessionStorage data:', e);
-                    }
+            if (!foundData) {
+                showErrorState();
+                showToast('error', 'Data Hasil Tidak Ditemukan', 
+                    `Tidak dapat menemukan data hasil untuk PIN ${pinAkses}. 
+                     Pastikan Anda telah menyelesaikan ujian atau coba kembali ke dashboard.`);
+                
+                // Log semua data untuk debugging
+                console.log('=== DEBUG: Semua data di localStorage ===');
+                for (let i = 0; i < localStorage.length; i++) {
+                    const key = localStorage.key(i);
+                    console.log(key, ':', localStorage.getItem(key));
                 }
+                return;
             }
 
-            // 4. Cari di IndexedDB
-            try {
-                const indexedDBData = await recoverFromIndexedDB();
-                if (indexedDBData && validateResultData(indexedDBData)) {
-                    console.log('✅ Data ditemukan di IndexedDB');
-                    return indexedDBData;
-                }
-            } catch (error) {
-                console.error('Error searching IndexedDB:', error);
+            resultData = foundData;
+            console.log('Data hasil berhasil dimuat:', resultData);
+            
+            // Pastikan data memiliki properti paket
+            if (!resultData.paket) {
+                resultData.paket = paketNumber;
             }
 
-            return null;
+            // Simpan data dengan format standar untuk konsistensi
+            const standardKey = `hasil_paket${paketNumber}_${pinAkses}`;
+            if (foundKey !== standardKey) {
+                localStorage.setItem(standardKey, JSON.stringify(resultData));
+                console.log('✅ Data disimpan dengan format standar:', standardKey);
+            }
+
+            // Proses dan tampilkan hasil
+            processResult();
         }
 
-        function validateResultData(data) {
-            return data && (
-                (data.total !== undefined && data.total >= 0) ||
-                (data.twk !== undefined && data.tiu !== undefined && data.tkp !== undefined)
-            );
-        }
-
-        function updatePINDisplay(pin, paket) {
-            document.getElementById('displayPin').textContent = pin;
-            document.getElementById('displayPaketPin').textContent = pin;
-            document.getElementById('paketNumber').textContent = paket;
-            document.getElementById('analysisPin').textContent = pin;
-            document.getElementById('analysisPaket').textContent = paket;
-        }
-
-        // ========== 7. PROCESS RESULT ==========
+        // ========== 5. PROCESS RESULT ==========
         function processResult() {
             if (!resultData) return;
 
-            // Show success state
+            // Show loading state first
             document.getElementById('loadingState').classList.add('hidden');
             document.getElementById('successState').classList.remove('hidden');
 
-            // Calculate statistics
-            const stats = calculateStatistics(resultData);
-            
+            // Calculate additional stats
+            const totalSoal = 110;
+            const totalTerjawab = (resultData.twkJawab || 0) + (resultData.tiuJawab || 0) + (resultData.tkpJawab || 0);
+            const totalBenar = (resultData.twkBenar || 0) + (resultData.tiuBenar || 0);
+            const akurasi = totalTerjawab > 0 ? Math.round((totalBenar / (resultData.twkJawab + resultData.tiuJawab || 1)) * 100) : 0;
+            const totalScoreMax = 650;
+            const scorePercentage = Math.round((resultData.total / totalScoreMax) * 100);
+
+            // Check passing grade
+            const PG = { twk: 65, tiu: 80, tkp: 166 };
+            const lulusTWK = resultData.twk >= PG.twk;
+            const lulusTIU = resultData.tiu >= PG.tiu;
+            const lulusTKP = resultData.tkp >= PG.tkp;
+            const semuaLulus = lulusTWK && lulusTIU && lulusTKP;
+
             // Update UI
-            updateScores(stats);
-            updatePassingStatus(stats);
-            updateProgressBars(stats);
-            updateRecommendations(stats);
-            updateCertificateSection(stats);
+            updateScores(resultData, totalSoal, totalTerjawab, akurasi, scorePercentage);
+            updatePassingStatus(lulusTWK, lulusTIU, lulusTKP, semuaLulus);
+            updateProgressBars(resultData, PG);
+            updateRecommendations(lulusTWK, lulusTIU, lulusTKP);
 
             // Trigger animations
             setTimeout(() => {
                 triggerAnimations();
-                if (stats.semuaLulus) {
+                if (semuaLulus) {
                     createConfetti();
+                    showCertificateSection();
                 }
-                // Track analytics
-                trackAnalytics(stats);
             }, 500);
 
-            // Show tutorial untuk pertama kali
-            showFirstTimeTutorial();
-            
+            // Save to progress history
+            saveToProgressHistory();
+
             // Show toast
-            if (stats.semuaLulus) {
-                showToast('success', 'Selamat! 🎉', 'Anda berhasil melewati semua passing grade!');
+            if (semuaLulus) {
+                showToast('success', 'Selamat!', 'Anda berhasil melewati semua passing grade! 🎉');
             } else {
                 showToast('info', 'Hasil Selesai', 'Analisis hasil Anda sudah tersedia');
             }
         }
 
-        function calculateStatistics(data) {
-            const totalSoal = 110;
-            const totalTerjawab = (data.twkJawab || 0) + (data.tiuJawab || 0) + (data.tkpJawab || 0);
-            const totalBenar = (data.twkBenar || 0) + (data.tiuBenar || 0);
-            const totalTWKSoal = 30;
-            const totalTIUSoal = 35;
-            const totalTKPSoal = 45;
-            
-            // Hitung akurasi (hanya untuk TWK dan TIU)
-            const akurasi = totalTerjawab > 0 ? 
-                Math.round((totalBenar / ((data.twkJawab || 0) + (data.tiuJawab || 0) || 1)) * 100) : 0;
-            
-            // Hitung persentase skor
-            const twkPercentage = Math.round((data.twk / CONFIG.MAX_SCORES.TWK) * 100);
-            const tiuPercentage = Math.round((data.tiu / CONFIG.MAX_SCORES.TIU) * 100);
-            const tkpPercentage = Math.round((data.tkp / CONFIG.MAX_SCORES.TKP) * 100);
-            const totalPercentage = Math.round((data.total / CONFIG.MAX_SCORES.TOTAL) * 100);
-            
-            // Check passing grade
-            const lulusTWK = data.twk >= CONFIG.PASSING_GRADES.TWK;
-            const lulusTIU = data.tiu >= CONFIG.PASSING_GRADES.TIU;
-            const lulusTKP = data.tkp >= CONFIG.PASSING_GRADES.TKP;
-            const semuaLulus = lulusTWK && lulusTIU && lulusTKP;
-            
-            // Hitung kecepatan rata-rata (jika ada data waktu)
-            let kecepatanRata = '-';
-            if (data.waktu) {
-                const waktuMatch = data.waktu.match(/(\d+)/);
-                if (waktuMatch) {
-                    const menit = parseInt(waktuMatch[1]);
-                    const detikPerSoal = Math.round((menit * 60) / totalTerjawab);
-                    kecepatanRata = detikPerSoal;
-                }
-            }
-
-            // Hitung peringkat (simulasi berdasarkan skor)
-            const peringkat = calculateRanking(data.total);
-
-            return {
-                ...data,
-                totalSoal,
-                totalTerjawab,
-                totalBenar,
-                totalTWKSoal,
-                totalTIUSoal,
-                totalTKPSoal,
-                akurasi,
-                twkPercentage,
-                tiuPercentage,
-                tkpPercentage,
-                totalPercentage,
-                lulusTWK,
-                lulusTIU,
-                lulusTKP,
-                semuaLulus,
-                kecepatanRata,
-                peringkat
-            };
-        }
-
-        function calculateRanking(totalScore) {
-            // Simulasi peringkat berdasarkan distribusi normal
-            const maxScore = 650;
-            const percentile = (totalScore / maxScore) * 100;
-            
-            if (percentile >= 90) return `#${Math.floor(Math.random() * 10) + 1}`;
-            if (percentile >= 75) return `#${Math.floor(Math.random() * 20) + 11}`;
-            if (percentile >= 50) return `#${Math.floor(Math.random() * 30) + 31}`;
-            if (percentile >= 25) return `#${Math.floor(Math.random() * 25) + 61}`;
-            return `#${Math.floor(Math.random() * 40) + 86}`;
-        }
-
-        function updateScores(stats) {
+        function updateScores(data, totalSoal, totalTerjawab, akurasi, scorePercentage) {
             // Animate total score
-            animateCounter('totalSkor', 0, stats.total, 1500);
-            
+            animateCounter('totalSkor', 0, data.total, 1500);
+
             // Update category scores
-            document.getElementById('skorTWK').textContent = stats.twk;
-            document.getElementById('skorTIU').textContent = stats.tiu;
-            document.getElementById('skorTKP').textContent = stats.tkp;
-            
-            // Update score percentage and ring
-            document.getElementById('scorePercentage').textContent = `${stats.totalPercentage}%`;
-            updateScoreRing(stats.totalPercentage);
-            
+            document.getElementById('skorTWK').textContent = data.twk;
+            document.getElementById('skorTIU').textContent = data.tiu;
+            document.getElementById('skorTKP').textContent = data.tkp;
+
+            // Update score percentage
+            document.getElementById('scorePercentage').textContent = `${scorePercentage}%`;
+            updateScoreRing(scorePercentage);
+
             // Update info text
-            document.getElementById('twkInfo').textContent = `${stats.twkJawab || 0} dari ${stats.totalTWKSoal} soal`;
-            document.getElementById('tiuInfo').textContent = `${stats.tiuJawab || 0} dari ${stats.totalTIUSoal} soal`;
-            document.getElementById('tkpInfo').textContent = `${stats.tkpJawab || 0} dari ${stats.totalTKPSoal} soal`;
-            
+            document.getElementById('twkInfo').textContent = `${data.twkJawab || 0} dari 30 soal`;
+            document.getElementById('tiuInfo').textContent = `${data.tiuJawab || 0} dari 35 soal`;
+            document.getElementById('tkpInfo').textContent = `${data.tkpJawab || 0} dari 45 soal`;
+
             // Update stats
-            document.getElementById('twkJawab').textContent = stats.twkJawab || 0;
-            document.getElementById('twkBenar').textContent = stats.twkBenar || 0;
-            document.getElementById('tiuJawab').textContent = stats.tiuJawab || 0;
-            document.getElementById('tiuBenar').textContent = stats.tiuBenar || 0;
-            document.getElementById('tkpJawab').textContent = stats.tkpJawab || 0;
-            document.getElementById('tkpRagu').textContent = stats.ragu || 0;
-            
+            document.getElementById('twkJawab').textContent = data.twkJawab || 0;
+            document.getElementById('twkBenar').textContent = data.twkBenar || 0;
+            document.getElementById('tiuJawab').textContent = data.tiuJawab || 0;
+            document.getElementById('tiuBenar').textContent = data.tiuBenar || 0;
+            document.getElementById('tkpJawab').textContent = data.tkpJawab || 0;
+            document.getElementById('tkpRagu').textContent = data.ragu || 0;
+
             // Update waktu pengerjaan
-            if (stats.waktu) {
-                document.getElementById('waktuPengerjaan').textContent = `Selesai dalam ${stats.waktu}`;
-                document.getElementById('totalWaktu').textContent = stats.waktu;
+            if (data.waktu) {
+                document.getElementById('waktuPengerjaan').textContent = `Selesai dalam ${data.waktu}`;
+                document.getElementById('totalWaktu').textContent = data.waktu;
             }
-            
-            // Update kecepatan
-            document.getElementById('kecepatanRata').textContent = stats.kecepatanRata;
-            
+
             // Update quick stats
-            document.getElementById('totalSoal').textContent = stats.totalSoal;
-            document.getElementById('totalTerjawab').textContent = stats.totalTerjawab;
-            document.getElementById('akurasi').textContent = `${stats.akurasi}%`;
-            document.getElementById('totalBookmarks').textContent = stats.bookmarks || 0;
-            document.getElementById('totalRagu').textContent = stats.ragu || 0;
-            document.getElementById('peringkat').textContent = stats.peringkat;
+            document.getElementById('totalSoal').textContent = totalSoal;
+            document.getElementById('totalTerjawab').textContent = totalTerjawab;
+            document.getElementById('akurasi').textContent = `${akurasi}%`;
+            document.getElementById('totalBookmarks').textContent = data.bookmarks || 0;
+            document.getElementById('totalRagu').textContent = data.ragu || 0;
+
+            // Update peringkat (simulated)
+            const peringkat = Math.floor(Math.random() * 50) + 1;
+            document.getElementById('peringkat').textContent = `#${peringkat}`;
         }
 
-        function updatePassingStatus(stats) {
+        function updatePassingStatus(lulusTWK, lulusTIU, lulusTKP, semuaLulus) {
             // Update status badges
-            updateStatusLabel('statusTWK', stats.lulusTWK, 'TWK');
-            updateStatusLabel('statusTIU', stats.lulusTIU, 'TIU');
-            updateStatusLabel('statusTKP', stats.lulusTKP, 'TKP');
-            
+            updateStatusLabel('statusTWK', lulusTWK, 'TWK');
+            updateStatusLabel('statusTIU', lulusTIU, 'TIU');
+            updateStatusLabel('statusTKP', lulusTKP, 'TKP');
+
             // Update main status badge
             const statusBadge = document.getElementById('statusBadge');
             const pesanKelulusan = document.getElementById('pesanKelulusan');
-            
-            if (stats.semuaLulus) {
+
+            if (semuaLulus) {
                 statusBadge.innerHTML = `<i class="fa-solid fa-check-circle"></i> LULUS PASSING GRADE`;
-                statusBadge.className = 'inline-flex items-center gap-2 px-6 py-2 rounded-full font-black text-xs uppercase tracking-[0.2em] mb-4 bg-gradient-to-r from-green-100 to-emerald-100 dark:from-green-900/30 dark:to-emerald-900/30 text-green-700 dark:text-green-300 border border-green-200 dark:border-green-800 animate-pulse-slow';
+                statusBadge.className = 'inline-flex items-center gap-2 px-6 py-2 rounded-full font-black text-xs uppercase tracking-[0.2em] mb-4 bg-gradient-to-r from-green-100 to-emerald-100 text-green-700 border border-green-200 animate-pulse-slow';
                 pesanKelulusan.innerHTML = `<strong>Selamat!</strong> Anda berhasil melampaui semua ambang batas passing grade. Pertahankan performa ini dengan terus berlatih dan mempelajari materi yang belum dikuasai.`;
             } else {
                 statusBadge.innerHTML = `<i class="fa-solid fa-exclamation-triangle"></i> PERLU PERBAIKAN`;
-                statusBadge.className = 'inline-flex items-center gap-2 px-6 py-2 rounded-full font-black text-xs uppercase tracking-[0.2em] mb-4 bg-gradient-to-r from-yellow-100 to-amber-100 dark:from-yellow-900/30 dark:to-amber-900/30 text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-800 animate-pulse-slow';
+                statusBadge.className = 'inline-flex items-center gap-2 px-6 py-2 rounded-full font-black text-xs uppercase tracking-[0.2em] mb-4 bg-gradient-to-r from-yellow-100 to-amber-100 text-amber-700 border border-amber-200 animate-pulse-slow';
                 const belumLulus = [];
-                if (!stats.lulusTWK) belumLulus.push('TWK');
-                if (!stats.lulusTIU) belumLulus.push('TIU');
-                if (!stats.lulusTKP) belumLulus.push('TKP');
+                if (!lulusTWK) belumLulus.push('TWK');
+                if (!lulusTIU) belumLulus.push('TIU');
+                if (!lulusTKP) belumLulus.push('TKP');
                 pesanKelulusan.innerHTML = `<strong>Perhatian!</strong> Anda belum mencapai ambang batas di materi <strong>${belumLulus.join(', ')}</strong>. Fokuskan latihan pada materi tersebut dan pelajari pembahasan soal untuk meningkatkan pemahaman.`;
             }
         }
 
-        function updateProgressBars(stats) {
-            // Calculate progress against passing grades
-            const twkProgress = Math.min((stats.twk / CONFIG.PASSING_GRADES.TWK) * 100, 100);
-            const tiuProgress = Math.min((stats.tiu / CONFIG.PASSING_GRADES.TIU) * 100, 100);
-            const tkpProgress = Math.min((stats.tkp / CONFIG.PASSING_GRADES.TKP) * 100, 100);
-            
+        function updateProgressBars(data, PG) {
+            // Calculate progress percentages
+            const twkProgress = Math.min((data.twk / PG.twk) * 100, 100);
+            const tiuProgress = Math.min((data.tiu / PG.tiu) * 100, 100);
+            const tkpProgress = Math.min((data.tkp / PG.tkp) * 100, 100);
+
             // Update progress bars with animation
             setTimeout(() => {
                 document.getElementById('progressTWK').style.width = `${twkProgress}%`;
                 document.getElementById('progressTIU').style.width = `${tiuProgress}%`;
                 document.getElementById('progressTKP').style.width = `${tkpProgress}%`;
-                
-                // Update aria attributes
-                document.getElementById('progressTWK').setAttribute('aria-valuenow', Math.round(twkProgress));
-                document.getElementById('progressTIU').setAttribute('aria-valuenow', Math.round(tiuProgress));
-                document.getElementById('progressTKP').setAttribute('aria-valuenow', Math.round(tkpProgress));
-                
+
                 document.getElementById('twkProgressText').textContent = `${Math.round(twkProgress)}%`;
                 document.getElementById('tiuProgressText').textContent = `${Math.round(tiuProgress)}%`;
                 document.getElementById('tkpProgressText').textContent = `${Math.round(tkpProgress)}%`;
@@ -1430,21 +865,20 @@
             const element = document.getElementById(elementId);
             if (isLulus) {
                 element.textContent = `LULUS ${kategori}`;
-                element.className = 'text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300';
+                element.className = 'text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-green-100 text-green-700';
             } else {
                 element.textContent = `GAGAL ${kategori}`;
-                element.className = 'text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300';
+                element.className = 'text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-red-100 text-red-700';
             }
         }
 
-        // ========== 8. ANIMATIONS ==========
+        // ========== 6. ANIMATIONS ==========
         function animateCounter(elementId, start, end, duration) {
             const element = document.getElementById(elementId);
             const range = end - start;
             const increment = end > start ? 1 : -1;
             const stepTime = Math.abs(Math.floor(duration / range));
             let current = start;
-            
             const timer = setInterval(() => {
                 current += increment;
                 element.textContent = current;
@@ -1463,12 +897,10 @@
         function createConfetti() {
             const colors = ['#3b82f6', '#8b5cf6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6'];
             const container = document.getElementById('confetti-container');
-            
             for (let i = 0; i < 150; i++) {
                 setTimeout(() => {
                     const confetti = document.createElement('div');
                     confetti.className = 'confetti';
-                    confetti.setAttribute('aria-hidden', 'true');
                     confetti.style.position = 'absolute';
                     confetti.style.width = Math.random() * 10 + 5 + 'px';
                     confetti.style.height = Math.random() * 10 + 5 + 'px';
@@ -1478,9 +910,7 @@
                     confetti.style.borderRadius = '2px';
                     confetti.style.opacity = '0.8';
                     confetti.style.transform = `rotate(${Math.random() * 360}deg)`;
-                    
                     container.appendChild(confetti);
-                    
                     const animation = confetti.animate([
                         { transform: 'translateY(0) rotate(0deg)', opacity: 1 },
                         { transform: `translateY(${window.innerHeight}px) rotate(${Math.random() * 720}deg)`, opacity: 0 }
@@ -1488,180 +918,94 @@
                         duration: Math.random() * 3000 + 2000,
                         easing: 'cubic-bezier(0.215, 0.610, 0.355, 1)'
                     });
-                    
                     animation.onfinish = () => confetti.remove();
                 }, i * 20);
             }
         }
 
-        // ========== 9. RECOMMENDATIONS ==========
-        function updateRecommendations(stats) {
+        // ========== 7. RECOMMENDATIONS ==========
+        function updateRecommendations(lulusTWK, lulusTIU, lulusTKP) {
             const recommendations = [];
-            
-            // Berdasarkan performa TWK
-            if (!stats.lulusTWK) {
+            if (!lulusTWK) {
                 recommendations.push({
                     title: 'Perkuat Wawasan Kebangsaan',
-                    message: 'Fokus pada pemahaman UUD 1945, Pancasila, NKRI, dan sejarah perjuangan bangsa. Baca materi dasar dan latih soal TWK minimal 30 soal per hari.',
+                    message: 'Fokus pada pemahaman UUD 1945, Pancasila, NKRI, dan sejarah perjuangan bangsa.',
                     icon: 'fa-landmark',
-                    color: 'blue',
-                    priority: 1
-                });
-            } else if (stats.twkPercentage < 80) {
-                recommendations.push({
-                    title: 'Tingkatkan Pemahaman TWK',
-                    message: 'Meskipun lulus, masih ada ruang untuk meningkatkan skor TWK. Pelajari kasus-kasus khusus dan peraturan terbaru.',
-                    icon: 'fa-book',
-                    color: 'blue',
-                    priority: 2
+                    color: 'blue'
                 });
             }
-            
-            // Berdasarkan performa TIU
-            if (!stats.lulusTIU) {
+            if (!lulusTIU) {
                 recommendations.push({
                     title: 'Tingkatkan Kemampuan Numerik & Verbal',
-                    message: 'Latihan soal hitungan, logika, dan analogi secara rutin. Gunakan teknik skimming untuk soal verbal dan trik cepat untuk matematika.',
+                    message: 'Latihan soal hitungan, logika, dan analogi secara rutin untuk meningkatkan kecepatan.',
                     icon: 'fa-brain',
-                    color: 'green',
-                    priority: 1
-                });
-            } else if (stats.tiuPercentage < 85) {
-                recommendations.push({
-                    title: 'Optimalkan Waktu TIU',
-                    message: 'Coba latihan dengan timer untuk meningkatkan kecepatan. Fokus pada tipe soal yang paling banyak keluar.',
-                    icon: 'fa-clock',
-                    color: 'green',
-                    priority: 2
+                    color: 'green'
                 });
             }
-            
-            // Berdasarkan performa TKP
-            if (!stats.lulusTKP) {
+            if (!lulusTKP) {
                 recommendations.push({
                     title: 'Kembangkan Karakter Kepribadian',
-                    message: 'Pahami nilai-nilai pelayanan publik, integritas, dan semangat gotong royong. Latih dengan studi kasus untuk meningkatkan sensitivitas TKP.',
+                    message: 'Pahami nilai-nilai pelayanan publik, integritas, dan semangat gotong royong.',
                     icon: 'fa-users',
-                    color: 'purple',
-                    priority: 1
-                });
-            } else if (stats.tkpPercentage < 90) {
-                recommendations.push({
-                    title: 'Perdalam Pemahaman TKP',
-                    message: 'Pelajari skenario kompleks dan hubungan antar nilai-nilai karakter. Baca kisah inspiratif ASN untuk memperdalam pemahaman.',
-                    icon: 'fa-user-check',
-                    color: 'purple',
-                    priority: 2
+                    color: 'purple'
                 });
             }
-            
-            // Rekomendasi umum berdasarkan akurasi
-            if (stats.akurasi < 70) {
-                recommendations.push({
-                    title: 'Tingkatkan Akurasi Jawaban',
-                    message: 'Baca soal dengan teliti, eliminasi jawaban yang salah, dan review sebelum submit. Latihan soal dengan pembahasan detail.',
-                    icon: 'fa-bullseye',
-                    color: 'red',
-                    priority: 2
-                });
-            }
-            
-            // Rekomendasi berdasarkan kecepatan
-            if (stats.kecepatanRata !== '-' && stats.kecepatanRata > 90) {
-                recommendations.push({
-                    title: 'Tingkatkan Kecepatan',
-                    message: `Rata-rata ${stats.kecepatanRata} detik/soal terlalu lambat. Targetkan maksimal 60 detik/soal untuk TWK/TIU dan 45 detik untuk TKP.`,
-                    icon: 'fa-bolt',
-                    color: 'yellow',
-                    priority: 2
-                });
-            }
-            
-            // Rekomendasi sukses jika semua lulus
-            if (stats.semuaLulus) {
+            if (recommendations.length === 0) {
                 recommendations.push({
                     title: 'Pertahankan Performa',
-                    message: 'Lanjutkan latihan dengan variasi soal yang lebih kompleks dan waktu yang lebih ketat untuk persiapan maksimal.',
+                    message: 'Lanjutkan latihan dengan variasi soal yang lebih kompleks untuk persiapan maksimal.',
                     icon: 'fa-trophy',
-                    color: 'yellow',
-                    priority: 3
+                    color: 'yellow'
                 });
             }
-            
-            // Rekomendasi umum untuk semua
             recommendations.push({
                 title: 'Gunakan Fitur Pembahasan',
-                message: 'Pelajari pembahasan setiap soal untuk memahami konsep dan cara penyelesaian. Buat catatan khusus untuk poin-poin penting.',
+                message: 'Pelajari pembahasan setiap soal untuk memahami konsep dan cara penyelesaian.',
                 icon: 'fa-book-open',
-                color: 'indigo',
-                priority: 3
+                color: 'indigo'
             });
-            
-            recommendations.push({
-                title: 'Ikuti Tryout Rutin',
-                message: 'Ikuti tryout mingguan untuk mengukur progress dan beradaptasi dengan tekanan waktu. Bandingkan hasil dengan tryout sebelumnya.',
-                icon: 'fa-calendar-check',
-                color: 'teal',
-                priority: 3
-            });
-            
-            // Urutkan berdasarkan prioritas
-            recommendations.sort((a, b) => a.priority - b.priority);
-            
+
             const container = document.getElementById('recommendationsContent');
             container.innerHTML = '';
-            
-            recommendations.slice(0, 5).forEach(rec => {
+            recommendations.forEach(rec => {
                 const colorClasses = {
-                    blue: 'bg-blue-50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-800',
-                    green: 'bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-800',
-                    purple: 'bg-purple-50 dark:bg-purple-900/20 border-purple-200 dark:border-purple-800',
-                    yellow: 'bg-yellow-50 dark:bg-yellow-900/20 border-yellow-200 dark:border-yellow-800',
-                    red: 'bg-red-50 dark:bg-red-900/20 border-red-200 dark:border-red-800',
-                    indigo: 'bg-indigo-50 dark:bg-indigo-900/20 border-indigo-200 dark:border-indigo-800',
-                    teal: 'bg-teal-50 dark:bg-teal-900/20 border-teal-200 dark:border-teal-800'
+                    blue: 'bg-blue-50 border-blue-200',
+                    green: 'bg-green-50 border-green-200',
+                    purple: 'bg-purple-50 border-purple-200',
+                    yellow: 'bg-yellow-50 border-yellow-200',
+                    indigo: 'bg-indigo-50 border-indigo-200'
                 };
-                
                 const iconColors = {
-                    blue: 'text-blue-600 dark:text-blue-400',
-                    green: 'text-green-600 dark:text-green-400',
-                    purple: 'text-purple-600 dark:text-purple-400',
-                    yellow: 'text-yellow-600 dark:text-yellow-400',
-                    red: 'text-red-600 dark:text-red-400',
-                    indigo: 'text-indigo-600 dark:text-indigo-400',
-                    teal: 'text-teal-600 dark:text-teal-400'
+                    blue: 'text-blue-600',
+                    green: 'text-green-600',
+                    purple: 'text-purple-600',
+                    yellow: 'text-yellow-600',
+                    indigo: 'text-indigo-600'
                 };
-                
                 const item = `
-                    <div class="flex items-start gap-3 p-3 rounded-xl ${colorClasses[rec.color]} border animate-fadeIn">
-                        <div class="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 ${colorClasses[rec.color].split(' ')[0]}">
+                    <div class="flex items-start gap-3 p-3 rounded-xl ${colorClasses[rec.color]} border">
+                        <div class="w-8 h-8 rounded-lg ${colorClasses[rec.color].split(' ')[0]} flex items-center justify-center">
                             <i class="fa-solid ${rec.icon} ${iconColors[rec.color]}"></i>
                         </div>
                         <div class="flex-1">
-                            <h4 class="font-bold text-slate-800 dark:text-slate-100 text-sm mb-1">${rec.title}</h4>
-                            <p class="text-xs text-slate-600 dark:text-slate-300">${rec.message}</p>
+                            <h4 class="font-bold text-slate-800 text-sm mb-1">${rec.title}</h4>
+                            <p class="text-xs text-slate-600">${rec.message}</p>
                         </div>
                     </div>
                 `;
                 container.innerHTML += item;
             });
-            
             document.getElementById('recommendationsSection').classList.remove('hidden');
         }
 
-        function updateCertificateSection(stats) {
-            if (stats.semuaLulus || stats.totalPercentage >= 70) {
-                document.getElementById('certificateSection').classList.remove('hidden');
-            }
+        function showCertificateSection() {
+            document.getElementById('certificateSection').classList.remove('hidden');
         }
 
-        // ========== 10. ACTION FUNCTIONS ==========
+        // ========== 8. ACTION FUNCTIONS ==========
         function kembaliDashboard() {
-            if (paketNumber) {
-                window.location.href = `dashboardpaket${paketNumber}.html?id=${pinAkses}`;
-            } else {
-                window.location.href = 'login.html';
-            }
+            // Gunakan paketNumber yang sudah dideteksi dari PIN
+            window.location.href = `dashboardpaket${paketNumber}.html?id=${pinAkses}`;
         }
 
         function ulangiTryout() {
@@ -1674,21 +1018,11 @@
                         keysToDelete.push(key);
                     }
                 }
-                
                 keysToDelete.forEach(key => {
                     localStorage.removeItem(key);
+                    console.log('Data dihapus:', key);
                 });
-                
-                // Hapus dari sessionStorage
-                for (let i = 0; i < sessionStorage.length; i++) {
-                    const key = sessionStorage.key(i);
-                    if (key.includes(pinAkses)) {
-                        sessionStorage.removeItem(key);
-                    }
-                }
-                
                 showToast('success', 'Reset Berhasil', 'Mengarahkan ke halaman soal...');
-                
                 setTimeout(() => {
                     window.location.href = `soalpaket1.html?id=${pinAkses}`;
                 }, 1500);
@@ -1700,30 +1034,32 @@
             showToast('info', 'Mencetak', 'Menyiapkan dokumen untuk dicetak...');
         }
 
-        // ========== 11. SHARE FUNCTIONS ==========
+        function downloadCertificate() {
+            showToast('info', 'Sertifikat', 'Fitur unduh sertifikat akan segera hadir!');
+        }
+
+        // ========== 9. SHARE FUNCTIONS ==========
         function showShareModal() {
             document.getElementById('shareModal').classList.remove('hidden');
-            document.getElementById('shareModal').setAttribute('aria-hidden', 'false');
         }
 
         function hideShareModal() {
             document.getElementById('shareModal').classList.add('hidden');
-            document.getElementById('shareModal').setAttribute('aria-hidden', 'true');
         }
 
         function shareToWhatsApp() {
             const message = encodeURIComponent(generateShareMessage());
-            window.open(`https://api.whatsapp.com/send?text=${message}`, '_blank', 'noopener,noreferrer');
+            window.open(`https://api.whatsapp.com/send?text=${message}`, '_blank');
         }
 
         function shareToFacebook() {
             const message = encodeURIComponent(generateShareMessage());
-            window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}&quote=${message}`, '_blank', 'noopener,noreferrer');
+            window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}&quote=${message}`, '_blank');
         }
 
         function shareToTwitter() {
             const message = encodeURIComponent(generateShareMessage());
-            window.open(`https://twitter.com/intent/tweet?text=${message}&url=${encodeURIComponent(window.location.href)}`, '_blank', 'noopener,noreferrer');
+            window.open(`https://twitter.com/intent/tweet?text=${message}&url=${encodeURIComponent(window.location.href)}`, '_blank');
         }
 
         function copyResultLink() {
@@ -1738,588 +1074,149 @@
         function shareResult() {
             const message = document.getElementById('shareMessage').value;
             const shareText = `${message}\n\nSkor Total: ${resultData.total}\nTWK: ${resultData.twk} | TIU: ${resultData.tiu} | TKP: ${resultData.tkp}\n\n${window.location.href}`;
-            
             if (navigator.share) {
                 navigator.share({
-                    title: 'Hasil Simulasi CAT CPNS - Kerja Jadi ASN',
+                    title: 'Hasil Simulasi CAT CPNS',
                     text: shareText,
                     url: window.location.href
-                }).then(() => {
-                    showToast('success', 'Berhasil Dibagikan', 'Hasil telah dibagikan');
-                }).catch(err => {
-                    console.error('Error sharing:', err);
-                    fallbackShare(shareText);
                 });
             } else {
-                fallbackShare(shareText);
+                navigator.clipboard.writeText(shareText)
+                    .then(() => showToast('success', 'Teks Disalin', 'Hasil telah disalin ke clipboard'))
+                    .catch(err => {
+                        console.error('Failed to copy:', err);
+                        showToast('error', 'Gagal Membagikan', 'Tidak dapat membagikan hasil');
+                    });
             }
-            
             hideShareModal();
         }
 
-        function fallbackShare(text) {
-            navigator.clipboard.writeText(text)
-                .then(() => showToast('success', 'Teks Disalin', 'Hasil telah disalin ke clipboard'))
-                .catch(err => {
-                    console.error('Failed to copy:', err);
-                    showToast('error', 'Gagal Membagikan', 'Tidak dapat membagikan hasil');
-                });
-        }
-
         function generateShareMessage() {
-            const stats = calculateStatistics(resultData);
-            const status = stats.semuaLulus ? '🎉 LULUS SEMUA PASSING GRADE!' : '📚 PERLU PERBAIKAN';
-            
+            const lulusTWK = resultData.twk >= 65;
+            const lulusTIU = resultData.tiu >= 80;
+            const lulusTKP = resultData.tkp >= 166;
+            const semuaLulus = lulusTWK && lulusTIU && lulusTKP;
+            let status = semuaLulus ? '🎉 LULUS SEMUA PASSING GRADE!' : '📚 PERLU PERBAIKAN';
             return `Saya baru saja menyelesaikan simulasi CAT CPNS!\n\n` +
-                   `📊 HASIL SIMULASI:\n` +
-                   `Skor Total: ${resultData.total}/650\n` +
-                   `TWK: ${resultData.twk}/150 | TIU: ${resultData.tiu}/175 | TKP: ${resultData.tkp}/225\n` +
-                   `📈 Status: ${status}\n` +
-                   `🎯 Paket: ${paketNumber} | PIN: ${pinAkses}\n\n` +
+                   `Skor Total: ${resultData.total}\n` +
+                   `TWK: ${resultData.twk} | TIU: ${resultData.tiu} | TKP: ${resultData.tkp}\n` +
+                   `Status: ${status}\n` +
+                   `Paket: ${paketNumber} | PIN: ${pinAkses}\n\n` +
                    `Coba simulasi ini di: ${window.location.origin}`;
         }
 
-        // ========== 12. EXPORT FUNCTIONS ==========
-        function showExportModal() {
-            document.getElementById('exportModal').classList.remove('hidden');
-        }
-
-        function hideExportModal() {
-            document.getElementById('exportModal').classList.add('hidden');
-        }
-
-        function exportToPDF() {
-            showToast('info', 'Membuat PDF', 'Sedang membuat laporan PDF...');
-            
-            // Gunakan jsPDF untuk membuat PDF
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF();
-            
-            // Header
-            doc.setFontSize(20);
-            doc.setTextColor(59, 130, 246);
-            doc.text('LAPORAN HASIL SIMULASI CAT CPNS', 105, 20, { align: 'center' });
-            
-            doc.setFontSize(12);
-            doc.setTextColor(100, 116, 139);
-            doc.text(`PIN: ${pinAkses} | Paket: ${paketNumber}`, 105, 30, { align: 'center' });
-            doc.text(`Tanggal: ${new Date().toLocaleDateString('id-ID')}`, 105, 35, { align: 'center' });
-            
-            // Total Score
-            doc.setFontSize(16);
-            doc.setTextColor(30, 41, 59);
-            doc.text('SKOR TOTAL', 20, 50);
-            doc.setFontSize(32);
-            doc.setTextColor(59, 130, 246);
-            doc.text(`${resultData.total}/650`, 20, 65);
-            
-            // Progress bar simulation
-            const percentage = Math.round((resultData.total / 650) * 100);
-            doc.setDrawColor(226, 232, 240);
-            doc.setFillColor(226, 232, 240);
-            doc.rect(20, 70, 170, 10, 'F');
-            doc.setFillColor(59, 130, 246);
-            doc.rect(20, 70, 170 * (percentage / 100), 10, 'F');
-            
-            doc.setFontSize(10);
-            doc.setTextColor(100, 116, 139);
-            doc.text(`${percentage}% dari skor maksimal`, 20, 85);
-            
-            // Category Scores
-            doc.setFontSize(14);
-            doc.setTextColor(30, 41, 59);
-            doc.text('SKOR PER KATEGORI', 20, 100);
-            
-            const categories = [
-                { name: 'TWK', score: resultData.twk, max: 150, pg: 65, y: 110 },
-                { name: 'TIU', score: resultData.tiu, max: 175, pg: 80, y: 130 },
-                { name: 'TKP', score: resultData.tkp, max: 225, pg: 166, y: 150 }
-            ];
-            
-            categories.forEach(cat => {
-                doc.setFontSize(12);
-                doc.setTextColor(30, 41, 59);
-                doc.text(`${cat.name}: ${cat.score}/${cat.max}`, 20, cat.y);
-                
-                const catPercentage = Math.round((cat.score / cat.max) * 100);
-                const pgPercentage = Math.round((cat.score / cat.pg) * 100);
-                
-                doc.setFontSize(10);
-                doc.setTextColor(100, 116, 139);
-                doc.text(`PG: ${cat.pg} (${pgPercentage}%)`, 100, cat.y);
-                
-                // Status
-                const status = cat.score >= cat.pg ? 'LULUS' : 'GAGAL';
-                doc.setTextColor(cat.score >= cat.pg ? 34, 197, 94 : 239, 68, 68);
-                doc.text(status, 170, cat.y);
-            });
-            
-            // Statistik
-            doc.setFontSize(14);
-            doc.setTextColor(30, 41, 59);
-            doc.text('STATISTIK', 20, 170);
-            
-            const stats = [
-                `Total Soal: 110`,
-                `Terjawab: ${(resultData.twkJawab || 0) + (resultData.tiuJawab || 0) + (resultData.tkpJawab || 0)}`,
-                `Akurasi: ${calculateStatistics(resultData).akurasi}%`,
-                `Waktu: ${resultData.waktu || '-'}`
-            ];
-            
-            stats.forEach((stat, i) => {
-                doc.setFontSize(10);
-                doc.setTextColor(71, 85, 105);
-                doc.text(stat, 20, 180 + (i * 8));
-            });
-            
-            // Footer
-            doc.setFontSize(8);
-            doc.setTextColor(148, 163, 184);
-            doc.text('© Kerja Jadi ASN - Platform Tryout CAT CPNS Premium', 105, 280, { align: 'center' });
-            doc.text('Dokumen ini dibuat secara otomatis', 105, 285, { align: 'center' });
-            
-            // Save PDF
-            doc.save(`Hasil_Simulasi_${pinAkses}_${new Date().getTime()}.pdf`);
-            
-            showToast('success', 'PDF Siap', 'Laporan PDF berhasil diunduh');
-            hideExportModal();
-        }
-
-        function exportToExcel() {
-            showToast('info', 'Membuat Excel', 'Sedang membuat file Excel...');
-            
-            // Prepare data
-            const wb = XLSX.utils.book_new();
-            const wsData = [
-                ['LAPORAN HASIL SIMULASI CAT CPNS'],
-                ['PIN', pinAkses],
-                ['Paket', paketNumber],
-                ['Tanggal', new Date().toLocaleDateString('id-ID')],
-                [],
-                ['KATEGORI', 'SKOR', 'MAX', 'PASSING GRADE', 'STATUS', 'PERSENTASE'],
-                ['TWK', resultData.twk, 150, 65, resultData.twk >= 65 ? 'LULUS' : 'GAGAL', `${Math.round((resultData.twk/150)*100)}%`],
-                ['TIU', resultData.tiu, 175, 80, resultData.tiu >= 80 ? 'LULUS' : 'GAGAL', `${Math.round((resultData.tiu/175)*100)}%`],
-                ['TKP', resultData.tkp, 225, 166, resultData.tkp >= 166 ? 'LULUS' : 'GAGAL', `${Math.round((resultData.tkp/225)*100)}%`],
-                ['TOTAL', resultData.total, 650, '-', '-', `${Math.round((resultData.total/650)*100)}%`],
-                [],
-                ['STATISTIK', 'NILAI'],
-                ['Total Soal', 110],
-                ['Terjawab', (resultData.twkJawab || 0) + (resultData.tiuJawab || 0) + (resultData.tkpJawab || 0)],
-                ['Benar (TWK+TIU)', (resultData.twkBenar || 0) + (resultData.tiuBenar || 0)],
-                ['Akurasi', `${calculateStatistics(resultData).akurasi}%`],
-                ['Waktu Pengerjaan', resultData.waktu || '-'],
-                ['Soal Ditandai', resultData.bookmarks || 0],
-                ['Soal Ragu', resultData.ragu || 0]
-            ];
-            
-            const ws = XLSX.utils.aoa_to_sheet(wsData);
-            
-            // Style columns
-            const wscols = [
-                {wch: 25},
-                {wch: 15},
-                {wch: 15},
-                {wch: 15},
-                {wch: 15},
-                {wch: 15}
-            ];
-            ws['!cols'] = wscols;
-            
-            XLSX.utils.book_append_sheet(wb, ws, 'Hasil Simulasi');
-            XLSX.writeFile(wb, `Hasil_Simulasi_${pinAkses}.xlsx`);
-            
-            showToast('success', 'Excel Siap', 'File Excel berhasil diunduh');
-            hideExportModal();
-        }
-
-        function exportToJSON() {
-            const exportData = {
-                metadata: {
-                    pin: pinAkses,
-                    paket: paketNumber,
-                    exportDate: new Date().toISOString(),
-                    version: '1.0'
-                },
-                result: resultData,
-                statistics: calculateStatistics(resultData)
-            };
-            
-            const dataStr = JSON.stringify(exportData, null, 2);
-            const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
-            
-            const exportFileDefaultName = `Hasil_Simulasi_${pinAkses}.json`;
-            
-            const linkElement = document.createElement('a');
-            linkElement.setAttribute('href', dataUri);
-            linkElement.setAttribute('download', exportFileDefaultName);
-            linkElement.click();
-            
-            showToast('success', 'JSON Siap', 'File JSON berhasil diunduh');
-            hideExportModal();
-        }
-
-        // ========== 13. CERTIFICATE FUNCTIONS ==========
-        function downloadCertificate() {
-            showToast('info', 'Membuat Sertifikat', 'Sedang membuat sertifikat digital...');
-            
-            // Dalam implementasi nyata, sertifikat bisa dibuat dengan jsPDF
-            // atau dikirim ke server untuk dibuatkan sertifikat resmi
-            
-            setTimeout(() => {
-                // Simulasi pembuatan sertifikat
-                const { jsPDF } = window.jspdf;
-                const doc = new jsPDF('l', 'mm', 'a4');
-                
-                // Background
-                doc.setFillColor(59, 130, 246, 10);
-                doc.rect(0, 0, 297, 210, 'F');
-                
-                // Border decorative
-                doc.setDrawColor(59, 130, 246);
-                doc.setLineWidth(2);
-                doc.rect(15, 15, 267, 180);
-                
-                // Header
-                doc.setFontSize(36);
-                doc.setTextColor(59, 130, 246);
-                doc.text('SERTIFIKAT', 148.5, 50, { align: 'center' });
-                
-                doc.setFontSize(18);
-                doc.setTextColor(100, 116, 139);
-                doc.text('PENYELESAIAN SIMULASI CAT CPNS', 148.5, 65, { align: 'center' });
-                
-                // Content
-                doc.setFontSize(14);
-                doc.setTextColor(71, 85, 105);
-                doc.text('Diberikan kepada:', 148.5, 85, { align: 'center' });
-                
-                doc.setFontSize(24);
-                doc.setTextColor(30, 41, 59);
-                doc.text(`Peserta dengan PIN: ${pinAkses}`, 148.5, 100, { align: 'center' });
-                
-                doc.setFontSize(14);
-                doc.setTextColor(71, 85, 105);
-                doc.text('Telah berhasil menyelesaikan simulasi tryout dengan:', 148.5, 115, { align: 'center' });
-                
-                // Scores
-                doc.setFontSize(20);
-                doc.setTextColor(59, 130, 246);
-                doc.text(`Skor Total: ${resultData.total}/650`, 148.5, 130, { align: 'center' });
-                
-                // Footer
-                doc.setFontSize(12);
-                doc.setTextColor(148, 163, 184);
-                doc.text('Kerja Jadi ASN - Platform Tryout CAT CPNS Premium', 148.5, 160, { align: 'center' });
-                doc.text(new Date().toLocaleDateString('id-ID', { 
-                    weekday: 'long', 
-                    year: 'numeric', 
-                    month: 'long', 
-                    day: 'numeric' 
-                }), 148.5, 170, { align: 'center' });
-                
-                // Save
-                doc.save(`Sertifikat_${pinAkses}.pdf`);
-                
-                showToast('success', 'Sertifikat Siap', 'Sertifikat berhasil diunduh');
-            }, 1000);
-        }
-
-        function shareCertificate() {
-            showToast('info', 'Membagikan', 'Menyiapkan sertifikat untuk dibagikan...');
-            
-            // Dalam implementasi nyata, sertifikat bisa dibagikan via API
-            setTimeout(() => {
-                showToast('success', 'Siap Dibagikan', 'Sertifikat siap dibagikan via WhatsApp atau email');
-            }, 1500);
-        }
-
-        // ========== 14. ANALYSIS FUNCTIONS ==========
+        // ========== 10. ANALYSIS FUNCTIONS ==========
         function showAnalysisModal() {
             const content = document.getElementById('analysisContent');
-            const stats = calculateStatistics(resultData);
-            
             const analysisHTML = `
                 <div class="space-y-6">
                     <div>
-                        <h4 class="font-bold text-slate-800 dark:text-slate-100 mb-3">Analisis Performa per Kategori</h4>
+                        <h4 class="font-bold text-slate-800 mb-3">Analisis Performa per Kategori</h4>
                         <div class="space-y-4">
-                            ${['TWK', 'TIU', 'TKP'].map(kategori => {
-                                const score = resultData[kategori.toLowerCase()];
-                                const max = CONFIG.MAX_SCORES[kategori];
-                                const pg = CONFIG.PASSING_GRADES[kategori];
-                                const percentage = Math.round((score / max) * 100);
-                                const pgPercentage = Math.round((score / pg) * 100);
-                                const passed = score >= pg;
-                                
-                                return `
-                                    <div>
-                                        <div class="flex justify-between text-sm text-slate-600 dark:text-slate-300 mb-1">
-                                            <span class="font-bold">${kategori}</span>
-                                            <span>${score}/${max} (${percentage}%) | PG: ${pg} (${pgPercentage}%)</span>
-                                        </div>
-                                        <div class="w-full bg-slate-100 dark:bg-slate-700 h-2 rounded-full overflow-hidden">
-                                            <div class="h-full ${passed ? 'bg-green-500' : 'bg-red-500'}" style="width: ${Math.min(pgPercentage, 100)}%"></div>
-                                        </div>
-                                        <div class="text-xs text-slate-500 dark:text-slate-400 mt-1">
-                                            ${passed ? 
-                                                '✅ Melebihi passing grade' : 
-                                                '❌ Belum mencapai passing grade'}
-                                        </div>
-                                    </div>
-                                `;
-                            }).join('')}
-                        </div>
-                    </div>
-                    
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div class="bg-slate-50 dark:bg-slate-900/50 rounded-xl p-4">
-                            <h5 class="font-bold text-slate-800 dark:text-slate-100 text-sm mb-2">Statistik Umum</h5>
-                            <div class="space-y-2">
-                                ${[
-                                    ['Total Soal', '110'],
-                                    ['Terjawab', stats.totalTerjawab],
-                                    ['Dilewati', 110 - stats.totalTerjawab],
-                                    ['Soal Ragu', resultData.ragu || 0],
-                                    ['Soal Ditandai', resultData.bookmarks || 0],
-                                    ['Waktu', resultData.waktu || '-'],
-                                    ['Kecepatan', stats.kecepatanRata !== '-' ? `${stats.kecepatanRata} detik/soal` : '-']
-                                ].map(([label, value]) => `
-                                    <div class="flex justify-between">
-                                        <span class="text-slate-600 dark:text-slate-400 text-sm">${label}</span>
-                                        <span class="font-bold">${value}</span>
-                                    </div>
-                                `).join('')}
-                            </div>
-                        </div>
-                        
-                        <div class="bg-slate-50 dark:bg-slate-900/50 rounded-xl p-4">
-                            <h5 class="font-bold text-slate-800 dark:text-slate-100 text-sm mb-2">Akurasi Jawaban</h5>
-                            <div class="space-y-2">
-                                ${[
-                                    ['TWK Benar', `${resultData.twkBenar || 0}/${resultData.twkJawab || 0}`],
-                                    ['TIU Benar', `${resultData.tiuBenar || 0}/${resultData.tiuJawab || 0}`],
-                                    ['Total Benar', `${stats.totalBenar}/${(resultData.twkJawab || 0) + (resultData.tiuJawab || 0)}`],
-                                    ['Akurasi Total', `${stats.akurasi}%`]
-                                ].map(([label, value]) => `
-                                    <div class="flex justify-between">
-                                        <span class="text-slate-600 dark:text-slate-400 text-sm">${label}</span>
-                                        <span class="font-bold">${value}</span>
-                                    </div>
-                                `).join('')}
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="bg-blue-50 dark:bg-blue-900/20 rounded-xl p-4 border border-blue-100 dark:border-blue-800">
-                        <h5 class="font-bold text-blue-800 dark:text-blue-300 text-sm mb-2 flex items-center gap-2">
-                            <i class="fa-solid fa-lightbulb"></i> Tips Perbaikan Berdasarkan Data
-                        </h5>
-                        <ul class="text-sm text-blue-700 dark:text-blue-300 space-y-2">
-                            ${generateAnalysisTips(stats).map(tip => `
-                                <li class="flex items-start gap-2">
-                                    <i class="fa-solid fa-check mt-1 text-xs"></i>
-                                    <span>${tip}</span>
-                                </li>
-                            `).join('')}
-                        </ul>
-                    </div>
-                    
-                    <div class="bg-purple-50 dark:bg-purple-900/20 rounded-xl p-4 border border-purple-100 dark:border-purple-800">
-                        <h5 class="font-bold text-purple-800 dark:text-purple-300 text-sm mb-2 flex items-center gap-2">
-                            <i class="fa-solid fa-chart-line"></i> Rencana Peningkatan Skor
-                        </h5>
-                        <div class="text-sm text-purple-700 dark:text-purple-300 space-y-3">
-                            ${generateScoreImprovementPlan(stats).map(plan => `
-                                <div class="flex items-start gap-2">
-                                    <i class="fa-solid fa-target mt-1"></i>
-                                    <div>
-                                        <div class="font-bold">${plan.target}</div>
-                                        <div class="text-xs opacity-80">${plan.strategy}</div>
-                                    </div>
+                            <div>
+                                <div class="flex justify-between text-sm text-slate-600 mb-1">
+                                    <span>TWK - Wawasan Kebangsaan</span>
+                                    <span>${resultData.twk}/65 (${Math.round((resultData.twk/65)*100)}%)</span>
                                 </div>
-                            `).join('')}
+                                <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
+                                    <div class="h-full bg-blue-600" style="width: ${Math.min((resultData.twk/65)*100, 100)}%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-sm text-slate-600 mb-1">
+                                    <span>TIU - Tes Intelegensi Umum</span>
+                                    <span>${resultData.tiu}/80 (${Math.round((resultData.tiu/80)*100)}%)</span>
+                                </div>
+                                <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
+                                    <div class="h-full bg-green-600" style="width: ${Math.min((resultData.tiu/80)*100, 100)}%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-sm text-slate-600 mb-1">
+                                    <span>TKP - Karakteristik Pribadi</span>
+                                    <span>${resultData.tkp}/166 (${Math.round((resultData.tkp/166)*100)}%)</span>
+                                </div>
+                                <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
+                                    <div class="h-full bg-purple-600" style="width: ${Math.min((resultData.tkp/166)*100, 100)}%"></div>
+                                </div>
+                            </div>
                         </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="bg-slate-50 rounded-xl p-4">
+                            <h5 class="font-bold text-slate-800 text-sm mb-2">Statistik Umum</h5>
+                            <div class="space-y-2">
+                                <div class="flex justify-between">
+                                    <span class="text-slate-600 text-sm">Total Soal</span>
+                                    <span class="font-bold">110</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-slate-600 text-sm">Terjawab</span>
+                                    <span class="font-bold">${(resultData.twkJawab||0)+(resultData.tiuJawab||0)+(resultData.tkpJawab||0)}</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-slate-600 text-sm">Soal Ragu</span>
+                                    <span class="font-bold">${resultData.ragu || 0}</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-slate-600 text-sm">Waktu</span>
+                                    <span class="font-bold">${resultData.waktu || '-'}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-slate-50 rounded-xl p-4">
+                            <h5 class="font-bold text-slate-800 text-sm mb-2">Akurasi Jawaban</h5>
+                            <div class="space-y-2">
+                                <div class="flex justify-between">
+                                    <span class="text-slate-600 text-sm">TWK Benar</span>
+                                    <span class="font-bold">${resultData.twkBenar || 0}/30</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-slate-600 text-sm">TIU Benar</span>
+                                    <span class="font-bold">${resultData.tiuBenar || 0}/35</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-slate-600 text-sm">Akurasi Total</span>
+                                    <span class="font-bold">${Math.round(((resultData.twkBenar||0)+(resultData.tiuBenar||0))/((resultData.twkJawab||0)+(resultData.tiuJawab||0)+1)*100)}%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-blue-50 rounded-xl p-4 border border-blue-100">
+                        <h5 class="font-bold text-blue-800 text-sm mb-2 flex items-center gap-2">
+                            <i class="fa-solid fa-lightbulb"></i> Tips Perbaikan
+                        </h5>
+                        <ul class="text-sm text-blue-700 space-y-2">
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-check mt-1 text-xs"></i><span>Review soal yang dijawab dengan ragu-ragu</span></li>
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-check mt-1 text-xs"></i><span>Fokus pada materi dengan skor terendah</span></li>
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-check mt-1 text-xs"></i><span>Latihan soal dengan waktu terbatas</span></li>
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-check mt-1 text-xs"></i><span>Pelajari pembahasan setiap soal</span></li>
+                        </ul>
                     </div>
                 </div>
             `;
-            
             content.innerHTML = analysisHTML;
             document.getElementById('analysisModal').classList.remove('hidden');
-            document.getElementById('analysisModal').setAttribute('aria-hidden', 'false');
         }
 
         function hideAnalysisModal() {
             document.getElementById('analysisModal').classList.add('hidden');
-            document.getElementById('analysisModal').setAttribute('aria-hidden', 'true');
         }
 
-        function generateAnalysisTips(stats) {
-            const tips = [];
-            
-            if (!stats.lulusTWK) {
-                tips.push('Fokus pada materi UUD 1945 dan Pancasila - biasanya 40% soal TWK berasal dari sini');
-            }
-            
-            if (!stats.lulusTIU) {
-                tips.push('Latihan soal numerik dengan timer - target 45 detik per soal');
-                tips.push('Pelajari pola soal verbal - seringkali soal mirip muncul dengan variasi kecil');
-            }
-            
-            if (!stats.lulusTKP) {
-                tips.push('Pahami hierarki nilai: integritas > pelayanan > komitmen > dll.');
-                tips.push('Baca skenario dengan teliti - perhatikan kata kunci seperti "sebaiknya", "seharusnya"');
-            }
-            
-            if (stats.akurasi < 70) {
-                tips.push('Review soal yang dijawab dengan ragu-ragu - biasakan untuk tidak mengubah jawaban kecuali sangat yakin');
-            }
-            
-            if (stats.kecepatanRata !== '-' && stats.kecepatanRata > 90) {
-                tips.push('Latihan dengan waktu ketat - kurangi waktu baca soal dengan teknik skimming');
-            }
-            
-            tips.push('Simulasi ulang dengan soal yang sama dalam 3 hari untuk mengukur retensi');
-            tips.push('Buat catatan kesalahan - analisis pola kesalahan yang berulang');
-            
-            return tips.slice(0, 6);
+        // ========== 11. PROGRESS HISTORY ==========
+        function saveToProgressHistory() {
+            if (!pinAkses || !resultData) return;
+            const historyKey = `progress_${pinAkses}`;
+            let progress = JSON.parse(localStorage.getItem(historyKey)) || {};
+            progress[`paket_${paketNumber}`] = true;
+            progress[`score_${paketNumber}`] = resultData.total;
+            progress[`time_${paketNumber}`] = resultData.waktu || '-';
+            progress[`accuracy_${paketNumber}`] = Math.round(((resultData.twkBenar || 0) + (resultData.tiuBenar || 0)) / ((resultData.twkJawab || 0) + (resultData.tiuJawab || 0) + 1) * 100);
+            progress[`completed_${paketNumber}`] = new Date().toISOString();
+            localStorage.setItem(historyKey, JSON.stringify(progress));
         }
 
-        function generateScoreImprovementPlan(stats) {
-            const plans = [];
-            
-            // Plan for TWK
-            if (!stats.lulusTWK) {
-                plans.push({
-                    target: `Tingkatkan TWK dari ${stats.twk} menjadi ${CONFIG.PASSING_GRADES.TWK}+`,
-                    strategy: '15 soal/hari + review materi dasar selama 7 hari'
-                });
-            } else if (stats.twkPercentage < 80) {
-                plans.push({
-                    target: `Optimalkan TWK ke ${Math.round(CONFIG.MAX_SCORES.TWK * 0.8)}+`,
-                    strategy: '10 soal/hari dengan fokus pada kasus kompleks'
-                });
-            }
-            
-            // Plan for TIU
-            if (!stats.lulusTIU) {
-                plans.push({
-                    target: `Tingkatkan TIU dari ${stats.tiu} menjadi ${CONFIG.PASSING_GRADES.TIU}+`,
-                    strategy: '20 soal/hari dengan pembagian: 7 numerik, 7 verbal, 6 logika'
-                });
-            } else if (stats.tiuPercentage < 85) {
-                plans.push({
-                    target: `Optimalkan TIU ke ${Math.round(CONFIG.MAX_SCORES.TIU * 0.85)}+`,
-                    strategy: 'Latihan dengan timer: 40 detik/soal untuk 15 hari'
-                });
-            }
-            
-            // Plan for TKP
-            if (!stats.lulusTKP) {
-                plans.push({
-                    target: `Tingkatkan TKP dari ${stats.tkp} menjadi ${CONFIG.PASSING_GRADES.TKP}+`,
-                    strategy: 'Studi kasus + 10 skenario/hari selama 10 hari'
-                });
-            }
-            
-            // General improvement
-            if (stats.totalPercentage < 70) {
-                plans.push({
-                    target: `Tingkatkan skor total menjadi ${Math.round(650 * 0.75)}+`,
-                    strategy: 'Tryout mingguan + analisis mendalam setiap hasil'
-                });
-            }
-            
-            return plans.slice(0, 4);
-        }
-
-        // ========== 15. TUTORIAL FUNCTIONS ==========
-        function showFirstTimeTutorial() {
-            const hasSeenTutorial = localStorage.getItem('hasSeenResultTutorial');
-            if (!hasSeenTutorial) {
-                setTimeout(() => {
-                    showTutorial();
-                }, 2000);
-            }
-        }
-
-        function showTutorial() {
-            document.getElementById('tutorialModal').classList.remove('hidden');
-        }
-
-        function hideTutorial() {
-            const dontShowAgain = document.getElementById('dontShowAgain').checked;
-            if (dontShowAgain) {
-                localStorage.setItem('hasSeenResultTutorial', 'true');
-            }
-            document.getElementById('tutorialModal').classList.add('hidden');
-        }
-
-        // ========== 16. DATA RECOVERY FUNCTIONS ==========
-        function showDataRecovery() {
-            document.getElementById('dataRecovery').classList.remove('hidden');
-        }
-
-        function recoverFromSessionStorage() {
-            for (let i = 0; i < sessionStorage.length; i++) {
-                const key = sessionStorage.key(i);
-                if (key.includes(pinAkses)) {
-                    try {
-                        const data = JSON.parse(sessionStorage.getItem(key));
-                        if (validateResultData(data)) {
-                            resultData = data;
-                            processResult();
-                            document.getElementById('dataRecovery').classList.add('hidden');
-                            showToast('success', 'Data Dipulihkan', 'Data berhasil dipulihkan dari session storage');
-                            return;
-                        }
-                    } catch (e) {
-                        console.error('Error recovering from sessionStorage:', e);
-                    }
-                }
-            }
-            showToast('error', 'Tidak Ditemukan', 'Tidak ada data yang dapat dipulihkan dari session storage');
-        }
-
-        async function scanAllStorage() {
-            showToast('info', 'Memindai', 'Memindai semua penyimpanan...');
-            
-            // Cek localStorage
-            for (let i = 0; i < localStorage.length; i++) {
-                const key = localStorage.key(i);
-                if (key.includes('hasil') || key.includes('result')) {
-                    try {
-                        const data = JSON.parse(localStorage.getItem(key));
-                        if (validateResultData(data) && (!pinAkses || data.pin === pinAkses)) {
-                            resultData = data;
-                            processResult();
-                            document.getElementById('dataRecovery').classList.add('hidden');
-                            showToast('success', 'Data Ditemukan', `Data ditemukan di localStorage dengan kunci: ${key}`);
-                            return;
-                        }
-                    } catch (e) {
-                        console.error('Error scanning localStorage:', e);
-                    }
-                }
-            }
-            
-            // Cek IndexedDB
-            try {
-                const data = await recoverFromIndexedDB();
-                if (data) {
-                    resultData = data;
-                    processResult();
-                    document.getElementById('dataRecovery').classList.add('hidden');
-                    showToast('success', 'Data Ditemukan', 'Data ditemukan di IndexedDB');
-                    return;
-                }
-            } catch (error) {
-                console.error('Error scanning IndexedDB:', error);
-            }
-            
-            showToast('error', 'Tidak Ditemukan', 'Tidak ada data yang dapat dipulihkan');
-        }
-
-        // ========== 17. UI HELPER FUNCTIONS ==========
+        // ========== 12. UI HELPER FUNCTIONS ==========
         function showErrorState() {
             document.getElementById('loadingState').classList.add('hidden');
             document.getElementById('errorState').classList.remove('hidden');
@@ -2327,30 +1224,7 @@
 
         function toggleResultMenu() {
             const menu = document.getElementById('resultMenu');
-            const isHidden = menu.classList.contains('hidden');
             menu.classList.toggle('hidden');
-            
-            // Update aria-expanded
-            const button = document.querySelector('[onclick="toggleResultMenu()"]');
-            button.setAttribute('aria-expanded', !isHidden);
-            
-            // Close menu when clicking outside
-            if (!isHidden) {
-                setTimeout(() => {
-                    document.addEventListener('click', closeResultMenuOnClickOutside);
-                }, 10);
-            }
-        }
-
-        function closeResultMenuOnClickOutside(event) {
-            const menu = document.getElementById('resultMenu');
-            const button = document.querySelector('[onclick="toggleResultMenu()"]');
-            
-            if (!menu.contains(event.target) && !button.contains(event.target)) {
-                menu.classList.add('hidden');
-                button.setAttribute('aria-expanded', 'false');
-                document.removeEventListener('click', closeResultMenuOnClickOutside);
-            }
         }
 
         function showToast(type, title, message) {
@@ -2358,199 +1232,60 @@
             const toastIcon = document.getElementById('toast-icon');
             const toastTitle = document.getElementById('toast-title');
             const toastMessage = document.getElementById('toast-message');
-            const toastProgress = document.getElementById('toast-progress');
-            
             let iconClass, bgColor;
             switch (type) {
                 case 'success':
                     iconClass = 'fa-solid fa-circle-check text-green-500';
-                    bgColor = 'bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-800';
+                    bgColor = 'bg-green-50 border-green-200';
                     break;
                 case 'error':
                     iconClass = 'fa-solid fa-circle-xmark text-red-500';
-                    bgColor = 'bg-red-50 dark:bg-red-900/20 border-red-200 dark:border-red-800';
-                    break;
-                case 'warning':
-                    iconClass = 'fa-solid fa-triangle-exclamation text-yellow-500';
-                    bgColor = 'bg-yellow-50 dark:bg-yellow-900/20 border-yellow-200 dark:border-yellow-800';
+                    bgColor = 'bg-red-50 border-red-200';
                     break;
                 default:
                     iconClass = 'fa-solid fa-circle-info text-blue-500';
-                    bgColor = 'bg-blue-50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-800';
+                    bgColor = 'bg-blue-50 border-blue-200';
             }
-            
             toastIcon.className = iconClass;
             toastTitle.textContent = title;
             toastMessage.textContent = message;
-            toast.querySelector('div').className = `bg-white dark:bg-slate-800 rounded-xl shadow-lg border p-4 max-w-sm animate-fadeIn ${bgColor}`;
-            
-            // Reset and animate progress bar
-            toastProgress.style.width = '100%';
-            toastProgress.style.transition = 'none';
-            
+            toast.querySelector('div').className = `bg-white rounded-xl shadow-lg border p-4 max-w-sm animate-fadeIn ${bgColor}`;
             toast.classList.remove('hidden');
-            
-            // Clear previous timeout
-            if (toastTimeout) {
-                clearTimeout(toastTimeout);
-            }
-            
-            // Animate progress bar
-            setTimeout(() => {
-                toastProgress.style.transition = 'width 4.5s linear';
-                toastProgress.style.width = '0%';
-            }, 10);
-            
-            // Auto hide after 5 seconds
-            toastTimeout = setTimeout(hideToast, 5000);
+            setTimeout(hideToast, 5000);
         }
 
         function hideToast() {
             document.getElementById('notification-toast').classList.add('hidden');
-            if (toastTimeout) {
-                clearTimeout(toastTimeout);
-                toastTimeout = null;
-            }
         }
 
-        // ========== 18. ANALYTICS & TRACKING ==========
-        function trackAnalytics(stats) {
-            // Simpan event untuk analisis
-            const analyticsEvent = {
-                type: 'result_viewed',
-                pin: pinAkses,
-                paket: paketNumber,
-                totalScore: stats.total,
-                passingStatus: stats.semuaLulus ? 'passed_all' : 'partial_fail',
-                timestamp: new Date().toISOString(),
-                pageLoadTime: performance.now()
-            };
-            
-            // Simpan ke localStorage untuk analisis nanti
-            const analyticsData = JSON.parse(localStorage.getItem('analytics_events') || '[]');
-            analyticsData.push(analyticsEvent);
-            localStorage.setItem('analytics_events', JSON.stringify(analyticsData.slice(-100))); // Simpan 100 event terakhir
-            
-            // Track dengan Google Analytics (jika tersedia)
-            if (typeof gtag !== 'undefined') {
-                gtag('event', 'result_viewed', {
-                    'event_category': 'engagement',
-                    'event_label': `paket_${paketNumber}`,
-                    'value': stats.total
-                });
-            }
-            
-            // Update progress history
-            updateProgressHistory(stats);
-        }
-
-        function updateProgressHistory(stats) {
-            const historyKey = `progress_history_${pinAkses}`;
-            let history = JSON.parse(localStorage.getItem(historyKey)) || [];
-            
-            const progressRecord = {
-                date: new Date().toISOString(),
-                paket: paketNumber,
-                scores: {
-                    total: stats.total,
-                    twk: stats.twk,
-                    tiu: stats.tiu,
-                    tkp: stats.tkp
-                },
-                statistics: {
-                    accuracy: stats.akurasi,
-                    time: stats.waktu,
-                    ranking: stats.peringkat
-                }
-            };
-            
-            history.push(progressRecord);
-            
-            // Simpan maksimal 50 record terakhir
-            if (history.length > 50) {
-                history = history.slice(-50);
-            }
-            
-            localStorage.setItem(historyKey, JSON.stringify(history));
-        }
-
-        // ========== 19. EVENT LISTENERS SETUP ==========
+        // ========== 13. EVENT LISTENERS SETUP ==========
         function setupEventListeners() {
-            // Close modals on outside click
             document.addEventListener('click', (event) => {
-                const modals = ['shareModal', 'analysisModal', 'exportModal', 'tutorialModal'];
+                const resultMenu = document.getElementById('resultMenu');
+                const resultButton = document.querySelector('[onclick="toggleResultMenu()"]');
+                if (resultMenu && !resultMenu.contains(event.target) && resultButton && !resultButton.contains(event.target)) {
+                    resultMenu.classList.add('hidden');
+                }
+                const modals = ['shareModal', 'analysisModal'];
                 modals.forEach(modalId => {
                     const modal = document.getElementById(modalId);
                     const modalContent = modal?.querySelector('div > div');
                     if (modal && !modal.classList.contains('hidden') && modalContent && !modalContent.contains(event.target)) {
-                        if (modalId === 'shareModal') hideShareModal();
-                        if (modalId === 'analysisModal') hideAnalysisModal();
-                        if (modalId === 'exportModal') hideExportModal();
-                        if (modalId === 'tutorialModal') hideTutorial();
+                        modal.classList.add('hidden');
                     }
                 });
             });
-            
-            // Keyboard shortcuts
             document.addEventListener('keydown', (e) => {
-                // Escape to close modals
                 if (e.key === 'Escape') {
                     if (!document.getElementById('shareModal').classList.contains('hidden')) hideShareModal();
                     if (!document.getElementById('analysisModal').classList.contains('hidden')) hideAnalysisModal();
-                    if (!document.getElementById('exportModal').classList.contains('hidden')) hideExportModal();
-                    if (!document.getElementById('tutorialModal').classList.contains('hidden')) hideTutorial();
                 }
-                
-                // Ctrl+P for print
                 if (e.ctrlKey && e.key === 'p') {
                     e.preventDefault();
                     printResult();
                 }
-                
-                // Ctrl+S for share
-                if (e.ctrlKey && e.key === 's') {
-                    e.preventDefault();
-                    showShareModal();
-                }
-                
-                // Ctrl+A for analysis
-                if (e.ctrlKey && e.key === 'a') {
-                    e.preventDefault();
-                    showAnalysisModal();
-                }
-            });
-            
-            // PWA: Add to homescreen prompt
-            let deferredPrompt;
-            window.addEventListener('beforeinstallprompt', (e) => {
-                e.preventDefault();
-                deferredPrompt = e;
-                
-                // Show install button jika diperlukan
-                setTimeout(() => {
-                    showToast('info', 'Pasang Aplikasi', 'Pasang aplikasi ini di homescreen untuk akses lebih cepat!');
-                }, 10000);
-            });
-            
-            // Online/offline detection
-            window.addEventListener('online', () => {
-                showToast('success', 'Koneksi Dipulihkan', 'Anda kembali terhubung ke internet');
-            });
-            
-            window.addEventListener('offline', () => {
-                showToast('warning', 'Koneksi Terputus', 'Beberapa fitur mungkin tidak tersedia');
             });
         }
-
-        // ========== 20. OFFLINE SUPPORT ==========
-        function checkOnlineStatus() {
-            if (!navigator.onLine) {
-                showToast('warning', 'Mode Offline', 'Anda sedang offline. Data disimpan secara lokal.');
-            }
-        }
-
-        // Pemeriksaan status online saat load
-        checkOnlineStatus();
     </script>
 </body>
 </html>
