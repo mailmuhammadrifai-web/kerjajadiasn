@@ -2260,6 +2260,94 @@
             createPremiumConfettiBurst();
         }, 500);
 
+        // Card baru untuk pembelian paket tambahan
+<div class="bg-gradient-to-br from-emerald-900 to-green-900 rounded-2xl p-6 shadow-lg card-hover-premium">
+    <div class="flex items-center gap-3 mb-4">
+        <div class="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center border border-emerald-500/30">
+            <i class="fa-solid fa-plus text-white text-xl"></i>
+        </div>
+        <div>
+            <h4 class="font-black text-white text-lg">Tambah Tryout</h4>
+            <p class="text-white/90 text-xs">Butuh lebih banyak latihan?</p>
+        </div>
+    </div>
+
+    <div class="bg-white/10 backdrop-blur-sm rounded-xl p-4 mb-5 border border-white/20">
+        <div class="flex justify-between items-center mb-2">
+            <span class="text-white text-sm font-bold">Paket Tambahan</span>
+            <span class="bg-white text-emerald-600 px-3 py-1 rounded-full text-xs font-black">Rp 25.000</span>
+        </div>
+        <p class="text-white/90 text-xs mb-3">+1 paket simulasi premium dengan pembahasan lengkap</p>
+        <div class="flex items-center gap-2 text-xs text-emerald-300">
+            <i class="fa-solid fa-bolt"></i>
+            <span>Proses instan via WhatsApp</span>
+        </div>
+    </div>
+
+    <button onclick="tambahPaketTryout()" class="w-full bg-gradient-to-r from-emerald-500 to-green-600 text-white font-black py-3 rounded-xl hover:from-emerald-600 hover:to-green-700 transition-all active:scale-95 shadow-lg flex items-center justify-center gap-2">
+        <i class="fa-solid fa-whatsapp"></i> Pesan via WhatsApp
+    </button>
+
+    <p class="text-white/80 text-xs text-center mt-4">
+        <i class="fa-solid fa-circle-check"></i> Akses langsung • Pembahasan lengkap
+    </p>
+</div>
+
+        // ========== 19. FITUR TAMBAH PAKET TRYOUT ==========
+function tambahPaketTryout() {
+    if (!confirm('Anda akan diarahkan ke WhatsApp untuk pembelian paket tryout tambahan. Lanjutkan?')) {
+        return;
+    }
+
+    const noAdmin = "6285696409288";
+    const pesan = `Halo Admin Kerja Jadi ASN,%0A%0ASaya ingin *Tambah 1 Paket Tryout* (Rp 25.000).%0A%0A*Detail Peserta:*%0A• PIN: ${pinAkses}%0A• Paket: 3 Ultimate Premium%0A• Total Paket Saat Ini: 20 tryout%0A%0A*Permintaan:*%0A+1 paket tryout tambahan dengan pembahasan lengkap%0A%0AMohon diproses dan informasikan cara pembayarannya. Terima kasih!`;
+
+    window.open(`https://api.whatsapp.com/send?phone=${noAdmin}&text=${pesan}`, '_blank');
+    
+    // Track activity
+    trackActivity('click_tambah_paket', { 
+        action: 'buy_extra_package',
+        price: 25000,
+        pin: pinAkses 
+    });
+    
+    // Show notification
+    showNotification('info', 'Pembelian Paket Tambahan', 'Anda akan diarahkan ke WhatsApp untuk pemesanan paket tryout tambahan.');
+}
+
+        // Di dalam fungsi showProgressModal(), tambahkan:
+if (progress.extraPackages && progress.extraPackages.length > 0) {
+    progressHTML += `
+        <div class="mt-6 pt-6 border-t border-emerald-500/30">
+            <h4 class="font-bold text-emerald-300 mb-3">Paket Tambahan yang Dibeli</h4>
+            <div class="bg-emerald-900/20 border border-emerald-500/30 rounded-xl p-4">
+                <div class="flex items-center justify-between mb-2">
+                    <span class="text-sm text-emerald-300 font-bold">Total Paket Tambahan</span>
+                    <span class="text-lg font-black text-emerald-400">${progress.extraPackages.length} paket</span>
+                </div>
+                <p class="text-xs text-emerald-200/80">Setiap paket tambahan memberikan akses ke 1 set tryout baru dengan pembahasan lengkap</p>
+            </div>
+        </div>
+    `;
+} else {
+    progressHTML += `
+        <div class="mt-6 pt-6 border-t border-slate-700">
+            <h4 class="font-bold text-slate-300 mb-3">Ingin Lebih Banyak Tryout?</h4>
+            <div class="bg-slate-700/30 border border-slate-600 rounded-xl p-4">
+                <p class="text-sm text-slate-300 mb-3">Tambahkan paket tryout untuk latihan yang lebih intensif!</p>
+                <button onclick="tambahPaketTryout()" class="w-full bg-gradient-to-r from-emerald-500 to-green-600 text-white font-bold py-2 rounded-lg hover:from-emerald-600 hover:to-green-700 transition-all flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-plus"></i> Beli Paket Tambahan (Rp 25.000)
+                </button>
+            </div>
+        </div>
+    `;
+}
+
+        // Di dalam fungsi initializeDashboard(), tambahkan notifikasi fitur baru
+setTimeout(() => {
+    showNotification('info', 'Fitur Baru Tersedia!', 'Sekarang Anda bisa membeli paket tryout tambahan untuk latihan lebih intensif. Cek di sidebar!');
+}, 3000);
+
     </script>
 
 </body>
