@@ -383,10 +383,6 @@
                                     <i class="fa-solid fa-chart-line w-5 text-amber-500"></i>
                                     Progress Ultimate
                                 </a>
-                                <a href="#" onclick="showRanking()" class="flex items-center gap-3 px-4 py-2 text-sm text-slate-300 hover:bg-amber-900/30 hover:text-amber-300 transition-colors">
-                                    <i class="fa-solid fa-trophy w-5 text-yellow-400"></i>
-                                    Rangking Nasional
-                                </a>
                                 <a href="#" onclick="showAchievements()" class="flex items-center gap-3 px-4 py-2 text-sm text-slate-300 hover:bg-amber-900/30 hover:text-amber-300 transition-colors">
                                     <i class="fa-solid fa-medal w-5 text-amber-300"></i>
                                     Pencapaian Premium
@@ -455,7 +451,7 @@
                         <h2 class="text-2xl md:text-4xl font-bold mb-3 bg-gradient-to-r from-amber-300 via-yellow-300 to-amber-400 bg-clip-text text-transparent">
                             Akses Ultimate Persiapan ASN!
                         </h2>
-                        <p class="text-slate-300 opacity-95 mb-6 max-w-2xl">20 tryout premium + semua modul lengkap + fitur eksklusif rangking nasional dan grup WA khusus!</p>
+                        <p class="text-slate-300 opacity-95 mb-6 max-w-2xl">20 tryout premium + semua modul lengkap + fitur eksklusif grup WA khusus!</p>
 
                         <div class="flex flex-wrap gap-4">
                             <div class="flex items-center gap-3 bg-amber-500/10 border border-amber-500/30 px-4 py-3 rounded-xl backdrop-blur-sm">
@@ -483,11 +479,11 @@
 
                             <div class="flex items-center gap-3 bg-blue-500/10 border border-blue-500/30 px-4 py-3 rounded-xl backdrop-blur-sm">
                                 <div class="w-10 h-10 bg-gradient-to-br from-blue-600 to-cyan-500 rounded-lg flex items-center justify-center shadow-lg">
-                                    <i class="fa-solid fa-ranking-star"></i>
+                                    <i class="fa-solid fa-boxes-stacked"></i>
                                 </div>
                                 <div>
-                                    <p class="text-[10px] font-bold text-blue-300 uppercase mb-1">Rangking Nasional</p>
-                                    <p class="text-sm font-bold text-blue-300">#<span id="nationalRank">-</span></p>
+                                    <p class="text-[10px] font-bold text-blue-300 uppercase mb-1">Total Paket</p>
+                                    <p class="text-sm font-bold text-blue-300">20 Paket</p>
                                 </div>
                             </div>
                         </div>
@@ -601,25 +597,6 @@
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <a href="ranking-nasional.html?id=${pinAkses}" class="group">
-                            <div class="p-5 bg-gradient-to-br from-slate-800 to-slate-900 rounded-xl border border-purple-500/20 hover:border-purple-500/50 transition-all hover:shadow-xl">
-                                <div class="flex items-center gap-3 mb-3">
-                                    <div class="w-10 h-10 bg-slate-900 rounded-lg flex items-center justify-center shadow-sm border border-purple-500/20">
-                                        <i class="fa-solid fa-ranking-star text-purple-400"></i>
-                                    </div>
-                                    <div>
-                                        <h4 class="font-bold text-purple-300">Rangking Nasional</h4>
-                                        <p class="text-xs text-slate-400">Bandingkan skor dengan peserta seluruh Indonesia</p>
-                                    </div>
-                                </div>
-                                <p class="text-sm text-slate-300 mb-4">Lihat posisi Anda di papan peringkat nasional dan lacak perkembangan ranking dari waktu ke waktu</p>
-                                <div class="flex items-center text-purple-400 text-sm font-bold">
-                                    <span>Lihat Peringkat</span>
-                                    <i class="fa-solid fa-arrow-right ml-2 transform group-hover:translate-x-2 transition-transform"></i>
-                                </div>
-                            </div>
-                        </a>
-
                         <a href="tips-formasi-cpns.html?id=${pinAkses}" class="group">
                             <div class="p-5 bg-gradient-to-br from-slate-800 to-slate-900 rounded-xl border border-amber-500/20 hover:border-amber-500/50 transition-all hover:shadow-xl">
                                 <div class="flex items-center gap-3 mb-3">
@@ -673,6 +650,23 @@
                                 <span>Join Grup Premium</span>
                                 <i class="fa-solid fa-arrow-right ml-2 transform group-hover:translate-x-2 transition-transform"></i>
                             </a>
+                        </div>
+
+                        <div class="p-5 bg-gradient-to-br from-slate-800 to-slate-900 rounded-xl border border-amber-500/20 hover:border-amber-500/50 transition-all hover:shadow-xl">
+                            <div class="flex items-center gap-3 mb-3">
+                                <div class="w-10 h-10 bg-slate-900 rounded-lg flex items-center justify-center shadow-sm border border-amber-500/20">
+                                    <i class="fa-solid fa-book text-amber-400"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-amber-300">20 Paket Tryout</h4>
+                                    <p class="text-xs text-slate-400">Simulasi terlengkap</p>
+                                </div>
+                            </div>
+                            <p class="text-sm text-slate-300 mb-4">Akses ke 20 paket tryout lengkap dengan berbagai tingkat kesulitan untuk persiapan maksimal</p>
+                            <div class="flex items-center text-amber-400 text-sm font-bold">
+                                <span>Mulai Belajar</span>
+                                <i class="fa-solid fa-arrow-right ml-2"></i>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -920,8 +914,8 @@
                                 <div class="text-xs text-slate-400">Terselesaikan</div>
                             </div>
                             <div class="text-center">
-                                <div class="text-2xl font-black text-purple-400" id="nationalRankSmall">-</div>
-                                <div class="text-xs text-slate-400">Ranking</div>
+                                <div class="text-2xl font-black text-green-400" id="avgScoreSmall">-</div>
+                                <div class="text-xs text-slate-400">Rata-rata</div>
                             </div>
                             <div class="text-center">
                                 <div class="text-2xl font-black text-slate-300" id="remainingCount">20</div>
@@ -1011,15 +1005,15 @@
                     <div class="space-y-3">
                         <div class="bg-white/10 backdrop-blur-sm rounded-lg p-3 border border-white/20">
                             <p class="text-white text-sm font-bold mb-1">Pilih Formasi Strategis</p>
-                            <p class="text-white/70 text-xs">Fokus pada formasi dengan peluang tinggi berdasarkan ranking nasional</p>
+                            <p class="text-white/70 text-xs">Fokus pada formasi dengan peluang tinggi berdasarkan analisis data</p>
                         </div>
                         <div class="bg-white/10 backdrop-blur-sm rounded-lg p-3 border border-white/20">
                             <p class="text-white text-sm font-bold mb-1">Manajemen Waktu</p>
                             <p class="text-white/70 text-xs">Alokasikan waktu berdasarkan tingkat kesulitan soal dalam SKD</p>
                         </div>
                         <div class="bg-white/10 backdrop-blur-sm rounded-lg p-3 border border-white/20">
-                            <p class="text-white text-sm font-bold mb-1">Analisis Ranking</p>
-                            <p class="text-white/70 text-xs">Gunakan data ranking untuk mengevaluasi kelemahan dan kekuatan</p>
+                            <p class="text-white text-sm font-bold mb-1">Gunakan Semua Paket</p>
+                            <p class="text-white/70 text-xs">Manfaatkan 20 paket tryout untuk pengalaman maksimal</p>
                         </div>
                     </div>
 
@@ -1100,7 +1094,7 @@
                             </li>
                             <li class="flex items-start gap-2">
                                 <i class="fa-solid fa-crown mt-1 text-xs"></i>
-                                <span>Manfaatkan fitur ranking nasional untuk evaluasi kompetitif</span>
+                                <span>Pelajari materi premium TWK, TIU, TKP untuk pemahaman mendalam</span>
                             </li>
                             <li class="flex items-start gap-2">
                                 <i class="fa-solid fa-crown mt-1 text-xs"></i>
@@ -1137,7 +1131,7 @@
 
                     <div class="bg-slate-700/50 rounded-xl p-4 border border-blue-500/20">
                         <h4 class="font-bold text-blue-300 mb-2 flex items-center gap-2">
-                            <i class="fa-solid fa-ranking-star"></i> Fitur Eksklusif Paket 3
+                            <i class="fa-solid fa-star"></i> Fitur Eksklusif Paket 3
                         </h4>
                         <div class="grid grid-cols-2 gap-3 mt-3">
                             <div class="flex items-center gap-2">
@@ -1146,7 +1140,7 @@
                             </div>
                             <div class="flex items-center gap-2">
                                 <i class="fa-solid fa-check text-green-400 text-xs"></i>
-                                <span class="text-sm text-slate-300">Ranking Nasional</span>
+                                <span class="text-sm text-slate-300">Materi Premium</span>
                             </div>
                             <div class="flex items-center gap-2">
                                 <i class="fa-solid fa-check text-green-400 text-xs"></i>
@@ -1158,23 +1152,6 @@
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Ranking Modal -->
-    <div id="rankingModal" class="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50 hidden p-4">
-        <div class="bg-slate-800 rounded-2xl w-full max-w-3xl max-h-[90vh] overflow-hidden border border-purple-500/30">
-            <div class="sticky top-0 bg-slate-800 border-b border-purple-500/30 p-6 flex justify-between items-center">
-                <h3 class="text-xl font-bold text-purple-300">Ranking Nasional Paket 3</h3>
-                <button onclick="hideRankingModal()" class="text-slate-400 hover:text-purple-300 text-xl">
-                    <i class="fa-solid fa-times"></i>
-                </button>
-            </div>
-            <div class="p-6 overflow-y-auto max-h-[calc(90vh-120px)]">
-                <div id="rankingContent">
-                    <!-- Ranking content will be loaded here -->
                 </div>
             </div>
         </div>
@@ -1193,7 +1170,7 @@
                         </h2>
                     </div>
                     <p class="text-slate-400 text-sm max-w-md">
-                        Platform tryout ASN ultimate paket lengkap dengan fitur premium, ranking nasional, dan grup belajar eksklusif.
+                        Platform tryout ASN ultimate paket lengkap dengan fitur premium, 20 paket tryout, dan grup belajar eksklusif.
                     </p>
                 </div>
 
@@ -1297,9 +1274,6 @@
 
                 // Update progress and stats
                 updateProgressStats();
-
-                // Load national ranking
-                loadNationalRanking();
 
                 // Hide loading state
                 hideLoading();
@@ -1513,14 +1487,14 @@
 
                     soalList.push({
                         id: i,
-                        title: `Simulasi SKD Ultimate Paket #${i}`,
+                        title: `Simulasi SKD Paket #${i}`,
                         description: 'TWK • TIU • TKP (110 Soal) • Tingkat ' + ['Mudah', 'Sedang', 'Sulit'][difficulty-1],
                         isCompleted,
                         score,
                         completionTime,
                         accuracy,
                         difficulty,
-                        link: `soalpaket${i}-ultimate.html?id=${pinAkses}`,
+                        link: `soalpaket${i}.html?id=${pinAkses}`, // PERUBAHAN: Link ke soalpaket1.html, soalpaket2.html, dst.
                         bestScore: score && score >= 480,
                         isHardest: difficulty === 3
                     });
@@ -1772,137 +1746,6 @@
             trackActivity('filter_soal', { filter: filter });
         }
 
-        // ========== 7. NATIONAL RANKING ==========
-        function loadNationalRanking() {
-            // Simulate API call for ranking
-            setTimeout(() => {
-                const ranking = Math.floor(Math.random() * 100) + 1; // Random rank 1-100
-                
-                // Update ranking displays
-                const rankingElements = [
-                    'nationalRank',
-                    'nationalRankSmall'
-                ];
-                
-                rankingElements.forEach(id => {
-                    const element = document.getElementById(id);
-                    if (element) {
-                        element.textContent = ranking;
-                    }
-                });
-                
-                // Update ranking color based on position
-                if (ranking <= 10) {
-                    document.getElementById('nationalRank').className = 'text-amber-400 font-black';
-                    document.getElementById('nationalRankSmall').className = 'text-amber-400 font-black';
-                } else if (ranking <= 50) {
-                    document.getElementById('nationalRank').className = 'text-purple-400 font-black';
-                    document.getElementById('nationalRankSmall').className = 'text-purple-400 font-black';
-                }
-                
-                trackActivity('ranking_loaded', { ranking: ranking });
-            }, 1500);
-        }
-
-        function showRanking() {
-            const modal = document.getElementById('rankingModal');
-            const content = document.getElementById('rankingContent');
-            
-            // Generate ranking table
-            const rankings = [];
-            for (let i = 1; i <= 10; i++) {
-                rankings.push({
-                    rank: i,
-                    pin: i === 3 ? pinAkses : `PIN${Math.floor(Math.random() * 9000) + 1000}`,
-                    score: 450 + Math.floor(Math.random() * 50),
-                    progress: 60 + Math.floor(Math.random() * 40)
-                });
-            }
-            
-            let rankingHTML = `
-                <div class="mb-6">
-                    <h4 class="font-bold text-purple-300 mb-4">Peringkat Nasional Peserta Paket 3</h4>
-                    <div class="overflow-hidden rounded-xl border border-purple-500/30">
-                        <table class="w-full">
-                            <thead class="bg-purple-900/30">
-                                <tr>
-                                    <th class="py-3 px-4 text-left text-xs font-bold text-purple-300 uppercase">Peringkat</th>
-                                    <th class="py-3 px-4 text-left text-xs font-bold text-purple-300 uppercase">PIN Peserta</th>
-                                    <th class="py-3 px-4 text-left text-xs font-bold text-purple-300 uppercase">Skor Terbaik</th>
-                                    <th class="py-3 px-4 text-left text-xs font-bold text-purple-300 uppercase">Progress</th>
-                                </tr>
-                            </thead>
-                            <tbody class="divide-y divide-purple-500/10">
-            `;
-            
-            rankings.forEach(item => {
-                const isCurrentUser = item.pin === pinAkses;
-                const rowClass = isCurrentUser ? 'bg-amber-900/20' : '';
-                const rankClass = item.rank <= 3 ? 'font-black text-amber-400' : 'text-purple-300';
-                
-                rankingHTML += `
-                    <tr class="${rowClass}">
-                        <td class="py-3 px-4">
-                            <div class="flex items-center gap-2">
-                                <span class="${rankClass}">${item.rank}</span>
-                                ${item.rank <= 3 ? '<i class="fa-solid fa-trophy text-amber-400"></i>' : ''}
-                            </div>
-                        </td>
-                        <td class="py-3 px-4">
-                            <div class="flex items-center gap-2">
-                                <span class="font-mono ${isCurrentUser ? 'text-amber-300 font-bold' : 'text-slate-300'}">${item.pin}</span>
-                                ${isCurrentUser ? '<span class="text-xs bg-amber-500/30 text-amber-300 px-2 py-1 rounded-full">Anda</span>' : ''}
-                            </div>
-                        </td>
-                        <td class="py-3 px-4">
-                            <span class="font-bold ${item.score >= 480 ? 'text-amber-400' : 'text-green-400'}">${item.score}</span>
-                        </td>
-                        <td class="py-3 px-4">
-                            <div class="flex items-center gap-2">
-                                <div class="w-24 bg-slate-700 h-2 rounded-full overflow-hidden">
-                                    <div class="h-full gold-gradient rounded-full" style="width: ${item.progress}%"></div>
-                                </div>
-                                <span class="text-xs text-slate-400">${item.progress}%</span>
-                            </div>
-                        </td>
-                    </tr>
-                `;
-            });
-            
-            rankingHTML += `
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                
-                <div class="bg-slate-700/30 rounded-xl p-4 border border-amber-500/20">
-                    <h5 class="font-bold text-amber-300 mb-2">Tips Naik Peringkat</h5>
-                    <ul class="text-sm text-slate-300 space-y-1">
-                        <li class="flex items-center gap-2">
-                            <i class="fa-solid fa-check text-green-400 text-xs"></i>
-                            <span>Kerjakan semua 20 paket tryout secara konsisten</span>
-                        </li>
-                        <li class="flex items-center gap-2">
-                            <i class="fa-solid fa-check text-green-400 text-xs"></i>
-                            <span>Tinjau pembahasan soal yang salah untuk meningkatkan akurasi</span>
-                        </li>
-                        <li class="flex items-center gap-2">
-                            <i class="fa-solid fa-check text-green-400 text-xs"></i>
-                            <span>Fokus pada paket dengan tingkat kesulitan tinggi</span>
-                        </li>
-                    </ul>
-                </div>
-            `;
-            
-            content.innerHTML = rankingHTML;
-            modal.classList.remove('hidden');
-            trackActivity('show_ranking_modal');
-        }
-
-        function hideRankingModal() {
-            document.getElementById('rankingModal').classList.add('hidden');
-        }
-
         // ========== 8. PROGRESS & STATISTICS ==========
         function updateProgressStats() {
             const progressKey = `progress_${pinAkses}`;
@@ -1941,6 +1784,12 @@
             document.getElementById('bestScore').textContent = bestScore > 0 ? bestScore : '-';
             document.getElementById('totalTime').textContent = totalTime;
             document.getElementById('accuracy').textContent = avgAccuracy !== '-' ? `${avgAccuracy}%` : '-';
+            
+            // Update small avg score display
+            const avgScoreSmall = document.getElementById('avgScoreSmall');
+            if (avgScoreSmall) {
+                avgScoreSmall.textContent = avgScore;
+            }
         }
 
         function showProgressModal() {
@@ -2178,7 +2027,7 @@
             if (navigator.share) {
                 navigator.share({
                     title: 'Progress Ultimate ASN - Paket 3',
-                    text: `Saya telah menyelesaikan ${document.getElementById('completedCount').textContent}/20 paket tryout ultimate ASN dengan ranking nasional #${document.getElementById('nationalRank').textContent}!`,
+                    text: `Saya telah menyelesaikan ${document.getElementById('completedCount').textContent}/20 paket tryout ultimate ASN dengan semua fitur premium!`,
                     url: window.location.href
                 });
             } else {
@@ -2285,7 +2134,7 @@
                 }
 
                 // Close modals when clicking outside
-                const modals = ['progressModal', 'helpModal', 'rankingModal'];
+                const modals = ['progressModal', 'helpModal'];
                 modals.forEach(modalId => {
                     const modal = document.getElementById(modalId);
                     const modalContent = modal?.querySelector('div > div');
@@ -2315,22 +2164,16 @@
                     event.preventDefault();
                     showHelpModal();
                 }
-
-                // Ranking with Ctrl+R
-                if (event.ctrlKey && event.key === 'r') {
-                    event.preventDefault();
-                    showRanking();
-                }
             });
 
             // Handle offline/online events
             window.addEventListener('online', () => {
-                showNotification('success', 'Koneksi Pulih', 'Anda kembali online. Fitur ranking nasional tersedia.');
+                showNotification('success', 'Koneksi Pulih', 'Anda kembali online. Fitur lengkap tersedia.');
                 trackActivity('connection_restored');
             });
 
             window.addEventListener('offline', () => {
-                showNotification('warning', 'Koneksi Hilang', 'Anda sedang offline. Fitur ranking nasional tidak tersedia.');
+                showNotification('warning', 'Koneksi Hilang', 'Anda sedang offline. Beberapa fitur mungkin tidak tersedia.');
                 trackActivity('connection_lost');
             });
         }
@@ -2416,13 +2259,6 @@
         setTimeout(() => {
             createPremiumConfettiBurst();
         }, 500);
-
-        // Auto update ranking every 5 minutes
-        setInterval(() => {
-            if (document.visibilityState === 'visible') {
-                loadNationalRanking();
-            }
-        }, 5 * 60 * 1000);
 
     </script>
 
