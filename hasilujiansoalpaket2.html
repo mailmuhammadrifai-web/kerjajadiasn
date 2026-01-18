@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hasil Simulasi Paket 2 - Kerja Jadi ASN</title>
+    <title>Hasil Simulasi - Kerja Jadi ASN</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        /* CSS styles tetap sama seperti paket 1 */
+        /* CSS styles tetap sama seperti sebelumnya */
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap');
         body { 
             font-family: 'Plus Jakarta Sans', sans-serif;
@@ -192,7 +192,7 @@
                             KERJA JADI <span class="text-yellow-500">ASN</span>
                         </h1>
                         <p class="text-[10px] text-slate-500 font-bold uppercase tracking-wider">
-                            Paket <span id="paketNumber">2</span> • PIN: <span id="displayPaketPin" class="font-mono">MEMUAT...</span>
+                            Paket <span id="paketNumber">-</span> • PIN: <span id="displayPaketPin" class="font-mono">MEMUAT...</span>
                         </p>
                     </div>
                 </div>
@@ -288,7 +288,7 @@
                 <i class="fa-solid fa-trophy absolute bottom-4 right-4 text-8xl text-white/10 hidden md:block"></i>
             </div>
 
-            <!-- Stats Grid (TWK, TIU, TKP cards) -->
+            <!-- Stats Grid (TWK, TIU, TKP cards - tetap sama) -->
             <div class="grid md:grid-cols-3 gap-4 md:gap-6 mb-8">
                 <!-- TWK Card -->
                 <div class="bg-white p-5 md:p-6 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
@@ -557,21 +557,39 @@
         // ========== 1. GLOBAL VARIABLES ==========
         let pinAkses = null;
         let resultData = null;
-        let paketNumber = "2"; // Default untuk paket 2
+        let paketNumber = null;
+        let paketPin = null;
 
-        // Database PIN untuk paket 2
-        const pinDatabasePaket2 = ["9ZW1RF", "4FB6NT", "7XK1WP", "B2MK9P", "LP9QX4", "Y7CR2V", "4FB8NR", "9TW1MZ", "SK3JP7", "1VT5NR", "FN9VK3", "2YM7BX", "SK9JP4", "MR7VT1", "3ZW7RB", "KP1MX9", "G6HD1S"];
+        // Database PIN sesuai dengan login.html
+        const pinDatabase = {
+            "paket1": ["7XK9WP", "B4ZM1Q", "9TV2NL", "RS8MX3", "5CR1VT", "KP9MZ4", "G6HD2S", "1VT8NR", "FN2VK5", "2YM4BX", "MR2VT8", "5HG9SL", "XP3KZ7", "2YN5VQ", "8WQ4PZ", "VS7NL2"],
+            "paket2": ["9ZW1RF", "4FB6NT", "7XK1WP", "B2MK9P", "LP9QX4", "Y7CR2V", "4FB8NR", "9TW1MZ", "SK3JP7", "1VT5NR", "FN9VK3", "2YM7BX", "SK9JP4", "MR7VT1", "3ZW7RB", "KP1MX9", "G6HD1S"],
+            "paket3": ["VS4NL8", "RT9XM2", "B2MK8P", "7XL1WQ", "5HG2SD", "9ZW4RB", "KP8MX3", "FN5VK2", "8WQ4PZ", "2YM9BX", "7KP1RT", "5HG6SD", "9ZW3RF", "RS4ML9", "VN7VK1", "8WQ3PZ", "4FB1NT"]
+        };
 
         // ========== 2. INITIALIZATION ==========
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('Hasil Paket 2 page initializing...');
+            console.log('Hasil page initializing...');
             document.getElementById('currentYear').textContent = new Date().getFullYear();
             loadResultData();
             setupEventListeners();
-            console.log('Hasil Paket 2 page initialized');
+            console.log('Hasil page initialized');
         });
 
-        // ========== 3. LOAD RESULT DATA ==========
+        // ========== 3. FUNGSI DETEKSI PAKET DARI PIN ==========
+        function detectPaketFromPin(pin) {
+            for (const paket in pinDatabase) {
+                if (pinDatabase[paket].includes(pin)) {
+                    return {
+                        paketNumber: paket.replace('paket', ''),
+                        paketName: paket
+                    };
+                }
+            }
+            return { paketNumber: "1", paketName: "paket1" };
+        }
+
+        // ========== 4. LOAD RESULT DATA ==========
         function loadResultData() {
             const urlParams = new URLSearchParams(window.location.search);
             pinAkses = urlParams.get('id');
@@ -585,35 +603,43 @@
                 return;
             }
 
-            // Verifikasi PIN termasuk dalam paket 2
-            if (!pinDatabasePaket2.includes(pinAkses)) {
-                showErrorState();
-                showToast('error', 'PIN Tidak Sesuai', 'PIN ini tidak termasuk dalam Paket 2. Redirecting...');
-                setTimeout(() => {
-                    window.location.href = 'login.html';
-                }, 3000);
-                return;
-            }
+            // Deteksi paket berdasarkan PIN
+            const paketInfo = detectPaketFromPin(pinAkses);
+            paketNumber = paketInfo.paketNumber;
+            paketPin = pinAkses;
 
             // Tampilkan informasi paket dan PIN
             document.getElementById('displayPin').textContent = pinAkses;
             document.getElementById('displayPaketPin').textContent = pinAkses;
+            document.getElementById('paketNumber').textContent = paketNumber;
             document.getElementById('analysisPin').textContent = pinAkses;
+            document.getElementById('analysisPaket').textContent = paketNumber;
 
-            // CARI DATA DARI LOCALSTORAGE
-            // Format kunci khusus untuk paket 2
+            // CARI DATA DARI BERBAGAI SUMBER
+            // Karena soalpaket1.html digunakan untuk semua PIN, data bisa disimpan dengan berbagai format
             const possibleKeys = [
-                `hasil_paket2_${pinAkses}`, // Format utama
-                `hasil_paket_${pinAkses}`,  // Format alternatif
-                `hasil_${pinAkses}`,        // Format umum
-                `quiz_result_${pinAkses}`,  // Format backup
-                `simulasi_hasil_${pinAkses}` // Format lain
+                // Format terbaru: berdasarkan paket yang terdeteksi
+                `hasil_paket${paketNumber}_${pinAkses}`,
+                
+                // Format lama: semua data disimpan sebagai paket1 (karena soalpaket1.html)
+                `hasil_paket1_${pinAkses}`,
+                
+                // Format alternatif
+                `hasil_${pinAkses}`,
+                `hasil_paket_${pinAkses}`,
+                `quiz_result_${pinAkses}`,
+                `simulasi_hasil_${pinAkses}`,
+                
+                // Coba semua paket untuk kompatibilitas
+                `hasil_paket2_${pinAkses}`,
+                `hasil_paket3_${pinAkses}`
             ];
 
-            console.log('Mencari data hasil untuk PIN Paket 2:', pinAkses);
+            console.log('Mencari data hasil untuk PIN:', pinAkses, 'Paket:', paketNumber);
             console.log('Kunci yang dicari:', possibleKeys);
 
             let foundData = null;
+            let foundKey = null;
             
             // Coba semua kemungkinan kunci
             for (const key of possibleKeys) {
@@ -621,6 +647,7 @@
                 if (storedData) {
                     try {
                         foundData = JSON.parse(storedData);
+                        foundKey = key;
                         console.log('✅ Data ditemukan dengan kunci:', key);
                         break;
                     } catch (e) {
@@ -641,6 +668,7 @@
                             // Validasi apakah ini data hasil
                             if (data && (data.total !== undefined || data.twk !== undefined)) {
                                 foundData = data;
+                                foundKey = key;
                                 console.log('✅ Data hasil ditemukan di kunci:', key);
                                 break;
                             }
@@ -655,7 +683,7 @@
                 showErrorState();
                 showToast('error', 'Data Hasil Tidak Ditemukan', 
                     `Tidak dapat menemukan data hasil untuk PIN ${pinAkses}. 
-                     Pastikan Anda telah menyelesaikan ujian di Paket 2.`);
+                     Pastikan Anda telah menyelesaikan ujian atau coba kembali ke dashboard.`);
                 
                 // Log semua data untuk debugging
                 console.log('=== DEBUG: Semua data di localStorage ===');
@@ -667,23 +695,25 @@
             }
 
             resultData = foundData;
-            console.log('Data hasil Paket 2 berhasil dimuat:', resultData);
+            console.log('Data hasil berhasil dimuat:', resultData);
             
             // Pastikan data memiliki properti paket
             if (!resultData.paket) {
-                resultData.paket = "2";
+                resultData.paket = paketNumber;
             }
 
             // Simpan data dengan format standar untuk konsistensi
-            const standardKey = `hasil_paket2_${pinAkses}`;
-            localStorage.setItem(standardKey, JSON.stringify(resultData));
-            console.log('✅ Data disimpan dengan format standar:', standardKey);
+            const standardKey = `hasil_paket${paketNumber}_${pinAkses}`;
+            if (foundKey !== standardKey) {
+                localStorage.setItem(standardKey, JSON.stringify(resultData));
+                console.log('✅ Data disimpan dengan format standar:', standardKey);
+            }
 
             // Proses dan tampilkan hasil
             processResult();
         }
 
-        // ========== 4. PROCESS RESULT ==========
+        // ========== 5. PROCESS RESULT ==========
         function processResult() {
             if (!resultData) return;
 
@@ -842,7 +872,7 @@
             }
         }
 
-        // ========== 5. ANIMATIONS ==========
+        // ========== 6. ANIMATIONS ==========
         function animateCounter(elementId, start, end, duration) {
             const element = document.getElementById(elementId);
             const range = end - start;
@@ -893,7 +923,7 @@
             }
         }
 
-        // ========== 6. RECOMMENDATIONS ==========
+        // ========== 7. RECOMMENDATIONS ==========
         function updateRecommendations(lulusTWK, lulusTIU, lulusTKP) {
             const recommendations = [];
             if (!lulusTWK) {
@@ -972,10 +1002,20 @@
             document.getElementById('certificateSection').classList.remove('hidden');
         }
 
-        // ========== 7. ACTION FUNCTIONS ==========
+        // ========== 8. ACTION FUNCTIONS ==========
         function kembaliDashboard() {
-            // Kembali ke dashboard paket 2
-            window.location.href = `dashboardpaket2.html?id=${pinAkses}`;
+            // Gunakan paketNumber yang sudah dideteksi dari PIN untuk menentukan dashboard yang sesuai
+            const dashboardMap = {
+                "1": "dashboardpaket1.html",
+                "2": "dashboardpaket2.html", 
+                "3": "dashboardpaket3.html"
+            };
+            
+            // Ambil nama file dashboard berdasarkan paketNumber
+            const dashboardFile = dashboardMap[paketNumber] || "dashboardpaket1.html";
+            
+            // Redirect ke dashboard yang sesuai
+            window.location.href = `${dashboardFile}?id=${pinAkses}`;
         }
 
         function ulangiTryout() {
@@ -994,7 +1034,7 @@
                 });
                 showToast('success', 'Reset Berhasil', 'Mengarahkan ke halaman soal...');
                 setTimeout(() => {
-                    window.location.href = `soalpaket2.html?id=${pinAkses}`;
+                    window.location.href = `soalpaket1.html?id=${pinAkses}`;
                 }, 1500);
             }
         }
@@ -1008,7 +1048,7 @@
             showToast('info', 'Sertifikat', 'Fitur unduh sertifikat akan segera hadir!');
         }
 
-        // ========== 8. SHARE FUNCTIONS ==========
+        // ========== 9. SHARE FUNCTIONS ==========
         function showShareModal() {
             document.getElementById('shareModal').classList.remove('hidden');
         }
@@ -1046,7 +1086,7 @@
             const shareText = `${message}\n\nSkor Total: ${resultData.total}\nTWK: ${resultData.twk} | TIU: ${resultData.tiu} | TKP: ${resultData.tkp}\n\n${window.location.href}`;
             if (navigator.share) {
                 navigator.share({
-                    title: 'Hasil Simulasi CAT CPNS Paket 2',
+                    title: 'Hasil Simulasi CAT CPNS',
                     text: shareText,
                     url: window.location.href
                 });
@@ -1067,15 +1107,15 @@
             const lulusTKP = resultData.tkp >= 166;
             const semuaLulus = lulusTWK && lulusTIU && lulusTKP;
             let status = semuaLulus ? '🎉 LULUS SEMUA PASSING GRADE!' : '📚 PERLU PERBAIKAN';
-            return `Saya baru saja menyelesaikan simulasi CAT CPNS Paket 2!\n\n` +
+            return `Saya baru saja menyelesaikan simulasi CAT CPNS!\n\n` +
                    `Skor Total: ${resultData.total}\n` +
                    `TWK: ${resultData.twk} | TIU: ${resultData.tiu} | TKP: ${resultData.tkp}\n` +
                    `Status: ${status}\n` +
-                   `Paket: 2 | PIN: ${pinAkses}\n\n` +
+                   `Paket: ${paketNumber} | PIN: ${pinAkses}\n\n` +
                    `Coba simulasi ini di: ${window.location.origin}`;
         }
 
-        // ========== 9. ANALYSIS FUNCTIONS ==========
+        // ========== 10. ANALYSIS FUNCTIONS ==========
         function showAnalysisModal() {
             const content = document.getElementById('analysisContent');
             const analysisHTML = `
@@ -1173,22 +1213,20 @@
             document.getElementById('analysisModal').classList.add('hidden');
         }
 
-        // ========== 10. PROGRESS HISTORY ==========
+        // ========== 11. PROGRESS HISTORY ==========
         function saveToProgressHistory() {
             if (!pinAkses || !resultData) return;
-            const historyKey = `progress_paket2_${pinAkses}`;
+            const historyKey = `progress_${pinAkses}`;
             let progress = JSON.parse(localStorage.getItem(historyKey)) || {};
-            progress.completed = true;
-            progress.totalScore = resultData.total;
-            progress.twkScore = resultData.twk;
-            progress.tiuScore = resultData.tiu;
-            progress.tkpScore = resultData.tkp;
-            progress.waktu = resultData.waktu || '-';
-            progress.completedAt = new Date().toISOString();
+            progress[`paket_${paketNumber}`] = true;
+            progress[`score_${paketNumber}`] = resultData.total;
+            progress[`time_${paketNumber}`] = resultData.waktu || '-';
+            progress[`accuracy_${paketNumber}`] = Math.round(((resultData.twkBenar || 0) + (resultData.tiuBenar || 0)) / ((resultData.twkJawab || 0) + (resultData.tiuJawab || 0) + 1) * 100);
+            progress[`completed_${paketNumber}`] = new Date().toISOString();
             localStorage.setItem(historyKey, JSON.stringify(progress));
         }
 
-        // ========== 11. UI HELPER FUNCTIONS ==========
+        // ========== 12. UI HELPER FUNCTIONS ==========
         function showErrorState() {
             document.getElementById('loadingState').classList.add('hidden');
             document.getElementById('errorState').classList.remove('hidden');
@@ -1230,7 +1268,7 @@
             document.getElementById('notification-toast').classList.add('hidden');
         }
 
-        // ========== 12. EVENT LISTENERS SETUP ==========
+        // ========== 13. EVENT LISTENERS SETUP ==========
         function setupEventListeners() {
             document.addEventListener('click', (event) => {
                 const resultMenu = document.getElementById('resultMenu');
