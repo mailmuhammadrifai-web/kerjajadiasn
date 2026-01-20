@@ -93,6 +93,13 @@
             font-size: 2.5rem;
             filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
         }
+        .score-glow {
+            animation: pulse-glow 2s ease-in-out infinite alternate;
+        }
+        @keyframes pulse-glow {
+            0% { filter: drop-shadow(0 0 5px rgba(59, 130, 246, 0.3)); }
+            100% { filter: drop-shadow(0 0 20px rgba(59, 130, 246, 0.6)); }
+        }
     </style>
 </head>
 <body class="min-h-screen overflow-x-hidden">
@@ -181,7 +188,7 @@
                                 </defs>
                             </svg>
                             <div class="absolute inset-0 flex flex-col items-center justify-center">
-                                <span id="totalScore" class="score-badge text-5xl md:text-6xl font-black">0</span>
+                                <span id="totalScore" class="score-badge text-5xl md:text-6xl font-black score-glow">0</span>
                                 <span class="text-slate-500 font-bold text-sm">DARI 500</span>
                                 <div id="resultEmoji" class="result-emoji mt-2"></div>
                             </div>
@@ -421,30 +428,27 @@
                                 </div>
                             </div>
                         </button>
-                        
-                        <button onclick="cobaPaketLain()" class="p-4 rounded-xl bg-gradient-to-r from-purple-50 to-purple-100 border border-purple-200 hover:border-purple-300 transition-all hover:shadow-md glow-effect">
-                            <div class="flex items-center gap-3">
-                                <div class="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center">
-                                    <i class="fa-solid fa-layer-group text-purple-600"></i>
-                                </div>
-                                <div class="text-left">
-                                    <p class="font-bold text-purple-700">Coba Paket Lain</p>
-                                    <p class="text-xs text-purple-600">Latihan dengan soal berbeda</p>
-                                </div>
-                            </div>
-                        </button>
-                        
-                        <button onclick="bagikanHasil()" class="p-4 rounded-xl bg-gradient-to-r from-pink-50 to-pink-100 border border-pink-200 hover:border-pink-300 transition-all hover:shadow-md glow-effect">
-                            <div class="flex items-center gap-3">
-                                <div class="w-10 h-10 rounded-full bg-pink-100 flex items-center justify-center">
-                                    <i class="fa-solid fa-share-alt text-pink-600"></i>
-                                </div>
-                                <div class="text-left">
-                                    <p class="font-bold text-pink-700">Bagikan Hasil</p>
-                                    <p class="text-xs text-pink-600">Bagikan pencapaian Anda</p>
+                    </div>
+                    
+                    <!-- Additional study resources -->
+                    <div class="mt-6 pt-6 border-t border-slate-200">
+                        <h4 class="font-bold text-slate-700 mb-4">Sumber Belajar Tambahan</h4>
+                        <div class="space-y-3">
+                            <div class="flex items-center gap-3 p-3 bg-slate-50 rounded-xl">
+                                <i class="fa-solid fa-book text-slate-500"></i>
+                                <div>
+                                    <p class="text-sm font-medium text-slate-700">Materi TWK Lengkap</p>
+                                    <p class="text-xs text-slate-500">Panduan wawasan kebangsaan</p>
                                 </div>
                             </div>
-                        </button>
+                            <div class="flex items-center gap-3 p-3 bg-slate-50 rounded-xl">
+                                <i class="fa-solid fa-calculator text-slate-500"></i>
+                                <div>
+                                    <p class="text-sm font-medium text-slate-700">Latihan TIU</p>
+                                    <p class="text-xs text-slate-500">Soal-soal penalaran dan logika</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -862,43 +866,6 @@
             window.location.href = `soalpaket1.html?id=${userPIN}`;
         }
 
-        function cobaPaketLain() {
-            let targetPaket = '';
-            
-            // Determine which paket to recommend
-            if (userPaket === 'paket1') {
-                targetPaket = 'paket2';
-            } else if (userPaket === 'paket2') {
-                targetPaket = 'paket3';
-            } else {
-                targetPaket = 'paket1';
-            }
-            
-            showToast('info', 'Paket Lain', `Anda akan diarahkan ke dashboard ${targetPaket}`);
-            
-            setTimeout(() => {
-                window.location.href = `dashboard${targetPaket}.html?id=${userPIN}`;
-            }, 1500);
-        }
-
-        function bagikanHasil() {
-            if (!hasilData) return;
-            
-            const shareText = `Saya baru saja menyelesaikan Ujian CAT CPNS Paket 1 dengan skor ${hasilData.total}/500! 🎯`;
-            
-            if (navigator.share) {
-                navigator.share({
-                    title: 'Hasil Ujian CAT CPNS',
-                    text: shareText,
-                    url: window.location.href
-                });
-            } else {
-                // Fallback: copy to clipboard
-                navigator.clipboard.writeText(`${shareText}\n\nLihat hasil lengkap di: ${window.location.href}`);
-                showToast('success', 'Tautan Disalin', 'Tautan hasil telah disalin ke clipboard.');
-            }
-        }
-
         // ====================== UI EFFECTS ======================
         function createParticles() {
             const container = document.getElementById('particles');
@@ -1038,6 +1005,13 @@
                 }
                 .animate-slideIn {
                     animation: slideIn 0.3s ease;
+                }
+                .animate-bounce {
+                    animation: bounce 0.5s ease;
+                }
+                @keyframes bounce {
+                    0%, 100% { transform: translateY(0); }
+                    50% { transform: translateY(-10px); }
                 }
             `;
             document.head.appendChild(style);
