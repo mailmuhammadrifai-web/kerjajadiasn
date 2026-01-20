@@ -3,222 +3,684 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hasil Simulasi - Kerja Jadi ASN</title>
+    <title>Dashboard Paket 3 (Ultimate Premium) - Kerja Jadi ASN</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#f59e0b">
     <style>
-        /* CSS styles tetap sama seperti sebelumnya */
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap');
+
         body { 
             font-family: 'Plus Jakarta Sans', sans-serif;
-            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
             min-height: 100vh;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
         }
 
+        /* Premium Gold Theme */
+        .gold-gradient {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 25%, #b45309 50%, #92400e 75%);
+        }
+
+        .orange-gradient {
+            background: linear-gradient(135deg, #f97316 0%, #ea580c 25%, #c2410c 50%, #9a3412 75%);
+        }
+
+        .silver-gradient {
+            background: linear-gradient(135deg, #e5e7eb 0%, #d1d5db 25%, #9ca3af 50%, #6b7280 75%);
+        }
+
+        .emerald-gradient {
+            background: linear-gradient(135deg, #10b981 0%, #059669 25%, #047857 50%, #065f46 75%);
+        }
+
+        .premium-glow {
+            box-shadow: 0 0 30px rgba(245, 158, 11, 0.3);
+        }
+
+        .orange-glow {
+            box-shadow: 0 0 30px rgba(249, 115, 22, 0.4);
+        }
+
+        .premium-border {
+            border: 2px solid rgba(245, 158, 11, 0.3);
+        }
+
+        .orange-border {
+            border: 2px solid rgba(249, 115, 22, 0.4);
+        }
+
+        /* Animasi Loading Premium */
+        .loading-skeleton-premium {
+            background: linear-gradient(90deg, #1e293b 25%, #334155 50%, #1e293b 75%);
+            background-size: 200% 100%;
+            animation: loading 1.5s infinite;
+        }
+
+        @keyframes loading {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        /* Responsive Improvements */
+        @media (max-width: 768px) {
+            .nav-content {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1rem;
+            }
+
+            .nav-right {
+                width: 100%;
+                justify-content: space-between;
+            }
+
+            .gradient-header {
+                padding: 1.5rem !important;
+                text-align: center;
+            }
+
+            .grid-cols-1 {
+                grid-template-columns: 1fr !important;
+            }
+
+            .soal-card {
+                flex-direction: column;
+                align-items: stretch !important;
+                gap: 1.5rem !important;
+                padding: 1.5rem !important;
+            }
+
+            .soal-card-action {
+                width: 100% !important;
+                justify-content: center;
+            }
+
+            .soal-card-content {
+                width: 100% !important;
+            }
+
+            .soal-card-info {
+                width: 100% !important;
+                text-align: center;
+            }
+
+            .materi-grid {
+                grid-template-columns: 1fr !important;
+            }
+
+            .filter-tabs {
+                overflow-x: auto;
+                padding-bottom: 0.5rem;
+                margin-bottom: 1rem;
+            }
+
+            .filter-tabs button {
+                font-size: 0.75rem;
+                padding: 0.5rem 0.75rem;
+                white-space: nowrap;
+            }
+
+            .main-grid {
+                grid-template-columns: 1fr !important;
+                gap: 1.5rem;
+            }
+
+            .sidebar-grid {
+                grid-template-columns: repeat(2, 1fr) !important;
+                gap: 1rem;
+            }
+
+            .sidebar-card {
+                grid-column: span 1;
+            }
+
+            .sidebar-card-wide {
+                grid-column: span 2;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .container {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+
+            .main-grid {
+                grid-template-columns: 1fr !important;
+                gap: 1.5rem;
+            }
+
+            .sidebar-grid {
+                grid-template-columns: 1fr !important;
+            }
+
+            .sidebar-card-wide {
+                grid-column: span 1;
+            }
+
+            .welcome-banner {
+                padding: 1.5rem !important;
+            }
+
+            .stats-grid {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .stats-item {
+                width: 100% !important;
+            }
+        }
+
+        @media (min-width: 768px) and (max-width: 1024px) {
+            .main-grid {
+                grid-template-columns: 2fr 1fr !important;
+            }
+
+            .sidebar-grid {
+                grid-template-columns: 1fr !important;
+            }
+        }
+
+        /* Custom Scrollbar Premium */
+        ::-webkit-scrollbar {
+            width: 10px;
+            height: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #1e293b;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(to bottom, #f59e0b, #d97706);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(to bottom, #fbbf24, #f59e0b);
+        }
+
+        /* Custom Animations Premium */
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
+            from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        @keyframes scoreIncrement {
-            from { transform: scale(0.5); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
+        @keyframes slideInRight {
+            from { opacity: 0; transform: translateX(20px); }
+            to { opacity: 1; transform: translateX(0); }
         }
 
-        @keyframes confettiFall {
-            0% { transform: translateY(-100px) rotate(0deg); opacity: 1; }
-            100% { transform: translateY(1000px) rotate(360deg); opacity: 0; }
+        @keyframes pulse-gold {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
         }
 
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
+        @keyframes pulse-orange {
+            0%, 100% { 
+                box-shadow: 0 0 0 0 rgba(249, 115, 22, 0.7);
+                transform: scale(1);
+            }
+            50% { 
+                box-shadow: 0 0 0 10px rgba(249, 115, 22, 0);
+                transform: scale(1.05);
+            }
         }
 
         .animate-fadeIn {
-            animation: fadeIn 0.6s ease-out;
+            animation: fadeIn 0.5s ease-out;
         }
 
-        .animate-score {
-            animation: scoreIncrement 1s ease-out;
+        .animate-slideInRight {
+            animation: slideInRight 0.3s ease-out;
         }
 
-        .animate-pulse-slow {
-            animation: pulse 2s infinite;
+        .animate-pulse-gold {
+            animation: pulse-gold 2s infinite;
         }
 
+        .animate-pulse-orange {
+            animation: pulse-orange 2s infinite;
+        }
+
+        /* Card Hover Effects Premium */
+        .card-hover-premium {
+            transition: all 0.3s ease;
+            border: 1px solid rgba(245, 158, 11, 0.1);
+            background: linear-gradient(145deg, #1e293b, #0f172a);
+        }
+
+        .card-hover-premium:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px -10px rgba(245, 158, 11, 0.2),
+                        0 10px 20px -10px rgba(245, 158, 11, 0.1);
+            border-color: rgba(245, 158, 11, 0.5);
+        }
+
+        .card-hover-orange {
+            transition: all 0.3s ease;
+            border: 1px solid rgba(249, 115, 22, 0.2);
+            background: linear-gradient(145deg, #1e293b, #0f172a);
+        }
+
+        .card-hover-orange:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px -10px rgba(249, 115, 22, 0.3),
+                        0 10px 20px -10px rgba(249, 115, 22, 0.2);
+            border-color: rgba(249, 115, 22, 0.6);
+        }
+
+        /* Progress Bar Animation */
         .progress-bar {
-            transition: width 1.5s ease-in-out;
+            transition: width 1s ease-in-out;
         }
 
-        .score-ring {
-            transform: rotate(-90deg);
+        /* Status Badges Premium */
+        .status-badge-premium {
+            font-size: 0.65rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-weight: 800;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            color: #1e293b;
         }
 
-        .score-ring-circle {
-            transition: stroke-dasharray 1.5s ease-in-out;
+        .status-ultimate {
+            background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+            color: white;
         }
 
-        .glass-effect {
-            background: rgba(255, 255, 255, 0.7);
+        .status-orange {
+            background: linear-gradient(135deg, #f97316, #ea580c);
+            color: white;
+        }
+
+        .status-vip {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+        }
+
+        .status-completed-premium {
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            color: #1e293b;
+        }
+
+        /* Glassmorphism Effect Premium */
+        .glass-effect-premium {
+            background: rgba(30, 41, 59, 0.7);
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(245, 158, 11, 0.2);
         }
 
+        /* Shimmer Effect Premium */
+        .shimmer-premium {
+            background: linear-gradient(
+                90deg,
+                rgba(245, 158, 11, 0) 0%,
+                rgba(245, 158, 11, 0.3) 50%,
+                rgba(245, 158, 11, 0) 100%
+            );
+            background-size: 200% 100%;
+            animation: shimmer 2s infinite;
+        }
+
+        .shimmer-orange {
+            background: linear-gradient(
+                90deg,
+                rgba(249, 115, 22, 0) 0%,
+                rgba(249, 115, 22, 0.4) 50%,
+                rgba(249, 115, 22, 0) 100%
+            );
+            background-size: 200% 100%;
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+
+        /* Floating Animation Premium */
+        @keyframes float-premium {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            25% { transform: translateY(-10px) rotate(5deg); }
+            75% { transform: translateY(-5px) rotate(-5deg); }
+        }
+
+        .animate-float-premium {
+            animation: float-premium 4s ease-in-out infinite;
+        }
+
+        /* Confetti Effect Premium */
+        .confetti-premium {
+            position: fixed;
+            width: 12px;
+            height: 12px;
+            background: linear-gradient(45deg, #f59e0b, #d97706, #8b5cf6, #10b981);
+            opacity: 0.8;
+            z-index: 1000;
+            border-radius: 50%;
+        }
+
+        /* Tooltip Premium */
+        .tooltip-premium {
+            position: relative;
+        }
+
+        .tooltip-text-premium {
+            visibility: hidden;
+            position: absolute;
+            z-index: 100;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #1e293b, #0f172a);
+            color: #f59e0b;
+            text-align: center;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            font-size: 0.75rem;
+            white-space: nowrap;
+            opacity: 0;
+            transition: opacity 0.3s;
+            border: 1px solid rgba(245, 158, 11, 0.3);
+        }
+
+        .tooltip-premium:hover .tooltip-text-premium {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        /* Print Styles */
         @media print {
             .no-print {
                 display: none !important;
             }
+
             body {
                 background: white !important;
                 color: black !important;
             }
-            .glass-effect {
-                background: white !important;
-                backdrop-filter: none !important;
-                border: 1px solid #ddd !important;
-            }
-            .shadow-*, .shadow-* {
+
+            .card-hover-premium {
                 box-shadow: none !important;
+                border: 1px solid #ddd !important;
+                background: white !important;
             }
         }
 
-        ::-webkit-scrollbar {
-            width: 6px;
+        /* Neon Effect */
+        .neon-gold {
+            text-shadow: 0 0 10px rgba(245, 158, 11, 0.7),
+                         0 0 20px rgba(245, 158, 11, 0.5),
+                         0 0 30px rgba(245, 158, 11, 0.3);
         }
-        ::-webkit-scrollbar-track {
-            background: #f1f5f9;
-            border-radius: 3px;
+
+        .neon-orange {
+            text-shadow: 0 0 10px rgba(249, 115, 22, 0.8),
+                         0 0 20px rgba(249, 115, 22, 0.6),
+                         0 0 30px rgba(249, 115, 22, 0.4);
         }
-        ::-webkit-scrollbar-thumb {
-            background: #cbd5e1;
-            border-radius: 3px;
+
+        /* Diamond Background Pattern */
+        .diamond-pattern {
+            background-image: 
+                linear-gradient(45deg, rgba(245, 158, 11, 0.05) 25%, transparent 25%),
+                linear-gradient(-45deg, rgba(245, 158, 11, 0.05) 25%, transparent 25%),
+                linear-gradient(45deg, transparent 75%, rgba(245, 158, 11, 0.05) 75%),
+                linear-gradient(-45deg, transparent 75%, rgba(245, 158, 11, 0.05) 75%);
+            background-size: 20px 20px;
+            background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
         }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #94a3b8;
+
+        /* Mobile Menu Toggle */
+        .mobile-menu-toggle {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu-toggle {
+                display: block;
+            }
+
+            .nav-right {
+                display: flex;
+                align-items: center;
+            }
+
+            .profile-dropdown {
+                position: absolute;
+                top: 100%;
+                right: 0;
+                width: 280px;
+                z-index: 100;
+            }
+        }
+
+        /* Fix untuk flex items pada mobile */
+        @media (max-width: 640px) {
+            .flex-mobile-col {
+                flex-direction: column !important;
+                align-items: stretch !important;
+            }
+            
+            .flex-mobile-col > * {
+                width: 100% !important;
+            }
+        }
+
+        /* Responsive Text Sizes */
+        @media (max-width: 640px) {
+            .text-responsive-xl {
+                font-size: 1.5rem !important;
+                line-height: 2rem !important;
+            }
+            
+            .text-responsive-lg {
+                font-size: 1.25rem !important;
+                line-height: 1.75rem !important;
+            }
+            
+            .text-responsive-base {
+                font-size: 0.875rem !important;
+                line-height: 1.25rem !important;
+            }
+            
+            .text-responsive-sm {
+                font-size: 0.75rem !important;
+                line-height: 1rem !important;
+            }
+            
+            .text-responsive-xs {
+                font-size: 0.625rem !important;
+                line-height: 0.875rem !important;
+            }
+        }
+
+        /* Responsive Padding */
+        @media (max-width: 640px) {
+            .p-responsive-4 {
+                padding: 1rem !important;
+            }
+            
+            .p-responsive-6 {
+                padding: 1.5rem !important;
+            }
+            
+            .p-responsive-8 {
+                padding: 2rem !important;
+            }
+            
+            .px-responsive-4 {
+                padding-left: 1rem !important;
+                padding-right: 1rem !important;
+            }
+            
+            .py-responsive-6 {
+                padding-top: 1.5rem !important;
+                padding-bottom: 1.5rem !important;
+            }
+        }
+
+        /* Responsive Grid */
+        @media (max-width: 768px) {
+            .grid-responsive-1 {
+                grid-template-columns: 1fr !important;
+            }
+            
+            .grid-responsive-2 {
+                grid-template-columns: repeat(2, 1fr) !important;
+            }
+        }
+
+        /* Touch-friendly buttons */
+        @media (max-width: 768px) {
+            .touch-button {
+                min-height: 44px;
+                min-width: 44px;
+                padding: 0.75rem 1rem;
+            }
+            
+            .touch-button-sm {
+                min-height: 36px;
+                min-width: 36px;
+                padding: 0.5rem 0.75rem;
+            }
         }
     </style>
 </head>
-<body class="min-h-screen pb-20">
+<body class="min-h-screen bg-slate-900 text-white">
 
     <!-- Confetti Container -->
-    <div id="confetti-container" class="fixed inset-0 pointer-events-none z-0"></div>
+    <div id="confetti-container"></div>
 
     <!-- Notification Toast -->
     <div id="notification-toast" class="fixed top-4 right-4 z-50 hidden">
-        <div class="bg-white rounded-xl shadow-lg border border-slate-200 p-4 max-w-sm animate-fadeIn">
+        <div class="bg-slate-800 rounded-xl shadow-lg border border-amber-500/30 p-4 max-w-sm animate-slideInRight">
             <div class="flex items-start gap-3">
                 <div id="toast-icon" class="text-xl"></div>
                 <div class="flex-1">
-                    <h4 id="toast-title" class="font-bold text-slate-800"></h4>
-                    <p id="toast-message" class="text-sm text-slate-600 mt-1"></p>
+                    <h4 id="toast-title" class="font-bold text-amber-100"></h4>
+                    <p id="toast-message" class="text-sm text-slate-300 mt-1"></p>
                 </div>
-                <button onclick="hideToast()" class="text-slate-400 hover:text-slate-600">
+                <button onclick="hideToast()" class="text-slate-400 hover:text-amber-300 touch-button-sm">
                     <i class="fa-solid fa-times"></i>
                 </button>
             </div>
         </div>
     </div>
 
-    <!-- Share Modal -->
-    <div id="shareModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden p-4">
-        <div class="bg-white rounded-2xl w-full max-w-md overflow-hidden">
-            <div class="p-6 border-b border-slate-200">
-                <h3 class="text-xl font-bold text-slate-800">Bagikan Hasil</h3>
-                <p class="text-sm text-slate-600 mt-1">Bagikan hasil ujian Anda dengan teman atau mentor</p>
-            </div>
-            <div class="p-6">
-                <div class="grid grid-cols-2 gap-3 mb-6">
-                    <button onclick="shareToWhatsApp()" class="p-4 bg-green-50 hover:bg-green-100 rounded-xl border border-green-200 flex flex-col items-center justify-center gap-2 transition-colors">
-                        <i class="fab fa-whatsapp text-green-600 text-2xl"></i>
-                        <span class="text-sm font-bold text-green-700">WhatsApp</span>
-                    </button>
-                    <button onclick="shareToFacebook()" class="p-4 bg-blue-50 hover:bg-blue-100 rounded-xl border border-blue-200 flex flex-col items-center justify-center gap-2 transition-colors">
-                        <i class="fab fa-facebook text-blue-600 text-2xl"></i>
-                        <span class="text-sm font-bold text-blue-700">Facebook</span>
-                    </button>
-                    <button onclick="shareToTwitter()" class="p-4 bg-sky-50 hover:bg-sky-100 rounded-xl border border-sky-200 flex flex-col items-center justify-center gap-2 transition-colors">
-                        <i class="fab fa-twitter text-sky-600 text-2xl"></i>
-                        <span class="text-sm font-bold text-sky-700">Twitter</span>
-                    </button>
-                    <button onclick="copyResultLink()" class="p-4 bg-purple-50 hover:bg-purple-100 rounded-xl border border-purple-200 flex flex-col items-center justify-center gap-2 transition-colors">
-                        <i class="fa-solid fa-link text-purple-600 text-2xl"></i>
-                        <span class="text-sm font-bold text-purple-700">Salin Link</span>
-                    </button>
-                </div>
-                <div class="mt-4 p-4 bg-slate-50 rounded-xl border border-slate-200">
-                    <label class="text-sm font-medium text-slate-700 mb-2 block">Pesan Kustom</label>
-                    <textarea id="shareMessage" rows="3" class="w-full p-3 border border-slate-300 rounded-lg text-sm resize-none" placeholder="Tambahkan pesan Anda...">Saya baru saja menyelesaikan simulasi CAT CPNS dengan skor yang memuaskan!</textarea>
-                </div>
-                <div class="mt-6 flex gap-3">
-                    <button onclick="hideShareModal()" class="flex-1 px-4 py-3 bg-slate-100 text-slate-700 font-bold rounded-xl hover:bg-slate-200 transition-colors">
-                        Batal
-                    </button>
-                    <button onclick="shareResult()" class="flex-1 px-4 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold rounded-xl hover:from-blue-700 hover:to-indigo-700 transition-all">
-                        Bagikan
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
+    <!-- Mobile Menu Button (Hidden on Desktop) -->
+    <button id="mobileMenuButton" class="mobile-menu-toggle fixed top-4 left-4 z-50 w-10 h-10 gold-gradient rounded-xl flex items-center justify-center shadow-lg md:hidden">
+        <i class="fa-solid fa-bars text-slate-900"></i>
+    </button>
 
-    <!-- Analysis Modal -->
-    <div id="analysisModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden p-4">
-        <div class="bg-white rounded-2xl w-full max-w-4xl max-h-[90vh] overflow-hidden">
-            <div class="sticky top-0 bg-white border-b border-slate-200 p-6 flex justify-between items-center">
-                <div>
-                    <h3 class="text-xl font-bold text-slate-800">Analisis Detail Hasil</h3>
-                    <p class="text-sm text-slate-500">PIN: <span id="analysisPin" class="font-mono font-bold"></span> | Paket: <span id="analysisPaket" class="font-bold"></span></p>
-                </div>
-                <button onclick="hideAnalysisModal()" class="text-slate-400 hover:text-slate-600 text-xl">
-                    <i class="fa-solid fa-times"></i>
+    <!-- Mobile Sidebar (Hidden on Desktop) -->
+    <div id="mobileSidebar" class="fixed inset-0 bg-black bg-opacity-70 z-40 hidden md:hidden">
+        <div class="absolute right-0 top-0 h-full w-80 bg-slate-800 overflow-y-auto">
+            <div class="p-4 border-b border-amber-500/20 flex justify-between items-center">
+                <h3 class="font-bold text-amber-300">Menu</h3>
+                <button onclick="hideMobileSidebar()" class="text-slate-400 hover:text-amber-300">
+                    <i class="fa-solid fa-times text-xl"></i>
                 </button>
             </div>
-            <div class="p-6 overflow-y-auto max-h-[calc(90vh-120px)]">
-                <div id="analysisContent"></div>
+            <div class="p-4 space-y-4">
+                <!-- Mobile Navigation Links -->
+                <a href="#progress" onclick="showProgressModal(); hideMobileSidebar()" class="flex items-center gap-3 p-3 bg-slate-700/50 rounded-lg hover:bg-slate-700">
+                    <i class="fa-solid fa-chart-line text-amber-400"></i>
+                    <span>Progress</span>
+                </a>
+                <a href="#help" onclick="showHelpModal(); hideMobileSidebar()" class="flex items-center gap-3 p-3 bg-slate-700/50 rounded-lg hover:bg-slate-700">
+                    <i class="fa-solid fa-circle-question text-green-400"></i>
+                    <span>Bantuan</span>
+                </a>
+                <a href="#materi" onclick="downloadMaterials(); hideMobileSidebar()" class="flex items-center gap-3 p-3 bg-slate-700/50 rounded-lg hover:bg-slate-700">
+                    <i class="fa-solid fa-download text-amber-400"></i>
+                    <span>Unduh Materi</span>
+                </a>
+                <a href="#grup" onclick="window.open('https://wa.me/6285696409288?text=Halo%20admin,%20saya%20peserta%20Paket%203%20Ultimate%20mau%20join%20grup%20WA%20khusus', '_blank'); hideMobileSidebar()" class="flex items-center gap-3 p-3 bg-slate-700/50 rounded-lg hover:bg-slate-700">
+                    <i class="fa-brands fa-whatsapp text-green-400"></i>
+                    <span>Grup WhatsApp</span>
+                </a>
+                <button onclick="tambahPaketTryout(); hideMobileSidebar()" class="w-full orange-gradient text-white font-bold py-3 rounded-lg hover:shadow-lg hover:shadow-orange-500/30 transition-all flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-plus"></i> Tambah Paket
+                </button>
             </div>
         </div>
     </div>
 
-    <nav class="bg-white border-b border-slate-200 sticky top-0 z-40 shadow-sm glass-effect">
+    <nav class="bg-slate-800/80 border-b border-amber-500/20 sticky top-0 z-40 shadow-lg glass-effect-premium">
         <div class="container mx-auto px-4 py-3">
-            <div class="flex justify-between items-center">
+            <div class="flex justify-between items-center nav-content">
                 <div class="flex items-center gap-3">
-                    <div class="w-8 h-8 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-lg flex items-center justify-center">
-                        <i class="fa-solid fa-chart-line text-white"></i>
-                    </div>
-                    <div>
-                        <h1 class="font-extrabold text-blue-600 text-lg md:text-xl">
-                            KERJA JADI <span class="text-yellow-500">ASN</span>
+                    <div class="flex items-center gap-2">
+                        <div class="w-10 h-10 gold-gradient rounded-xl flex items-center justify-center shadow-lg">
+                            <i class="fa-solid fa-crown text-slate-900"></i>
+                        </div>
+                        <h1 class="font-extrabold text-amber-400 text-lg md:text-xl neon-gold">
+                            KERJA JADI <span class="text-white">ASN</span>
                         </h1>
-                        <p class="text-[10px] text-slate-500 font-bold uppercase tracking-wider">
-                            Paket <span id="paketNumber">-</span> • PIN: <span id="displayPaketPin" class="font-mono">MEMUAT...</span>
-                        </p>
                     </div>
+                    <span class="status-badge-premium hidden md:inline-flex">Paket 3 Ultimate</span>
+                    <span class="status-ultimate hidden md:inline-flex ml-2">VIP Premium</span>
                 </div>
-                <div class="flex items-center gap-4">
-                    <div class="text-right hidden md:block">
-                        <p class="text-[10px] font-bold text-slate-500 uppercase tracking-wider">PIN Peserta</p>
-                        <p id="displayPin" class="text-sm font-black text-slate-800 tracking-wide font-mono">MEMUAT...</p>
+
+                <div class="flex items-center gap-4 nav-right">
+                    <div class="text-right hidden sm:block">
+                        <p class="text-[10px] font-bold text-amber-400 uppercase tracking-wider">PIN Peserta</p>
+                        <div class="flex items-center gap-2">
+                            <p id="displayPin" class="text-sm font-black text-amber-300 tracking-wide font-mono">MEMUAT...</p>
+                            <button onclick="copyPin()" class="text-amber-400/60 hover:text-amber-300 tooltip-premium" title="Salin PIN">
+                                <i class="fa-regular fa-copy text-xs"></i>
+                            </button>
+                        </div>
                     </div>
+
                     <div class="relative">
-                        <button onclick="toggleResultMenu()" class="w-10 h-10 rounded-full bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-100 flex items-center justify-center hover:shadow-md transition-all">
-                            <i class="fa-solid fa-ellipsis-vertical text-blue-600"></i>
+                        <button onclick="toggleProfileMenu()" class="w-10 h-10 sm:w-12 sm:h-12 rounded-full gold-gradient flex items-center justify-center hover:shadow-lg hover:shadow-amber-500/30 transition-all shadow-lg touch-button">
+                            <i class="fa-solid fa-user text-slate-900 text-sm sm:text-lg"></i>
                         </button>
-                        <div id="resultMenu" class="absolute right-0 top-12 w-48 bg-white rounded-xl shadow-lg border border-slate-200 py-2 hidden z-50 animate-fadeIn">
-                            <button onclick="showShareModal()" class="flex items-center gap-3 px-4 py-2 text-sm text-slate-700 hover:bg-blue-50 hover:text-blue-600 transition-colors w-full text-left">
-                                <i class="fa-solid fa-share w-5 text-green-500"></i> Bagikan Hasil
-                            </button>
-                            <button onclick="showAnalysisModal()" class="flex items-center gap-3 px-4 py-2 text-sm text-slate-700 hover:bg-blue-50 hover:text-blue-600 transition-colors w-full text-left">
-                                <i class="fa-solid fa-chart-bar w-5 text-purple-500"></i> Analisis Detail
-                            </button>
-                            <button onclick="downloadCertificate()" class="flex items-center gap-3 px-4 py-2 text-sm text-slate-700 hover:bg-blue-50 hover:text-blue-600 transition-colors w-full text-left">
-                                <i class="fa-solid fa-certificate w-5 text-yellow-500"></i> Sertifikat
-                            </button>
-                            <div class="border-t border-slate-100 my-1"></div>
-                            <button onclick="printResult()" class="flex items-center gap-3 px-4 py-2 text-sm text-slate-700 hover:bg-blue-50 hover:text-blue-600 transition-colors w-full text-left">
-                                <i class="fa-solid fa-print w-5 text-slate-500"></i> Cetak Hasil
-                            </button>
+
+                        <!-- Profile Dropdown Menu -->
+                        <div id="profileMenu" class="absolute right-0 top-12 sm:top-14 w-64 bg-slate-800 rounded-xl shadow-2xl border border-amber-500/30 py-2 hidden z-50 animate-fadeIn profile-dropdown">
+                            <div class="px-4 py-3 border-b border-amber-500/20">
+                                <p class="text-xs font-bold text-amber-400 uppercase mb-1">Paket 3 Ultimate</p>
+                                <p id="menuPin" class="text-sm font-black text-amber-300 truncate"></p>
+                                <p class="text-xs text-slate-400 mt-1">20 Tryout + Semua Fitur Premium</p>
+                            </div>
+
+                            <div class="py-1">
+                                <a href="#" onclick="showProgressModal()" class="flex items-center gap-3 px-4 py-2 text-sm text-slate-300 hover:bg-amber-900/30 hover:text-amber-300 transition-colors">
+                                    <i class="fa-solid fa-chart-line w-5 text-amber-500"></i>
+                                    Progress Ultimate
+                                </a>
+                                <a href="#" onclick="showAchievements()" class="flex items-center gap-3 px-4 py-2 text-sm text-slate-300 hover:bg-amber-900/30 hover:text-amber-300 transition-colors">
+                                    <i class="fa-solid fa-medal w-5 text-amber-300"></i>
+                                    Pencapaian Premium
+                                </a>
+                                <a href="#" onclick="showSettings()" class="flex items-center gap-3 px-4 py-2 text-sm text-slate-300 hover:bg-amber-900/30 hover:text-amber-300 transition-colors">
+                                    <i class="fa-solid fa-gear w-5 text-slate-400"></i>
+                                    Pengaturan Premium
+                                </a>
+                            </div>
+
+                            <div class="border-t border-amber-500/20 my-1"></div>
+
+                            <div class="py-1">
+                                <a href="#" onclick="showHelpModal()" class="flex items-center gap-3 px-4 py-2 text-sm text-slate-300 hover:bg-amber-900/30 hover:text-amber-300 transition-colors">
+                                    <i class="fa-solid fa-circle-question w-5 text-green-400"></i>
+                                    Bantuan Ultimate
+                                </a>
+                                <a href="#" onclick="confirmLogout()" class="flex items-center gap-3 px-4 py-2 text-sm text-red-400 hover:bg-red-900/30 transition-colors">
+                                    <i class="fa-solid fa-arrow-right-from-bracket w-5"></i>
+                                    Keluar Dashboard
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -226,1066 +688,1481 @@
         </div>
     </nav>
 
-    <main class="container mx-auto px-4 mt-6 md:mt-8 max-w-6xl">
-        <!-- Loading State -->
-        <div id="loadingState" class="text-center py-12">
-            <div class="inline-block animate-spin rounded-full h-16 w-16 border-4 border-blue-600 border-t-transparent"></div>
-            <p class="mt-6 text-lg font-bold text-slate-700">Memproses hasil ujian Anda...</p>
-            <p class="mt-2 text-sm text-slate-500">Sedang menganalisis data dan menghitung skor</p>
-        </div>
-
-        <!-- Error State -->
-        <div id="errorState" class="hidden text-center py-12">
-            <div class="w-20 h-20 bg-red-50 rounded-full flex items-center justify-center mx-auto mb-4">
-                <i class="fa-solid fa-triangle-exclamation text-red-500 text-3xl"></i>
-            </div>
-            <h3 class="text-xl font-bold text-slate-800 mb-2">Data Hasil Tidak Ditemukan</h3>
-            <p class="text-slate-600 mb-6 max-w-md mx-auto">Tidak dapat menemukan data hasil ujian untuk PIN Anda. Mungkin sesi telah berakhir atau data telah dihapus.</p>
-            <div class="flex gap-3 justify-center">
-                <button onclick="kembaliDashboard()" class="bg-blue-600 text-white px-6 py-3 rounded-xl font-bold hover:bg-blue-700 transition-colors">
-                    Kembali ke Dashboard
-                </button>
-                <button onclick="location.reload()" class="bg-slate-100 text-slate-700 px-6 py-3 rounded-xl font-bold hover:bg-slate-200 transition-colors">
-                    Coba Lagi
+    <main class="container mx-auto px-4 py-6 md:py-8">
+        <!-- Session Expiry Warning -->
+        <div id="sessionWarning" class="mb-6 bg-amber-900/30 border border-amber-500/30 rounded-xl p-4 hidden">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 bg-amber-900/50 rounded-lg flex items-center justify-center">
+                        <i class="fa-solid fa-clock text-amber-400"></i>
+                    </div>
+                    <div>
+                        <p class="text-sm font-bold text-amber-300">Sesi Ultimate akan berakhir dalam <span id="sessionCountdown" class="font-mono"></span></p>
+                        <p class="text-xs text-amber-400/80">Simpan progress premium Anda sebelum sesi berakhir</p>
+                    </div>
+                </div>
+                <button onclick="extendSession()" class="text-sm font-bold text-amber-400 hover:text-amber-300 touch-button-sm">
+                    <i class="fa-solid fa-plus"></i> Perpanjang Premium
                 </button>
             </div>
         </div>
 
-        <!-- Success State -->
-        <div id="successState" class="hidden animate-fadeIn">
-            <!-- Header Section -->
-            <div class="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 rounded-2xl md:rounded-[2.5rem] p-6 md:p-8 shadow-2xl shadow-blue-100/50 border border-white/20 mb-8 relative overflow-hidden">
-                <div class="relative z-10">
-                    <div id="statusBadge" class="inline-flex items-center gap-2 px-6 py-2 rounded-full font-black text-xs uppercase tracking-[0.2em] mb-4 transition-colors duration-500 animate-pulse-slow"></div>
-                    <h2 class="text-white/80 font-bold uppercase text-xs tracking-widest mb-2">Total Skor Anda</h2>
-                    <div id="totalSkor" class="text-6xl md:text-7xl font-black text-white mb-6 animate-score">0</div>
-                    <div class="flex flex-col md:flex-row items-center justify-between gap-6">
-                        <div class="text-center md:text-left">
-                            <p id="pesanKelulusan" class="text-white/90 text-sm md:text-base max-w-md leading-relaxed"></p>
-                            <div class="mt-4 flex items-center justify-center md:justify-start gap-2 text-white/70">
-                                <i class="fa-solid fa-clock"></i>
-                                <span class="text-sm" id="waktuPengerjaan">-</span>
+        <!-- Welcome Banner Premium -->
+        <div class="bg-gradient-to-r from-slate-800 via-slate-900 to-slate-800 rounded-2xl md:rounded-3xl p-6 md:p-8 mb-8 text-white relative overflow-hidden shadow-2xl diamond-pattern animate-fadeIn welcome-banner">
+            <div class="absolute inset-0 bg-gradient-to-r from-amber-500/10 via-transparent to-purple-500/10"></div>
+            
+            <div class="relative z-10">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
+                    <div class="flex-1">
+                        <div class="flex items-center gap-3 mb-3">
+                            <div class="w-10 h-10 sm:w-12 sm:h-12 bg-amber-500/20 backdrop-blur-sm rounded-xl flex items-center justify-center border border-amber-500/30">
+                                <i class="fa-solid fa-gem text-amber-300 text-lg sm:text-xl"></i>
+                            </div>
+                            <div>
+                                <span class="status-badge-premium bg-amber-500/30 backdrop-blur-sm border border-amber-500/50">Paket 3 Ultimate</span>
+                                <span class="status-ultimate bg-gradient-to-r from-purple-600 to-blue-600 ml-2 border border-purple-500/50">Eksklusif</span>
+                                <span class="status-orange bg-gradient-to-r from-orange-600 to-amber-600 ml-2 border border-orange-500/50">20+ Paket</span>
                             </div>
                         </div>
-                        <div class="hidden md:block">
-                            <div class="w-32 h-32 relative">
-                                <svg class="w-full h-full score-ring" viewBox="0 0 36 36">
-                                    <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="3"/>
-                                    <path id="totalScoreRing" class="score-ring-circle" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="white" stroke-width="3" stroke-dasharray="0, 100" stroke-linecap="round"/>
-                                </svg>
-                                <div class="absolute inset-0 flex flex-col items-center justify-center">
-                                    <span id="scorePercentage" class="text-2xl font-black text-white">0%</span>
-                                    <span class="text-xs text-white/70">dari maksimal</span>
+
+                        <h2 class="text-2xl md:text-4xl font-bold mb-3 bg-gradient-to-r from-amber-300 via-yellow-300 to-amber-400 bg-clip-text text-transparent text-responsive-xl">
+                            Akses Ultimate Persiapan ASN!
+                        </h2>
+                        <p class="text-slate-300 opacity-95 mb-6 max-w-2xl text-responsive-base">20 tryout premium + semua modul lengkap + fitur eksklusif grup WA khusus + bisa tambah paket!</p>
+
+                        <div class="flex flex-col sm:flex-row gap-4 stats-grid">
+                            <div class="flex items-center gap-3 bg-amber-500/10 border border-amber-500/30 px-4 py-3 rounded-xl backdrop-blur-sm stats-item flex-1">
+                                <div class="w-10 h-10 gold-gradient rounded-lg flex items-center justify-center shadow-lg">
+                                    <i class="fa-solid fa-crown text-slate-900"></i>
+                                </div>
+                                <div class="min-w-0">
+                                    <p class="text-[10px] font-bold text-amber-300 uppercase mb-1 truncate">ID Peserta Ultimate</p>
+                                    <p id="welcomePin" class="text-lg md:text-xl font-black tracking-wide font-mono text-amber-300 shimmer-premium truncate">-------</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center gap-3 bg-purple-500/10 border border-purple-500/30 px-4 py-3 rounded-xl backdrop-blur-sm stats-item flex-1">
+                                <div class="w-10 h-10 bg-gradient-to-br from-purple-600 to-blue-600 rounded-lg flex items-center justify-center shadow-lg">
+                                    <i class="fa-solid fa-bolt"></i>
+                                </div>
+                                <div class="min-w-0">
+                                    <p class="text-[10px] font-bold text-purple-300 uppercase mb-1 truncate">Status Sesi</p>
+                                    <div class="flex items-center gap-2">
+                                        <div id="sessionIndicator" class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                                        <p id="sessionTimer" class="text-sm font-bold text-green-300 truncate">Aktif Premium</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center gap-3 bg-blue-500/10 border border-blue-500/30 px-4 py-3 rounded-xl backdrop-blur-sm stats-item flex-1">
+                                <div class="w-10 h-10 bg-gradient-to-br from-blue-600 to-cyan-500 rounded-lg flex items-center justify-center shadow-lg">
+                                    <i class="fa-solid fa-boxes-stacked"></i>
+                                </div>
+                                <div class="min-w-0">
+                                    <p class="text-[10px] font-bold text-blue-300 uppercase mb-1 truncate">Total Paket</p>
+                                    <div class="flex items-center gap-1">
+                                        <p class="text-sm font-bold text-blue-300">20</p>
+                                        <span id="extraPackagesCount" class="text-xs bg-orange-500/20 text-orange-300 px-1 rounded truncate">+0 tambahan</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="absolute top-0 left-0 w-full h-full overflow-hidden">
-                    <div class="absolute -top-20 -left-20 w-60 h-60 bg-white/10 rounded-full blur-3xl"></div>
-                    <div class="absolute -bottom-20 -right-20 w-60 h-60 bg-purple-400/20 rounded-full blur-3xl"></div>
-                </div>
-                <i class="fa-solid fa-trophy absolute bottom-4 right-4 text-8xl text-white/10 hidden md:block"></i>
-            </div>
 
-            <!-- Stats Grid (TWK, TIU, TKP cards - tetap sama) -->
-            <div class="grid md:grid-cols-3 gap-4 md:gap-6 mb-8">
-                <!-- TWK Card -->
-                <div class="bg-white p-5 md:p-6 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
-                    <div class="flex justify-between items-start mb-4">
-                        <div class="flex items-center gap-2">
-                            <div class="w-8 h-8 bg-gradient-to-r from-blue-100 to-blue-200 rounded-lg flex items-center justify-center">
-                                <i class="fa-solid fa-landmark text-blue-600"></i>
+                    <div class="hidden md:block">
+                        <div class="w-48 h-48 lg:w-56 lg:h-56 relative animate-float-premium">
+                            <div class="absolute inset-0 bg-amber-500/20 rounded-full backdrop-blur-sm"></div>
+                            <div class="absolute inset-4 gold-gradient rounded-full flex items-center justify-center">
+                                <i class="fa-solid fa-diamond text-6xl lg:text-7xl text-slate-900"></i>
                             </div>
-                            <div>
-                                <span class="text-xs font-black text-blue-600 uppercase">TWK</span>
-                                <p class="text-[10px] font-bold text-slate-400 uppercase">Wawasan Kebangsaan</p>
+                            <div class="absolute -top-2 -right-2 w-14 h-14 lg:w-16 lg:h-16 bg-gradient-to-br from-purple-600 to-blue-600 rounded-full flex items-center justify-center text-xl lg:text-2xl text-white">
+                                <i class="fa-solid fa-3"></i>
                             </div>
-                        </div>
-                        <div class="text-right">
-                            <span class="text-[10px] font-bold text-slate-400">Passing Grade</span>
-                            <div class="text-xs font-black text-slate-800">65</div>
-                        </div>
-                    </div>
-                    <div class="mb-4">
-                        <div class="flex justify-between items-center mb-1">
-                            <span id="skorTWK" class="text-3xl md:text-4xl font-black text-slate-800 animate-score">0</span>
-                            <span id="statusTWK" class="text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full"></span>
-                        </div>
-                        <div class="text-xs text-slate-500">
-                            <span id="twkInfo">0 dari 30 soal</span>
-                        </div>
-                    </div>
-                    <div class="mb-3">
-                        <div class="flex justify-between text-xs text-slate-500 mb-1">
-                            <span>Progress</span>
-                            <span id="twkProgressText">0%</span>
-                        </div>
-                        <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
-                            <div id="progressTWK" class="h-full bg-gradient-to-r from-blue-500 to-blue-600 progress-bar" style="width: 0%"></div>
-                        </div>
-                    </div>
-                    <div class="grid grid-cols-2 gap-2 text-xs">
-                        <div class="bg-blue-50 rounded-lg p-2 text-center">
-                            <div class="font-bold text-blue-600" id="twkJawab">0</div>
-                            <div class="text-blue-500">Terjawab</div>
-                        </div>
-                        <div class="bg-green-50 rounded-lg p-2 text-center">
-                            <div class="font-bold text-green-600" id="twkBenar">0</div>
-                            <div class="text-green-500">Benar</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- TIU Card -->
-                <div class="bg-white p-5 md:p-6 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
-                    <div class="flex justify-between items-start mb-4">
-                        <div class="flex items-center gap-2">
-                            <div class="w-8 h-8 bg-gradient-to-r from-green-100 to-green-200 rounded-lg flex items-center justify-center">
-                                <i class="fa-solid fa-brain text-green-600"></i>
+                            <div class="absolute -bottom-2 -left-2 w-10 h-10 lg:w-12 lg:h-12 orange-gradient rounded-full flex items-center justify-center text-base lg:text-lg text-white">
+                                <i class="fa-solid fa-plus"></i>
                             </div>
-                            <div>
-                                <span class="text-xs font-black text-green-600 uppercase">TIU</span>
-                                <p class="text-[10px] font-bold text-slate-400 uppercase">Tes Intelegensi Umum</p>
-                            </div>
-                        </div>
-                        <div class="text-right">
-                            <span class="text-[10px] font-bold text-slate-400">Passing Grade</span>
-                            <div class="text-xs font-black text-slate-800">80</div>
-                        </div>
-                    </div>
-                    <div class="mb-4">
-                        <div class="flex justify-between items-center mb-1">
-                            <span id="skorTIU" class="text-3xl md:text-4xl font-black text-slate-800 animate-score">0</span>
-                            <span id="statusTIU" class="text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full"></span>
-                        </div>
-                        <div class="text-xs text-slate-500">
-                            <span id="tiuInfo">0 dari 35 soal</span>
-                        </div>
-                    </div>
-                    <div class="mb-3">
-                        <div class="flex justify-between text-xs text-slate-500 mb-1">
-                            <span>Progress</span>
-                            <span id="tiuProgressText">0%</span>
-                        </div>
-                        <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
-                            <div id="progressTIU" class="h-full bg-gradient-to-r from-green-500 to-green-600 progress-bar" style="width: 0%"></div>
-                        </div>
-                    </div>
-                    <div class="grid grid-cols-2 gap-2 text-xs">
-                        <div class="bg-green-50 rounded-lg p-2 text-center">
-                            <div class="font-bold text-green-600" id="tiuJawab">0</div>
-                            <div class="text-green-500">Terjawab</div>
-                        </div>
-                        <div class="bg-green-50 rounded-lg p-2 text-center">
-                            <div class="font-bold text-green-600" id="tiuBenar">0</div>
-                            <div class="text-green-500">Benar</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- TKP Card -->
-                <div class="bg-white p-5 md:p-6 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
-                    <div class="flex justify-between items-start mb-4">
-                        <div class="flex items-center gap-2">
-                            <div class="w-8 h-8 bg-gradient-to-r from-purple-100 to-purple-200 rounded-lg flex items-center justify-center">
-                                <i class="fa-solid fa-users text-purple-600"></i>
-                            </div>
-                            <div>
-                                <span class="text-xs font-black text-purple-600 uppercase">TKP</span>
-                                <p class="text-[10px] font-bold text-slate-400 uppercase">Karakteristik Pribadi</p>
-                            </div>
-                        </div>
-                        <div class="text-right">
-                            <span class="text-[10px] font-bold text-slate-400">Passing Grade</span>
-                            <div class="text-xs font-black text-slate-800">166</div>
-                        </div>
-                    </div>
-                    <div class="mb-4">
-                        <div class="flex justify-between items-center mb-1">
-                            <span id="skorTKP" class="text-3xl md:text-4xl font-black text-slate-800 animate-score">0</span>
-                            <span id="statusTKP" class="text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full"></span>
-                        </div>
-                        <div class="text-xs text-slate-500">
-                            <span id="tkpInfo">0 dari 45 soal</span>
-                        </div>
-                    </div>
-                    <div class="mb-3">
-                        <div class="flex justify-between text-xs text-slate-500 mb-1">
-                            <span>Progress</span>
-                            <span id="tkpProgressText">0%</span>
-                        </div>
-                        <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
-                            <div id="progressTKP" class="h-full bg-gradient-to-r from-purple-500 to-purple-600 progress-bar" style="width: 0%"></div>
-                        </div>
-                    </div>
-                    <div class="grid grid-cols-2 gap-2 text-xs">
-                        <div class="bg-purple-50 rounded-lg p-2 text-center">
-                            <div class="font-bold text-purple-600" id="tkpJawab">0</div>
-                            <div class="text-purple-500">Terjawab</div>
-                        </div>
-                        <div class="bg-purple-50 rounded-lg p-2 text-center">
-                            <div class="font-bold text-purple-600" id="tkpRagu">0</div>
-                            <div class="text-purple-500">Ragu-ragu</div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Quick Stats -->
-            <div class="bg-gradient-to-r from-slate-900 to-slate-800 rounded-2xl p-6 mb-8 text-white">
-                <h3 class="font-bold text-lg mb-6 flex items-center gap-2">
-                    <i class="fa-solid fa-chart-simple"></i>
-                    Statistik Cepat
-                </h3>
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    <div class="bg-white/10 rounded-xl p-4 text-center backdrop-blur-sm">
-                        <div class="text-2xl font-black mb-1" id="totalSoal">0</div>
-                        <div class="text-sm text-white/80">Total Soal</div>
-                    </div>
-                    <div class="bg-white/10 rounded-xl p-4 text-center backdrop-blur-sm">
-                        <div class="text-2xl font-black mb-1" id="totalTerjawab">0</div>
-                        <div class="text-sm text-white/80">Terjawab</div>
-                    </div>
-                    <div class="bg-white/10 rounded-xl p-4 text-center backdrop-blur-sm">
-                        <div class="text-2xl font-black mb-1" id="akurasi">0%</div>
-                        <div class="text-sm text-white/80">Akurasi</div>
-                    </div>
-                    <div class="bg-white/10 rounded-xl p-4 text-center backdrop-blur-sm">
-                        <div class="text-2xl font-black mb-1" id="peringkat">-</div>
-                        <div class="text-sm text-white/80">Peringkat</div>
-                    </div>
-                </div>
-                <div class="mt-6 pt-6 border-t border-white/20">
-                    <div class="flex flex-wrap gap-4 justify-between">
-                        <div class="flex items-center gap-2">
-                            <i class="fa-solid fa-bookmark text-yellow-400"></i>
-                            <span class="text-sm">Soal ditandai: <span id="totalBookmarks" class="font-bold">0</span></span>
+            <!-- Background Elements -->
+            <div class="absolute top-0 right-0 w-64 h-64 bg-amber-500/5 rounded-full -translate-y-32 translate-x-32"></div>
+            <div class="absolute bottom-0 left-0 w-96 h-96 bg-purple-500/5 rounded-full translate-y-48 -translate-x-48"></div>
+            <i class="fa-solid fa-brain absolute bottom-4 right-4 text-6xl lg:text-8xl text-white/5"></i>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-6 md:gap-8 main-grid">
+            <!-- Main Content -->
+            <div class="md:col-span-2 space-y-6">
+                <!-- Materi Lengkap SKD Section Premium -->
+                <div class="bg-slate-800 rounded-2xl p-6 shadow-lg border border-amber-500/20 card-hover-premium">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-10 h-10 sm:w-12 sm:h-12 gold-gradient rounded-xl flex items-center justify-center shadow-lg">
+                            <i class="fa-solid fa-book-open text-slate-900"></i>
                         </div>
-                        <div class="flex items-center gap-2">
-                            <i class="fa-solid fa-question-circle text-blue-400"></i>
-                            <span class="text-sm">Ragu-ragu: <span id="totalRagu" class="font-bold">0</span></span>
-                        </div>
-                        <div class="flex items-center gap-2">
-                            <i class="fa-solid fa-clock text-green-400"></i>
-                            <span class="text-sm">Waktu: <span id="totalWaktu" class="font-bold">-</span></span>
+                        <div>
+                            <h3 class="font-bold text-amber-300 text-xl">Materi SKD Ultimate</h3>
+                            <p class="text-sm text-slate-400">Modul TWK, TIU, dan TKP versi premium dengan tips khusus</p>
                         </div>
                     </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 materi-grid">
+                        <a href="modul-twk-premium.html?id=${pinAkses}" class="group">
+                            <div class="p-4 sm:p-5 bg-gradient-to-br from-slate-800 to-slate-900 rounded-xl border border-amber-500/20 hover:border-amber-500/50 transition-all hover:shadow-xl">
+                                <div class="flex items-center gap-3 mb-3">
+                                    <div class="w-8 h-8 sm:w-10 sm:h-10 bg-slate-900 rounded-lg flex items-center justify-center shadow-sm group-hover:shadow-md transition-shadow border border-amber-500/20">
+                                        <i class="fa-solid fa-book-bookmark text-amber-400 text-sm sm:text-base"></i>
+                                    </div>
+                                    <div class="min-w-0">
+                                        <h4 class="font-bold text-amber-300 text-sm sm:text-base truncate">Modul TWK Ultimate</h4>
+                                        <p class="text-xs text-slate-400 truncate">Wawasan Kebangsaan+</p>
+                                    </div>
+                                </div>
+                                <p class="text-sm text-slate-300 mb-4 text-responsive-sm">Pancasila, UUD 1945, NKRI, Bhinneka Tunggal Ika, dan Sejarah Perjuangan Bangsa dengan analisis mendalam</p>
+                                <div class="flex items-center text-amber-400 text-sm font-bold">
+                                    <span>Akses Premium</span>
+                                    <i class="fa-solid fa-arrow-right ml-2 transform group-hover:translate-x-2 transition-transform"></i>
+                                </div>
+                            </div>
+                        </a>
+
+                        <a href="modul-tiu-premium.html?id=${pinAkses}" class="group">
+                            <div class="p-4 sm:p-5 bg-gradient-to-br from-slate-800 to-slate-900 rounded-xl border border-blue-500/20 hover:border-blue-500/50 transition-all hover:shadow-xl">
+                                <div class="flex items-center gap-3 mb-3">
+                                    <div class="w-8 h-8 sm:w-10 sm:h-10 bg-slate-900 rounded-lg flex items-center justify-center shadow-sm group-hover:shadow-md transition-shadow border border-blue-500/20">
+                                        <i class="fa-solid fa-calculator text-blue-400 text-sm sm:text-base"></i>
+                                    </div>
+                                    <div class="min-w-0">
+                                        <h4 class="font-bold text-blue-300 text-sm sm:text-base truncate">Modul TIU Ultimate</h4>
+                                        <p class="text-xs text-slate-400 truncate">Tes Intelegensi Umum+</p>
+                                    </div>
+                                </div>
+                                <p class="text-sm text-slate-300 mb-4 text-responsive-sm">Verbal, Numerik, Logika, Analitik, dan Figural dengan strategi penyelesaian cepat</p>
+                                <div class="flex items-center text-blue-400 text-sm font-bold">
+                                    <span>Akses Premium</span>
+                                    <i class="fa-solid fa-arrow-right ml-2 transform group-hover:translate-x-2 transition-transform"></i>
+                                </div>
+                            </div>
+                        </a>
+
+                        <a href="modul-tkp-premium.html?id=${pinAkses}" class="group">
+                            <div class="p-4 sm:p-5 bg-gradient-to-br from-slate-800 to-slate-900 rounded-xl border border-purple-500/20 hover:border-purple-500/50 transition-all hover:shadow-xl">
+                                <div class="flex items-center gap-3 mb-3">
+                                    <div class="w-8 h-8 sm:w-10 sm:h-10 bg-slate-900 rounded-lg flex items-center justify-center shadow-sm group-hover:shadow-md transition-shadow border border-purple-500/20">
+                                        <i class="fa-solid fa-users-gear text-purple-400 text-sm sm:text-base"></i>
+                                    </div>
+                                    <div class="min-w-0">
+                                        <h4 class="font-bold text-purple-300 text-sm sm:text-base truncate">Modul TKP Ultimate</h4>
+                                        <p class="text-xs text-slate-400 truncate">Karakteristik Pribadi+</p>
+                                    </div>
+                                </div>
+                                <p class="text-sm text-slate-300 mb-4 text-responsive-sm">Pelayanan Publik, Integritas, Semangat Gotong Royong, dan Sosial Budaya dengan studi kasus</p>
+                                <div class="flex items-center text-purple-400 text-sm font-bold">
+                                    <span>Akses Premium</span>
+                                    <i class="fa-solid fa-arrow-right ml-2 transform group-hover:translate-x-2 transition-transform"></i>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
                 </div>
-            </div>
 
-            <!-- Action Buttons -->
-            <div class="flex flex-col md:flex-row gap-4 justify-center items-center mb-12">
-                <button onclick="kembaliDashboard()" class="w-full md:w-auto bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-8 py-4 rounded-2xl font-bold text-sm hover:from-blue-700 hover:to-indigo-700 transition-all shadow-xl shadow-blue-100 active:scale-95 flex items-center justify-center gap-2 no-print">
-                    <i class="fa-solid fa-house"></i> Kembali ke Dashboard
-                </button>
-                <button onclick="showShareModal()" class="w-full md:w-auto bg-gradient-to-r from-green-500 to-emerald-600 text-white px-8 py-4 rounded-2xl font-bold text-sm hover:from-green-600 hover:to-emerald-700 transition-all shadow-xl shadow-green-100 active:scale-95 flex items-center justify-center gap-2 no-print">
-                    <i class="fa-solid fa-share"></i> Bagikan Hasil
-                </button>
-                <button onclick="ulangiTryout()" class="w-full md:w-auto bg-gradient-to-r from-yellow-500 to-amber-600 text-white px-8 py-4 rounded-2xl font-bold text-sm hover:from-yellow-600 hover:to-amber-700 transition-all shadow-xl shadow-yellow-100 active:scale-95 flex items-center justify-center gap-2 no-print">
-                    <i class="fa-solid fa-rotate"></i> Ulangi Tryout
-                </button>
-                <button onclick="printResult()" class="w-full md:w-auto bg-white text-slate-600 px-8 py-4 rounded-2xl font-bold text-sm border border-slate-200 hover:bg-slate-50 transition-all active:scale-95 flex items-center justify-center gap-2">
-                    <i class="fa-solid fa-print"></i> Cetak Hasil
-                </button>
-            </div>
+                <!-- Fitur Premium Exclusive -->
+                <div class="bg-slate-800 rounded-2xl p-6 shadow-lg border border-purple-500/20 card-hover-premium">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-r from-purple-600 to-blue-600 rounded-xl flex items-center justify-center shadow-lg">
+                            <i class="fa-solid fa-sparkles text-white"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-purple-300 text-xl">Fitur Eksklusif Paket 3</h3>
+                            <p class="text-sm text-slate-400">Akses khusus untuk member Ultimate</p>
+                        </div>
+                    </div>
 
-            <!-- Recommendations -->
-            <div id="recommendationsSection" class="hidden">
-                <div class="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-6 mb-8 border border-blue-100">
-                    <h3 class="font-bold text-slate-800 text-lg mb-4 flex items-center gap-2">
-                        <i class="fa-solid fa-lightbulb text-yellow-500"></i>
-                        Rekomendasi Belajar
-                    </h3>
-                    <div id="recommendationsContent" class="space-y-3"></div>
-                </div>
-            </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <a href="tips-formasi-cpns.html?id=${pinAkses}" class="group">
+                            <div class="p-4 sm:p-5 bg-gradient-to-br from-slate-800 to-slate-900 rounded-xl border border-amber-500/20 hover:border-amber-500/50 transition-all hover:shadow-xl">
+                                <div class="flex items-center gap-3 mb-3">
+                                    <div class="w-8 h-8 sm:w-10 sm:h-10 bg-slate-900 rounded-lg flex items-center justify-center shadow-sm border border-amber-500/20">
+                                        <i class="fa-solid fa-clipboard-list text-amber-400 text-sm sm:text-base"></i>
+                                    </div>
+                                    <div class="min-w-0">
+                                        <h4 class="font-bold text-amber-300 text-sm sm:text-base truncate">Tips Memilih Formasi</h4>
+                                        <p class="text-xs text-slate-400 truncate">Strategi pemilihan formasi CPNS yang tepat</p>
+                                    </div>
+                                </div>
+                                <p class="text-sm text-slate-300 mb-4 text-responsive-sm">Panduan lengkap memilih formasi berdasarkan peluang, kompetisi, dan kesesuaian latar belakang</p>
+                                <div class="flex items-center text-amber-400 text-sm font-bold">
+                                    <span>Pelajari Strategi</span>
+                                    <i class="fa-solid fa-arrow-right ml-2 transform group-hover:translate-x-2 transition-transform"></i>
+                                </div>
+                            </div>
+                        </a>
 
-            <!-- Certificate Section -->
-            <div id="certificateSection" class="hidden">
-                <div class="bg-gradient-to-r from-emerald-50 to-green-50 rounded-2xl p-6 mb-8 border border-emerald-100">
-                    <h3 class="font-bold text-slate-800 text-lg mb-4 flex items-center gap-2">
-                        <i class="fa-solid fa-award text-emerald-500"></i>
-                        Sertifikat Penyelesaian
-                    </h3>
-                    <div class="flex flex-col md:flex-row items-center justify-between gap-6">
-                        <div class="flex-1">
-                            <p class="text-slate-600 mb-4">Selamat! Anda telah menyelesaikan simulasi tryout dengan baik. Unduh sertifikat digital sebagai bukti penyelesaian.</p>
-                            <button onclick="downloadCertificate()" class="bg-gradient-to-r from-emerald-500 to-green-600 text-white px-6 py-3 rounded-xl font-bold hover:from-emerald-600 hover:to-green-700 transition-all flex items-center gap-2">
-                                <i class="fa-solid fa-download"></i> Unduh Sertifikat (PDF)
+                        <a href="tips-mengerjakan-soal.html?id=${pinAkses}" class="group">
+                            <div class="p-4 sm:p-5 bg-gradient-to-br from-slate-800 to-slate-900 rounded-xl border border-blue-500/20 hover:border-blue-500/50 transition-all hover:shadow-xl">
+                                <div class="flex items-center gap-3 mb-3">
+                                    <div class="w-8 h-8 sm:w-10 sm:h-10 bg-slate-900 rounded-lg flex items-center justify-center shadow-sm border border-blue-500/20">
+                                        <i class="fa-solid fa-lightbulb text-blue-400 text-sm sm:text-base"></i>
+                                    </div>
+                                    <div class="min-w-0">
+                                        <h4 class="font-bold text-blue-300 text-sm sm:text-base truncate">Tips Mengerjakan Soal</h4>
+                                        <p class="text-xs text-slate-400 truncate">Strategi dan trik mengerjakan SKD</p>
+                                    </div>
+                                </div>
+                                <p class="text-sm text-slate-300 mb-4 text-responsive-sm">Teknik time management, pola jawaban, dan strategi khusus untuk memaksimalkan skor SKD</p>
+                                <div class="flex items-center text-blue-400 text-sm font-bold">
+                                    <span>Pelajari Tips</span>
+                                    <i class="fa-solid fa-arrow-right ml-2 transform group-hover:translate-x-2 transition-transform"></i>
+                                </div>
+                            </div>
+                        </a>
+
+                        <div class="p-4 sm:p-5 bg-gradient-to-br from-slate-800 to-slate-900 rounded-xl border border-green-500/20 hover:border-green-500/50 transition-all hover:shadow-xl">
+                            <div class="flex items-center gap-3 mb-3">
+                                <div class="w-8 h-8 sm:w-10 sm:h-10 bg-slate-900 rounded-lg flex items-center justify-center shadow-sm border border-green-500/20">
+                                    <i class="fa-brands fa-whatsapp text-green-400 text-sm sm:text-base"></i>
+                                </div>
+                                <div class="min-w-0">
+                                    <h4 class="font-bold text-green-300 text-sm sm:text-base truncate">Grup WA Khusus</h4>
+                                    <p class="text-xs text-slate-400 truncate">Komunitas eksklusif Paket 3</p>
+                                </div>
+                            </div>
+                            <p class="text-sm text-slate-300 mb-4 text-responsive-sm">Akses ke grup WhatsApp khusus member Paket 3 untuk konsultasi langsung dengan mentor dan diskusi premium</p>
+                            <a href="https://wa.me/6285696409288?text=Halo%20admin,%20saya%20peserta%20Paket%203%20Ultimate%20mau%20join%20grup%20WA%20khusus" target="_blank" class="inline-flex items-center text-green-400 text-sm font-bold hover:text-green-300">
+                                <span class="truncate">Join Grup Premium</span>
+                                <i class="fa-solid fa-arrow-right ml-2 transform group-hover:translate-x-2 transition-transform"></i>
+                            </a>
+                        </div>
+
+                        <div class="p-4 sm:p-5 bg-gradient-to-br from-slate-800 to-slate-900 rounded-xl border border-orange-500/20 hover:border-orange-500/50 transition-all hover:shadow-xl card-hover-orange">
+                            <div class="flex items-center gap-3 mb-3">
+                                <div class="w-8 h-8 sm:w-10 sm:h-10 bg-slate-900 rounded-lg flex items-center justify-center shadow-sm border border-orange-500/20">
+                                    <i class="fa-solid fa-plus text-orange-400 text-sm sm:text-base"></i>
+                                </div>
+                                <div class="min-w-0">
+                                    <h4 class="font-bold text-orange-300 text-sm sm:text-base truncate">Tambah Paket Tryout</h4>
+                                    <p class="text-xs text-slate-400 truncate">Bisa tambah paket kapan saja</p>
+                                </div>
+                            </div>
+                            <p class="text-sm text-slate-300 mb-4 text-responsive-sm">Ingin latihan lebih? Tambah paket tryout hanya Rp 25.000 per paket via WhatsApp</p>
+                            <button onclick="tambahPaketTryout()" class="w-full orange-gradient text-white text-sm font-bold py-2 rounded-lg hover:shadow-lg hover:shadow-orange-500/30 transition-all flex items-center justify-center gap-2 touch-button">
+                                <i class="fa-solid fa-whatsapp"></i> Tambah Paket
                             </button>
                         </div>
-                        <div class="w-32 h-32 bg-gradient-to-br from-emerald-400 to-green-500 rounded-2xl flex items-center justify-center shadow-lg">
-                            <i class="fa-solid fa-certificate text-white text-5xl"></i>
+                    </div>
+                </div>
+
+                <!-- Simulasi Tryout Section Premium -->
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-2">
+                    <div class="min-w-0">
+                        <h3 class="font-bold text-amber-300 text-xl flex items-center gap-2">
+                            <i class="fa-solid fa-laptop-code text-amber-400"></i>
+                            <span class="truncate">Simulasi Tryout Ultimate (20+ Paket)</span>
+                        </h3>
+                        <p class="text-sm text-slate-400 mt-1 truncate">Pilih paket tryout premium untuk dikerjakan <span class="text-orange-400 font-bold">(+bisa tambah paket)</span></p>
+                    </div>
+
+                    <div class="flex items-center gap-3">
+                        <div class="bg-amber-500/10 border border-amber-500/20 rounded-lg px-3 py-2 min-w-24">
+                            <p class="text-xs text-amber-300 font-bold uppercase truncate">Selesai</p>
+                            <div class="flex items-center gap-2">
+                                <span id="completedCount" class="text-lg font-black text-amber-400">0</span>
+                                <span class="text-slate-400">/</span>
+                                <span class="text-slate-300 font-bold">20</span>
+                                <span id="extraCompletedCount" class="text-xs bg-orange-500/20 text-orange-300 px-1 rounded">+0</span>
+                            </div>
                         </div>
+
+                        <div class="flex items-center gap-2">
+                            <button onclick="refreshSoalList()" class="w-9 h-9 sm:w-10 sm:h-10 rounded-lg bg-slate-700 hover:bg-slate-600 flex items-center justify-center transition-colors tooltip-premium touch-button-sm" title="Refresh daftar">
+                                <i class="fa-solid fa-rotate text-amber-300"></i>
+                            </button>
+                            <button onclick="toggleSort()" id="sortButton" class="w-9 h-9 sm:w-10 sm:h-10 rounded-lg bg-slate-700 hover:bg-slate-600 flex items-center justify-center transition-colors tooltip-premium touch-button-sm" title="Urutkan">
+                                <i class="fa-solid fa-arrow-down-a-z text-amber-300"></i>
+                            </button>
+                            <button onclick="tambahPaketTryout()" class="w-9 h-9 sm:w-10 sm:h-10 rounded-lg orange-gradient flex items-center justify-center transition-colors tooltip-premium touch-button-sm animate-pulse-orange" title="Tambah Paket">
+                                <i class="fa-solid fa-plus text-white"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Filter Tabs Premium -->
+                <div class="flex gap-2 mb-4 overflow-x-auto pb-2 filter-tabs">
+                    <button onclick="filterSoal('all')" id="filter-all" class="px-4 py-2 rounded-lg gold-gradient text-slate-900 text-sm font-bold transition-colors hover:shadow-lg hover:shadow-amber-500/30 whitespace-nowrap">
+                        Semua (20+)
+                    </button>
+                    <button onclick="filterSoal('completed')" id="filter-completed" class="px-4 py-2 rounded-lg bg-slate-700 hover:bg-slate-600 text-slate-300 text-sm font-bold transition-colors whitespace-nowrap">
+                        <i class="fa-solid fa-check mr-2 text-green-400"></i>Selesai
+                    </button>
+                    <button onclick="filterSoal('pending')" id="filter-pending" class="px-4 py-2 rounded-lg bg-slate-700 hover:bg-slate-600 text-slate-300 text-sm font-bold transition-colors whitespace-nowrap">
+                        <i class="fa-solid fa-clock mr-2 text-yellow-400"></i>Belum
+                    </button>
+                    <button onclick="filterSoal('best')" id="filter-best" class="px-4 py-2 rounded-lg bg-slate-700 hover:bg-slate-600 text-slate-300 text-sm font-bold transition-colors whitespace-nowrap">
+                        <i class="fa-solid fa-crown mr-2 text-amber-400"></i>Terbaik
+                    </button>
+                    <button onclick="filterSoal('hardest')" id="filter-hardest" class="px-4 py-2 rounded-lg bg-slate-700 hover:bg-slate-600 text-slate-300 text-sm font-bold transition-colors whitespace-nowrap">
+                        <i class="fa-solid fa-fire mr-2 text-red-400"></i>Tersulit
+                    </button>
+                    <button onclick="filterSoal('extra')" id="filter-extra" class="px-4 py-2 rounded-lg bg-orange-500/20 hover:bg-orange-500/30 text-orange-300 text-sm font-bold transition-colors border border-orange-500/30 whitespace-nowrap">
+                        <i class="fa-solid fa-plus mr-2"></i>Tambahan
+                    </button>
+                </div>
+
+                <!-- Loading State Premium -->
+                <div id="loadingState" class="space-y-4">
+                    <!-- Skeleton Loaders -->
+                    <div class="bg-slate-800 p-4 sm:p-5 rounded-2xl border border-amber-500/20">
+                        <div class="flex items-center gap-4 flex-mobile-col">
+                            <div class="loading-skeleton-premium w-12 h-12 rounded-xl"></div>
+                            <div class="flex-1 space-y-2 min-w-0 soal-card-content">
+                                <div class="loading-skeleton-premium h-4 w-full sm:w-48 rounded"></div>
+                                <div class="loading-skeleton-premium h-3 w-full sm:w-32 rounded"></div>
+                            </div>
+                            <div class="loading-skeleton-premium w-24 h-10 rounded-xl soal-card-action"></div>
+                        </div>
+                    </div>
+
+                    <!-- Repeat skeleton for 3 items -->
+                    <div class="bg-slate-800 p-4 sm:p-5 rounded-2xl border border-amber-500/20">
+                        <div class="flex items-center gap-4 flex-mobile-col">
+                            <div class="loading-skeleton-premium w-12 h-12 rounded-xl"></div>
+                            <div class="flex-1 space-y-2 min-w-0 soal-card-content">
+                                <div class="loading-skeleton-premium h-4 w-full sm:w-48 rounded"></div>
+                                <div class="loading-skeleton-premium h-3 w-full sm:w-32 rounded"></div>
+                            </div>
+                            <div class="loading-skeleton-premium w-24 h-10 rounded-xl soal-card-action"></div>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-800 p-4 sm:p-5 rounded-2xl border border-amber-500/20">
+                        <div class="flex items-center gap-4 flex-mobile-col">
+                            <div class="loading-skeleton-premium w-12 h-12 rounded-xl"></div>
+                            <div class="flex-1 space-y-2 min-w-0 soal-card-content">
+                                <div class="loading-skeleton-premium h-4 w-full sm:w-48 rounded"></div>
+                                <div class="loading-skeleton-premium h-3 w-full sm:w-32 rounded"></div>
+                            </div>
+                            <div class="loading-skeleton-premium w-24 h-10 rounded-xl soal-card-action"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Error State Premium -->
+                <div id="errorState" class="hidden text-center py-8 sm:py-12">
+                    <div class="w-16 h-16 sm:w-20 sm:h-20 bg-red-900/30 rounded-full flex items-center justify-center mx-auto mb-4 border border-red-500/30">
+                        <i class="fa-solid fa-triangle-exclamation text-red-400 text-2xl sm:text-3xl"></i>
+                    </div>
+                    <h3 class="text-lg sm:text-xl font-bold text-amber-100 mb-2">Gagal Memuat Paket Soal</h3>
+                    <p class="text-slate-300 mb-6 max-w-md mx-auto text-responsive-sm">Terjadi kesalahan saat memuat data. Silakan periksa koneksi internet Anda dan coba lagi.</p>
+                    <div class="flex flex-col sm:flex-row gap-3 justify-center">
+                        <button onclick="renderSoalList()" class="gold-gradient text-slate-900 px-4 sm:px-6 py-3 rounded-xl font-bold hover:shadow-lg hover:shadow-amber-500/30 transition-all flex items-center justify-center gap-2 touch-button">
+                            <i class="fa-solid fa-rotate"></i> Coba Lagi
+                        </button>
+                        <button onclick="goToLogin()" class="bg-slate-700 text-slate-300 px-4 sm:px-6 py-3 rounded-xl font-bold hover:bg-slate-600 transition-colors touch-button">
+                            Kembali Login
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Soal List Container -->
+                <div id="soalListContainer" class="space-y-4 hidden">
+                    <!-- Soal cards will be dynamically inserted here -->
+                </div>
+
+                <!-- Empty State Premium -->
+                <div id="emptyState" class="hidden text-center py-8 sm:py-12">
+                    <div class="w-16 h-16 sm:w-20 sm:h-20 bg-amber-900/30 rounded-full flex items-center justify-center mx-auto mb-4 border border-amber-500/30">
+                        <i class="fa-solid fa-inbox text-amber-400 text-2xl sm:text-3xl"></i>
+                    </div>
+                    <h3 class="text-lg sm:text-xl font-bold text-amber-100 mb-2">Belum Ada Paket Tersedia</h3>
+                    <p class="text-slate-300 mb-6 text-responsive-sm">Semua paket tryout sedang dalam persiapan ultimate.</p>
+                    <button onclick="refreshSoalList()" class="gold-gradient text-slate-900 px-4 sm:px-6 py-3 rounded-xl font-bold hover:shadow-lg hover:shadow-amber-500/30 transition-all flex items-center justify-center gap-2 mx-auto touch-button">
+                        <i class="fa-solid fa-redo"></i> Muat Ulang
+                    </button>
+                </div>
+            </div>
+
+            <!-- Sidebar -->
+            <div class="space-y-6 sidebar-grid">
+                <!-- Account Status Card Premium -->
+                <div class="bg-slate-800 rounded-2xl p-4 sm:p-6 shadow-lg border border-amber-500/20 card-hover-premium sidebar-card-wide">
+                    <div class="flex items-center gap-3 mb-4 sm:mb-6">
+                        <div class="w-10 h-10 gold-gradient rounded-xl flex items-center justify-center shadow-lg">
+                            <i class="fa-solid fa-user-check text-slate-900"></i>
+                        </div>
+                        <div class="min-w-0">
+                            <h4 class="font-bold text-amber-300 text-lg truncate">Status Akun Ultimate</h4>
+                            <p class="text-xs text-slate-400 truncate">Paket 3 Ultimate Premium</p>
+                        </div>
+                    </div>
+
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-center">
+                            <div class="flex items-center gap-2 min-w-0">
+                                <i class="fa-solid fa-crown text-amber-400"></i>
+                                <span class="text-sm font-medium text-slate-300 truncate">Tingkat Premium</span>
+                            </div>
+                            <span class="font-bold text-amber-400 text-sm whitespace-nowrap">Ultimate</span>
+                        </div>
+
+                        <div class="flex justify-between items-center">
+                            <div class="flex items-center gap-2 min-w-0">
+                                <i class="fa-solid fa-calendar-star text-purple-400"></i>
+                                <span class="text-sm font-medium text-slate-300 truncate">Masa Aktif</span>
+                            </div>
+                            <span class="font-bold text-green-400 text-sm whitespace-nowrap">Selamanya</span>
+                        </div>
+
+                        <div class="flex justify-between items-center">
+                            <div class="flex items-center gap-2 min-w-0">
+                                <i class="fa-solid fa-layer-group text-blue-400"></i>
+                                <span class="text-sm font-medium text-slate-300 truncate">Kuota Tryout</span>
+                            </div>
+                            <span class="font-bold text-amber-400 text-sm whitespace-nowrap">20+ Paket</span>
+                        </div>
+
+                        <div class="flex justify-between items-center">
+                            <div class="flex items-center gap-2 min-w-0">
+                                <i class="fa-solid fa-gem text-purple-400"></i>
+                                <span class="text-sm font-medium text-slate-300 truncate">Fitur Eksklusif</span>
+                            </div>
+                            <span class="font-bold text-green-400 text-sm whitespace-nowrap">Semua</span>
+                        </div>
+
+                        <div class="pt-2">
+                            <div class="flex justify-between text-xs text-slate-400 mb-1">
+                                <span class="truncate">Progress Tryout Ultimate</span>
+                                <span id="quotaUsed" class="whitespace-nowrap">0/20+</span>
+                            </div>
+                            <div class="w-full bg-slate-700 h-2 rounded-full overflow-hidden">
+                                <div id="quotaProgress" class="h-full gold-gradient progress-bar rounded-full" style="width: 0%"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 pt-4 sm:pt-5 border-t border-amber-500/20">
+                        <div class="flex items-center gap-3 text-green-400">
+                            <i class="fa-solid fa-circle-check text-xl"></i>
+                            <div class="min-w-0">
+                                <p class="font-bold text-sm truncate">Akses Grup Premium</p>
+                                <p class="text-xs text-slate-400 truncate">Grup WhatsApp eksklusif</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Progress Ring Card Premium -->
+                <div class="bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl p-4 sm:p-6 border border-purple-500/30 card-hover-premium sidebar-card">
+                    <h4 class="font-bold text-amber-300 mb-4 sm:mb-6 text-center text-responsive-lg">Progress Ultimate</h4>
+
+                    <div class="flex flex-col items-center justify-center mb-4 sm:mb-6">
+                        <div class="relative w-32 h-32 sm:w-40 sm:h-40 mb-4">
+                            <svg class="w-full h-full transform -rotate-90" viewBox="0 0 36 36">
+                                <!-- Background Circle -->
+                                <path
+                                    d="M18 2.0845
+                                    a 15.9155 15.9155 0 0 1 0 31.831
+                                    a 15.9155 15.9155 0 0 1 0 -31.831"
+                                    fill="none"
+                                    stroke="#334155"
+                                    stroke-width="3"
+                                />
+                                <!-- Progress Circle -->
+                                <path
+                                    d="M18 2.0845
+                                    a 15.9155 15.9155 0 0 1 0 31.831
+                                    a 15.9155 15.9155 0 0 1 0 -31.831"
+                                    fill="none"
+                                    stroke="url(#gradient3)"
+                                    stroke-width="3"
+                                    stroke-dasharray="100, 100"
+                                    stroke-linecap="round"
+                                    id="progressRing"
+                                />
+                                <defs>
+                                    <linearGradient id="gradient3" x1="0%" y1="0%" x2="100%" y2="0%">
+                                        <stop offset="0%" stop-color="#f59e0b" />
+                                        <stop offset="50%" stop-color="#d97706" />
+                                        <stop offset="100%" stop-color="#b45309" />
+                                    </linearGradient>
+                                </defs>
+                            </svg>
+                            <div class="absolute inset-0 flex flex-col items-center justify-center">
+                                <span id="progressPercentage" class="text-2xl sm:text-3xl font-black text-amber-300">0%</span>
+                                <span class="text-xs text-slate-400 mt-1">Selesai</span>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-3 gap-3 sm:gap-4 w-full">
+                            <div class="text-center">
+                                <div class="text-xl sm:text-2xl font-black text-amber-400" id="completedCountSmall">0</div>
+                                <div class="text-xs text-slate-400">Terselesaikan</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-xl sm:text-2xl font-black text-green-400" id="avgScoreSmall">-</div>
+                                <div class="text-xs text-slate-400">Rata-rata</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-xl sm:text-2xl font-black text-slate-300" id="remainingCount">20</div>
+                                <div class="text-xs text-slate-400">Tersisa</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button onclick="showProgressModal()" class="w-full bg-slate-700 border border-amber-500/30 text-amber-400 font-bold py-3 rounded-xl hover:bg-slate-600 transition-colors flex items-center justify-center gap-2 touch-button text-responsive-base">
+                        <i class="fa-solid fa-chart-simple"></i> Detail Progress
+                    </button>
+                </div>
+
+                <!-- Grup Belajar WhatsApp Premium -->
+                <div class="bg-gradient-to-br from-green-900 to-emerald-900 rounded-2xl p-4 sm:p-6 shadow-lg card-hover-premium sidebar-card">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 sm:w-12 sm:h-12 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center border border-green-500/30">
+                            <i class="fa-brands fa-whatsapp text-white text-lg sm:text-xl"></i>
+                        </div>
+                        <div class="min-w-0">
+                            <h4 class="font-black text-white text-lg truncate">Grup WA Premium</h4>
+                            <p class="text-white/90 text-xs truncate">Akses eksklusif Paket 3</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-white/10 backdrop-blur-sm rounded-xl p-3 sm:p-4 mb-4 sm:mb-5 border border-white/20">
+                        <div class="flex items-center gap-3 mb-3">
+                            <i class="fa-solid fa-user-tie text-white/80"></i>
+                            <div class="min-w-0">
+                                <p class="text-white text-sm font-bold truncate">Konsultasi Langsung</p>
+                                <p class="text-white/70 text-xs truncate">Diskusi dengan mentor ASN</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <i class="fa-solid fa-file-shield text-white/80"></i>
+                            <div class="min-w-0">
+                                <p class="text-white text-sm font-bold truncate">Materi Eksklusif</p>
+                                <p class="text-white/70 text-xs truncate">Tips & trik khusus</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <a href="https://wa.me/6285696409288?text=Halo%20Admin%20Kerja%20Jadi%20ASN,%20saya%20peserta%20Paket%203%20Ultimate%20dengan%20PIN:%20${pinAkses}%20mau%20join%20grup%20WA%20premium" target="_blank" class="block w-full bg-gradient-to-r from-green-500 to-emerald-600 text-white font-black py-3 rounded-xl hover:from-green-600 hover:to-emerald-700 transition-all active:scale-95 shadow-lg flex items-center justify-center gap-2 touch-button text-responsive-base">
+                        <i class="fa-brands fa-whatsapp"></i> Join Grup
+                    </a>
+
+                    <p class="text-white/80 text-xs text-center mt-4">
+                        <i class="fa-solid fa-users"></i> 100+ member • Daily coaching
+                    </p>
+                </div>
+
+                <!-- Tambah Tryout Card (ORANGE) -->
+                <div class="bg-gradient-to-br from-orange-900 to-amber-900 rounded-2xl p-4 sm:p-6 shadow-lg card-hover-orange sidebar-card animate-pulse-orange">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 sm:w-12 sm:h-12 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center border border-orange-500/30">
+                            <i class="fa-solid fa-plus text-white text-lg sm:text-xl"></i>
+                        </div>
+                        <div class="min-w-0">
+                            <h4 class="font-black text-white text-lg neon-orange truncate">Tambah Tryout</h4>
+                            <p class="text-white/90 text-xs truncate">Butuh lebih banyak latihan?</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-white/10 backdrop-blur-sm rounded-xl p-3 sm:p-4 mb-4 sm:mb-5 border border-white/20">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-white text-sm font-bold truncate">Paket Tambahan</span>
+                            <span class="bg-white text-orange-600 px-2 sm:px-3 py-1 rounded-full text-xs font-black whitespace-nowrap">Rp 25.000</span>
+                        </div>
+                        <p class="text-white/90 text-xs mb-3">+1 paket simulasi premium dengan pembahasan lengkap</p>
+                        <div class="flex items-center gap-2 text-xs text-orange-300">
+                            <i class="fa-solid fa-bolt"></i>
+                            <span class="truncate">Proses instan via WhatsApp</span>
+                        </div>
+                        <div class="flex items-center gap-2 text-xs text-orange-300 mt-2">
+                            <i class="fa-solid fa-rocket"></i>
+                            <span class="truncate">Akses langsung setelah bayar</span>
+                        </div>
+                    </div>
+
+                    <button onclick="tambahPaketTryout()" class="w-full orange-gradient text-white font-black py-3 rounded-xl hover:shadow-lg hover:shadow-orange-500/30 transition-all active:scale-95 shadow-lg flex items-center justify-center gap-2 touch-button text-responsive-base">
+                        <i class="fa-solid fa-whatsapp"></i> Pesan via WhatsApp
+                    </button>
+
+                    <p class="text-white/80 text-xs text-center mt-4">
+                        <i class="fa-solid fa-circle-check"></i> Akses langsung • Pembahasan lengkap
+                    </p>
+                </div>
+
+                <!-- Quick Stats Premium -->
+                <div class="bg-slate-800 rounded-2xl p-4 sm:p-6 shadow-lg border border-amber-500/20 sidebar-card-wide">
+                    <h4 class="font-bold text-amber-300 mb-4 text-responsive-lg">Statistik Ultimate</h4>
+                    <div class="grid grid-cols-2 gap-3 sm:gap-4">
+                        <div class="bg-slate-700/50 rounded-xl p-3 text-center border border-amber-500/10">
+                            <div class="text-xl sm:text-2xl font-black text-amber-400" id="avgScore">-</div>
+                            <div class="text-xs text-slate-400">Rata-rata Skor</div>
+                        </div>
+                        <div class="bg-slate-700/50 rounded-xl p-3 text-center border border-green-500/10">
+                            <div class="text-xl sm:text-2xl font-black text-green-400" id="bestScore">-</div>
+                            <div class="text-xs text-slate-400">Skor Terbaik</div>
+                        </div>
+                        <div class="bg-slate-700/50 rounded-xl p-3 text-center border border-blue-500/10">
+                            <div class="text-xl sm:text-2xl font-black text-blue-400" id="totalTime">0</div>
+                            <div class="text-xs text-slate-400">Jam Belajar</div>
+                        </div>
+                        <div class="bg-slate-700/50 rounded-xl p-3 text-center border border-purple-500/10">
+                            <div class="text-xl sm:text-2xl font-black text-purple-400" id="accuracy">-</div>
+                            <div class="text-xs text-slate-400">Akurasi</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tips Cepat Card -->
+                <div class="bg-gradient-to-br from-blue-900 to-cyan-900 rounded-2xl p-4 sm:p-6 shadow-lg card-hover-premium sidebar-card">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 sm:w-12 sm:h-12 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center border border-blue-400/30">
+                            <i class="fa-solid fa-lightbulb text-white text-lg sm:text-xl"></i>
+                        </div>
+                        <div class="min-w-0">
+                            <h4 class="font-black text-white text-lg truncate">Tips Ultimate</h4>
+                            <p class="text-white/90 text-xs truncate">Strategi khusus Paket 3</p>
+                        </div>
+                    </div>
+
+                    <div class="space-y-3">
+                        <div class="bg-white/10 backdrop-blur-sm rounded-lg p-3 border border-white/20">
+                            <p class="text-white text-sm font-bold mb-1 truncate">Pilih Formasi Strategis</p>
+                            <p class="text-white/70 text-xs truncate">Fokus pada formasi dengan peluang tinggi</p>
+                        </div>
+                        <div class="bg-white/10 backdrop-blur-sm rounded-lg p-3 border border-white/20">
+                            <p class="text-white text-sm font-bold mb-1 truncate">Manajemen Waktu</p>
+                            <p class="text-white/70 text-xs truncate">Alokasi waktu berdasarkan kesulitan soal</p>
+                        </div>
+                    </div>
+
+                    <button onclick="showAllTips()" class="w-full mt-4 bg-white/20 text-white font-bold py-3 rounded-xl hover:bg-white/30 transition-all flex items-center justify-center gap-2 touch-button text-responsive-base">
+                        <i class="fa-solid fa-book-open"></i> Buka Tips
+                    </button>
+                </div>
+
+                <!-- Quick Actions Premium -->
+                <div class="bg-slate-900 rounded-2xl p-4 sm:p-6 border border-amber-500/30 sidebar-card-wide">
+                    <h4 class="font-bold text-amber-300 mb-4 text-responsive-lg">Aksi Cepat</h4>
+                    <div class="grid grid-cols-2 gap-3">
+                        <button onclick="downloadMaterials()" class="bg-slate-800 hover:bg-slate-700 text-amber-300 font-bold py-3 rounded-xl transition-colors flex flex-col items-center justify-center gap-1 touch-button border border-amber-500/20">
+                            <i class="fa-solid fa-download text-lg"></i>
+                            <span class="text-xs">Unduh Materi</span>
+                        </button>
+                        <button onclick="showVideoTutorial()" class="bg-slate-800 hover:bg-slate-700 text-blue-300 font-bold py-3 rounded-xl transition-colors flex flex-col items-center justify-center gap-1 touch-button border border-blue-500/20">
+                            <i class="fa-solid fa-play-circle text-lg"></i>
+                            <span class="text-xs">Video</span>
+                        </button>
+                        <button onclick="printProgress()" class="bg-slate-800 hover:bg-slate-700 text-purple-300 font-bold py-3 rounded-xl transition-colors flex flex-col items-center justify-center gap-1 touch-button border border-purple-500/20">
+                            <i class="fa-solid fa-print text-lg"></i>
+                            <span class="text-xs">Cetak</span>
+                        </button>
+                        <button onclick="shareAchievement()" class="bg-slate-800 hover:bg-slate-700 text-green-300 font-bold py-3 rounded-xl transition-colors flex flex-col items-center justify-center gap-1 touch-button border border-green-500/20">
+                            <i class="fa-solid fa-share text-lg"></i>
+                            <span class="text-xs">Bagikan</span>
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
     </main>
 
-    <footer class="mt-12 pt-8 pb-6 border-t border-slate-200 bg-white">
-        <div class="container mx-auto px-4 text-center">
-            <div class="flex flex-col md:flex-row justify-between items-center gap-4 mb-6">
-                <div class="text-center md:text-left">
-                    <div class="flex items-center justify-center md:justify-start gap-2 mb-2">
-                        <div class="w-6 h-6 bg-blue-600 rounded flex items-center justify-center">
-                            <i class="fa-solid fa-graduation-cap text-white text-xs"></i>
-                        </div>
-                        <span class="font-extrabold text-blue-600">
-                            KERJA JADI <span class="text-yellow-500">ASN</span>
-                        </span>
-                    </div>
-                    <p class="text-slate-500 text-xs">Platform Tryout CAT CPNS Premium</p>
+    <!-- Progress Modal Premium -->
+    <div id="progressModal" class="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50 hidden p-4">
+        <div class="bg-slate-800 rounded-2xl w-full max-w-3xl max-h-[90vh] overflow-hidden border border-amber-500/30">
+            <div class="sticky top-0 bg-slate-800 border-b border-amber-500/30 p-4 sm:p-6 flex justify-between items-center">
+                <div class="min-w-0">
+                    <h3 class="text-lg sm:text-xl font-bold text-amber-300 truncate">Detail Progress Ultimate</h3>
+                    <p class="text-sm text-slate-400 truncate">PIN: <span id="modalPin" class="font-mono font-bold text-amber-300"></span></p>
                 </div>
-                <div class="text-center">
-                    <div class="flex justify-center gap-4 mb-2">
-                        <a href="#" class="text-slate-400 hover:text-blue-600"><i class="fab fa-facebook"></i></a>
-                        <a href="#" class="text-slate-400 hover:text-blue-400"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="text-slate-400 hover:text-pink-600"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="text-slate-400 hover:text-green-600"><i class="fab fa-whatsapp"></i></a>
+                <button onclick="hideProgressModal()" class="text-slate-400 hover:text-amber-300 text-xl touch-button-sm">
+                    <i class="fa-solid fa-times"></i>
+                </button>
+            </div>
+
+            <div class="p-4 sm:p-6 overflow-y-auto max-h-[calc(90vh-120px)]">
+                <div id="progressContent">
+                    <!-- Progress content will be loaded here -->
+                </div>
+            </div>
+
+            <div class="border-t border-amber-500/30 p-4 bg-slate-900/50">
+                <button onclick="shareProgress()" class="w-full gold-gradient text-slate-900 font-black py-3 rounded-xl hover:shadow-lg hover:shadow-amber-500/30 transition-all flex items-center justify-center gap-2 touch-button">
+                    <i class="fa-solid fa-share"></i> Bagikan Progress
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Help Modal Premium -->
+    <div id="helpModal" class="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50 hidden p-4">
+        <div class="bg-slate-800 rounded-2xl w-full max-w-3xl max-h-[90vh] overflow-hidden border border-amber-500/30">
+            <div class="sticky top-0 bg-slate-800 border-b border-amber-500/30 p-4 sm:p-6 flex justify-between items-center">
+                <h3 class="text-lg sm:text-xl font-bold text-amber-300 truncate">Bantuan & Panduan Ultimate</h3>
+                <button onclick="hideHelpModal()" class="text-slate-400 hover:text-amber-300 text-xl touch-button-sm">
+                    <i class="fa-solid fa-times"></i>
+                </button>
+            </div>
+
+            <div class="p-4 sm:p-6 overflow-y-auto max-h-[calc(90vh-120px)]">
+                <div class="space-y-4 sm:space-y-6">
+                    <div class="bg-amber-900/30 border border-amber-500/30 rounded-xl p-4">
+                        <h4 class="font-bold text-amber-300 mb-2 flex items-center gap-2">
+                            <i class="fa-solid fa-circle-info"></i> Cara Menggunakan Dashboard Ultimate
+                        </h4>
+                        <ul class="text-sm text-amber-200 space-y-2">
+                            <li class="flex items-start gap-2">
+                                <i class="fa-solid fa-crown mt-1 text-xs"></i>
+                                <span class="text-responsive-sm">Gunakan semua 20 paket tryout untuk persiapan maksimal</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fa-solid fa-crown mt-1 text-xs"></i>
+                                <span class="text-responsive-sm">Pelajari materi premium TWK, TIU, TKP untuk pemahaman mendalam</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fa-solid fa-crown mt-1 text-xs"></i>
+                                <span class="text-responsive-sm">Bergabung dengan grup WhatsApp premium untuk konsultasi langsung</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fa-solid fa-crown mt-1 text-xs"></i>
+                                <span class="text-responsive-sm">Tambahkan paket tryout jika ingin latihan lebih intensif (Rp 25.000/paket)</span>
+                            </li>
+                        </ul>
                     </div>
-                    <p class="text-slate-400 text-[10px] font-bold uppercase tracking-widest">
-                        &copy; <span id="currentYear"></span> Kerja Jadi ASN. All rights reserved.
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div class="bg-slate-700/50 rounded-xl p-4 border border-amber-500/20">
+                            <h4 class="font-bold text-amber-300 mb-2 flex items-center gap-2">
+                                <i class="fa-solid fa-phone"></i> Support Premium
+                            </h4>
+                            <p class="text-sm text-slate-300 mb-2 truncate">Butuh bantuan prioritas?</p>
+                            <a href="https://wa.me/6285696409288?text=Halo%20Admin%20Kerja%20Jadi%20ASN%20Paket%203%20Ultimate" target="_blank" class="inline-flex items-center gap-2 bg-green-500/20 text-green-300 px-3 py-2 rounded-lg text-sm font-bold hover:bg-green-500/30 transition-colors border border-green-500/30 touch-button">
+                                <i class="fa-brands fa-whatsapp"></i> WhatsApp Support
+                            </a>
+                        </div>
+
+                        <div class="bg-slate-700/50 rounded-xl p-4 border border-green-500/20">
+                            <h4 class="font-bold text-green-300 mb-2 flex items-center gap-2">
+                                <i class="fa-brands fa-whatsapp"></i> Grup WhatsApp Premium
+                            </h4>
+                            <p class="text-sm text-slate-300 mb-2 truncate">Bergabung dengan komunitas eksklusif</p>
+                            <a href="https://wa.me/6285696409288?text=Halo%20admin,%20saya%20peserta%20Paket%203%20Ultimate%20mau%20join%20grup%20WA%20khusus" target="_blank" class="inline-flex items-center gap-2 bg-green-500/20 text-green-300 px-3 py-2 rounded-lg text-sm font-bold hover:bg-green-500/30 transition-colors border border-green-500/30 touch-button">
+                                <i class="fa-brands fa-whatsapp"></i> Join Grup
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-700/50 rounded-xl p-4 border border-orange-500/20">
+                        <h4 class="font-bold text-orange-300 mb-2 flex items-center gap-2">
+                            <i class="fa-solid fa-plus"></i> Tambah Paket Tryout
+                        </h4>
+                        <p class="text-sm text-slate-300 mb-3">Ingin lebih banyak latihan? Anda bisa menambah paket tryout!</p>
+                        <div class="space-y-2 mb-3">
+                            <div class="flex items-center gap-2">
+                                <i class="fa-solid fa-check text-orange-400 text-xs"></i>
+                                <span class="text-sm text-slate-300">Hanya Rp 25.000 per paket tambahan</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <i class="fa-solid fa-check text-orange-400 text-xs"></i>
+                                <span class="text-sm text-slate-300">Pembahasan lengkap semua soal</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <i class="fa-solid fa-check text-orange-400 text-xs"></i>
+                                <span class="text-sm text-slate-300">Akses langsung setelah pembayaran</span>
+                            </div>
+                        </div>
+                        <button onclick="tambahPaketTryout()" class="w-full orange-gradient text-white font-bold py-2 rounded-lg hover:shadow-lg hover:shadow-orange-500/30 transition-all flex items-center justify-center gap-2 touch-button">
+                            <i class="fa-solid fa-whatsapp"></i> Pesan Paket Tambahan
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="mt-8 sm:mt-12 pt-6 sm:pt-8 pb-8 sm:pb-10 border-t border-slate-700 bg-slate-900">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+                <div class="text-center md:text-left max-w-md">
+                    <div class="flex items-center justify-center md:justify-start gap-2 mb-3">
+                        <div class="w-8 h-8 sm:w-10 sm:h-10 gold-gradient rounded-xl flex items-center justify-center shadow-lg">
+                            <i class="fa-solid fa-crown text-slate-900 text-sm sm:text-base"></i>
+                        </div>
+                        <h2 class="font-extrabold text-amber-400 text-lg neon-gold">
+                            KERJA JADI <span class="text-white">ASN</span>
+                        </h2>
+                    </div>
+                    <p class="text-slate-400 text-sm">
+                        Platform tryout ASN ultimate paket lengkap dengan fitur premium, 20+ paket tryout, grup belajar eksklusif, dan bisa tambah paket.
                     </p>
+                </div>
+
+                <div class="text-center md:text-right">
+                    <div class="flex justify-center md:justify-end gap-4 mb-4">
+                        <a href="#" class="text-slate-400 hover:text-amber-400">
+                            <i class="fab fa-facebook text-lg"></i>
+                        </a>
+                        <a href="#" class="text-slate-400 hover:text-amber-400">
+                            <i class="fab fa-twitter text-lg"></i>
+                        </a>
+                        <a href="#" class="text-slate-400 hover:text-amber-400">
+                            <i class="fab fa-instagram text-lg"></i>
+                        </a>
+                        <a href="https://wa.me/6285696409288" target="_blank" class="text-slate-400 hover:text-green-400">
+                            <i class="fab fa-whatsapp text-lg"></i>
+                        </a>
+                    </div>
+                    <p class="text-amber-400/80 text-xs font-bold uppercase tracking-widest">
+                        &copy; <span id="currentYear">2026</span> Kerja Jadi ASN. Paket 3 Ultimate Premium.
+                    </p>
+                </div>
+            </div>
+
+            <div class="mt-6 sm:mt-8 pt-4 sm:pt-6 border-t border-slate-700 text-center">
+                <div class="flex flex-wrap justify-center gap-3 sm:gap-4 text-xs text-slate-400">
+                    <a href="#" class="hover:text-amber-400 truncate">Kebijakan Privasi</a>
+                    <a href="#" class="hover:text-amber-400 truncate">Syarat & Ketentuan</a>
+                    <a href="#" class="hover:text-amber-400 truncate">FAQ Premium</a>
+                    <a href="https://wa.me/6285696409288" target="_blank" class="hover:text-amber-400 truncate">Kontak Prioritas</a>
+                    <a href="#" class="hover:text-orange-400 text-orange-300 font-bold truncate" onclick="tambahPaketTryout()">Tambah Paket Tryout</a>
                 </div>
             </div>
         </div>
     </footer>
 
+    <!-- JavaScript tetap sama seperti sebelumnya, hanya perlu menyesuaikan beberapa fungsi untuk mobile -->
     <script>
         // ========== 1. GLOBAL VARIABLES ==========
         let pinAkses = null;
-        let resultData = null;
-        let paketNumber = null;
-        let paketPin = null;
+        let sessionInterval = null;
+        let sessionTimer = null;
+        let isSortedAsc = true;
+        let currentFilter = 'all';
+        let isMaintenanceMode = false;
+        let extraPackages = [];
 
-        // Database PIN sesuai dengan login.html
-        const pinDatabase = {
-            "paket1": ["7XK9WP", "B4ZM1Q", "9TV2NL", "RS8MX3", "5CR1VT", "KP9MZ4", "G6HD2S", "1VT8NR", "FN2VK5", "2YM4BX", "MR2VT8", "5HG9SL", "XP3KZ7", "2YN5VQ", "8WQ4PZ", "VS7NL2"],
-            "paket2": ["9ZW1RF", "4FB6NT", "7XK1WP", "B2MK9P", "LP9QX4", "Y7CR2V", "4FB8NR", "9TW1MZ", "SK3JP7", "1VT5NR", "FN9VK3", "2YM7BX", "SK9JP4", "MR7VT1", "3ZW7RB", "KP1MX9", "G6HD1S"],
-            "paket3": ["VS4NL8", "RT9XM2", "B2MK8P", "7XL1WQ", "5HG2SD", "9ZW4RB", "KP8MX3", "FN5VK2", "8WQ4PZ", "2YM9BX", "7KP1RT", "5HG6SD", "9ZW3RF", "RS4ML9", "VN7VK1", "8WQ3PZ", "4FB1NT"]
-        };
+        // ========== 2. MOBILE MENU FUNCTIONS ==========
+        function showMobileSidebar() {
+            document.getElementById('mobileSidebar').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
 
-        // ========== 2. INITIALIZATION ==========
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('Hasil page initializing...');
+        function hideMobileSidebar() {
+            document.getElementById('mobileSidebar').classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        // ========== 3. INITIALIZATION ==========
+        document.addEventListener('DOMContentLoaded', async function() {
+            console.log('Dashboard Paket 3 Ultimate initializing...');
+
+            // Set current year in footer
             document.getElementById('currentYear').textContent = new Date().getFullYear();
-            loadResultData();
+
+            // Initialize dashboard
+            await initializeDashboard();
+
+            // Setup event listeners
             setupEventListeners();
-            console.log('Hasil page initialized');
+
+            // Setup mobile menu button
+            document.getElementById('mobileMenuButton').addEventListener('click', showMobileSidebar);
+
+            // Setup service worker for PWA
+            setupServiceWorker();
+
+            console.log('Dashboard Paket 3 Ultimate initialized successfully');
         });
 
-        // ========== 3. FUNGSI DETEKSI PAKET DARI PIN ==========
-        function detectPaketFromPin(pin) {
-            for (const paket in pinDatabase) {
-                if (pinDatabase[paket].includes(pin)) {
-                    return {
-                        paketNumber: paket.replace('paket', ''),
-                        paketName: paket
-                    };
+        // ========== 4. DASHBOARD INITIALIZATION ==========
+        async function initializeDashboard() {
+            try {
+                // Get PIN from URL
+                const urlParams = new URLSearchParams(window.location.search);
+                pinAkses = urlParams.get('id');
+
+                if (!pinAkses) {
+                    throw new Error('PIN tidak ditemukan');
                 }
-            }
-            return { paketNumber: "1", paketName: "paket1" };
-        }
 
-        // ========== 4. LOAD RESULT DATA ==========
-        function loadResultData() {
-            const urlParams = new URLSearchParams(window.location.search);
-            pinAkses = urlParams.get('id');
+                // Validate PIN (alphanumeric, min 4 chars)
+                if (!/^[a-zA-Z0-9]{4,}$/.test(pinAkses)) {
+                    throw new Error('Format PIN tidak valid. Gunakan huruf dan angka (minimal 4 karakter)');
+                }
 
-            if (!pinAkses) {
-                showErrorState();
-                showToast('error', 'PIN Tidak Valid', 'Redirecting to dashboard...');
+                // Simpan info bahwa user ini adalah pemilik PAKET 3
+                localStorage.setItem(`paket_peserta_${pinAkses}`, "3");
+
+                // Load extra packages
+                loadExtraPackages();
+
+                // Show loading state
+                showLoading();
+
+                // Initialize session
+                await initializeSession();
+
+                // Update PIN displays
+                updatePINDisplays();
+
+                // Load soal list
+                await renderSoalList();
+
+                // Update progress and stats
+                updateProgressStats();
+
+                // Hide loading state
+                hideLoading();
+
+                // Show welcome notification
+                showNotification('success', 'Selamat Datang di Ultimate!', `Akses penuh Paket 3 Ultimate untuk PIN: ${pinAkses}`);
+                
+                // Show feature notification
                 setTimeout(() => {
-                    window.location.href = 'login.html';
+                    showNotification('info', 'Fitur Baru Tersedia!', 'Sekarang Anda bisa membeli paket tryout tambahan untuk latihan lebih intensif!');
+                }, 2000);
+                
+                // Premium confetti burst
+                createPremiumConfettiBurst();
+
+                // Track activity
+                trackActivity('dashboard_loaded', { pin: pinAkses, paket: 3, type: 'ultimate', extra_packages: extraPackages.length });
+
+            } catch (error) {
+                console.error('Initialization error:', error);
+                showNotification('error', 'Kesalahan Login Ultimate', error.message || 'Terjadi kesalahan saat login');
+
+                // Redirect to login after delay
+                setTimeout(() => {
+                    window.location.href = 'login.html?error=' + encodeURIComponent(error.message);
                 }, 3000);
-                return;
-            }
-
-            // Deteksi paket berdasarkan PIN
-            const paketInfo = detectPaketFromPin(pinAkses);
-            paketNumber = paketInfo.paketNumber;
-            paketPin = pinAkses;
-
-            // Tampilkan informasi paket dan PIN
-            document.getElementById('displayPin').textContent = pinAkses;
-            document.getElementById('displayPaketPin').textContent = pinAkses;
-            document.getElementById('paketNumber').textContent = paketNumber;
-            document.getElementById('analysisPin').textContent = pinAkses;
-            document.getElementById('analysisPaket').textContent = paketNumber;
-
-            // CARI DATA DARI BERBAGAI SUMBER
-            // Karena soalpaket1.html digunakan untuk semua PIN, data bisa disimpan dengan berbagai format
-            const possibleKeys = [
-                // Format terbaru: berdasarkan paket yang terdeteksi
-                `hasil_paket${paketNumber}_${pinAkses}`,
-                
-                // Format lama: semua data disimpan sebagai paket1 (karena soalpaket1.html)
-                `hasil_paket1_${pinAkses}`,
-                
-                // Format alternatif
-                `hasil_${pinAkses}`,
-                `hasil_paket_${pinAkses}`,
-                `quiz_result_${pinAkses}`,
-                `simulasi_hasil_${pinAkses}`,
-                
-                // Coba semua paket untuk kompatibilitas
-                `hasil_paket2_${pinAkses}`,
-                `hasil_paket3_${pinAkses}`
-            ];
-
-            console.log('Mencari data hasil untuk PIN:', pinAkses, 'Paket:', paketNumber);
-            console.log('Kunci yang dicari:', possibleKeys);
-
-            let foundData = null;
-            let foundKey = null;
-            
-            // Coba semua kemungkinan kunci
-            for (const key of possibleKeys) {
-                const storedData = localStorage.getItem(key);
-                if (storedData) {
-                    try {
-                        foundData = JSON.parse(storedData);
-                        foundKey = key;
-                        console.log('✅ Data ditemukan dengan kunci:', key);
-                        break;
-                    } catch (e) {
-                        console.error('Error parsing data dari kunci:', key, e);
-                    }
-                }
-            }
-
-            // Jika tidak ditemukan, cari semua kunci yang mengandung PIN
-            if (!foundData) {
-                console.log('🔍 Mencari semua kunci di localStorage yang mengandung PIN...');
-                for (let i = 0; i < localStorage.length; i++) {
-                    const key = localStorage.key(i);
-                    if (key.includes(pinAkses)) {
-                        console.log('Kunci ditemukan:', key);
-                        try {
-                            const data = JSON.parse(localStorage.getItem(key));
-                            // Validasi apakah ini data hasil
-                            if (data && (data.total !== undefined || data.twk !== undefined)) {
-                                foundData = data;
-                                foundKey = key;
-                                console.log('✅ Data hasil ditemukan di kunci:', key);
-                                break;
-                            }
-                        } catch (e) {
-                            console.error('Error parsing data dari:', key, e);
-                        }
-                    }
-                }
-            }
-
-            if (!foundData) {
-                showErrorState();
-                showToast('error', 'Data Hasil Tidak Ditemukan', 
-                    `Tidak dapat menemukan data hasil untuk PIN ${pinAkses}. 
-                     Pastikan Anda telah menyelesaikan ujian atau coba kembali ke dashboard.`);
-                
-                // Log semua data untuk debugging
-                console.log('=== DEBUG: Semua data di localStorage ===');
-                for (let i = 0; i < localStorage.length; i++) {
-                    const key = localStorage.key(i);
-                    console.log(key, ':', localStorage.getItem(key));
-                }
-                return;
-            }
-
-            resultData = foundData;
-            console.log('Data hasil berhasil dimuat:', resultData);
-            
-            // Pastikan data memiliki properti paket
-            if (!resultData.paket) {
-                resultData.paket = paketNumber;
-            }
-
-            // Simpan data dengan format standar untuk konsistensi
-            const standardKey = `hasil_paket${paketNumber}_${pinAkses}`;
-            if (foundKey !== standardKey) {
-                localStorage.setItem(standardKey, JSON.stringify(resultData));
-                console.log('✅ Data disimpan dengan format standar:', standardKey);
-            }
-
-            // Proses dan tampilkan hasil
-            processResult();
-        }
-
-        // ========== 5. PROCESS RESULT ==========
-        function processResult() {
-            if (!resultData) return;
-
-            // Show loading state first
-            document.getElementById('loadingState').classList.add('hidden');
-            document.getElementById('successState').classList.remove('hidden');
-
-            // Calculate additional stats
-            const totalSoal = 110;
-            const totalTerjawab = (resultData.twkJawab || 0) + (resultData.tiuJawab || 0) + (resultData.tkpJawab || 0);
-            const totalBenar = (resultData.twkBenar || 0) + (resultData.tiuBenar || 0);
-            const akurasi = totalTerjawab > 0 ? Math.round((totalBenar / (resultData.twkJawab + resultData.tiuJawab || 1)) * 100) : 0;
-            const totalScoreMax = 650;
-            const scorePercentage = Math.round((resultData.total / totalScoreMax) * 100);
-
-            // Check passing grade
-            const PG = { twk: 65, tiu: 80, tkp: 166 };
-            const lulusTWK = resultData.twk >= PG.twk;
-            const lulusTIU = resultData.tiu >= PG.tiu;
-            const lulusTKP = resultData.tkp >= PG.tkp;
-            const semuaLulus = lulusTWK && lulusTIU && lulusTKP;
-
-            // Update UI
-            updateScores(resultData, totalSoal, totalTerjawab, akurasi, scorePercentage);
-            updatePassingStatus(lulusTWK, lulusTIU, lulusTKP, semuaLulus);
-            updateProgressBars(resultData, PG);
-            updateRecommendations(lulusTWK, lulusTIU, lulusTKP);
-
-            // Trigger animations
-            setTimeout(() => {
-                triggerAnimations();
-                if (semuaLulus) {
-                    createConfetti();
-                    showCertificateSection();
-                }
-            }, 500);
-
-            // Save to progress history
-            saveToProgressHistory();
-
-            // Show toast
-            if (semuaLulus) {
-                showToast('success', 'Selamat!', 'Anda berhasil melewati semua passing grade! 🎉');
-            } else {
-                showToast('info', 'Hasil Selesai', 'Analisis hasil Anda sudah tersedia');
             }
         }
 
-        function updateScores(data, totalSoal, totalTerjawab, akurasi, scorePercentage) {
-            // Animate total score
-            animateCounter('totalSkor', 0, data.total, 1500);
+        // ========== 5. SESSION MANAGEMENT ==========
+        async function initializeSession() {
+            const sessionData = {
+                pin: pinAkses,
+                paket: 3,
+                type: 'ultimate',
+                loginTime: new Date().toISOString(),
+                expired: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(), // 24 hours for ultimate
+                lastActivity: new Date().toISOString()
+            };
 
-            // Update category scores
-            document.getElementById('skorTWK').textContent = data.twk;
-            document.getElementById('skorTIU').textContent = data.tiu;
-            document.getElementById('skorTKP').textContent = data.tkp;
+            // Save to localStorage
+            localStorage.setItem(`session_${pinAkses}`, JSON.stringify(sessionData));
+            sessionStorage.setItem('currentSession', JSON.stringify(sessionData));
 
-            // Update score percentage
-            document.getElementById('scorePercentage').textContent = `${scorePercentage}%`;
-            updateScoreRing(scorePercentage);
+            // Setup session timer
+            setupSessionTimer();
 
-            // Update info text
-            document.getElementById('twkInfo').textContent = `${data.twkJawab || 0} dari 30 soal`;
-            document.getElementById('tiuInfo').textContent = `${data.tiuJawab || 0} dari 35 soal`;
-            document.getElementById('tkpInfo').textContent = `${data.tkpJawab || 0} dari 45 soal`;
-
-            // Update stats
-            document.getElementById('twkJawab').textContent = data.twkJawab || 0;
-            document.getElementById('twkBenar').textContent = data.twkBenar || 0;
-            document.getElementById('tiuJawab').textContent = data.tiuJawab || 0;
-            document.getElementById('tiuBenar').textContent = data.tiuBenar || 0;
-            document.getElementById('tkpJawab').textContent = data.tkpJawab || 0;
-            document.getElementById('tkpRagu').textContent = data.ragu || 0;
-
-            // Update waktu pengerjaan
-            if (data.waktu) {
-                document.getElementById('waktuPengerjaan').textContent = `Selesai dalam ${data.waktu}`;
-                document.getElementById('totalWaktu').textContent = data.waktu;
-            }
-
-            // Update quick stats
-            document.getElementById('totalSoal').textContent = totalSoal;
-            document.getElementById('totalTerjawab').textContent = totalTerjawab;
-            document.getElementById('akurasi').textContent = `${akurasi}%`;
-            document.getElementById('totalBookmarks').textContent = data.bookmarks || 0;
-            document.getElementById('totalRagu').textContent = data.ragu || 0;
-
-            // Update peringkat (simulated)
-            const peringkat = Math.floor(Math.random() * 50) + 1;
-            document.getElementById('peringkat').textContent = `#${peringkat}`;
+            // Setup activity tracker
+            setupActivityTracker();
         }
 
-        function updatePassingStatus(lulusTWK, lulusTIU, lulusTKP, semuaLulus) {
-            // Update status badges
-            updateStatusLabel('statusTWK', lulusTWK, 'TWK');
-            updateStatusLabel('statusTIU', lulusTIU, 'TIU');
-            updateStatusLabel('statusTKP', lulusTKP, 'TKP');
+        function setupSessionTimer() {
+            // Clear existing timer
+            if (sessionTimer) clearInterval(sessionTimer);
 
-            // Update main status badge
-            const statusBadge = document.getElementById('statusBadge');
-            const pesanKelulusan = document.getElementById('pesanKelulusan');
+            sessionTimer = setInterval(() => {
+                const sessionStr = sessionStorage.getItem('currentSession');
+                if (!sessionStr) {
+                    handleSessionExpired();
+                    return;
+                }
 
-            if (semuaLulus) {
-                statusBadge.innerHTML = `<i class="fa-solid fa-check-circle"></i> LULUS PASSING GRADE`;
-                statusBadge.className = 'inline-flex items-center gap-2 px-6 py-2 rounded-full font-black text-xs uppercase tracking-[0.2em] mb-4 bg-gradient-to-r from-green-100 to-emerald-100 text-green-700 border border-green-200 animate-pulse-slow';
-                pesanKelulusan.innerHTML = `<strong>Selamat!</strong> Anda berhasil melampaui semua ambang batas passing grade. Pertahankan performa ini dengan terus berlatih dan mempelajari materi yang belum dikuasai.`;
-            } else {
-                statusBadge.innerHTML = `<i class="fa-solid fa-exclamation-triangle"></i> PERLU PERBAIKAN`;
-                statusBadge.className = 'inline-flex items-center gap-2 px-6 py-2 rounded-full font-black text-xs uppercase tracking-[0.2em] mb-4 bg-gradient-to-r from-yellow-100 to-amber-100 text-amber-700 border border-amber-200 animate-pulse-slow';
-                const belumLulus = [];
-                if (!lulusTWK) belumLulus.push('TWK');
-                if (!lulusTIU) belumLulus.push('TIU');
-                if (!lulusTKP) belumLulus.push('TKP');
-                pesanKelulusan.innerHTML = `<strong>Perhatian!</strong> Anda belum mencapai ambang batas di materi <strong>${belumLulus.join(', ')}</strong>. Fokuskan latihan pada materi tersebut dan pelajari pembahasan soal untuk meningkatkan pemahaman.`;
-            }
-        }
+                const session = JSON.parse(sessionStr);
+                const expired = new Date(session.expired);
+                const now = new Date();
+                const diff = expired - now;
 
-        function updateProgressBars(data, PG) {
-            // Calculate progress percentages
-            const twkProgress = Math.min((data.twk / PG.twk) * 100, 100);
-            const tiuProgress = Math.min((data.tiu / PG.tiu) * 100, 100);
-            const tkpProgress = Math.min((data.tkp / PG.tkp) * 100, 100);
+                if (diff <= 0) {
+                    handleSessionExpired();
+                    return;
+                }
 
-            // Update progress bars with animation
-            setTimeout(() => {
-                document.getElementById('progressTWK').style.width = `${twkProgress}%`;
-                document.getElementById('progressTIU').style.width = `${tiuProgress}%`;
-                document.getElementById('progressTKP').style.width = `${tkpProgress}%`;
+                // Update session timer display
+                updateSessionDisplay(diff);
 
-                document.getElementById('twkProgressText').textContent = `${Math.round(twkProgress)}%`;
-                document.getElementById('tiuProgressText').textContent = `${Math.round(tiuProgress)}%`;
-                document.getElementById('tkpProgressText').textContent = `${Math.round(tkpProgress)}%`;
+                // Show warning if less than 10 minutes remaining
+                if (diff < 10 * 60 * 1000) {
+                    showSessionWarning(diff);
+                }
             }, 1000);
         }
 
-        function updateScoreRing(percentage) {
-            const progressRing = document.getElementById('totalScoreRing');
-            if (progressRing) {
-                const circumference = 2 * Math.PI * 15.9155;
-                const dashOffset = circumference - (percentage / 100) * circumference;
-                setTimeout(() => {
-                    progressRing.setAttribute('stroke-dasharray', `${circumference} ${circumference}`);
-                    progressRing.setAttribute('stroke-dashoffset', dashOffset);
-                }, 800);
+        function updateSessionDisplay(diff) {
+            const hours = Math.floor(diff / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+            const timerStr = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+
+            // Update session timer
+            const sessionTimerElement = document.getElementById('sessionTimer');
+            const sessionIndicator = document.getElementById('sessionIndicator');
+
+            if (sessionTimerElement) {
+                sessionTimerElement.textContent = timerStr;
             }
-        }
 
-        function updateStatusLabel(elementId, isLulus, kategori) {
-            const element = document.getElementById(elementId);
-            if (isLulus) {
-                element.textContent = `LULUS ${kategori}`;
-                element.className = 'text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-green-100 text-green-700';
-            } else {
-                element.textContent = `GAGAL ${kategori}`;
-                element.className = 'text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-red-100 text-red-700';
-            }
-        }
-
-        // ========== 6. ANIMATIONS ==========
-        function animateCounter(elementId, start, end, duration) {
-            const element = document.getElementById(elementId);
-            const range = end - start;
-            const increment = end > start ? 1 : -1;
-            const stepTime = Math.abs(Math.floor(duration / range));
-            let current = start;
-            const timer = setInterval(() => {
-                current += increment;
-                element.textContent = current;
-                if (current === end) clearInterval(timer);
-            }, stepTime);
-        }
-
-        function triggerAnimations() {
-            const scoreElements = document.querySelectorAll('.animate-score');
-            scoreElements.forEach(el => {
-                el.classList.add('animate-score');
-                setTimeout(() => el.classList.remove('animate-score'), 1000);
-            });
-        }
-
-        function createConfetti() {
-            const colors = ['#3b82f6', '#8b5cf6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6'];
-            const container = document.getElementById('confetti-container');
-            for (let i = 0; i < 150; i++) {
-                setTimeout(() => {
-                    const confetti = document.createElement('div');
-                    confetti.className = 'confetti';
-                    confetti.style.position = 'absolute';
-                    confetti.style.width = Math.random() * 10 + 5 + 'px';
-                    confetti.style.height = Math.random() * 10 + 5 + 'px';
-                    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-                    confetti.style.left = Math.random() * 100 + 'vw';
-                    confetti.style.top = '-20px';
-                    confetti.style.borderRadius = '2px';
-                    confetti.style.opacity = '0.8';
-                    confetti.style.transform = `rotate(${Math.random() * 360}deg)`;
-                    container.appendChild(confetti);
-                    const animation = confetti.animate([
-                        { transform: 'translateY(0) rotate(0deg)', opacity: 1 },
-                        { transform: `translateY(${window.innerHeight}px) rotate(${Math.random() * 720}deg)`, opacity: 0 }
-                    ], {
-                        duration: Math.random() * 3000 + 2000,
-                        easing: 'cubic-bezier(0.215, 0.610, 0.355, 1)'
-                    });
-                    animation.onfinish = () => confetti.remove();
-                }, i * 20);
-            }
-        }
-
-        // ========== 7. RECOMMENDATIONS ==========
-        function updateRecommendations(lulusTWK, lulusTIU, lulusTKP) {
-            const recommendations = [];
-            if (!lulusTWK) {
-                recommendations.push({
-                    title: 'Perkuat Wawasan Kebangsaan',
-                    message: 'Fokus pada pemahaman UUD 1945, Pancasila, NKRI, dan sejarah perjuangan bangsa.',
-                    icon: 'fa-landmark',
-                    color: 'blue'
-                });
-            }
-            if (!lulusTIU) {
-                recommendations.push({
-                    title: 'Tingkatkan Kemampuan Numerik & Verbal',
-                    message: 'Latihan soal hitungan, logika, dan analogi secara rutin untuk meningkatkan kecepatan.',
-                    icon: 'fa-brain',
-                    color: 'green'
-                });
-            }
-            if (!lulusTKP) {
-                recommendations.push({
-                    title: 'Kembangkan Karakter Kepribadian',
-                    message: 'Pahami nilai-nilai pelayanan publik, integritas, dan semangat gotong royong.',
-                    icon: 'fa-users',
-                    color: 'purple'
-                });
-            }
-            if (recommendations.length === 0) {
-                recommendations.push({
-                    title: 'Pertahankan Performa',
-                    message: 'Lanjutkan latihan dengan variasi soal yang lebih kompleks untuk persiapan maksimal.',
-                    icon: 'fa-trophy',
-                    color: 'yellow'
-                });
-            }
-            recommendations.push({
-                title: 'Gunakan Fitur Pembahasan',
-                message: 'Pelajari pembahasan setiap soal untuk memahami konsep dan cara penyelesaian.',
-                icon: 'fa-book-open',
-                color: 'indigo'
-            });
-
-            const container = document.getElementById('recommendationsContent');
-            container.innerHTML = '';
-            recommendations.forEach(rec => {
-                const colorClasses = {
-                    blue: 'bg-blue-50 border-blue-200',
-                    green: 'bg-green-50 border-green-200',
-                    purple: 'bg-purple-50 border-purple-200',
-                    yellow: 'bg-yellow-50 border-yellow-200',
-                    indigo: 'bg-indigo-50 border-indigo-200'
-                };
-                const iconColors = {
-                    blue: 'text-blue-600',
-                    green: 'text-green-600',
-                    purple: 'text-purple-600',
-                    yellow: 'text-yellow-600',
-                    indigo: 'text-indigo-600'
-                };
-                const item = `
-                    <div class="flex items-start gap-3 p-3 rounded-xl ${colorClasses[rec.color]} border">
-                        <div class="w-8 h-8 rounded-lg ${colorClasses[rec.color].split(' ')[0]} flex items-center justify-center">
-                            <i class="fa-solid ${rec.icon} ${iconColors[rec.color]}"></i>
-                        </div>
-                        <div class="flex-1">
-                            <h4 class="font-bold text-slate-800 text-sm mb-1">${rec.title}</h4>
-                            <p class="text-xs text-slate-600">${rec.message}</p>
-                        </div>
-                    </div>
-                `;
-                container.innerHTML += item;
-            });
-            document.getElementById('recommendationsSection').classList.remove('hidden');
-        }
-
-        function showCertificateSection() {
-            document.getElementById('certificateSection').classList.remove('hidden');
-        }
-
-        // ========== 8. ACTION FUNCTIONS ==========
-        function kembaliDashboard() {
-            // Gunakan paketNumber yang sudah dideteksi dari PIN
-            window.location.href = `dashboardpaket${paketNumber}.html?id=${pinAkses}`;
-        }
-
-        function ulangiTryout() {
-            if (confirm('Apakah Anda yakin ingin mengulang tryout ini? Progress sebelumnya akan dihapus.')) {
-                // Hapus semua data yang terkait dengan PIN ini
-                const keysToDelete = [];
-                for (let i = 0; i < localStorage.length; i++) {
-                    const key = localStorage.key(i);
-                    if (key.includes(pinAkses)) {
-                        keysToDelete.push(key);
-                    }
+            // Update indicator color based on time remaining
+            if (sessionIndicator) {
+                if (hours < 1) {
+                    sessionIndicator.className = 'w-2 h-2 bg-red-400 rounded-full animate-pulse';
+                } else if (hours < 6) {
+                    sessionIndicator.className = 'w-2 h-2 bg-yellow-400 rounded-full animate-pulse';
+                } else {
+                    sessionIndicator.className = 'w-2 h-2 bg-green-400 rounded-full animate-pulse';
                 }
-                keysToDelete.forEach(key => {
-                    localStorage.removeItem(key);
-                    console.log('Data dihapus:', key);
-                });
-                showToast('success', 'Reset Berhasil', 'Mengarahkan ke halaman soal...');
-                setTimeout(() => {
-                    window.location.href = `soalpaket1.html?id=${pinAkses}`;
-                }, 1500);
             }
         }
 
-        function printResult() {
-            window.print();
-            showToast('info', 'Mencetak', 'Menyiapkan dokumen untuk dicetak...');
+        function showSessionWarning(diff) {
+            const warningElement = document.getElementById('sessionWarning');
+            const countdownElement = document.getElementById('sessionCountdown');
+
+            if (!warningElement || !countdownElement) return;
+
+            const minutes = Math.floor(diff / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+            countdownElement.textContent = `${minutes}m ${seconds}s`;
+            warningElement.classList.remove('hidden');
         }
 
-        function downloadCertificate() {
-            showToast('info', 'Sertifikat', 'Fitur unduh sertifikat akan segera hadir!');
+        function extendSession() {
+            const sessionStr = sessionStorage.getItem('currentSession');
+            if (!sessionStr) return;
+
+            const session = JSON.parse(sessionStr);
+            session.expired = new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString();
+
+            sessionStorage.setItem('currentSession', JSON.stringify(session));
+            localStorage.setItem(`session_${pinAkses}`, JSON.stringify(session));
+
+            document.getElementById('sessionWarning').classList.add('hidden');
+            showNotification('success', 'Sesi Ultimate Diperpanjang', 'Sesi Ultimate Anda telah diperpanjang 24 jam');
         }
 
-        // ========== 9. SHARE FUNCTIONS ==========
-        function showShareModal() {
-            document.getElementById('shareModal').classList.remove('hidden');
+        function handleSessionExpired() {
+            if (sessionTimer) clearInterval(sessionTimer);
+
+            showNotification('warning', 'Sesi Ultimate Berakhir', 'Sesi Ultimate Anda telah berakhir. Silakan login kembali.');
+
+            setTimeout(() => {
+                logout('session_expired');
+            }, 3000);
         }
 
-        function hideShareModal() {
-            document.getElementById('shareModal').classList.add('hidden');
+        function setupActivityTracker() {
+            // Update last activity on user interaction
+            document.addEventListener('click', updateLastActivity);
+            document.addEventListener('keypress', updateLastActivity);
+            document.addEventListener('scroll', updateLastActivity);
         }
 
-        function shareToWhatsApp() {
-            const message = encodeURIComponent(generateShareMessage());
-            window.open(`https://api.whatsapp.com/send?text=${message}`, '_blank');
+        function updateLastActivity() {
+            const sessionStr = sessionStorage.getItem('currentSession');
+            if (!sessionStr) return;
+
+            const session = JSON.parse(sessionStr);
+            session.lastActivity = new Date().toISOString();
+            sessionStorage.setItem('currentSession', JSON.stringify(session));
         }
 
-        function shareToFacebook() {
-            const message = encodeURIComponent(generateShareMessage());
-            window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}&quote=${message}`, '_blank');
+        // ========== 6. PIN MANAGEMENT ==========
+        function updatePINDisplays() {
+            // Update all PIN displays
+            const pinElements = [
+                'displayPin',
+                'welcomePin',
+                'menuPin',
+                'modalPin'
+            ];
+
+            pinElements.forEach(id => {
+                const element = document.getElementById(id);
+                if (element) {
+                    element.textContent = pinAkses;
+                }
+            });
         }
 
-        function shareToTwitter() {
-            const message = encodeURIComponent(generateShareMessage());
-            window.open(`https://twitter.com/intent/tweet?text=${message}&url=${encodeURIComponent(window.location.href)}`, '_blank');
-        }
-
-        function copyResultLink() {
-            navigator.clipboard.writeText(window.location.href)
-                .then(() => showToast('success', 'Link Disalin', 'Tautan hasil telah disalin ke clipboard'))
+        function copyPin() {
+            navigator.clipboard.writeText(pinAkses)
+                .then(() => {
+                    showNotification('success', 'PIN Ultimate Disalin', 'PIN Ultimate telah disalin ke clipboard');
+                })
                 .catch(err => {
-                    console.error('Failed to copy:', err);
-                    showToast('error', 'Gagal Menyalin', 'Tidak dapat menyalin tautan');
+                    console.error('Failed to copy PIN:', err);
+                    showNotification('error', 'Gagal Menyalin', 'Tidak dapat menyalin PIN');
                 });
         }
 
-        function shareResult() {
-            const message = document.getElementById('shareMessage').value;
-            const shareText = `${message}\n\nSkor Total: ${resultData.total}\nTWK: ${resultData.twk} | TIU: ${resultData.tiu} | TKP: ${resultData.tkp}\n\n${window.location.href}`;
-            if (navigator.share) {
-                navigator.share({
-                    title: 'Hasil Simulasi CAT CPNS',
-                    text: shareText,
-                    url: window.location.href
-                });
-            } else {
-                navigator.clipboard.writeText(shareText)
-                    .then(() => showToast('success', 'Teks Disalin', 'Hasil telah disalin ke clipboard'))
-                    .catch(err => {
-                        console.error('Failed to copy:', err);
-                        showToast('error', 'Gagal Membagikan', 'Tidak dapat membagikan hasil');
+        // ========== 7. SOAL LIST MANAGEMENT ==========
+        async function renderSoalList() {
+            try {
+                // Show loading state
+                document.getElementById('loadingState').classList.remove('hidden');
+                document.getElementById('errorState').classList.add('hidden');
+                document.getElementById('soalListContainer').classList.add('hidden');
+                document.getElementById('emptyState').classList.add('hidden');
+
+                // Simulate API delay
+                await new Promise(resolve => setTimeout(resolve, 1000));
+
+                // Get progress data
+                const progressKey = `progress_${pinAkses}`;
+                const progress = JSON.parse(localStorage.getItem(progressKey)) || {};
+
+                // Generate soal list (20 paket untuk paket 3 Ultimate + extra packages)
+                const soalList = [];
+                
+                // Main packages (1-20)
+                for (let i = 1; i <= 20; i++) {
+                    const isCompleted = progress[`paket_${i}`] || false;
+                    const score = progress[`score_${i}`] || null;
+                    const completionTime = progress[`time_${i}`] || null;
+                    const accuracy = progress[`accuracy_${i}`] || null;
+                    const difficulty = progress[`difficulty_${i}`] || Math.floor(Math.random() * 3) + 1; // 1-3
+
+                    soalList.push({
+                        id: i,
+                        title: `Simulasi SKD Paket #${i}`,
+                        description: 'TWK • TIU • TKP (110 Soal) • Tingkat ' + ['Mudah', 'Sedang', 'Sulit'][difficulty-1],
+                        isCompleted,
+                        score,
+                        completionTime,
+                        accuracy,
+                        difficulty,
+                        link: `soalpaket${i}.html?id=${pinAkses}`,
+                        bestScore: score && score >= 480,
+                        isHardest: difficulty === 3,
+                        isExtra: false
                     });
+                }
+
+                // Extra packages
+                extraPackages.forEach((extra, index) => {
+                    const extraId = 100 + index + 1; // Start from 101
+                    const isCompleted = progress[`paket_extra_${extraId}`] || false;
+                    const score = progress[`score_extra_${extraId}`] || null;
+                    const completionTime = progress[`time_extra_${extraId}`] || null;
+                    const accuracy = progress[`accuracy_extra_${extraId}`] || null;
+
+                    soalList.push({
+                        id: extraId,
+                        title: `Simulasi Tambahan #${index + 1}`,
+                        description: 'TWK • TIU • TKP (110 Soal) • Paket Tambahan',
+                        isCompleted,
+                        score,
+                        completionTime,
+                        accuracy,
+                        difficulty: 2, // Default medium
+                        link: `soaltambahan${index + 1}.html?id=${pinAkses}`,
+                        bestScore: score && score >= 480,
+                        isHardest: false,
+                        isExtra: true
+                    });
+                });
+
+                // Render soal list
+                renderSoalCards(soalList);
+
+                // Update completed count
+                const completedCount = soalList.filter(s => s.isCompleted && !s.isExtra).length;
+                const extraCompletedCount = soalList.filter(s => s.isCompleted && s.isExtra).length;
+                updateCompletedCount(completedCount, extraCompletedCount);
+
+                // Hide loading state
+                document.getElementById('loadingState').classList.add('hidden');
+                document.getElementById('soalListContainer').classList.remove('hidden');
+
+                // Apply current filter
+                filterSoal(currentFilter);
+
+            } catch (error) {
+                console.error('Error rendering soal list:', error);
+                document.getElementById('loadingState').classList.add('hidden');
+                document.getElementById('errorState').classList.remove('hidden');
+
+                trackActivity('soal_list_error', { error: error.message });
             }
-            hideShareModal();
         }
 
-        function generateShareMessage() {
-            const lulusTWK = resultData.twk >= 65;
-            const lulusTIU = resultData.tiu >= 80;
-            const lulusTKP = resultData.tkp >= 166;
-            const semuaLulus = lulusTWK && lulusTIU && lulusTKP;
-            let status = semuaLulus ? '🎉 LULUS SEMUA PASSING GRADE!' : '📚 PERLU PERBAIKAN';
-            return `Saya baru saja menyelesaikan simulasi CAT CPNS!\n\n` +
-                   `Skor Total: ${resultData.total}\n` +
-                   `TWK: ${resultData.twk} | TIU: ${resultData.tiu} | TKP: ${resultData.tkp}\n` +
-                   `Status: ${status}\n` +
-                   `Paket: ${paketNumber} | PIN: ${pinAkses}\n\n` +
-                   `Coba simulasi ini di: ${window.location.origin}`;
+        function renderSoalCards(soalList) {
+            const container = document.getElementById('soalListContainer');
+            container.innerHTML = '';
+
+            if (soalList.length === 0) {
+                document.getElementById('emptyState').classList.remove('hidden');
+                return;
+            }
+
+            soalList.forEach((soal, index) => {
+                const card = createSoalCard(soal, index);
+                container.innerHTML += card;
+            });
         }
 
-        // ========== 10. ANALYSIS FUNCTIONS ==========
-        function showAnalysisModal() {
-            const content = document.getElementById('analysisContent');
-            const analysisHTML = `
-                <div class="space-y-6">
-                    <div>
-                        <h4 class="font-bold text-slate-800 mb-3">Analisis Performa per Kategori</h4>
-                        <div class="space-y-4">
-                            <div>
-                                <div class="flex justify-between text-sm text-slate-600 mb-1">
-                                    <span>TWK - Wawasan Kebangsaan</span>
-                                    <span>${resultData.twk}/65 (${Math.round((resultData.twk/65)*100)}%)</span>
-                                </div>
-                                <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
-                                    <div class="h-full bg-blue-600" style="width: ${Math.min((resultData.twk/65)*100, 100)}%"></div>
+        function createSoalCard(soal, index) {
+            const badge = soal.isCompleted 
+                ? `<span class="status-badge-premium"><i class="fa-solid fa-check mr-1"></i>Selesai</span>`
+                : `<span class="status-ultimate"><i class="fa-solid fa-clock mr-1"></i>Belum</span>`;
+            
+            const extraBadge = soal.isExtra 
+                ? `<span class="status-orange text-xs px-2 py-1 rounded-full"><i class="fa-solid fa-plus mr-1"></i>Tambahan</span>`
+                : '';
+
+            const difficultyStars = '★'.repeat(soal.difficulty) + '☆'.repeat(3-soal.difficulty);
+            const difficultyColor = soal.difficulty === 1 ? 'text-green-400' : soal.difficulty === 2 ? 'text-yellow-400' : 'text-red-400';
+
+            const scoreDisplay = soal.score 
+                ? `<div class="flex flex-wrap items-center gap-2 mt-1">
+                        <div class="text-xs font-bold ${soal.score >= 480 ? 'text-amber-400' : soal.score >= 450 ? 'text-green-400' : 'text-yellow-400'}">
+                            <i class="fa-solid fa-star"></i> ${soal.score}
+                        </div>
+                        ${soal.bestScore ? '<span class="text-xs bg-amber-500/20 text-amber-300 px-2 py-1 rounded-full border border-amber-500/30"><i class="fa-solid fa-crown"></i> Terbaik</span>' : ''}
+                        ${soal.isHardest ? '<span class="text-xs bg-red-500/20 text-red-300 px-2 py-1 rounded-full border border-red-500/30"><i class="fa-solid fa-fire"></i> Sulit</span>' : ''}
+                   </div>`
+                : '';
+
+            const buttonText = soal.isCompleted ? '<i class="fa-solid fa-redo"></i> ULANGI' : '<i class="fa-solid fa-play"></i> KERJAKAN';
+            const buttonClass = soal.isCompleted 
+                ? 'bg-gradient-to-r from-green-600 to-emerald-700 hover:from-green-700 hover:to-emerald-800'
+                : soal.isExtra 
+                    ? 'orange-gradient hover:shadow-lg hover:shadow-orange-500/30'
+                    : 'gold-gradient hover:shadow-lg hover:shadow-amber-500/30';
+
+            const cardNumber = soal.isExtra ? `T${soal.id - 100}` : soal.id;
+            const cardColor = soal.isExtra ? 'orange' : 'amber';
+            const borderColor = soal.isExtra ? 'border-orange-500/30' : 'border-amber-500/20';
+            const textColor = soal.isExtra ? 'text-orange-300' : 'text-amber-300';
+            const hoverTextColor = soal.isExtra ? 'text-orange-400' : 'text-amber-400';
+
+            return `
+                <div class="bg-slate-800 p-4 sm:p-5 rounded-2xl ${borderColor} soal-card card-hover-${cardColor} soal-card" data-id="${soal.id}" data-completed="${soal.isCompleted}" data-score="${soal.score || 0}" data-best="${soal.bestScore}" data-difficulty="${soal.difficulty}" data-hardest="${soal.isHardest}" data-extra="${soal.isExtra}">
+                    <div class="flex flex-col sm:flex-row items-center sm:items-start sm:justify-between gap-4">
+                        <div class="flex items-center gap-4 w-full sm:w-auto soal-card-content">
+                            <div class="relative">
+                                <div class="w-12 h-12 ${soal.isExtra ? 'orange-gradient text-white' : soal.isCompleted ? 'gold-gradient text-slate-900' : 'bg-slate-700 text-amber-300 border border-amber-500/20'} rounded-xl flex items-center justify-center font-black text-lg shadow-sm">
+                                    ${cardNumber}
+                                    ${soal.isCompleted ? '<i class="fa-solid fa-crown absolute -top-1 -right-1 text-xs bg-amber-500 text-slate-900 rounded-full w-5 h-5 flex items-center justify-center"></i>' : ''}
+                                    ${soal.isExtra && !soal.isCompleted ? '<i class="fa-solid fa-plus absolute -top-1 -right-1 text-xs bg-orange-500 text-white rounded-full w-5 h-5 flex items-center justify-center"></i>' : ''}
                                 </div>
                             </div>
-                            <div>
-                                <div class="flex justify-between text-sm text-slate-600 mb-1">
-                                    <span>TIU - Tes Intelegensi Umum</span>
-                                    <span>${resultData.tiu}/80 (${Math.round((resultData.tiu/80)*100)}%)</span>
+                            <div class="flex-1 min-w-0 soal-card-info">
+                                <div class="flex flex-col sm:flex-row sm:flex-wrap items-start sm:items-center gap-2 mb-1">
+                                    <h4 class="font-extrabold ${textColor} text-base truncate">${soal.title}</h4>
+                                    <div class="flex flex-wrap gap-2">
+                                        ${badge}
+                                        ${extraBadge}
+                                    </div>
                                 </div>
-                                <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
-                                    <div class="h-full bg-green-600" style="width: ${Math.min((resultData.tiu/80)*100, 100)}%"></div>
+                                <div class="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3 mb-1">
+                                    <p class="text-xs text-slate-400 font-medium uppercase tracking-wider truncate">${soal.description}</p>
+                                    ${!soal.isExtra ? `<span class="text-xs ${difficultyColor} font-bold">${difficultyStars}</span>` : ''}
                                 </div>
-                            </div>
-                            <div>
-                                <div class="flex justify-between text-sm text-slate-600 mb-1">
-                                    <span>TKP - Karakteristik Pribadi</span>
-                                    <span>${resultData.tkp}/166 (${Math.round((resultData.tkp/166)*100)}%)</span>
-                                </div>
-                                <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
-                                    <div class="h-full bg-purple-600" style="width: ${Math.min((resultData.tkp/166)*100, 100)}%"></div>
-                                </div>
+                                ${scoreDisplay}
+                                ${soal.completionTime ? `<p class="text-xs text-slate-500 mt-1"><i class="fa-regular fa-clock"></i> ${soal.completionTime}</p>` : ''}
                             </div>
                         </div>
-                    </div>
-                    <div class="grid grid-cols-2 gap-4">
-                        <div class="bg-slate-50 rounded-xl p-4">
-                            <h5 class="font-bold text-slate-800 text-sm mb-2">Statistik Umum</h5>
-                            <div class="space-y-2">
-                                <div class="flex justify-between">
-                                    <span class="text-slate-600 text-sm">Total Soal</span>
-                                    <span class="font-bold">110</span>
-                                </div>
-                                <div class="flex justify-between">
-                                    <span class="text-slate-600 text-sm">Terjawab</span>
-                                    <span class="font-bold">${(resultData.twkJawab||0)+(resultData.tiuJawab||0)+(resultData.tkpJawab||0)}</span>
-                                </div>
-                                <div class="flex justify-between">
-                                    <span class="text-slate-600 text-sm">Soal Ragu</span>
-                                    <span class="font-bold">${resultData.ragu || 0}</span>
-                                </div>
-                                <div class="flex justify-between">
-                                    <span class="text-slate-600 text-sm">Waktu</span>
-                                    <span class="font-bold">${resultData.waktu || '-'}</span>
-                                </div>
-                            </div>
+                        <div class="flex flex-col items-stretch sm:items-end gap-2 w-full sm:w-auto soal-card-action">
+                            <a href="${soal.link}" class="${buttonClass} ${soal.isExtra ? 'text-white' : 'text-slate-900'} px-4 sm:px-5 py-3 rounded-xl text-sm font-bold shadow-lg hover:shadow-xl transition-all active:scale-95 flex items-center justify-center gap-2 touch-button">
+                                ${buttonText}
+                            </a>
+                            ${soal.isCompleted ? `
+                                <button onclick="showSoalDetail(${soal.id}, ${soal.isExtra})" class="text-xs text-slate-400 hover:${hoverTextColor} flex items-center justify-center sm:justify-end gap-1 touch-button-sm">
+                                    <i class="fa-solid fa-chart-bar"></i> Detail
+                                </button>
+                            ` : ''}
                         </div>
-                        <div class="bg-slate-50 rounded-xl p-4">
-                            <h5 class="font-bold text-slate-800 text-sm mb-2">Akurasi Jawaban</h5>
-                            <div class="space-y-2">
-                                <div class="flex justify-between">
-                                    <span class="text-slate-600 text-sm">TWK Benar</span>
-                                    <span class="font-bold">${resultData.twkBenar || 0}/30</span>
-                                </div>
-                                <div class="flex justify-between">
-                                    <span class="text-slate-600 text-sm">TIU Benar</span>
-                                    <span class="font-bold">${resultData.tiuBenar || 0}/35</span>
-                                </div>
-                                <div class="flex justify-between">
-                                    <span class="text-slate-600 text-sm">Akurasi Total</span>
-                                    <span class="font-bold">${Math.round(((resultData.twkBenar||0)+(resultData.tiuBenar||0))/((resultData.twkJawab||0)+(resultData.tiuJawab||0)+1)*100)}%</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="bg-blue-50 rounded-xl p-4 border border-blue-100">
-                        <h5 class="font-bold text-blue-800 text-sm mb-2 flex items-center gap-2">
-                            <i class="fa-solid fa-lightbulb"></i> Tips Perbaikan
-                        </h5>
-                        <ul class="text-sm text-blue-700 space-y-2">
-                            <li class="flex items-start gap-2"><i class="fa-solid fa-check mt-1 text-xs"></i><span>Review soal yang dijawab dengan ragu-ragu</span></li>
-                            <li class="flex items-start gap-2"><i class="fa-solid fa-check mt-1 text-xs"></i><span>Fokus pada materi dengan skor terendah</span></li>
-                            <li class="flex items-start gap-2"><i class="fa-solid fa-check mt-1 text-xs"></i><span>Latihan soal dengan waktu terbatas</span></li>
-                            <li class="flex items-start gap-2"><i class="fa-solid fa-check mt-1 text-xs"></i><span>Pelajari pembahasan setiap soal</span></li>
-                        </ul>
                     </div>
                 </div>
             `;
-            content.innerHTML = analysisHTML;
-            document.getElementById('analysisModal').classList.remove('hidden');
         }
 
-        function hideAnalysisModal() {
-            document.getElementById('analysisModal').classList.add('hidden');
-        }
+        // ========== 8. COMPLETED COUNT & PROGRESS ==========
+        function updateCompletedCount(count, extraCount = 0) {
+            const elements = [
+                'completedCount',
+                'completedCountSmall'
+            ];
 
-        // ========== 11. PROGRESS HISTORY ==========
-        function saveToProgressHistory() {
-            if (!pinAkses || !resultData) return;
-            const historyKey = `progress_${pinAkses}`;
-            let progress = JSON.parse(localStorage.getItem(historyKey)) || {};
-            progress[`paket_${paketNumber}`] = true;
-            progress[`score_${paketNumber}`] = resultData.total;
-            progress[`time_${paketNumber}`] = resultData.waktu || '-';
-            progress[`accuracy_${paketNumber}`] = Math.round(((resultData.twkBenar || 0) + (resultData.tiuBenar || 0)) / ((resultData.twkJawab || 0) + (resultData.tiuJawab || 0) + 1) * 100);
-            progress[`completed_${paketNumber}`] = new Date().toISOString();
-            localStorage.setItem(historyKey, JSON.stringify(progress));
-        }
-
-        // ========== 12. UI HELPER FUNCTIONS ==========
-        function showErrorState() {
-            document.getElementById('loadingState').classList.add('hidden');
-            document.getElementById('errorState').classList.remove('hidden');
-        }
-
-        function toggleResultMenu() {
-            const menu = document.getElementById('resultMenu');
-            menu.classList.toggle('hidden');
-        }
-
-        function showToast(type, title, message) {
-            const toast = document.getElementById('notification-toast');
-            const toastIcon = document.getElementById('toast-icon');
-            const toastTitle = document.getElementById('toast-title');
-            const toastMessage = document.getElementById('toast-message');
-            let iconClass, bgColor;
-            switch (type) {
-                case 'success':
-                    iconClass = 'fa-solid fa-circle-check text-green-500';
-                    bgColor = 'bg-green-50 border-green-200';
-                    break;
-                case 'error':
-                    iconClass = 'fa-solid fa-circle-xmark text-red-500';
-                    bgColor = 'bg-red-50 border-red-200';
-                    break;
-                default:
-                    iconClass = 'fa-solid fa-circle-info text-blue-500';
-                    bgColor = 'bg-blue-50 border-blue-200';
-            }
-            toastIcon.className = iconClass;
-            toastTitle.textContent = title;
-            toastMessage.textContent = message;
-            toast.querySelector('div').className = `bg-white rounded-xl shadow-lg border p-4 max-w-sm animate-fadeIn ${bgColor}`;
-            toast.classList.remove('hidden');
-            setTimeout(hideToast, 5000);
-        }
-
-        function hideToast() {
-            document.getElementById('notification-toast').classList.add('hidden');
-        }
-
-        // ========== 13. EVENT LISTENERS SETUP ==========
-        function setupEventListeners() {
-            document.addEventListener('click', (event) => {
-                const resultMenu = document.getElementById('resultMenu');
-                const resultButton = document.querySelector('[onclick="toggleResultMenu()"]');
-                if (resultMenu && !resultMenu.contains(event.target) && resultButton && !resultButton.contains(event.target)) {
-                    resultMenu.classList.add('hidden');
+            elements.forEach(id => {
+                const element = document.getElementById(id);
+                if (element) {
+                    element.textContent = count;
                 }
-                const modals = ['shareModal', 'analysisModal'];
+            });
+
+            // Update extra completed count
+            const extraElement = document.getElementById('extraCompletedCount');
+            if (extraElement) {
+                extraElement.textContent = extraCount > 0 ? `+${extraCount}` : '+0';
+            }
+
+            // Update extra packages count in header
+            const extraPackagesElement = document.getElementById('extraPackagesCount');
+            if (extraPackagesElement) {
+                extraPackagesElement.textContent = extraPackages.length > 0 ? `+${extraPackages.length} tambahan` : '+0 tambahan';
+            }
+
+            // Update remaining count
+            const remainingElement = document.getElementById('remainingCount');
+            if (remainingElement) {
+                remainingElement.textContent = 20 + extraPackages.length - count - extraCount;
+            }
+
+            // Update quota display
+            const quotaElement = document.getElementById('quotaUsed');
+            if (quotaElement) {
+                quotaElement.textContent = `${count}/20+`;
+            }
+
+            // Update progress bar
+            const totalPackages = 20 + extraPackages.length;
+            const completedTotal = count + extraCount;
+            const progressPercentage = totalPackages > 0 ? (completedTotal / totalPackages) * 100 : 0;
+            const progressBar = document.getElementById('quotaProgress');
+            if (progressBar) {
+                progressBar.style.width = `${progressPercentage}%`;
+            }
+
+            // Update progress ring
+            updateProgressRing(progressPercentage);
+        }
+
+        // ========== 9. TAMBAH PAKET TRYOUT FUNCTION ==========
+        function tambahPaketTryout() {
+            if (!confirm('Anda akan diarahkan ke WhatsApp untuk pembelian paket tryout tambahan seharga Rp 25.000. Lanjutkan?')) {
+                return;
+            }
+
+            const noAdmin = "6285696409288";
+            const pesan = `Halo Admin Kerja Jadi ASN,%0A%0ASaya ingin *Tambah 1 Paket Tryout* (Rp 25.000).%0A%0A*Detail Peserta:*%0A• PIN: ${pinAkses}%0A• Paket: 3 Ultimate Premium%0A• Total Paket Saat Ini: 20 tryout utama + ${extraPackages.length} tambahan%0A%0A*Permintaan:*%0A+1 paket tryout tambahan dengan pembahasan lengkap%0A%0AMohon diproses dan informasikan cara pembayarannya. Terima kasih!`;
+
+            const whatsappUrl = `https://api.whatsapp.com/send?phone=${noAdmin}&text=${pesan}`;
+            
+            // Open WhatsApp
+            window.open(whatsappUrl, '_blank');
+            
+            // Track activity
+            trackActivity('click_tambah_paket', { 
+                action: 'buy_extra_package',
+                price: 25000,
+                pin: pinAkses,
+                current_extra: extraPackages.length
+            });
+            
+            // Show notification
+            showNotification('info', 'Pembelian Paket Tambahan', 'Anda akan diarahkan ke WhatsApp untuk pemesanan paket tryout tambahan. Setelah pembayaran, paket akan ditambahkan ke akun Anda.');
+            
+            // Create orange confetti
+            createOrangeConfettiBurst();
+        }
+
+        // ========== 10. UI HELPER FUNCTIONS ==========
+        function toggleProfileMenu() {
+            const menu = document.getElementById('profileMenu');
+            menu.classList.toggle('hidden');
+            trackActivity('toggle_profile_menu');
+        }
+
+        function showProgressModal() {
+            // Implementation untuk progress modal
+            showNotification('info', 'Progress Modal', 'Fitur progress modal akan segera hadir!');
+        }
+
+        function showHelpModal() {
+            document.getElementById('helpModal').classList.remove('hidden');
+            trackActivity('show_help_modal');
+        }
+
+        function hideHelpModal() {
+            document.getElementById('helpModal').classList.add('hidden');
+        }
+
+        // ========== 11. EVENT LISTENERS SETUP ==========
+        function setupEventListeners() {
+            // Close dropdowns when clicking outside
+            document.addEventListener('click', (event) => {
+                const profileMenu = document.getElementById('profileMenu');
+                const profileButton = document.querySelector('[onclick="toggleProfileMenu()"]');
+
+                if (profileMenu && !profileMenu.contains(event.target) && profileButton && !profileButton.contains(event.target)) {
+                    profileMenu.classList.add('hidden');
+                }
+
+                // Close mobile sidebar when clicking outside
+                const mobileSidebar = document.getElementById('mobileSidebar');
+                const mobileSidebarContent = mobileSidebar?.querySelector('div > div');
+                const mobileMenuButton = document.getElementById('mobileMenuButton');
+
+                if (mobileSidebar && !mobileSidebar.classList.contains('hidden') && 
+                    mobileSidebarContent && !mobileSidebarContent.contains(event.target) &&
+                    !mobileMenuButton.contains(event.target)) {
+                    hideMobileSidebar();
+                }
+
+                // Close modals when clicking outside
+                const modals = ['progressModal', 'helpModal'];
                 modals.forEach(modalId => {
                     const modal = document.getElementById(modalId);
                     const modalContent = modal?.querySelector('div > div');
+
                     if (modal && !modal.classList.contains('hidden') && modalContent && !modalContent.contains(event.target)) {
                         modal.classList.add('hidden');
                     }
                 });
             });
-            document.addEventListener('keydown', (e) => {
-                if (e.key === 'Escape') {
-                    if (!document.getElementById('shareModal').classList.contains('hidden')) hideShareModal();
-                    if (!document.getElementById('analysisModal').classList.contains('hidden')) hideAnalysisModal();
+
+            // Handle escape key
+            document.addEventListener('keydown', (event) => {
+                if (event.key === 'Escape') {
+                    hideMobileSidebar();
+                    document.getElementById('profileMenu').classList.add('hidden');
+                    document.getElementById('helpModal').classList.add('hidden');
+                    document.getElementById('progressModal').classList.add('hidden');
                 }
-                if (e.ctrlKey && e.key === 'p') {
-                    e.preventDefault();
-                    printResult();
+            });
+
+            // Handle window resize
+            window.addEventListener('resize', () => {
+                if (window.innerWidth >= 768) {
+                    hideMobileSidebar();
                 }
             });
         }
+
+        // ========== 12. RESPONSIVE HELPER FUNCTIONS ==========
+        function isMobile() {
+            return window.innerWidth < 768;
+        }
+
+        function isTablet() {
+            return window.innerWidth >= 768 && window.innerWidth < 1024;
+        }
+
+        function isDesktop() {
+            return window.innerWidth >= 1024;
+        }
+
+        // ========== 13. INITIAL SETUP ==========
+        // Set initial state based on screen size
+        window.addEventListener('load', () => {
+            if (isMobile()) {
+                console.log('Mobile view detected');
+            } else if (isTablet()) {
+                console.log('Tablet view detected');
+            } else {
+                console.log('Desktop view detected');
+            }
+        });
+
     </script>
+
 </body>
 </html>
