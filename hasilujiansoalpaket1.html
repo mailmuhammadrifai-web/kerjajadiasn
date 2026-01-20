@@ -8,9 +8,12 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&display=swap');
+        
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
             background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            min-height: 100vh;
         }
         .score-card {
             background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
@@ -100,20 +103,115 @@
             0% { filter: drop-shadow(0 0 5px rgba(59, 130, 246, 0.3)); }
             100% { filter: drop-shadow(0 0 20px rgba(59, 130, 246, 0.6)); }
         }
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+        @keyframes floating {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        .bounce-in {
+            animation: bounceIn 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+        @keyframes bounceIn {
+            0% { transform: scale(0.3); opacity: 0; }
+            50% { transform: scale(1.05); }
+            70% { transform: scale(0.9); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        .slide-up {
+            animation: slideUp 0.5s ease-out;
+        }
+        @keyframes slideUp {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        .rotate-slow {
+            animation: rotate 20s linear infinite;
+        }
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        .logo-text {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 800;
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .footer-gradient {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+        }
+        .badge-premium {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            color: white;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .shine-effect {
+            position: relative;
+            overflow: hidden;
+        }
+        .shine-effect::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -60%;
+            width: 20%;
+            height: 200%;
+            background: linear-gradient(
+                to right,
+                rgba(255, 255, 255, 0) 0%,
+                rgba(255, 255, 255, 0.3) 50%,
+                rgba(255, 255, 255, 0) 100%
+            );
+            transform: rotate(30deg);
+            animation: shine 3s infinite;
+        }
+        @keyframes shine {
+            0% { left: -60%; }
+            100% { left: 120%; }
+        }
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            opacity: 0;
+            animation: confetti-fall 5s linear infinite;
+        }
+        @keyframes confetti-fall {
+            0% {
+                transform: translateY(-100px) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
     </style>
 </head>
 <body class="min-h-screen overflow-x-hidden">
-    <!-- Particle Background -->
+    <!-- Animated Background Elements -->
     <div id="particles"></div>
+    <div id="confetti-container"></div>
+    
+    <!-- Floating decorative elements -->
+    <div class="fixed top-10 left-5 w-32 h-32 bg-gradient-to-br from-blue-100 to-indigo-100 rounded-full opacity-20 floating"></div>
+    <div class="fixed bottom-20 right-10 w-24 h-24 bg-gradient-to-br from-purple-100 to-pink-100 rounded-full opacity-20 floating" style="animation-delay: 0.5s;"></div>
+    <div class="fixed top-1/3 right-1/4 w-16 h-16 bg-gradient-to-br from-green-100 to-emerald-100 rounded-full opacity-20 floating" style="animation-delay: 1s;"></div>
 
     <!-- Main Container -->
-    <div class="container mx-auto px-4 py-6 md:py-10 max-w-6xl">
+    <div class="container mx-auto px-4 py-6 md:py-10 max-w-6xl relative z-10">
         <!-- Header -->
-        <header class="mb-8 md:mb-12">
+        <header class="mb-8 md:mb-12 bounce-in">
             <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
                 <div>
                     <div class="flex items-center gap-3 mb-3">
-                        <div class="p-3 rounded-2xl bg-gradient-to-r from-blue-500 to-indigo-600 text-white">
+                        <div class="p-3 rounded-2xl bg-gradient-to-r from-blue-500 to-indigo-600 text-white shine-effect">
                             <i class="fa-solid fa-trophy text-2xl"></i>
                         </div>
                         <div>
@@ -123,7 +221,7 @@
                     </div>
                     
                     <!-- PIN Display -->
-                    <div class="inline-flex items-center gap-3 bg-gradient-to-r from-blue-50 to-indigo-50 px-4 py-3 rounded-xl border border-blue-200">
+                    <div class="inline-flex items-center gap-3 bg-gradient-to-r from-blue-50 to-indigo-50 px-4 py-3 rounded-xl border border-blue-200 slide-up" style="animation-delay: 0.1s;">
                         <div class="flex items-center gap-2">
                             <i class="fa-solid fa-id-card text-blue-600"></i>
                             <span class="text-sm font-bold text-slate-700 uppercase">PIN Peserta:</span>
@@ -134,12 +232,12 @@
                     </div>
                 </div>
                 
-                <div class="flex flex-col sm:flex-row gap-3">
-                    <button id="btnDashboard" class="px-6 py-3 bg-gradient-to-r from-slate-600 to-slate-700 text-white rounded-xl font-bold hover:from-slate-700 hover:to-slate-800 transition-all flex items-center justify-center gap-2 shadow-lg shadow-slate-200 active:scale-95">
+                <div class="flex flex-col sm:flex-row gap-3 slide-up" style="animation-delay: 0.2s;">
+                    <button id="btnDashboard" class="px-6 py-3 bg-gradient-to-r from-slate-600 to-slate-700 text-white rounded-xl font-bold hover:from-slate-700 hover:to-slate-800 transition-all flex items-center justify-center gap-2 shadow-lg shadow-slate-200 active:scale-95 hover:scale-105 duration-300">
                         <i class="fa-solid fa-house"></i>
                         <span>Dashboard</span>
                     </button>
-                    <button onclick="cetakHasil()" class="px-6 py-3 bg-gradient-to-r from-blue-500 to-indigo-600 text-white rounded-xl font-bold hover:from-blue-600 hover:to-indigo-700 transition-all flex items-center justify-center gap-2 shadow-lg shadow-blue-100 active:scale-95">
+                    <button onclick="cetakHasil()" class="px-6 py-3 bg-gradient-to-r from-blue-500 to-indigo-600 text-white rounded-xl font-bold hover:from-blue-600 hover:to-indigo-700 transition-all flex items-center justify-center gap-2 shadow-lg shadow-blue-100 active:scale-95 hover:scale-105 duration-300">
                         <i class="fa-solid fa-print"></i>
                         <span>Cetak Hasil</span>
                     </button>
@@ -147,7 +245,7 @@
             </div>
             
             <!-- Alert for new result -->
-            <div id="alertBaru" class="hidden bg-gradient-to-r from-green-50 to-emerald-50 border border-green-200 rounded-2xl p-4 mb-6">
+            <div id="alertBaru" class="hidden bg-gradient-to-r from-green-50 to-emerald-50 border border-green-200 rounded-2xl p-4 mb-6 slide-up" style="animation-delay: 0.3s;">
                 <div class="flex items-center gap-3">
                     <div class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center flex-shrink-0">
                         <i class="fa-solid fa-sparkles text-green-600"></i>
@@ -164,10 +262,10 @@
         </header>
 
         <!-- Main Result Card -->
-        <div class="score-card p-6 md:p-8 mb-8 relative overflow-hidden">
-            <!-- Decorative elements -->
-            <div class="absolute -top-10 -right-10 w-40 h-40 bg-gradient-to-br from-blue-100 to-indigo-100 rounded-full opacity-50"></div>
-            <div class="absolute -bottom-10 -left-10 w-40 h-40 bg-gradient-to-br from-slate-100 to-blue-100 rounded-full opacity-50"></div>
+        <div class="score-card p-6 md:p-8 mb-8 relative overflow-hidden bounce-in" style="animation-delay: 0.4s;">
+            <!-- Animated decorative elements -->
+            <div class="absolute -top-10 -right-10 w-40 h-40 bg-gradient-to-br from-blue-100 to-indigo-100 rounded-full opacity-50 rotate-slow"></div>
+            <div class="absolute -bottom-10 -left-10 w-40 h-40 bg-gradient-to-br from-slate-100 to-blue-100 rounded-full opacity-50 rotate-slow" style="animation-direction: reverse;"></div>
             
             <div class="relative z-10">
                 <div class="flex flex-col lg:flex-row items-center justify-between gap-8">
@@ -190,7 +288,7 @@
                             <div class="absolute inset-0 flex flex-col items-center justify-center">
                                 <span id="totalScore" class="score-badge text-5xl md:text-6xl font-black score-glow">0</span>
                                 <span class="text-slate-500 font-bold text-sm">DARI 500</span>
-                                <div id="resultEmoji" class="result-emoji mt-2"></div>
+                                <div id="resultEmoji" class="result-emoji mt-2 floating"></div>
                             </div>
                         </div>
                         <div class="text-center">
@@ -201,34 +299,34 @@
                     
                     <!-- Stats Grid -->
                     <div class="flex-1 grid grid-cols-2 md:grid-cols-4 gap-4">
-                        <div class="category-card rounded-2xl p-5 text-center">
+                        <div class="category-card rounded-2xl p-5 text-center slide-up" style="animation-delay: 0.5s;">
                             <div class="text-2xl md:text-3xl font-black text-blue-600 mb-1" id="skorTWK">0</div>
                             <div class="text-xs font-bold text-blue-700 uppercase mb-1">TWK</div>
                             <div class="text-xs text-slate-600">Nilai Wawasan Kebangsaan</div>
                             <div class="mt-3 w-full bg-blue-100 h-2 rounded-full overflow-hidden">
-                                <div id="progressTWK" class="h-full bg-blue-600" style="width: 0%"></div>
+                                <div id="progressTWK" class="h-full bg-blue-600 transition-all duration-1000" style="width: 0%"></div>
                             </div>
                         </div>
                         
-                        <div class="category-card rounded-2xl p-5 text-center">
+                        <div class="category-card rounded-2xl p-5 text-center slide-up" style="animation-delay: 0.6s;">
                             <div class="text-2xl md:text-3xl font-black text-green-600 mb-1" id="skorTIU">0</div>
                             <div class="text-xs font-bold text-green-700 uppercase mb-1">TIU</div>
                             <div class="text-xs text-slate-600">Tes Intelegensi Umum</div>
                             <div class="mt-3 w-full bg-green-100 h-2 rounded-full overflow-hidden">
-                                <div id="progressTIU" class="h-full bg-green-600" style="width: 0%"></div>
+                                <div id="progressTIU" class="h-full bg-green-600 transition-all duration-1000" style="width: 0%"></div>
                             </div>
                         </div>
                         
-                        <div class="category-card rounded-2xl p-5 text-center">
+                        <div class="category-card rounded-2xl p-5 text-center slide-up" style="animation-delay: 0.7s;">
                             <div class="text-2xl md:text-3xl font-black text-purple-600 mb-1" id="skorTKP">0</div>
                             <div class="text-xs font-bold text-purple-700 uppercase mb-1">TKP</div>
                             <div class="text-xs text-slate-600">Karakteristik Pribadi</div>
                             <div class="mt-3 w-full bg-purple-100 h-2 rounded-full overflow-hidden">
-                                <div id="progressTKP" class="h-full bg-purple-600" style="width: 0%"></div>
+                                <div id="progressTKP" class="h-full bg-purple-600 transition-all duration-1000" style="width: 0%"></div>
                             </div>
                         </div>
                         
-                        <div class="category-card rounded-2xl p-5 text-center">
+                        <div class="category-card rounded-2xl p-5 text-center slide-up" style="animation-delay: 0.8s;">
                             <div class="text-2xl md:text-3xl font-black text-slate-700 mb-1" id="waktuDigunakan">0m</div>
                             <div class="text-xs font-bold text-slate-800 uppercase mb-1">WAKTU</div>
                             <div class="text-xs text-slate-600">Digunakan</div>
@@ -246,7 +344,7 @@
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-10">
             <!-- Left Column: Performance Breakdown -->
             <div class="space-y-6">
-                <div class="score-card p-6">
+                <div class="score-card p-6 bounce-in" style="animation-delay: 0.5s;">
                     <h3 class="text-xl font-bold text-slate-800 mb-6 flex items-center gap-2">
                         <i class="fa-solid fa-chart-bar text-blue-600"></i>
                         <span>Analisis Performa</span>
@@ -254,7 +352,7 @@
                     
                     <div class="space-y-6">
                         <!-- TWK Breakdown -->
-                        <div>
+                        <div class="slide-up" style="animation-delay: 0.6s;">
                             <div class="flex justify-between items-center mb-2">
                                 <div class="flex items-center gap-2">
                                     <div class="w-3 h-3 rounded-full bg-blue-500"></div>
@@ -266,14 +364,14 @@
                                 <span class="text-slate-600">Jawaban:</span>
                                 <span id="twkTerjawab" class="font-bold">0/30</span>
                                 <div class="flex-1 h-2 bg-slate-200 rounded-full overflow-hidden">
-                                    <div id="twkProgress" class="h-full bg-blue-500" style="width: 0%"></div>
+                                    <div id="twkProgress" class="h-full bg-blue-500 transition-all duration-1000" style="width: 0%"></div>
                                 </div>
                                 <span id="twkPersen" class="text-slate-600 font-bold">0%</span>
                             </div>
                         </div>
                         
                         <!-- TIU Breakdown -->
-                        <div>
+                        <div class="slide-up" style="animation-delay: 0.7s;">
                             <div class="flex justify-between items-center mb-2">
                                 <div class="flex items-center gap-2">
                                     <div class="w-3 h-3 rounded-full bg-green-500"></div>
@@ -285,14 +383,14 @@
                                 <span class="text-slate-600">Jawaban:</span>
                                 <span id="tiuTerjawab" class="font-bold">0/35</span>
                                 <div class="flex-1 h-2 bg-slate-200 rounded-full overflow-hidden">
-                                    <div id="tiuProgress" class="h-full bg-green-500" style="width: 0%"></div>
+                                    <div id="tiuProgress" class="h-full bg-green-500 transition-all duration-1000" style="width: 0%"></div>
                                 </div>
                                 <span id="tiuPersen" class="text-slate-600 font-bold">0%</span>
                             </div>
                         </div>
                         
                         <!-- TKP Breakdown -->
-                        <div>
+                        <div class="slide-up" style="animation-delay: 0.8s;">
                             <div class="flex justify-between items-center mb-2">
                                 <div class="flex items-center gap-2">
                                     <div class="w-3 h-3 rounded-full bg-purple-500"></div>
@@ -304,7 +402,7 @@
                                 <span class="text-slate-600">Jawaban:</span>
                                 <span id="tkpTerjawab" class="font-bold">0/45</span>
                                 <div class="flex-1 h-2 bg-slate-200 rounded-full overflow-hidden">
-                                    <div id="tkpProgress" class="h-full bg-purple-500" style="width: 0%"></div>
+                                    <div id="tkpProgress" class="h-full bg-purple-500 transition-all duration-1000" style="width: 0%"></div>
                                 </div>
                                 <span id="tkpPersen" class="text-slate-600 font-bold">0%</span>
                             </div>
@@ -312,7 +410,7 @@
                     </div>
                     
                     <!-- Accuracy Stats -->
-                    <div class="mt-8 pt-6 border-t border-slate-200">
+                    <div class="mt-8 pt-6 border-t border-slate-200 slide-up" style="animation-delay: 0.9s;">
                         <div class="grid grid-cols-3 gap-4">
                             <div class="text-center">
                                 <div class="text-2xl font-black text-blue-600" id="akurasiTWK">0%</div>
@@ -331,14 +429,14 @@
                 </div>
                 
                 <!-- Additional Info -->
-                <div class="score-card p-6">
+                <div class="score-card p-6 bounce-in" style="animation-delay: 0.6s;">
                     <h3 class="text-xl font-bold text-slate-800 mb-4 flex items-center gap-2">
                         <i class="fa-solid fa-circle-info text-indigo-600"></i>
                         <span>Informasi Tambahan</span>
                     </h3>
                     
                     <div class="grid grid-cols-2 gap-4">
-                        <div class="bg-blue-50 rounded-xl p-4">
+                        <div class="bg-blue-50 rounded-xl p-4 slide-up" style="animation-delay: 0.7s;">
                             <div class="flex items-center gap-3 mb-2">
                                 <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center">
                                     <i class="fa-solid fa-question-circle text-blue-600"></i>
@@ -351,7 +449,7 @@
                             <p class="text-xs text-slate-600">Ditandai ragu-ragu saat mengerjakan</p>
                         </div>
                         
-                        <div class="bg-purple-50 rounded-xl p-4">
+                        <div class="bg-purple-50 rounded-xl p-4 slide-up" style="animation-delay: 0.8s;">
                             <div class="flex items-center gap-3 mb-2">
                                 <div class="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center">
                                     <i class="fa-solid fa-bookmark text-purple-600"></i>
@@ -365,7 +463,7 @@
                         </div>
                     </div>
                     
-                    <div class="mt-4 pt-4 border-t border-slate-200">
+                    <div class="mt-4 pt-4 border-t border-slate-200 slide-up" style="animation-delay: 0.9s;">
                         <div class="text-sm text-slate-600">
                             <p><i class="fa-solid fa-lightbulb text-yellow-500 mr-2"></i> Hasil ini disimpan secara otomatis dan dapat diakses kapan saja.</p>
                             <p class="mt-2"><i class="fa-solid fa-clock text-blue-500 mr-2"></i> Waktu penyelesaian ujian: <span id="waktuSelesai" class="font-bold">Memuat...</span></p>
@@ -376,7 +474,7 @@
             
             <!-- Right Column: Recommendation & Actions -->
             <div class="space-y-6">
-                <div class="score-card p-6">
+                <div class="score-card p-6 bounce-in" style="animation-delay: 0.5s;">
                     <h3 class="text-xl font-bold text-slate-800 mb-6 flex items-center gap-2">
                         <i class="fa-solid fa-bullseye text-red-600"></i>
                         <span>Rekomendasi & Tips</span>
@@ -386,7 +484,7 @@
                         <!-- Recommendations will be dynamically inserted here -->
                     </div>
                     
-                    <div class="mt-8 p-4 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl border border-blue-200">
+                    <div class="mt-8 p-4 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl border border-blue-200 slide-up" style="animation-delay: 0.7s;">
                         <div class="flex items-start gap-3">
                             <i class="fa-solid fa-graduation-cap text-blue-600 mt-1"></i>
                             <div>
@@ -398,14 +496,14 @@
                 </div>
                 
                 <!-- Action Buttons -->
-                <div class="score-card p-6">
+                <div class="score-card p-6 bounce-in" style="animation-delay: 0.6s;">
                     <h3 class="text-xl font-bold text-slate-800 mb-6 flex items-center gap-2">
                         <i class="fa-solid fa-rocket text-orange-600"></i>
                         <span>Aksi Selanjutnya</span>
                     </h3>
                     
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <button onclick="lihatPembahasan()" class="p-4 rounded-xl bg-gradient-to-r from-blue-50 to-blue-100 border border-blue-200 hover:border-blue-300 transition-all hover:shadow-md glow-effect">
+                        <button onclick="lihatPembahasan()" class="p-4 rounded-xl bg-gradient-to-r from-blue-50 to-blue-100 border border-blue-200 hover:border-blue-300 transition-all hover:shadow-md glow-effect duration-300 slide-up" style="animation-delay: 0.7s;">
                             <div class="flex items-center gap-3">
                                 <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center">
                                     <i class="fa-solid fa-file-alt text-blue-600"></i>
@@ -417,7 +515,7 @@
                             </div>
                         </button>
                         
-                        <button onclick="ulangiUjian()" class="p-4 rounded-xl bg-gradient-to-r from-green-50 to-green-100 border border-green-200 hover:border-green-300 transition-all hover:shadow-md glow-effect">
+                        <button onclick="ulangiUjian()" class="p-4 rounded-xl bg-gradient-to-r from-green-50 to-green-100 border border-green-200 hover:border-green-300 transition-all hover:shadow-md glow-effect duration-300 slide-up" style="animation-delay: 0.8s;">
                             <div class="flex items-center gap-3">
                                 <div class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center">
                                     <i class="fa-solid fa-redo text-green-600"></i>
@@ -429,45 +527,81 @@
                             </div>
                         </button>
                     </div>
-                    
-                    <!-- Additional study resources -->
-                    <div class="mt-6 pt-6 border-t border-slate-200">
-                        <h4 class="font-bold text-slate-700 mb-4">Sumber Belajar Tambahan</h4>
-                        <div class="space-y-3">
-                            <div class="flex items-center gap-3 p-3 bg-slate-50 rounded-xl">
-                                <i class="fa-solid fa-book text-slate-500"></i>
-                                <div>
-                                    <p class="text-sm font-medium text-slate-700">Materi TWK Lengkap</p>
-                                    <p class="text-xs text-slate-500">Panduan wawasan kebangsaan</p>
-                                </div>
-                            </div>
-                            <div class="flex items-center gap-3 p-3 bg-slate-50 rounded-xl">
-                                <i class="fa-solid fa-calculator text-slate-500"></i>
-                                <div>
-                                    <p class="text-sm font-medium text-slate-700">Latihan TIU</p>
-                                    <p class="text-xs text-slate-500">Soal-soal penalaran dan logika</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
         
         <!-- Footer -->
-        <footer class="text-center py-6 border-t border-slate-200 mt-8">
-            <p class="text-slate-600 text-sm">
-                <i class="fa-solid fa-lock text-slate-400 mr-1"></i> Hasil ujian ini bersifat pribadi dan hanya dapat diakses dengan PIN peserta.
-            </p>
-            <p class="text-slate-500 text-xs mt-2">
-                &copy; 2023 CAT CPNS Simulator • Paket Soal 1 • <span id="versionInfo">v1.0.0</span>
-            </p>
+        <footer class="footer-gradient text-white rounded-2xl p-6 md:p-8 mt-8 bounce-in" style="animation-delay: 0.8s;">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-6">
+                <div class="flex items-center gap-3">
+                    <div class="p-3 rounded-xl bg-gradient-to-r from-blue-500 to-indigo-600">
+                        <i class="fa-solid fa-crown text-lg"></i>
+                    </div>
+                    <div>
+                        <div class="flex items-center gap-2 mb-2">
+                            <h2 class="logo-text text-2xl md:text-3xl">KERJA JADI ASN</h2>
+                            <span class="badge-premium px-3 py-1 rounded-full text-xs">PREMIUM</span>
+                        </div>
+                        <p class="text-slate-300 text-sm max-w-md">
+                            Platform tryout ASN premium dengan sistem pembelajaran adaptif dan pembahasan lengkap.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="flex items-center gap-4">
+                    <div class="text-center">
+                        <div class="text-2xl font-black text-blue-400">8</div>
+                        <p class="text-xs text-slate-300">Simulasi SKD</p>
+                        <p class="text-xs text-slate-400">Paket #8</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-2xl font-black text-green-400">9</div>
+                        <p class="text-xs text-slate-300">Simulasi SKD</p>
+                        <p class="text-xs text-slate-400">Paket #9</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-2xl font-black text-purple-400">10</div>
+                        <p class="text-xs text-slate-300">Simulasi SKD</p>
+                        <p class="text-xs text-slate-400">Paket #10</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-slate-700 pt-6">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                    <div class="flex items-center gap-3">
+                        <div class="bg-slate-800 px-4 py-2 rounded-lg">
+                            <p class="text-xs text-slate-400 uppercase font-bold">PIN PESERTA</p>
+                            <p id="footerPin" class="font-mono font-bold text-white">MEMUAT...</p>
+                        </div>
+                        <div class="text-slate-400 text-sm">
+                            <p><i class="fa-solid fa-check-circle text-green-500 mr-1"></i> Akses langsung</p>
+                            <p><i class="fa-solid fa-bolt text-yellow-500 mr-1"></i> Proses instan</p>
+                        </div>
+                    </div>
+                    
+                    <div class="text-center md:text-right">
+                        <button onclick="hubungiKami()" class="px-6 py-3 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-xl font-bold hover:from-green-600 hover:to-emerald-700 transition-all flex items-center justify-center gap-2 mb-3">
+                            <i class="fa-brands fa-whatsapp"></i>
+                            <span>Hubungi Kami</span>
+                        </button>
+                        <p class="text-xs text-slate-400">Tanya langsung via WhatsApp</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-6 pt-6 border-t border-slate-700 text-center">
+                <p class="text-sm text-slate-400">
+                    &copy; 2026 KERJA JADI ASN. ALL RIGHTS RESERVED.
+                </p>
+            </div>
         </footer>
     </div>
 
     <!-- Confirmation Modal for Retry -->
     <div id="modalUlangi" class="hidden fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center p-4">
-        <div class="bg-white rounded-2xl p-6 max-w-md w-full animate-slideIn">
+        <div class="bg-white rounded-2xl p-6 max-w-md w-full bounce-in">
             <h3 class="text-xl font-bold text-slate-800 mb-4">Ulangi Ujian Paket 1</h3>
             <p class="text-slate-600 mb-6">Apakah Anda yakin ingin mengulang ujian ini? Hasil sebelumnya akan tetap tersimpan, tetapi progress baru akan dimulai dari awal.</p>
             <div class="flex gap-3">
@@ -483,7 +617,6 @@
 
     <script>
         // ====================== DATA MAPPING ======================
-        // Mapping paket akun berdasarkan PIN
         const paketMapping = {
             "paket1": ["7XK9WP", "B4ZM1Q", "9TV2NL", "RS8MX3", "5CR1VT", "KP9MZ4", "G6HD2S", "1VT8NR", "FN2VK5", "2YM4BX", "MR2VT8", "5HG9SL", "XP3KZ7", "2YN5VQ", "8WQ4PZ", "VS7NL2"],
             "paket2": ["9ZW1RF", "4FB6NT", "7XK1WP", "B2MK9P", "LP9QX4", "Y7CR2V", "4FB8NR", "9TW1MZ", "SK3JP7", "1VT5NR", "FN9VK3", "2YM7BX", "SK9JP4", "MR7VT1", "3ZW7RB", "KP1MX9", "G6HD1S"],
@@ -499,8 +632,9 @@
         document.addEventListener('DOMContentLoaded', function() {
             console.log('Hasil Ujian page initializing...');
             
-            // Create particles
+            // Create particles and confetti
             createParticles();
+            createConfetti();
             
             // Get PIN from URL
             const urlParams = new URLSearchParams(window.location.search);
@@ -524,6 +658,7 @@
             
             // Display PIN
             document.getElementById('pinDisplay').textContent = userPIN;
+            document.getElementById('footerPin').textContent = userPIN;
             
             // Update dashboard button based on paket
             const dashboardBtn = document.getElementById('btnDashboard');
@@ -551,7 +686,6 @@
         }
 
         function loadResultData() {
-            // Load result from localStorage
             const resultKey = `hasil_paket1_${userPIN}`;
             const savedResult = localStorage.getItem(resultKey);
             
@@ -580,81 +714,86 @@
             document.getElementById('tanggalUjian').textContent = selesaiDate.toLocaleDateString('id-ID', options);
             document.getElementById('waktuSelesai').textContent = selesaiDate.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
             
-            // Display scores
-            document.getElementById('skorTWK').textContent = hasilData.twk;
-            document.getElementById('skorTIU').textContent = hasilData.tiu;
-            document.getElementById('skorTKP').textContent = hasilData.tkp;
-            document.getElementById('totalScore').textContent = hasilData.total;
-            
-            // Calculate percentages for progress bars
-            const twkPercent = Math.round((hasilData.twk / 150) * 100);
-            const tiuPercent = Math.round((hasilData.tiu / 175) * 100);
-            const tkpPercent = Math.round((hasilData.tkp / 166) * 100);
-            const totalPercent = Math.round((hasilData.total / 500) * 100);
-            
-            // Update progress bars
-            document.getElementById('progressTWK').style.width = `${twkPercent}%`;
-            document.getElementById('progressTIU').style.width = `${tiuPercent}%`;
-            document.getElementById('progressTKP').style.width = `${tkpPercent}%`;
-            
-            // Update progress circles
+            // Display scores with animation delays
             setTimeout(() => {
-                const totalScoreCircle = document.getElementById('totalScoreCircle');
-                const circumference = 2 * Math.PI * 45;
-                const offset = circumference - (totalPercent / 100) * circumference;
-                totalScoreCircle.style.strokeDashoffset = offset;
-            }, 500);
-            
-            // Display answered counts
-            document.getElementById('twkTerjawab').textContent = `${hasilData.twkJawab}/30`;
-            document.getElementById('tiuTerjawab').textContent = `${hasilData.tiuJawab}/35`;
-            document.getElementById('tkpTerjawab').textContent = `${hasilData.tkpJawab}/45`;
-            
-            // Update progress for each category
-            const twkJawabPercent = Math.round((hasilData.twkJawab / 30) * 100);
-            const tiuJawabPercent = Math.round((hasilData.tiuJawab / 35) * 100);
-            const tkpJawabPercent = Math.round((hasilData.tkpJawab / 45) * 100);
-            
-            document.getElementById('twkProgress').style.width = `${twkJawabPercent}%`;
-            document.getElementById('tiuProgress').style.width = `${tiuJawabPercent}%`;
-            document.getElementById('tkpProgress').style.width = `${tkpJawabPercent}%`;
-            
-            // Display percentages
-            document.getElementById('twkPersen').textContent = `${twkJawabPercent}%`;
-            document.getElementById('tiuPersen').textContent = `${tiuJawabPercent}%`;
-            document.getElementById('tkpPersen').textContent = `${tkpJawabPercent}%`;
-            
-            // Display correct counts
-            document.getElementById('twkBenar').textContent = hasilData.twkBenar || 0;
-            document.getElementById('tiuBenar').textContent = hasilData.tiuBenar || 0;
-            document.getElementById('tkpSkorDetail').textContent = hasilData.tkp;
-            
-            // Calculate accuracy
-            const twkAccuracy = hasilData.twkJawab > 0 ? Math.round((hasilData.twkBenar / hasilData.twkJawab) * 100) : 0;
-            const tiuAccuracy = hasilData.tiuJawab > 0 ? Math.round((hasilData.tiuBenar / hasilData.tiuJawab) * 100) : 0;
-            const totalAccuracy = (hasilData.twkJawab + hasilData.tiuJawab) > 0 ? 
-                Math.round(((hasilData.twkBenar + hasilData.tiuBenar) / (hasilData.twkJawab + hasilData.tiuJawab)) * 100) : 0;
-            
-            document.getElementById('akurasiTWK').textContent = `${twkAccuracy}%`;
-            document.getElementById('akurasiTIU').textContent = `${tiuAccuracy}%`;
-            document.getElementById('totalAkurasi').textContent = `${totalAccuracy}%`;
-            
-            // Display time used
-            document.getElementById('waktuDigunakan').textContent = hasilData.waktu.split('m')[0] + 'm';
-            document.getElementById('waktuDetail').textContent = hasilData.waktu;
-            
-            // Display additional info
-            document.getElementById('raguCount').textContent = hasilData.ragu || 0;
-            document.getElementById('bookmarkCount').textContent = hasilData.bookmarks || 0;
-            
-            // Display result message and emoji based on score
-            displayResultMessage(hasilData.total);
-            
-            // Generate recommendations
-            generateRecommendations();
-            
-            // Show version info
-            document.getElementById('versionInfo').textContent = `Paket ${userPaket.replace('paket', '')} • v1.0.1`;
+                document.getElementById('skorTWK').textContent = hasilData.twk;
+                document.getElementById('skorTIU').textContent = hasilData.tiu;
+                document.getElementById('skorTKP').textContent = hasilData.tkp;
+                document.getElementById('totalScore').textContent = hasilData.total;
+                
+                // Calculate percentages for progress bars
+                const twkPercent = Math.round((hasilData.twk / 150) * 100);
+                const tiuPercent = Math.round((hasilData.tiu / 175) * 100);
+                const tkpPercent = Math.round((hasilData.tkp / 166) * 100);
+                const totalPercent = Math.round((hasilData.total / 500) * 100);
+                
+                // Animate progress bars
+                setTimeout(() => {
+                    document.getElementById('progressTWK').style.width = `${twkPercent}%`;
+                    document.getElementById('progressTIU').style.width = `${tiuPercent}%`;
+                    document.getElementById('progressTKP').style.width = `${tkpPercent}%`;
+                }, 300);
+                
+                // Animate progress circle
+                setTimeout(() => {
+                    const totalScoreCircle = document.getElementById('totalScoreCircle');
+                    const circumference = 2 * Math.PI * 45;
+                    const offset = circumference - (totalPercent / 100) * circumference;
+                    totalScoreCircle.style.strokeDashoffset = offset;
+                }, 500);
+                
+                // Display answered counts
+                document.getElementById('twkTerjawab').textContent = `${hasilData.twkJawab}/30`;
+                document.getElementById('tiuTerjawab').textContent = `${hasilData.tiuJawab}/35`;
+                document.getElementById('tkpTerjawab').textContent = `${hasilData.tkpJawab}/45`;
+                
+                // Animate category progress bars
+                const twkJawabPercent = Math.round((hasilData.twkJawab / 30) * 100);
+                const tiuJawabPercent = Math.round((hasilData.tiuJawab / 35) * 100);
+                const tkpJawabPercent = Math.round((hasilData.tkpJawab / 45) * 100);
+                
+                setTimeout(() => {
+                    document.getElementById('twkProgress').style.width = `${twkJawabPercent}%`;
+                    document.getElementById('tiuProgress').style.width = `${tiuJawabPercent}%`;
+                    document.getElementById('tkpProgress').style.width = `${tkpJawabPercent}%`;
+                }, 700);
+                
+                // Display percentages
+                document.getElementById('twkPersen').textContent = `${twkJawabPercent}%`;
+                document.getElementById('tiuPersen').textContent = `${tiuJawabPercent}%`;
+                document.getElementById('tkpPersen').textContent = `${tkpJawabPercent}%`;
+                
+                // Display correct counts
+                document.getElementById('twkBenar').textContent = hasilData.twkBenar || 0;
+                document.getElementById('tiuBenar').textContent = hasilData.tiuBenar || 0;
+                document.getElementById('tkpSkorDetail').textContent = hasilData.tkp;
+                
+                // Calculate accuracy
+                const twkAccuracy = hasilData.twkJawab > 0 ? Math.round((hasilData.twkBenar / hasilData.twkJawab) * 100) : 0;
+                const tiuAccuracy = hasilData.tiuJawab > 0 ? Math.round((hasilData.tiuBenar / hasilData.tiuJawab) * 100) : 0;
+                const totalAccuracy = (hasilData.twkJawab + hasilData.tiuJawab) > 0 ? 
+                    Math.round(((hasilData.twkBenar + hasilData.tiuBenar) / (hasilData.twkJawab + hasilData.tiuJawab)) * 100) : 0;
+                
+                setTimeout(() => {
+                    document.getElementById('akurasiTWK').textContent = `${twkAccuracy}%`;
+                    document.getElementById('akurasiTIU').textContent = `${tiuAccuracy}%`;
+                    document.getElementById('totalAkurasi').textContent = `${totalAccuracy}%`;
+                }, 900);
+                
+                // Display time used
+                document.getElementById('waktuDigunakan').textContent = hasilData.waktu.split('m')[0] + 'm';
+                document.getElementById('waktuDetail').textContent = hasilData.waktu;
+                
+                // Display additional info
+                document.getElementById('raguCount').textContent = hasilData.ragu || 0;
+                document.getElementById('bookmarkCount').textContent = hasilData.bookmarks || 0;
+                
+                // Display result message and emoji based on score
+                displayResultMessage(hasilData.total);
+                
+                // Generate recommendations
+                generateRecommendations();
+            }, 1000);
         }
 
         function displayResultMessage(totalScore) {
@@ -692,11 +831,12 @@
             const container = document.getElementById('recommendationContainer');
             container.innerHTML = '';
             
-            // Recommendations based on score
             const recommendations = [];
-            
-            // TWK recommendation
             const twkScore = hasilData.twk;
+            const tiuScore = hasilData.tiu;
+            const tkpScore = hasilData.tkp;
+            const totalAccuracy = parseInt(document.getElementById('totalAkurasi').textContent);
+            
             if (twkScore < 100) {
                 recommendations.push({
                     icon: 'fa-landmark',
@@ -704,17 +844,8 @@
                     title: 'Tingkatkan Wawasan Kebangsaan',
                     text: 'Pelajari lebih dalam tentang Pancasila, UUD 1945, Bhinneka Tunggal Ika, dan NKRI.'
                 });
-            } else if (twkScore >= 130) {
-                recommendations.push({
-                    icon: 'fa-star',
-                    color: 'blue',
-                    title: 'TWK Sudah Baik',
-                    text: 'Pertahankan pemahaman Anda tentang wawasan kebangsaan.'
-                });
             }
             
-            // TIU recommendation
-            const tiuScore = hasilData.tiu;
             if (tiuScore < 110) {
                 recommendations.push({
                     icon: 'fa-brain',
@@ -722,17 +853,8 @@
                     title: 'Asah Kemampuan Analitis',
                     text: 'Latih logika, analisis, dan kemampuan verbal dengan soal-soal TIU.'
                 });
-            } else if (tiuScore >= 150) {
-                recommendations.push({
-                    icon: 'fa-lightbulb',
-                    color: 'green',
-                    title: 'TIU Sangat Baik',
-                    text: 'Kemampuan analitis dan intelegensi Anda sudah optimal.'
-                });
             }
             
-            // TKP recommendation
-            const tkpScore = hasilData.tkp;
             if (tkpScore < 120) {
                 recommendations.push({
                     icon: 'fa-user-check',
@@ -740,17 +862,8 @@
                     title: 'Tingkatkan Karakter Pribadi',
                     text: 'Pahami nilai-nilai pelayanan publik, integritas, dan etika ASN.'
                 });
-            } else if (tkpScore >= 150) {
-                recommendations.push({
-                    icon: 'fa-users',
-                    color: 'purple',
-                    title: 'Karakter Pribadi Optimal',
-                    text: 'Nilai-nilai karakter Anda sudah sesuai dengan profil ASN.'
-                });
             }
             
-            // General recommendations
-            const totalAccuracy = parseInt(document.getElementById('totalAkurasi').textContent);
             if (totalAccuracy < 70) {
                 recommendations.push({
                     icon: 'fa-crosshairs',
@@ -769,7 +882,6 @@
                 });
             }
             
-            // If no specific recommendations, show a generic one
             if (recommendations.length === 0) {
                 recommendations.push({
                     icon: 'fa-flag-checkered',
@@ -779,8 +891,8 @@
                 });
             }
             
-            // Render recommendations
-            recommendations.forEach(rec => {
+            // Render recommendations with staggered animations
+            recommendations.forEach((rec, index) => {
                 const colorClasses = {
                     blue: 'from-blue-50 to-blue-100 border-blue-200 text-blue-700',
                     green: 'from-green-50 to-green-100 border-green-200 text-green-700',
@@ -791,7 +903,7 @@
                 };
                 
                 const recHTML = `
-                    <div class="p-4 rounded-xl bg-gradient-to-r ${colorClasses[rec.color]} border">
+                    <div class="p-4 rounded-xl bg-gradient-to-r ${colorClasses[rec.color]} border slide-up" style="animation-delay: ${0.5 + (index * 0.1)}s">
                         <div class="flex items-start gap-3">
                             <div class="w-10 h-10 rounded-full bg-white flex items-center justify-center flex-shrink-0">
                                 <i class="fa-solid ${rec.icon} text-${rec.color}-600"></i>
@@ -804,40 +916,36 @@
                     </div>
                 `;
                 
-                container.innerHTML += recHTML;
+                setTimeout(() => {
+                    container.innerHTML += recHTML;
+                }, 1000 + (index * 100));
             });
         }
 
         function checkNewResult() {
-            // Check if user just came from soalpaket1.html
             const fromSoalPage = sessionStorage.getItem('from_soalpaket1');
             
             if (fromSoalPage === 'true') {
-                document.getElementById('alertBaru').classList.remove('hidden');
+                setTimeout(() => {
+                    document.getElementById('alertBaru').classList.remove('hidden');
+                }, 1500);
                 sessionStorage.removeItem('from_soalpaket1');
-                
-                // Add celebration effect
                 celebrateResult();
             }
         }
 
         function celebrateResult() {
-            // Add some celebration effects
-            const totalScoreEl = document.getElementById('totalScore');
-            const originalText = totalScoreEl.textContent;
+            // Add celebration confetti
+            createCelebrationConfetti();
             
-            // Bounce animation
-            totalScoreEl.classList.add('animate-bounce');
+            // Bounce animation for score
             setTimeout(() => {
-                totalScoreEl.classList.remove('animate-bounce');
-            }, 1000);
-            
-            // Confetti effect (simplified)
-            for (let i = 0; i < 20; i++) {
+                const totalScoreEl = document.getElementById('totalScore');
+                totalScoreEl.classList.add('animate-bounce');
                 setTimeout(() => {
-                    createParticle('🎉');
-                }, i * 100);
-            }
+                    totalScoreEl.classList.remove('animate-bounce');
+                }, 1000);
+            }, 2000);
         }
 
         // ====================== ACTION FUNCTIONS ======================
@@ -846,7 +954,7 @@
         }
 
         function lihatPembahasan() {
-            showToast('info', 'Fitur Pembahasan', 'Fitur pembahasan soal sedang dalam pengembangan.');
+            showToast('info', 'Fitur Pembahasan', 'Fitur pembahasan soal akan segera hadir!');
         }
 
         function ulangiUjian() {
@@ -858,12 +966,16 @@
         }
 
         function konfirmasiUlangi() {
-            // Clear progress for paket1
             const progressKey = `progress_paket1_${userPIN}`;
             localStorage.removeItem(progressKey);
-            
-            // Redirect to soalpaket1.html
             window.location.href = `soalpaket1.html?id=${userPIN}`;
+        }
+
+        function hubungiKami() {
+            const phoneNumber = "6281234567890"; // Replace with actual WhatsApp number
+            const message = `Halo, saya ingin bertanya tentang hasil ujian CAT CPNS Paket 1 dengan PIN: ${userPIN}`;
+            const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+            window.open(whatsappUrl, '_blank');
         }
 
         // ====================== UI EFFECTS ======================
@@ -873,11 +985,10 @@
             
             const colors = ['#3b82f6', '#10b981', '#8b5cf6', '#f59e0b', '#ef4444'];
             
-            for (let i = 0; i < 15; i++) {
+            for (let i = 0; i < 20; i++) {
                 const particle = document.createElement('div');
                 particle.className = 'particle';
                 
-                // Random properties
                 const size = Math.random() * 20 + 5;
                 const color = colors[Math.floor(Math.random() * colors.length)];
                 const left = Math.random() * 100;
@@ -898,41 +1009,71 @@
             }
         }
 
-        function createParticle(emoji) {
-            const particle = document.createElement('div');
-            particle.textContent = emoji;
-            particle.className = 'particle';
-            particle.style.fontSize = '24px';
-            particle.style.background = 'transparent';
+        function createConfetti() {
+            const container = document.getElementById('confetti-container');
+            if (!container) return;
             
-            // Random properties
-            const left = Math.random() * 80 + 10;
-            const top = 80;
+            const colors = ['#3b82f6', '#10b981', '#8b5cf6', '#f59e0b', '#ef4444', '#8b5cf6'];
             
-            particle.style.left = `${left}%`;
-            particle.style.top = `${top}%`;
-            particle.style.animationDuration = '2s';
+            for (let i = 0; i < 50; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                
+                const size = Math.random() * 10 + 5;
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                const left = Math.random() * 100;
+                const delay = Math.random() * 5;
+                const duration = Math.random() * 3 + 2;
+                
+                confetti.style.width = `${size}px`;
+                confetti.style.height = `${size}px`;
+                confetti.style.background = color;
+                confetti.style.left = `${left}%`;
+                confetti.style.animationDelay = `${delay}s`;
+                confetti.style.animationDuration = `${duration}s`;
+                
+                container.appendChild(confetti);
+            }
+        }
+
+        function createCelebrationConfetti() {
+            const colors = ['#3b82f6', '#10b981', '#8b5cf6', '#f59e0b', '#ef4444'];
             
-            document.body.appendChild(particle);
-            
-            // Remove after animation
-            setTimeout(() => {
-                particle.remove();
-            }, 2000);
+            for (let i = 0; i < 30; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti';
+                    
+                    const size = Math.random() * 15 + 5;
+                    const color = colors[Math.floor(Math.random() * colors.length)];
+                    const left = Math.random() * 100;
+                    const duration = Math.random() * 2 + 1;
+                    
+                    confetti.style.width = `${size}px`;
+                    confetti.style.height = `${size}px`;
+                    confetti.style.background = color;
+                    confetti.style.left = `${left}%`;
+                    confetti.style.animationDuration = `${duration}s`;
+                    
+                    document.body.appendChild(confetti);
+                    
+                    setTimeout(() => {
+                        if (confetti.parentElement) {
+                            confetti.remove();
+                        }
+                    }, duration * 1000);
+                }, i * 100);
+            }
         }
 
         function showError(title, message) {
-            // Create error toast
             showToast('error', title, message);
-            
-            // Update UI to show error state
             document.getElementById('totalScore').textContent = '--';
             document.getElementById('resultMessage').textContent = message;
             document.getElementById('resultEmoji').textContent = '❌';
         }
 
         function showToast(type, title, message) {
-            // Create toast element
             const toast = document.createElement('div');
             toast.className = `fixed top-4 right-4 z-50 max-w-sm`;
             
@@ -963,7 +1104,7 @@
             }
             
             toast.innerHTML = `
-                <div class="${bgColor} border ${borderColor} rounded-xl shadow-lg p-4 animate-slideInRight">
+                <div class="${bgColor} border ${borderColor} rounded-xl shadow-lg p-4 bounce-in">
                     <div class="flex items-start gap-3">
                         <i class="fa-solid ${icon} ${iconColor} text-xl mt-0.5"></i>
                         <div class="flex-1">
@@ -979,7 +1120,6 @@
             
             document.body.appendChild(toast);
             
-            // Auto remove after 5 seconds
             setTimeout(() => {
                 if (toast.parentElement) {
                     toast.remove();
@@ -989,7 +1129,6 @@
 
         // ====================== WINDOW LOAD ======================
         window.addEventListener('load', () => {
-            // Add CSS for animations
             const style = document.createElement('style');
             style.textContent = `
                 @keyframes slideInRight {
@@ -1006,12 +1145,12 @@
                 .animate-slideIn {
                     animation: slideIn 0.3s ease;
                 }
-                .animate-bounce {
-                    animation: bounce 0.5s ease;
-                }
                 @keyframes bounce {
                     0%, 100% { transform: translateY(0); }
                     50% { transform: translateY(-10px); }
+                }
+                .animate-bounce {
+                    animation: bounce 0.5s ease;
                 }
             `;
             document.head.appendChild(style);
