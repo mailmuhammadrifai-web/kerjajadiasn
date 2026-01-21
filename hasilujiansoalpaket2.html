@@ -660,7 +660,7 @@
                             <i class="fa-solid fa-layer-group text-purple-500 text-xl"></i>
                             <div>
                                 <p class="font-medium text-purple-800">Paket Soal</p>
-                                <p class="text-sm text-purple-700 font-bold">PAKET 2 - Advanced Level</p>
+                                <p class="text-sm text-purple-700 font-bold">PAKET 2 - Intermediate Level</p>
                             </div>
                         </div>
                     </div>
@@ -698,15 +698,15 @@
                                 <ul class="space-y-2 text-sm text-gray-700">
                                     <li class="flex items-start gap-2">
                                         <i class="fa-solid fa-check text-green-500 mt-0.5"></i>
-                                        <span>Paket 2 lebih menantang, fokus pada pemahaman konsep</span>
+                                        <span>Fokus pada kategori dengan skor di bawah ambang batas</span>
                                     </li>
                                     <li class="flex items-start gap-2">
                                         <i class="fa-solid fa-check text-green-500 mt-0.5"></i>
-                                        <span>Gunakan pembahasan soal untuk memahami pola soal</span>
+                                        <span>Gunakan fitur pembahasan soal untuk memahami kesalahan</span>
                                     </li>
                                     <li class="flex items-start gap-2">
                                         <i class="fa-solid fa-check text-green-500 mt-0.5"></i>
-                                        <span>Latih kecepatan dan ketelitian secara bersamaan</span>
+                                        <span>Latih waktu pengerjaan dengan simulasi ujian</span>
                                     </li>
                                 </ul>
                             </div>
@@ -747,18 +747,6 @@
                                 </div>
                             </div>
                         </button>
-
-                        <button onclick="cobaPaketLain()" class="p-4 rounded-xl bg-gradient-to-r from-purple-500 to-purple-600 text-white hover:from-purple-600 hover:to-purple-700 transition-all duration-300 shadow-lg hover:shadow-xl group md:col-span-2">
-                            <div class="flex items-center gap-4">
-                                <div class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center group-hover:scale-110 transition-transform">
-                                    <i class="fa-solid fa-forward text-white"></i>
-                                </div>
-                                <div class="text-left">
-                                    <p class="font-bold text-lg">Coba Paket Lain</p>
-                                    <p class="text-sm text-purple-100">Latih kemampuan dengan paket berbeda</p>
-                                </div>
-                            </div>
-                        </button>
                     </div>
                 </div>
             </div>
@@ -774,7 +762,7 @@
                     <div>
                         <h2 class="text-xl font-bold text-gray-900 mb-1">Sistem Ujian CAT SKD - Paket 2</h2>
                         <p class="text-gray-600 text-sm">
-                            Paket Advanced Level dengan tingkat kesulitan lebih tinggi
+                            Paket Intermediate Level dengan variasi soal menengah
                         </p>
                     </div>
                 </div>
@@ -795,7 +783,7 @@
                             <p id="footerPin" class="font-mono font-black text-primary text-lg tracking-widest">MEMUAT...</p>
                         </div>
                         <div class="text-sm">
-                            <p class="font-medium text-gray-700">Paket: <span class="font-bold text-primary">PAKET 2 (ADVANCED)</span></p>
+                            <p class="font-medium text-gray-700">Paket: <span class="font-bold text-primary">PAKET 2 (INTERMEDIATE)</span></p>
                             <p class="text-gray-600">Tanggal Ujian: <span id="footerTanggal" class="font-medium">-</span></p>
                         </div>
                     </div>
@@ -856,7 +844,7 @@
         // ====================== GLOBAL VARIABLES ======================
         let hasilData = null;
         let userPIN = null;
-        let userPaket = "paket2"; // Default to paket2
+        let userPaket = null;
 
         // ====================== INITIALIZATION ======================
         document.addEventListener('DOMContentLoaded', function() {
@@ -870,8 +858,16 @@
             if (!userPIN) {
                 showError('PIN tidak ditemukan', 'Redirecting ke dashboard...');
                 setTimeout(() => {
-                    window.location.href = 'dashboardpaket2.html';
+                    window.location.href = 'dashboard.html';
                 }, 2000);
+                return;
+            }
+
+            // Determine user's paket based on PIN
+            userPaket = determinePaket(userPIN);
+
+            if (!userPaket) {
+                showError('PIN tidak valid', 'PIN tidak terdaftar di paket manapun');
                 return;
             }
 
@@ -879,26 +875,35 @@
             document.getElementById('pinDisplay').textContent = userPIN;
             document.getElementById('footerPin').textContent = userPIN;
 
-            // Update dashboard button
+            // Update dashboard button based on paket
             const dashboardBtn = document.getElementById('btnDashboard');
             dashboardBtn.onclick = function() {
-                window.location.href = `dashboardpaket2.html?id=${userPIN}`;
+                window.location.href = `dashboard${userPaket}.html?id=${userPIN}`;
             };
 
-            // Load result data for paket 2
+            // Load result data for the specific paket
             loadResultData();
 
-            // Check if this is a new result (from soalpaket2.html)
+            // Check if this is a new result
             checkNewResult();
         });
 
         // ====================== HELPER FUNCTIONS ======================
+        function determinePaket(pin) {
+            for (const [paket, pins] of Object.entries(paketMapping)) {
+                if (pins.includes(pin)) {
+                    return paket;
+                }
+            }
+            return null;
+        }
+
         function loadResultData() {
-            const resultKey = `hasil_paket2_${userPIN}`;
+            const resultKey = `hasil_${userPaket}_${userPIN}`;
             const savedResult = localStorage.getItem(resultKey);
 
             if (!savedResult) {
-                showError('Hasil ujian tidak ditemukan', 'Anda belum mengerjakan paket soal 2.');
+                showError('Hasil ujian tidak ditemukan', `Anda belum mengerjakan ${userPaket}.`);
                 return;
             }
 
@@ -1097,24 +1102,23 @@
             let message = '';
             let emoji = '';
 
-            // Paket 2 memiliki kriteria yang lebih ketat karena lebih sulit
-            if (totalScore >= 460) {
-                message = 'LUAR BIASA! Performa sangat baik di paket sulit.';
+            if (totalScore >= 450) {
+                message = 'Luar biasa! Skor sangat tinggi di atas rata-rata.';
                 emoji = '🏆';
-            } else if (totalScore >= 410) {
-                message = 'SANGAT BAIK! Anda menguasai paket advanced.';
+            } else if (totalScore >= 400) {
+                message = 'Sangat baik! Performa Anda mengagumkan.';
                 emoji = '🎯';
-            } else if (totalScore >= 360) {
-                message = 'BAIK! Hasil memuaskan untuk paket sulit.';
+            } else if (totalScore >= 350) {
+                message = 'Bagus! Hasil Anda melebihi ekspektasi.';
                 emoji = '⭐';
-            } else if (totalScore >= 310) {
-                message = 'CUKUP BAIK. Tingkatkan lagi untuk hasil optimal.';
+            } else if (totalScore >= 300) {
+                message = 'Cukup baik. Tingkatkan lagi untuk hasil optimal.';
                 emoji = '👍';
             } else if (totalScore >= AMBANG_BATAS.TOTAL) {
-                message = 'Anda mencapai ambang batas minimal pada paket sulit.';
+                message = 'Anda mencapai ambang batas minimal. Perlu peningkatan.';
                 emoji = '📈';
             } else {
-                message = 'Perlu belajar lebih giat untuk menguasai paket sulit.';
+                message = 'Perlu belajar lebih giat untuk mencapai ambang batas.';
                 emoji = '📚';
             }
 
@@ -1132,12 +1136,12 @@
             const tkpScore = hasilData.tkp;
             const totalScore = hasilData.total;
 
-            // Paket 2 specific recommendations
+            // Add paket-specific recommendation
             recommendations.push({
                 icon: 'fa-layer-group',
                 color: 'primary',
-                title: 'Paket Advanced Level',
-                text: 'Paket 2 memiliki tingkat kesulitan lebih tinggi. Analisis ini berdasarkan standar yang lebih ketat.'
+                title: 'Paket Intermediate Level',
+                text: 'Paket 2 memiliki tingkat kesulitan sedang dengan variasi soal yang beragam untuk menguji pemahaman konsep.'
             });
 
             // Check for failed categories
@@ -1145,8 +1149,8 @@
                 recommendations.push({
                     icon: 'fa-landmark',
                     color: 'twk',
-                    title: 'Perbaiki TWK (Advanced)',
-                    text: `Skor TWK ${twkScore}. Pada paket 2, fokus pada analisis konsep kebangsaan yang lebih mendalam.`
+                    title: 'Perbaiki TWK',
+                    text: `Skor TWK Anda ${twkScore}, di bawah ambang batas (${AMBANG_BATAS.TWK}). Pelajari materi wawasan kebangsaan, Pancasila, UUD 1945, dan NKRI.`
                 });
             }
 
@@ -1154,8 +1158,8 @@
                 recommendations.push({
                     icon: 'fa-brain',
                     color: 'tiu',
-                    title: 'Tingkatkan TIU (Advanced)',
-                    text: `Skor TIU ${tiuScore}. Paket 2 memiliki soal logika dan analisis yang lebih kompleks.`
+                    title: 'Tingkatkan TIU',
+                    text: `Skor TIU Anda ${tiuScore}, di bawah ambang batas (${AMBANG_BATAS.TIU}). Latih kemampuan verbal, numerik, dan logika dengan lebih intensif.`
                 });
             }
 
@@ -1163,8 +1167,8 @@
                 recommendations.push({
                     icon: 'fa-user-check',
                     color: 'tkp',
-                    title: 'Asah TKP (Advanced)',
-                    text: `Skor TKP ${tkpScore}. Pada paket advanced, skenario TKP lebih kompleks dan situasional.`
+                    title: 'Asah TKP',
+                    text: `Skor TKP Anda ${tkpScore}, di bawah ambang batas (${AMBANG_BATAS.TKP}). Pahami nilai-nilai karakter pribadi, integritas, dan etos kerja.`
                 });
             }
 
@@ -1172,8 +1176,8 @@
                 recommendations.push({
                     icon: 'fa-chart-line',
                     color: 'danger',
-                    title: 'Target Paket Sulit',
-                    text: `Total skor ${totalScore}. Untuk paket sulit, targetkan skor minimal 300 untuk persiapan optimal.`
+                    title: 'Target Total Skor',
+                    text: `Total skor Anda ${totalScore}, belum mencapai ambang batas (${AMBANG_BATAS.TOTAL}). Fokus pada kategori dengan skor terendah.`
                 });
             }
 
@@ -1181,43 +1185,20 @@
                 recommendations.push({
                     icon: 'fa-flag-checkered',
                     color: 'success',
-                    title: 'Prestasi Luar Biasa!',
-                    text: 'Anda berhasil melewati paket sulit dengan semua kategori memenuhi ambang batas.'
+                    title: 'Pertahankan Prestasi!',
+                    text: 'Semua kategori telah memenuhi ambang batas. Terus latih diri untuk persiapan ujian selanjutnya.'
                 });
             }
 
             // Add time management recommendation if time used is too long
             const waktu = parseInt(hasilData.waktu) || 0;
-            if (waktu > 85) { // Paket 2 butuh waktu lebih, tapi maksimal 85 menit
+            if (waktu > 80) { // If used more than 80 minutes
                 recommendations.push({
                     icon: 'fa-clock',
                     color: 'warning',
-                    title: 'Manajemen Waktu Advanced',
-                    text: `Paket 2 membutuhkan ${waktu} menit. Pada paket sulit, alokasikan waktu lebih untuk soal kompleks.`
+                    title: 'Manajemen Waktu',
+                    text: `Anda menggunakan ${waktu} menit. Latih kecepatan mengerjakan soal tanpa mengurangi akurasi.`
                 });
-            }
-
-            // Add comparison with paket 1 if available
-            const hasilPaket1 = localStorage.getItem(`hasil_paket1_${userPIN}`);
-            if (hasilPaket1) {
-                const paket1Data = JSON.parse(hasilPaket1);
-                const p1Total = paket1Data.twk + paket1Data.tiu + Math.round((paket1Data.tkp / 166) * 225);
-                
-                if (totalScore > p1Total) {
-                    recommendations.push({
-                        icon: 'fa-chart-line-up',
-                        color: 'success',
-                        title: 'Peningkatan Positif',
-                        text: `Skor Anda meningkat dari ${p1Total} (Paket 1) menjadi ${totalScore} (Paket 2). Pertahankan!`
-                    });
-                } else if (totalScore < p1Total) {
-                    recommendations.push({
-                        icon: 'fa-chart-line-down',
-                        color: 'warning',
-                        title: 'Perlu Penyesuaian',
-                        text: `Skor Paket 2 lebih rendah dari Paket 1. Paket 2 lebih sulit, perlu adaptasi strategi.`
-                    });
-                }
             }
 
             // Render recommendations
@@ -1229,8 +1210,7 @@
                     'tkp': 'border-purple-200 bg-gradient-to-r from-purple-50 to-purple-100',
                     'success': 'border-green-200 bg-gradient-to-r from-green-50 to-green-100',
                     'warning': 'border-yellow-200 bg-gradient-to-r from-yellow-50 to-yellow-100',
-                    'danger': 'border-red-200 bg-gradient-to-r from-red-50 to-red-100',
-                    'info': 'border-blue-200 bg-gradient-to-r from-blue-50 to-blue-100'
+                    'danger': 'border-red-200 bg-gradient-to-r from-red-50 to-red-100'
                 };
 
                 const recHTML = `
@@ -1250,11 +1230,11 @@
         }
 
         function checkNewResult() {
-            const fromSoalPage = sessionStorage.getItem('from_soalpaket2');
+            const fromSoalPage = sessionStorage.getItem(`from_soal${userPaket}`);
             if (fromSoalPage === 'true') {
-                sessionStorage.removeItem('from_soalpaket2');
+                sessionStorage.removeItem(`from_soal${userPaket}`);
                 // Show success toast for new result
-                showToast('success', 'Hasil Ujian Paket 2 Tersimpan!', 'Hasil ujian paket 2 telah disimpan dan dapat diakses kapan saja.');
+                showToast('success', 'Hasil Ujian Tersimpan!', `Hasil ujian ${userPaket} telah disimpan dan dapat diakses kapan saja.`);
             }
         }
 
@@ -1268,8 +1248,8 @@
                 showError('Error', 'PIN tidak ditemukan');
                 return;
             }
-            // Redirect to pembahasan page for paket 2
-            window.location.href = `pembahasansoalpaket2.html?id=${userPIN}`;
+            // Redirect to pembahasan page for the specific paket
+            window.location.href = `pembahasansoal${userPaket}.html?id=${userPIN}`;
         }
 
         function ulangiUjian() {
@@ -1278,17 +1258,6 @@
                 document.getElementById('modalContent').classList.remove('scale-95');
                 document.getElementById('modalContent').classList.add('scale-100');
             }, 10);
-        }
-
-        function cobaPaketLain() {
-            // Offer to try paket 1 or paket 3
-            const choice = confirm('Ingin mencoba paket lain?\n\nOK: Paket 1 (Basic)\nCancel: Paket 3 (Expert)');
-            
-            if (choice) {
-                window.location.href = `dashboardpaket1.html?id=${userPIN}`;
-            } else {
-                window.location.href = `dashboardpaket3.html?id=${userPIN}`;
-            }
         }
 
         function tutupModal() {
@@ -1300,14 +1269,14 @@
         }
 
         function konfirmasiUlangi() {
-            const progressKey = `progress_paket2_${userPIN}`;
+            const progressKey = `progress_${userPaket}_${userPIN}`;
             localStorage.removeItem(progressKey);
-            window.location.href = `soalpaket2.html?id=${userPIN}`;
+            window.location.href = `soal${userPaket}.html?id=${userPIN}`;
         }
 
         function hubungiKami() {
             const phoneNumber = "6285754052806";
-            const message = `Halo, saya ingin bertanya tentang hasil ujian Paket 2 (Advanced) dengan PIN: ${userPIN}`;
+            const message = `Halo, saya ingin bertanya tentang hasil ujian ${userPaket.toUpperCase()} dengan PIN: ${userPIN}`;
             const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
             window.open(whatsappUrl, '_blank');
         }
