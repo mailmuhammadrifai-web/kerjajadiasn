@@ -6,24 +6,54 @@
     <title>Hasil Ujian - Paket 1</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary': '#4F46E5',
+                        'secondary': '#10B981',
+                        'danger': '#EF4444',
+                        'warning': '#F59E0B',
+                        'info': '#3B82F6',
+                        'twk': '#3B82F6',
+                        'tiu': '#F59E0B',
+                        'tkp': '#8B5CF6',
+                        'gradient-start': '#667eea',
+                        'gradient-end': '#764ba2',
+                    }
+                }
+            }
+        }
+    </script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
 
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: #fefefe;
+            font-family: 'Poppins', 'Inter', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
         }
 
         .card {
             background: white;
-            border-radius: 12px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-            border: 1px solid #f0f0f0;
+            border-radius: 16px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
         }
 
         .score-badge {
-            font-weight: 700;
-            color: #1a56db;
+            font-weight: 800;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .progress-ring {
@@ -33,114 +63,173 @@
         .progress-ring-circle {
             stroke-dasharray: 283;
             stroke-dashoffset: 283;
-            transition: stroke-dashoffset 1s ease;
+            transition: stroke-dashoffset 1.2s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
         .stat-card {
-            transition: all 0.2s ease;
-            border: 1px solid #f0f0f0;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: left 0.6s;
+        }
+
+        .stat-card:hover::before {
+            left: 100%;
         }
 
         .stat-card:hover {
-            border-color: #3b82f6;
-            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.1);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.15);
+        }
+
+        .threshold-indicator {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #10B981 0%, #EF4444 100%);
+            border-radius: 0 0 4px 4px;
+        }
+
+        .threshold-marker {
+            position: absolute;
+            bottom: -8px;
+            width: 2px;
+            height: 16px;
+            background-color: #EF4444;
         }
 
         .custom-scrollbar::-webkit-scrollbar {
-            width: 4px;
+            width: 6px;
         }
 
         .custom-scrollbar::-webkit-scrollbar-track {
-            background: #f8fafc;
+            background: #f1f5f9;
+            border-radius: 10px;
         }
 
         .custom-scrollbar::-webkit-scrollbar-thumb {
-            background: #cbd5e1;
-            border-radius: 4px;
+            background: linear-gradient(180deg, #667eea 0%, #764ba2 100%);
+            border-radius: 10px;
         }
 
         .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-            background: #94a3b8;
+            background: linear-gradient(180deg, #5a67d8 0%, #6b46c1 100%);
         }
 
         .fade-in {
-            animation: fadeIn 0.5s ease-out;
+            animation: fadeIn 0.6s ease-out;
         }
 
         .slide-up {
-            animation: slideUp 0.4s ease-out;
+            animation: slideUp 0.5s ease-out;
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         @keyframes slideUp {
-            from { transform: translateY(10px); opacity: 0; }
+            from { transform: translateY(20px); opacity: 0; }
             to { transform: translateY(0); opacity: 1; }
         }
 
-        /* Soft color palette */
-        .bg-soft-blue {
-            background-color: #eff6ff;
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
         }
 
-        .bg-soft-yellow {
-            background-color: #fffbeb;
+        /* Gradients */
+        .bg-gradient-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         }
 
-        .bg-soft-green {
-            background-color: #f0fdf4;
+        .bg-gradient-success {
+            background: linear-gradient(135deg, #10B981 0%, #059669 100%);
         }
 
-        .bg-soft-red {
-            background-color: #fef2f2;
+        .bg-gradient-warning {
+            background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
         }
 
-        .text-soft-blue {
-            color: #1e40af;
+        .bg-gradient-danger {
+            background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);
         }
 
-        .text-soft-yellow {
-            color: #d97706;
+        .bg-gradient-info {
+            background: linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%);
         }
 
-        .text-soft-green {
-            color: #166534;
+        .bg-gradient-twk {
+            background: linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%);
         }
 
-        .text-soft-red {
-            color: #dc2626;
+        .bg-gradient-tiu {
+            background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
         }
 
-        .border-soft-blue {
-            border-color: #bfdbfe;
+        .bg-gradient-tkp {
+            background: linear-gradient(135deg, #8B5CF6 0%, #7C3AED 100%);
         }
 
-        .border-soft-yellow {
-            border-color: #fde68a;
+        .text-gradient-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
-        .border-soft-green {
-            border-color: #bbf7d0;
+        /* Glass morphism effect */
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
-        .border-soft-red {
-            border-color: #fecaca;
+        /* Shine effect */
+        .shine-effect {
+            position: relative;
+            overflow: hidden;
         }
 
-        /* Status indicator */
-        .status-pass {
-            background-color: #dcfce7;
-            color: #166534;
-            border-color: #bbf7d0;
+        .shine-effect::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                to right,
+                rgba(255, 255, 255, 0) 0%,
+                rgba(255, 255, 255, 0.3) 50%,
+                rgba(255, 255, 255, 0) 100%
+            );
+            transform: rotate(30deg);
+            transition: all 0.6s;
         }
 
-        .status-fail {
-            background-color: #fee2e2;
-            color: #dc2626;
-            border-color: #fecaca;
+        .shine-effect:hover::after {
+            left: 100%;
         }
 
         /* Mobile optimizations */
@@ -160,128 +249,219 @@
             .mobile-gap-4 {
                 gap: 1rem;
             }
+            
+            .progress-ring-container {
+                width: 180px !important;
+                height: 180px !important;
+            }
+        }
+
+        /* Custom progress bar */
+        .progress-bar-container {
+            height: 10px;
+            background: #e5e7eb;
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            border-radius: 10px;
+            background: linear-gradient(90deg, #3B82F6, #8B5CF6);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            background-image: linear-gradient(
+                -45deg,
+                rgba(255, 255, 255, 0.2) 25%,
+                transparent 25%,
+                transparent 50%,
+                rgba(255, 255, 255, 0.2) 50%,
+                rgba(255, 255, 255, 0.2) 75%,
+                transparent 75%,
+                transparent
+            );
+            z-index: 1;
+            background-size: 50px 50px;
+            animation: move 2s linear infinite;
+        }
+
+        @keyframes move {
+            0% {
+                background-position: 0 0;
+            }
+            100% {
+                background-position: 50px 50px;
+            }
+        }
+
+        /* Score badge animation */
+        .score-badge-animation {
+            animation: scorePop 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        @keyframes scorePop {
+            0% { transform: scale(0.5); opacity: 0; }
+            70% { transform: scale(1.1); }
+            100% { transform: scale(1); opacity: 1; }
         }
     </style>
 </head>
-<body class="min-h-screen bg-gray-50">
+<body class="min-h-screen bg-gradient-to-br from-blue-50 to-purple-50">
     <!-- Main Container -->
     <div class="container mx-auto px-4 py-6 max-w-6xl">
         <!-- Header -->
-        <header class="mb-6 fade-in">
-            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
+        <header class="mb-8 fade-in">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
                 <div class="flex-1">
-                    <div class="flex items-center gap-3 mb-3">
-                        <div class="p-2 rounded-lg bg-soft-yellow text-soft-yellow">
-                            <i class="fa-solid fa-chart-line text-lg"></i>
+                    <div class="flex items-center gap-4 mb-4">
+                        <div class="p-3 rounded-xl bg-gradient-primary text-white shadow-lg">
+                            <i class="fa-solid fa-chart-line text-xl"></i>
                         </div>
                         <div>
-                            <h1 class="text-xl md:text-2xl font-bold text-gray-900">Hasil Ujian Paket 1</h1>
-                            <p class="text-gray-600 text-sm"><span id="tanggalUjian">Memuat tanggal...</span></p>
+                            <h1 class="text-2xl md:text-3xl font-bold text-gray-900">Hasil Ujian Paket 1</h1>
+                            <p class="text-gray-600"><span id="tanggalUjian">Memuat tanggal...</span></p>
                         </div>
                     </div>
 
                     <!-- PIN Display -->
-                    <div class="inline-flex items-center gap-2 bg-soft-blue px-3 py-2 rounded-lg">
+                    <div class="inline-flex items-center gap-3 bg-white px-4 py-3 rounded-xl shadow-md border border-gray-200">
                         <div class="flex items-center gap-2">
-                            <i class="fa-solid fa-id-card text-soft-blue"></i>
-                            <span class="text-sm font-medium text-gray-700">PIN:</span>
+                            <i class="fa-solid fa-id-card text-primary text-lg"></i>
+                            <span class="text-sm font-semibold text-gray-700">PIN Peserta:</span>
                         </div>
-                        <div id="pinDisplay" class="bg-white px-2 py-1 rounded font-mono font-semibold text-blue-700 border border-soft-blue text-sm">
+                        <div id="pinDisplay" class="bg-gradient-to-r from-blue-50 to-purple-50 px-4 py-2 rounded-lg font-mono font-bold text-primary border-2 border-dashed border-primary/30 text-base tracking-wider">
                             MEMUAT...
-                        </div>
-                    </div>
-
-                    <!-- Ambang Batas Info -->
-                    <div class="mt-3 flex flex-wrap gap-2">
-                        <div class="inline-flex items-center gap-1 bg-soft-green px-2 py-1 rounded text-xs">
-                            <i class="fa-solid fa-flag-checkered text-green-600 text-xs"></i>
-                            <span class="font-medium text-gray-700">Ambang Batas SKD:</span>
-                            <span class="font-semibold text-green-700">TWK ≥65 | TIU ≥80 | TKP ≥166 | Total ≥271</span>
                         </div>
                     </div>
                 </div>
 
-                <div class="flex flex-wrap gap-2 mt-4 md:mt-0">
-                    <button id="btnDashboard" class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg font-medium hover:bg-gray-200 transition-colors flex items-center justify-center gap-2 text-sm">
+                <div class="flex flex-wrap gap-3 mt-4 md:mt-0">
+                    <button id="btnDashboard" class="px-5 py-3 bg-white text-gray-700 rounded-xl font-semibold hover:bg-gray-50 transition-all duration-300 flex items-center justify-center gap-3 text-sm shadow-md hover:shadow-lg border border-gray-200">
                         <i class="fa-solid fa-arrow-left"></i>
                         <span>Dashboard</span>
                     </button>
-                    <button onclick="cetakHasil()" class="px-4 py-2 bg-soft-blue text-blue-700 rounded-lg font-medium hover:bg-blue-50 transition-colors flex items-center justify-center gap-2 text-sm border border-soft-blue">
+                    <button onclick="cetakHasil()" class="px-5 py-3 bg-gradient-primary text-white rounded-xl font-semibold hover:opacity-90 transition-all duration-300 flex items-center justify-center gap-3 text-sm shadow-lg hover:shadow-xl pulse">
                         <i class="fa-solid fa-print"></i>
-                        <span>Cetak</span>
+                        <span>Cetak Hasil</span>
                     </button>
                 </div>
             </div>
         </header>
 
         <!-- Main Result Card -->
-        <div class="card p-4 md:p-6 mb-6 border-soft-blue">
-            <div class="flex flex-col lg:flex-row items-center justify-between gap-6">
+        <div class="card p-6 md:p-8 mb-8 slide-up" style="border: 2px solid rgba(79, 70, 229, 0.1);">
+            <div class="flex flex-col lg:flex-row items-center justify-between gap-8">
                 <!-- Score Circle -->
                 <div class="flex flex-col items-center">
-                    <div class="relative w-40 h-40 md:w-48 md:h-48 mb-4">
+                    <div class="relative w-48 h-48 md:w-56 md:h-56 mb-6 progress-ring-container">
                         <svg class="w-full h-full" viewBox="0 0 100 100">
                             <!-- Background circle -->
-                            <circle cx="50" cy="50" r="45" fill="none" stroke="#f0f0f0" stroke-width="8"/>
+                            <circle cx="50" cy="50" r="45" fill="none" stroke="#f0f0f0" stroke-width="10"/>
                             <!-- Progress circle -->
-                            <circle id="totalScoreCircle" class="progress-ring-circle" cx="50" cy="50" r="45" fill="none" stroke="#3b82f6" stroke-width="8" stroke-linecap="round" />
+                            <circle id="totalScoreCircle" class="progress-ring-circle" cx="50" cy="50" r="45" fill="none" stroke="url(#gradient)" stroke-width="10" stroke-linecap="round" />
+                            <defs>
+                                <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#667eea" />
+                                    <stop offset="100%" stop-color="#764ba2" />
+                                </linearGradient>
+                            </defs>
                         </svg>
                         <div class="absolute inset-0 flex flex-col items-center justify-center">
-                            <span id="totalScore" class="score-badge text-4xl md:text-5xl font-bold">0</span>
-                            <span class="text-gray-500 font-medium text-xs md:text-sm">DARI 500</span>
-                            <div id="resultEmoji" class="text-xl md:text-2xl mt-1"></div>
-                            <div id="totalStatus" class="text-xs font-medium mt-2 px-2 py-1 rounded-full"></div>
+                            <span id="totalScore" class="score-badge text-5xl md:text-6xl font-black score-badge-animation">0</span>
+                            <span class="text-gray-500 font-semibold text-sm md:text-base mt-2">DARI 550</span>
+                            <div id="resultEmoji" class="text-3xl md:text-4xl mt-3"></div>
                         </div>
                     </div>
                     <div class="text-center">
-                        <h2 class="text-base md:text-lg font-semibold text-gray-800 mb-1">Skor Total</h2>
-                        <p id="resultMessage" class="text-gray-600 text-xs md:text-sm max-w-xs">Memuat hasil ujian...</p>
+                        <h2 class="text-xl md:text-2xl font-bold text-gray-800 mb-2">Skor Total</h2>
+                        <p id="resultMessage" class="text-gray-600 max-w-xs">Memuat hasil ujian...</p>
+                        <div id="passingStatus" class="mt-3 inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold">
+                            <!-- Status lulus/tidak akan dimasukkan oleh JavaScript -->
+                        </div>
                     </div>
                 </div>
 
                 <!-- Stats Grid -->
-                <div class="flex-1 grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
-                    <div class="stat-card rounded-lg p-3 text-center bg-soft-blue/30 border-soft-blue">
-                        <div class="text-xl md:text-2xl font-bold text-blue-600 mb-1" id="skorTWK">0</div>
-                        <div id="twkStatus" class="text-xs font-medium mb-1 px-2 py-0.5 rounded-full inline-block"></div>
-                        <div class="text-xs font-semibold text-blue-700 uppercase mb-1">TWK</div>
-                        <div class="text-xs text-gray-600">Wawasan Kebangsaan (≥65)</div>
-                        <div class="mt-2 w-full bg-blue-100 h-1.5 rounded-full overflow-hidden">
-                            <div id="progressTWK" class="h-full bg-blue-600 transition-all duration-1000" style="width: 0%"></div>
+                <div class="flex-1 grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <!-- TWK Card -->
+                    <div class="stat-card rounded-xl p-4 text-center relative shine-effect">
+                        <div class="absolute top-0 left-0 right-0 h-2 bg-gradient-twk rounded-t-xl"></div>
+                        <div class="text-2xl md:text-3xl font-black text-twk mb-2" id="skorTWK">0</div>
+                        <div class="text-sm font-bold text-twk uppercase mb-1">TWK</div>
+                        <div class="text-xs text-gray-600 mb-3">Wawasan Kebangsaan</div>
+                        <div class="progress-bar-container">
+                            <div id="progressTWK" class="progress-bar-fill" style="width: 0%"></div>
                         </div>
-                        <div class="text-xs text-gray-500 mt-1">Min: 65 | Max: 150</div>
+                        <div class="mt-3 flex justify-between text-xs">
+                            <span class="font-medium text-gray-600">Min: 65</span>
+                            <span class="font-bold text-twk" id="twkStatus"></span>
+                            <span class="font-medium text-gray-600">Max: 150</span>
+                        </div>
+                        <div class="threshold-indicator">
+                            <div class="threshold-marker" style="left: 43.33%;"></div>
+                        </div>
                     </div>
 
-                    <div class="stat-card rounded-lg p-3 text-center bg-soft-yellow/30 border-soft-yellow">
-                        <div class="text-xl md:text-2xl font-bold text-amber-600 mb-1" id="skorTIU">0</div>
-                        <div id="tiuStatus" class="text-xs font-medium mb-1 px-2 py-0.5 rounded-full inline-block"></div>
-                        <div class="text-xs font-semibold text-amber-700 uppercase mb-1">TIU</div>
-                        <div class="text-xs text-gray-600">Tes Intelegensi Umum (≥80)</div>
-                        <div class="mt-2 w-full bg-amber-100 h-1.5 rounded-full overflow-hidden">
-                            <div id="progressTIU" class="h-full bg-amber-600 transition-all duration-1000" style="width: 0%"></div>
+                    <!-- TIU Card -->
+                    <div class="stat-card rounded-xl p-4 text-center relative shine-effect">
+                        <div class="absolute top-0 left-0 right-0 h-2 bg-gradient-tiu rounded-t-xl"></div>
+                        <div class="text-2xl md:text-3xl font-black text-tiu mb-2" id="skorTIU">0</div>
+                        <div class="text-sm font-bold text-tiu uppercase mb-1">TIU</div>
+                        <div class="text-xs text-gray-600 mb-3">Tes Intelegensi Umum</div>
+                        <div class="progress-bar-container">
+                            <div id="progressTIU" class="progress-bar-fill bg-gradient-tiu" style="width: 0%"></div>
                         </div>
-                        <div class="text-xs text-gray-500 mt-1">Min: 80 | Max: 175</div>
+                        <div class="mt-3 flex justify-between text-xs">
+                            <span class="font-medium text-gray-600">Min: 80</span>
+                            <span class="font-bold text-tiu" id="tiuStatus"></span>
+                            <span class="font-medium text-gray-600">Max: 175</span>
+                        </div>
+                        <div class="threshold-indicator">
+                            <div class="threshold-marker" style="left: 45.71%;"></div>
+                        </div>
                     </div>
 
-                    <div class="stat-card rounded-lg p-3 text-center bg-purple-50 border border-purple-100">
-                        <div class="text-xl md:text-2xl font-bold text-purple-600 mb-1" id="skorTKP">0</div>
-                        <div id="tkpStatus" class="text-xs font-medium mb-1 px-2 py-0.5 rounded-full inline-block"></div>
-                        <div class="text-xs font-semibold text-purple-700 uppercase mb-1">TKP</div>
-                        <div class="text-xs text-gray-600">Karakteristik Pribadi (≥166)</div>
-                        <div class="mt-2 w-full bg-purple-100 h-1.5 rounded-full overflow-hidden">
-                            <div id="progressTKP" class="h-full bg-purple-600 transition-all duration-1000" style="width: 0%"></div>
+                    <!-- TKP Card -->
+                    <div class="stat-card rounded-xl p-4 text-center relative shine-effect">
+                        <div class="absolute top-0 left-0 right-0 h-2 bg-gradient-tkp rounded-t-xl"></div>
+                        <div class="text-2xl md:text-3xl font-black text-tkp mb-2" id="skorTKP">0</div>
+                        <div class="text-sm font-bold text-tkp uppercase mb-1">TKP</div>
+                        <div class="text-xs text-gray-600 mb-3">Karakteristik Pribadi</div>
+                        <div class="progress-bar-container">
+                            <div id="progressTKP" class="progress-bar-fill bg-gradient-tkp" style="width: 0%"></div>
                         </div>
-                        <div class="text-xs text-gray-500 mt-1">Min: 166 | Max: 166</div>
+                        <div class="mt-3 flex justify-between text-xs">
+                            <span class="font-medium text-gray-600">Min: 166</span>
+                            <span class="font-bold text-tkp" id="tkpStatus"></span>
+                            <span class="font-medium text-gray-600">Max: 225</span>
+                        </div>
+                        <div class="threshold-indicator">
+                            <div class="threshold-marker" style="left: 73.78%;"></div>
+                        </div>
                     </div>
 
-                    <div class="stat-card rounded-lg p-3 text-center bg-gray-50 border border-gray-100">
-                        <div class="text-xl md:text-2xl font-bold text-gray-700 mb-1" id="waktuDigunakan">0m</div>
-                        <div id="totalPassStatus" class="text-xs font-medium mb-1 px-2 py-0.5 rounded-full inline-block"></div>
-                        <div class="text-xs font-semibold text-gray-800 uppercase mb-1">STATUS</div>
-                        <div class="text-xs text-gray-600">Kelulusan SKD</div>
-                        <div class="mt-2 flex items-center justify-center text-gray-500">
-                            <i class="fa-solid fa-flag text-xs mr-1"></i>
-                            <span id="skdStatusDetail" class="text-xs font-medium">Memuat...</span>
+                    <!-- Time Card -->
+                    <div class="stat-card rounded-xl p-4 text-center relative shine-effect">
+                        <div class="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-gray-400 to-gray-600 rounded-t-xl"></div>
+                        <div class="text-2xl md:text-3xl font-black text-gray-700 mb-2" id="waktuDigunakan">0m</div>
+                        <div class="text-sm font-bold text-gray-800 uppercase mb-1">WAKTU</div>
+                        <div class="text-xs text-gray-600 mb-3">Digunakan</div>
+                        <div class="flex items-center justify-center text-gray-600 mb-4">
+                            <i class="fa-solid fa-clock text-lg mr-2"></i>
+                            <span id="waktuDetail" class="text-sm font-medium">Memuat...</span>
+                        </div>
+                        <div class="px-3 py-1 bg-gray-100 rounded-full inline-block">
+                            <span class="text-xs font-medium text-gray-700">Sisa: <span id="waktuSisa">0m</span></span>
                         </div>
                     </div>
                 </div>
@@ -289,219 +469,269 @@
         </div>
 
         <!-- Detailed Analysis -->
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6 mb-6">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8 mb-8">
             <!-- Left Column: Performance Breakdown -->
-            <div class="space-y-4 md:space-y-6">
-                <div class="card p-4 md:p-6">
-                    <h3 class="text-base md:text-lg font-semibold text-gray-800 mb-3 md:mb-4 flex items-center gap-2">
-                        <i class="fa-solid fa-chart-simple text-blue-600"></i>
-                        <span>Analisis Performa vs Ambang Batas</span>
+            <div class="space-y-6">
+                <div class="card p-6">
+                    <h3 class="text-lg md:text-xl font-bold text-gray-800 mb-6 flex items-center gap-3">
+                        <div class="p-2 rounded-lg bg-gradient-primary text-white">
+                            <i class="fa-solid fa-chart-simple"></i>
+                        </div>
+                        <span>Analisis Performa Detail</span>
                     </h3>
 
-                    <div class="space-y-4 md:space-y-5">
+                    <div class="space-y-6">
                         <!-- TWK Breakdown -->
-                        <div class="p-3 rounded-lg border border-gray-200">
-                            <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-2 gap-1">
-                                <div class="flex items-center gap-2">
-                                    <div class="w-2 h-2 rounded-full bg-blue-500"></div>
-                                    <span class="font-medium text-gray-700 text-sm">TWK (Wawasan Kebangsaan)</span>
+                        <div class="p-4 rounded-xl border border-blue-100 bg-blue-50/50">
+                            <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-3 gap-2">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-3 h-3 rounded-full bg-twk"></div>
+                                    <span class="font-bold text-gray-700">TWK (Wawasan Kebangsaan)</span>
                                 </div>
-                                <div class="flex items-center gap-2">
+                                <div class="flex items-center gap-4">
                                     <span class="text-sm font-medium text-gray-700"><span id="twkBenar">0</span>/30 Benar</span>
-                                    <div id="twkThresholdBadge" class="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-700">
-                                        Ambang: 65
+                                    <span class="px-3 py-1 rounded-full text-xs font-bold bg-twk/10 text-twk" id="twkAccuracy">0%</span>
+                                </div>
+                            </div>
+                            <div class="space-y-3">
+                                <div class="flex items-center gap-3 text-sm">
+                                    <span class="text-gray-600 text-xs font-medium">Jawaban:</span>
+                                    <span id="twkTerjawab" class="font-bold">0/30</span>
+                                    <div class="flex-1 h-2.5 bg-gray-200 rounded-full overflow-hidden">
+                                        <div id="twkProgress" class="h-full bg-gradient-twk transition-all duration-1000" style="width: 0%"></div>
                                     </div>
+                                    <span id="twkPersen" class="text-gray-700 font-bold text-sm">0%</span>
+                                </div>
+                                <div class="flex justify-between text-xs">
+                                    <span class="font-medium text-gray-600">Nilai: <span id="twkNilai">0</span>/150</span>
+                                    <span class="font-medium text-gray-600">Ambang Batas: 65</span>
+                                    <span class="font-medium" id="twkThresholdText"></span>
                                 </div>
                             </div>
-                            <div class="flex items-center gap-2 md:gap-3 text-sm mb-2">
-                                <span class="text-gray-600 text-xs">Skor:</span>
-                                <span id="twkSkorDetail" class="font-medium">0</span>
-                                <div class="flex-1 h-2 bg-gray-200 rounded-full overflow-hidden relative">
-                                    <div class="absolute h-full w-1 bg-red-500 left-[43.33%]" title="Ambang Batas 65"></div>
-                                    <div id="twkProgress" class="h-full bg-blue-500 transition-all duration-1000" style="width: 0%"></div>
-                                </div>
-                                <span id="twkPersen" class="text-gray-600 font-medium text-xs">0%</span>
-                            </div>
-                            <div id="twkThresholdInfo" class="text-xs text-gray-600"></div>
                         </div>
 
                         <!-- TIU Breakdown -->
-                        <div class="p-3 rounded-lg border border-gray-200">
-                            <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-2 gap-1">
-                                <div class="flex items-center gap-2">
-                                    <div class="w-2 h-2 rounded-full bg-amber-500"></div>
-                                    <span class="font-medium text-gray-700 text-sm">TIU (Tes Intelegensi Umum)</span>
+                        <div class="p-4 rounded-xl border border-amber-100 bg-amber-50/50">
+                            <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-3 gap-2">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-3 h-3 rounded-full bg-tiu"></div>
+                                    <span class="font-bold text-gray-700">TIU (Tes Intelegensi Umum)</span>
                                 </div>
-                                <div class="flex items-center gap-2">
+                                <div class="flex items-center gap-4">
                                     <span class="text-sm font-medium text-gray-700"><span id="tiuBenar">0</span>/35 Benar</span>
-                                    <div id="tiuThresholdBadge" class="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-700">
-                                        Ambang: 80
+                                    <span class="px-3 py-1 rounded-full text-xs font-bold bg-tiu/10 text-tiu" id="tiuAccuracy">0%</span>
+                                </div>
+                            </div>
+                            <div class="space-y-3">
+                                <div class="flex items-center gap-3 text-sm">
+                                    <span class="text-gray-600 text-xs font-medium">Jawaban:</span>
+                                    <span id="tiuTerjawab" class="font-bold">0/35</span>
+                                    <div class="flex-1 h-2.5 bg-gray-200 rounded-full overflow-hidden">
+                                        <div id="tiuProgress" class="h-full bg-gradient-tiu transition-all duration-1000" style="width: 0%"></div>
                                     </div>
+                                    <span id="tiuPersen" class="text-gray-700 font-bold text-sm">0%</span>
+                                </div>
+                                <div class="flex justify-between text-xs">
+                                    <span class="font-medium text-gray-600">Nilai: <span id="tiuNilai">0</span>/175</span>
+                                    <span class="font-medium text-gray-600">Ambang Batas: 80</span>
+                                    <span class="font-medium" id="tiuThresholdText"></span>
                                 </div>
                             </div>
-                            <div class="flex items-center gap-2 md:gap-3 text-sm mb-2">
-                                <span class="text-gray-600 text-xs">Skor:</span>
-                                <span id="tiuSkorDetail" class="font-medium">0</span>
-                                <div class="flex-1 h-2 bg-gray-200 rounded-full overflow-hidden relative">
-                                    <div class="absolute h-full w-1 bg-red-500 left-[45.71%]" title="Ambang Batas 80"></div>
-                                    <div id="tiuProgress" class="h-full bg-amber-500 transition-all duration-1000" style="width: 0%"></div>
-                                </div>
-                                <span id="tiuPersen" class="text-gray-600 font-medium text-xs">0%</span>
-                            </div>
-                            <div id="tiuThresholdInfo" class="text-xs text-gray-600"></div>
                         </div>
 
                         <!-- TKP Breakdown -->
-                        <div class="p-3 rounded-lg border border-gray-200">
-                            <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-2 gap-1">
-                                <div class="flex items-center gap-2">
-                                    <div class="w-2 h-2 rounded-full bg-purple-500"></div>
-                                    <span class="font-medium text-gray-700 text-sm">TKP (Karakteristik Pribadi)</span>
+                        <div class="p-4 rounded-xl border border-purple-100 bg-purple-50/50">
+                            <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-3 gap-2">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-3 h-3 rounded-full bg-tkp"></div>
+                                    <span class="font-bold text-gray-700">TKP (Karakteristik Pribadi)</span>
                                 </div>
-                                <div class="flex items-center gap-2">
-                                    <span class="text-sm font-medium text-gray-700">Skor: <span id="tkpSkorDetail">0</span>/166</span>
-                                    <div id="tkpThresholdBadge" class="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-700">
-                                        Ambang: 166
+                                <div class="flex items-center gap-4">
+                                    <span class="text-sm font-medium text-gray-700">Skor: <span id="tkpSkorDetail">0</span>/225</span>
+                                    <span class="px-3 py-1 rounded-full text-xs font-bold bg-tkp/10 text-tkp" id="tkpAccuracy">0%</span>
+                                </div>
+                            </div>
+                            <div class="space-y-3">
+                                <div class="flex items-center gap-3 text-sm">
+                                    <span class="text-gray-600 text-xs font-medium">Jawaban:</span>
+                                    <span id="tkpTerjawab" class="font-bold">0/45</span>
+                                    <div class="flex-1 h-2.5 bg-gray-200 rounded-full overflow-hidden">
+                                        <div id="tkpProgress" class="h-full bg-gradient-tkp transition-all duration-1000" style="width: 0%"></div>
                                     </div>
+                                    <span id="tkpPersen" class="text-gray-700 font-bold text-sm">0%</span>
+                                </div>
+                                <div class="flex justify-between text-xs">
+                                    <span class="font-medium text-gray-600">Nilai: <span id="tkpNilai">0</span>/225</span>
+                                    <span class="font-medium text-gray-600">Ambang Batas: 166</span>
+                                    <span class="font-medium" id="tkpThresholdText"></span>
                                 </div>
                             </div>
-                            <div class="flex items-center gap-2 md:gap-3 text-sm mb-2">
-                                <span class="text-gray-600 text-xs">Skor:</span>
-                                <span id="tkpSkorDetail2" class="font-medium">0</span>
-                                <div class="flex-1 h-2 bg-gray-200 rounded-full overflow-hidden relative">
-                                    <div class="absolute h-full w-1 bg-red-500 left-[100%] -ml-1" title="Ambang Batas 166"></div>
-                                    <div id="tkpProgress" class="h-full bg-purple-500 transition-all duration-1000" style="width: 0%"></div>
-                                </div>
-                                <span id="tkpPersen" class="text-gray-600 font-medium text-xs">0%</span>
-                            </div>
-                            <div id="tkpThresholdInfo" class="text-xs text-gray-600"></div>
                         </div>
                     </div>
 
-                    <!-- SKD Status Summary -->
-                    <div class="mt-4 md:mt-6 pt-4 border-t border-gray-200">
-                        <h4 class="text-sm font-semibold text-gray-800 mb-3 flex items-center gap-2">
-                            <i class="fa-solid fa-clipboard-check text-blue-600"></i>
-                            <span>Status Kelulusan SKD</span>
-                        </h4>
-                        <div id="skdStatusSummary" class="p-3 rounded-lg border border-gray-200 bg-gray-50">
-                            <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-                                <div class="text-center">
-                                    <div id="skdTWKStatus" class="text-lg md:text-xl font-bold">-</div>
-                                    <div class="text-xs text-gray-600 font-medium uppercase mt-1">TWK</div>
-                                </div>
-                                <div class="text-center">
-                                    <div id="skdTIUStatus" class="text-lg md:text-xl font-bold">-</div>
-                                    <div class="text-xs text-gray-600 font-medium uppercase mt-1">TIU</div>
-                                </div>
-                                <div class="text-center">
-                                    <div id="skdTKPStatus" class="text-lg md:text-xl font-bold">-</div>
-                                    <div class="text-xs text-gray-600 font-medium uppercase mt-1">TKP</div>
-                                </div>
-                                <div class="text-center">
-                                    <div id="skdTotalStatus" class="text-lg md:text-xl font-bold">-</div>
-                                    <div class="text-xs text-gray-600 font-medium uppercase mt-1">TOTAL</div>
-                                </div>
+                    <!-- Overall Accuracy -->
+                    <div class="mt-8 pt-6 border-t border-gray-200">
+                        <h4 class="text-lg font-bold text-gray-800 mb-4">Akurasi Keseluruhan</h4>
+                        <div class="grid grid-cols-3 gap-4">
+                            <div class="text-center p-4 rounded-xl bg-gradient-to-br from-blue-50 to-blue-100 border border-blue-200">
+                                <div class="text-2xl font-black text-twk" id="akurasiTWK">0%</div>
+                                <div class="text-sm text-gray-700 font-bold uppercase mt-1">Akurasi TWK</div>
                             </div>
-                            <div id="skdFinalStatus" class="mt-3 p-2 rounded text-center text-sm font-medium"></div>
+                            <div class="text-center p-4 rounded-xl bg-gradient-to-br from-amber-50 to-amber-100 border border-amber-200">
+                                <div class="text-2xl font-black text-tiu" id="akurasiTIU">0%</div>
+                                <div class="text-sm text-gray-700 font-bold uppercase mt-1">Akurasi TIU</div>
+                            </div>
+                            <div class="text-center p-4 rounded-xl bg-gradient-to-br from-gray-50 to-gray-100 border border-gray-200">
+                                <div class="text-2xl font-black text-gray-800" id="totalAkurasi">0%</div>
+                                <div class="text-sm text-gray-700 font-bold uppercase mt-1">Akurasi Total</div>
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 <!-- Additional Info -->
-                <div class="card p-4 md:p-6">
-                    <h3 class="text-base md:text-lg font-semibold text-gray-800 mb-3 flex items-center gap-2">
-                        <i class="fa-solid fa-circle-info text-gray-600"></i>
+                <div class="card p-6">
+                    <h3 class="text-lg md:text-xl font-bold text-gray-800 mb-6 flex items-center gap-3">
+                        <div class="p-2 rounded-lg bg-gradient-info text-white">
+                            <i class="fa-solid fa-circle-info"></i>
+                        </div>
                         <span>Informasi Ujian</span>
                     </h3>
 
-                    <div class="grid grid-cols-2 gap-3 mb-4">
-                        <div class="bg-soft-blue rounded-lg p-3">
-                            <div class="flex items-center gap-2 mb-2">
-                                <div class="w-6 h-6 md:w-8 md:h-8 rounded-full bg-blue-100 flex items-center justify-center">
-                                    <i class="fa-solid fa-question-circle text-blue-600 text-sm"></i>
+                    <div class="grid grid-cols-2 gap-4 mb-6">
+                        <div class="p-4 rounded-xl bg-gradient-to-br from-blue-50 to-blue-100 border border-blue-200">
+                            <div class="flex items-center gap-3 mb-3">
+                                <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center">
+                                    <i class="fa-solid fa-question-circle text-blue-600 text-lg"></i>
                                 </div>
                                 <div>
-                                    <div class="text-lg md:text-xl font-bold text-blue-600" id="raguCount">0</div>
-                                    <div class="text-xs text-blue-700 font-medium">Soal Ragu</div>
+                                    <div class="text-2xl font-black text-blue-700" id="raguCount">0</div>
+                                    <div class="text-sm text-blue-800 font-bold">Soal Ragu</div>
                                 </div>
                             </div>
-                            <p class="text-xs text-gray-600">Ditandai ragu-ragu</p>
+                            <p class="text-xs text-blue-900/70">Ditandai ragu-ragu selama ujian</p>
                         </div>
 
-                        <div class="bg-soft-yellow rounded-lg p-3">
-                            <div class="flex items-center gap-2 mb-2">
-                                <div class="w-6 h-6 md:w-8 md:h-8 rounded-full bg-amber-100 flex items-center justify-center">
-                                    <i class="fa-solid fa-bookmark text-amber-600 text-sm"></i>
+                        <div class="p-4 rounded-xl bg-gradient-to-br from-amber-50 to-amber-100 border border-amber-200">
+                            <div class="flex items-center gap-3 mb-3">
+                                <div class="w-10 h-10 rounded-full bg-amber-100 flex items-center justify-center">
+                                    <i class="fa-solid fa-bookmark text-amber-600 text-lg"></i>
                                 </div>
                                 <div>
-                                    <div class="text-lg md:text-xl font-bold text-amber-600" id="bookmarkCount">0</div>
-                                    <div class="text-xs text-amber-700 font-medium">Bookmark</div>
+                                    <div class="text-2xl font-black text-amber-700" id="bookmarkCount">0</div>
+                                    <div class="text-sm text-amber-800 font-bold">Bookmark</div>
                                 </div>
                             </div>
-                            <p class="text-xs text-gray-600">Untuk ulasan</p>
+                            <p class="text-xs text-amber-900/70">Untuk ulasan lebih lanjut</p>
                         </div>
                     </div>
 
-                    <div class="text-sm text-gray-600">
-                        <p class="mb-1"><i class="fa-solid fa-check-circle text-green-500 mr-2"></i> Hasil disimpan otomatis</p>
-                        <p><i class="fa-solid fa-clock text-blue-500 mr-2"></i> Selesai: <span id="waktuSelesai" class="font-medium">Memuat...</span></p>
+                    <div class="space-y-3">
+                        <div class="flex items-center gap-3 p-3 rounded-lg bg-green-50 border border-green-200">
+                            <i class="fa-solid fa-check-circle text-green-500 text-xl"></i>
+                            <div>
+                                <p class="font-medium text-green-800">Hasil disimpan otomatis</p>
+                                <p class="text-xs text-green-600">Data tersimpan di database sistem</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3 p-3 rounded-lg bg-blue-50 border border-blue-200">
+                            <i class="fa-solid fa-clock text-blue-500 text-xl"></i>
+                            <div>
+                                <p class="font-medium text-blue-800">Waktu Selesai</p>
+                                <p class="text-sm text-blue-700 font-bold" id="waktuSelesai">Memuat...</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <!-- Right Column: Recommendation & Actions -->
-            <div class="space-y-4 md:space-y-6">
-                <div class="card p-4 md:p-6">
-                    <h3 class="text-base md:text-lg font-semibold text-gray-800 mb-3 flex items-center gap-2">
-                        <i class="fa-solid fa-lightbulb text-amber-600"></i>
-                        <span>Rekomendasi Berdasarkan Ambang Batas</span>
+            <div class="space-y-6">
+                <div class="card p-6">
+                    <h3 class="text-lg md:text-xl font-bold text-gray-800 mb-6 flex items-center gap-3">
+                        <div class="p-2 rounded-lg bg-gradient-warning text-white">
+                            <i class="fa-solid fa-lightbulb"></i>
+                        </div>
+                        <span>Rekomendasi & Analisis</span>
                     </h3>
 
-                    <div id="recommendationContainer" class="space-y-3 mb-4">
+                    <div id="recommendationContainer" class="space-y-4 mb-6">
                         <!-- Recommendations will be dynamically inserted here -->
+                        <div class="p-4 rounded-xl bg-gradient-to-br from-gray-50 to-gray-100 border border-gray-200">
+                            <div class="flex items-start gap-3">
+                                <i class="fa-solid fa-spinner fa-spin text-gray-600 mt-1"></i>
+                                <div>
+                                    <p class="font-bold text-gray-800 mb-1">Memuat rekomendasi...</p>
+                                    <p class="text-sm text-gray-600">Analisis hasil ujian sedang diproses</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="p-3 bg-soft-blue rounded-lg border border-soft-blue">
-                        <div class="flex items-start gap-2">
-                            <i class="fa-solid fa-graduation-cap text-blue-600 mt-0.5"></i>
+                    <div class="p-4 rounded-xl bg-gradient-to-r from-primary/10 to-purple-500/10 border border-primary/20">
+                        <div class="flex items-start gap-3">
+                            <i class="fa-solid fa-graduation-cap text-primary text-xl mt-0.5"></i>
                             <div>
-                                <p class="font-medium text-blue-800 mb-1 text-sm">Tips SKD:</p>
-                                <p class="text-xs text-blue-700">Pastikan semua kategori memenuhi ambang batas minimal. Fokus pada kategori dengan skor terendah terlebih dahulu.</p>
+                                <p class="font-bold text-primary mb-2 text-lg">Tips Sukses SKD:</p>
+                                <ul class="space-y-2 text-sm text-gray-700">
+                                    <li class="flex items-start gap-2">
+                                        <i class="fa-solid fa-check text-green-500 mt-0.5"></i>
+                                        <span>Fokus pada kategori dengan skor di bawah ambang batas</span>
+                                    </li>
+                                    <li class="flex items-start gap-2">
+                                        <i class="fa-solid fa-check text-green-500 mt-0.5"></i>
+                                        <span>Gunakan fitur pembahasan soal untuk memahami kesalahan</span>
+                                    </li>
+                                    <li class="flex items-start gap-2">
+                                        <i class="fa-solid fa-check text-green-500 mt-0.5"></i>
+                                        <span>Latih waktu pengerjaan dengan simulasi ujian</span>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <!-- Action Buttons -->
-                <div class="card p-4 md:p-6">
-                    <h3 class="text-base md:text-lg font-semibold text-gray-800 mb-3 flex items-center gap-2">
-                        <i class="fa-solid fa-rocket text-gray-600"></i>
+                <div class="card p-6">
+                    <h3 class="text-lg md:text-xl font-bold text-gray-800 mb-6 flex items-center gap-3">
+                        <div class="p-2 rounded-lg bg-gradient-primary text-white">
+                            <i class="fa-solid fa-rocket"></i>
+                        </div>
                         <span>Aksi Selanjutnya</span>
                     </h3>
 
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-                        <button onclick="lihatPembahasan()" class="p-3 rounded-lg bg-soft-blue border border-soft-blue hover:border-blue-300 hover:bg-blue-50 transition-colors">
-                            <div class="flex items-center gap-3">
-                                <div class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center">
-                                    <i class="fa-solid fa-file-alt text-blue-600"></i>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <button onclick="lihatPembahasan()" class="p-4 rounded-xl bg-gradient-to-r from-blue-500 to-blue-600 text-white hover:from-blue-600 hover:to-blue-700 transition-all duration-300 shadow-lg hover:shadow-xl group">
+                            <div class="flex items-center gap-4">
+                                <div class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center group-hover:scale-110 transition-transform">
+                                    <i class="fa-solid fa-file-alt text-white"></i>
                                 </div>
                                 <div class="text-left">
-                                    <p class="font-medium text-gray-700">Pembahasan Soal</p>
-                                    <p class="text-xs text-gray-600">Review jawaban dan penjelasan</p>
+                                    <p class="font-bold text-lg">Pembahasan Soal</p>
+                                    <p class="text-sm text-blue-100">Review jawaban dan penjelasan</p>
                                 </div>
                             </div>
                         </button>
 
-                        <button onclick="ulangiUjian()" class="p-3 rounded-lg bg-soft-yellow border border-soft-yellow hover:border-amber-300 hover:bg-amber-50 transition-colors">
-                            <div class="flex items-center gap-3">
-                                <div class="w-8 h-8 rounded-full bg-amber-100 flex items-center justify-center">
-                                    <i class="fa-solid fa-redo text-amber-600"></i>
+                        <button onclick="ulangiUjian()" class="p-4 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 text-white hover:from-amber-600 hover:to-amber-700 transition-all duration-300 shadow-lg hover:shadow-xl group">
+                            <div class="flex items-center gap-4">
+                                <div class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center group-hover:scale-110 transition-transform">
+                                    <i class="fa-solid fa-redo text-white"></i>
                                 </div>
                                 <div class="text-left">
-                                    <p class="font-medium text-gray-700">Ulangi Ujian</p>
-                                    <p class="text-xs text-gray-600">Coba lagi dengan soal sama</p>
+                                    <p class="font-bold text-lg">Ulangi Ujian</p>
+                                    <p class="text-sm text-amber-100">Coba lagi dengan soal sama</p>
                                 </div>
+                            </div>
+                        </button>
+                    </div>
+                    
+                    <div class="mt-4">
+                        <button onclick="lihatPaketLain()" class="w-full p-4 rounded-xl bg-gradient-to-r from-purple-500 to-purple-600 text-white hover:from-purple-600 hover:to-purple-700 transition-all duration-300 shadow-lg hover:shadow-xl group">
+                            <div class="flex items-center justify-center gap-3">
+                                <i class="fa-solid fa-boxes-packing"></i>
+                                <span class="font-bold">Coba Paket Soal Lain</span>
                             </div>
                         </button>
                     </div>
@@ -510,43 +740,44 @@
         </div>
 
         <!-- Footer -->
-        <footer class="bg-white rounded-lg p-4 md:p-6 border border-gray-100">
-            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
-                <div class="flex items-center gap-3">
-                    <div class="p-2 rounded-lg bg-soft-blue text-blue-600">
-                        <i class="fa-solid fa-chalkboard-teacher"></i>
+        <footer class="bg-white rounded-2xl p-6 md:p-8 shadow-lg border border-gray-200">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-6">
+                <div class="flex items-center gap-4">
+                    <div class="p-3 rounded-xl bg-gradient-primary text-white shadow-md">
+                        <i class="fa-solid fa-chalkboard-teacher text-xl"></i>
                     </div>
                     <div>
-                        <h2 class="text-base font-bold text-gray-900 mb-1">Hasil Ujian Paket 1</h2>
-                        <p class="text-gray-600 text-xs">
-                            Sistem evaluasi hasil belajar dengan ambang batas SKD.
+                        <h2 class="text-xl font-bold text-gray-900 mb-1">Sistem Ujian CAT SKD</h2>
+                        <p class="text-gray-600 text-sm">
+                            Platform simulasi ujian CPNS dengan sistem Computer Assisted Test
                         </p>
                     </div>
                 </div>
 
                 <div class="text-center md:text-right">
-                    <button onclick="hubungiKami()" class="px-4 py-2 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors flex items-center justify-center gap-2 text-sm">
+                    <button onclick="hubungiKami()" class="px-5 py-3 bg-gradient-success text-white rounded-xl font-bold hover:opacity-90 transition-all duration-300 flex items-center justify-center gap-3 shadow-md hover:shadow-lg">
                         <i class="fa-solid fa-comment"></i>
-                        <span>Bantuan</span>
+                        <span>Butuh Bantuan?</span>
                     </button>
                 </div>
             </div>
 
-            <div class="border-t border-gray-100 pt-4">
-                <div class="flex flex-col md:flex-row md:items-center justify-between gap-3">
-                    <div class="flex items-center gap-3">
-                        <div class="bg-gray-50 px-3 py-2 rounded border border-gray-100">
-                            <p class="text-xs text-gray-500 uppercase font-medium">PIN PESERTA</p>
-                            <p id="footerPin" class="font-mono font-medium text-gray-900 text-sm">MEMUAT...</p>
+            <div class="border-t border-gray-200 pt-6">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                    <div class="flex items-center gap-4">
+                        <div class="bg-gradient-to-r from-blue-50 to-purple-50 px-4 py-3 rounded-xl border-2 border-dashed border-primary/30">
+                            <p class="text-xs text-gray-500 uppercase font-bold mb-1">PIN PESERTA</p>
+                            <p id="footerPin" class="font-mono font-black text-primary text-lg tracking-widest">MEMUAT...</p>
                         </div>
-                        <div class="bg-gray-50 px-3 py-2 rounded border border-gray-100">
-                            <p class="text-xs text-gray-500 uppercase font-medium">AMBANG BATAS</p>
-                            <p class="font-medium text-gray-900 text-xs">TWK≥65 TIU≥80 TKP≥166 Total≥271</p>
+                        <div class="text-sm">
+                            <p class="font-medium text-gray-700">Paket: <span class="font-bold text-primary">PAKET 1</span></p>
+                            <p class="text-gray-600">Tanggal Ujian: <span id="footerTanggal" class="font-medium">-</span></p>
                         </div>
                     </div>
 
-                    <div class="text-xs text-gray-500">
-                        <p>&copy; <span id="currentYear"></span> Sistem Ujian CAT</p>
+                    <div class="text-sm text-gray-500">
+                        <p class="font-medium">&copy; <span id="currentYear"></span> Sistem Ujian CAT CPNS</p>
+                        <p class="text-xs mt-1">Versi 2.0 | Ambang Batas SKD 2024</p>
                     </div>
                 </div>
             </div>
@@ -554,16 +785,21 @@
     </div>
 
     <!-- Confirmation Modal for Retry -->
-    <div id="modalUlangi" class="hidden fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center p-4">
-        <div class="bg-white rounded-lg p-5 max-w-md w-full mx-4">
-            <h3 class="text-lg font-semibold text-gray-800 mb-3">Ulangi Ujian Paket 1</h3>
-            <p class="text-gray-600 text-sm mb-4">Apakah Anda yakin ingin mengulang ujian ini? Progress baru akan dimulai dari awal.</p>
+    <div id="modalUlangi" class="hidden fixed inset-0 z-50 bg-black bg-opacity-60 flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl p-6 max-w-md w-full mx-4 transform transition-all duration-300 scale-95" id="modalContent">
+            <div class="flex items-center gap-3 mb-4">
+                <div class="p-2 rounded-lg bg-gradient-warning text-white">
+                    <i class="fa-solid fa-exclamation-triangle"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-800">Ulangi Ujian Paket 1</h3>
+            </div>
+            <p class="text-gray-600 mb-6">Apakah Anda yakin ingin mengulang ujian ini? Progress baru akan dimulai dari awal dan hasil sebelumnya tetap tersimpan.</p>
             <div class="flex gap-3">
-                <button onclick="tutupModal()" class="flex-1 px-4 py-2 bg-gray-100 text-gray-700 font-medium rounded-lg hover:bg-gray-200 transition-colors">
+                <button onclick="tutupModal()" class="flex-1 px-4 py-3 bg-gray-100 text-gray-700 font-bold rounded-xl hover:bg-gray-200 transition-all duration-300">
                     Batal
                 </button>
-                <button onclick="konfirmasiUlangi()" class="flex-1 px-4 py-2 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors">
-                    Ya, Mulai
+                <button onclick="konfirmasiUlangi()" class="flex-1 px-4 py-3 bg-gradient-primary text-white font-bold rounded-xl hover:opacity-90 transition-all duration-300 shadow-md">
+                    Ya, Mulai Ulang
                 </button>
             </div>
         </div>
@@ -577,12 +813,19 @@
             "paket3": ["VS4NL8", "RT9XM2", "B2MK8P", "7XL1WQ", "5HG2SD", "9ZW4RB", "KP8MX3", "FN5VK2", "8WQ4PZ", "2YM9BX", "7KP1RT", "5HG6SD", "9ZW3RF", "RS4ML9", "VN7VK1", "8WQ3PZ", "4FB1NT"]
         };
 
-        // ====================== AMBANG BATAS SKD ======================
-        const SKD_THRESHOLDS = {
-            TWK: 65,    // Minimal 65 poin
-            TIU: 80,    // Minimal 80 poin
-            TKP: 166,   // Minimal 166 poin (maksimal juga 166)
-            TOTAL: 271  // Minimal 271 poin (65+80+166)
+        // ====================== AMBANG BATAS SKD 2024 ======================
+        const AMBANG_BATAS = {
+            TWK: 65,    // Minimal 65 dari 150
+            TIU: 80,    // Minimal 80 dari 175
+            TKP: 166,   // Minimal 166 dari 225
+            TOTAL: 271  // Minimal 271 dari 550
+        };
+
+        const MAX_SCORE = {
+            TWK: 150,
+            TIU: 175,
+            TKP: 225,
+            TOTAL: 550
         };
 
         // ====================== GLOBAL VARIABLES ======================
@@ -652,6 +895,15 @@
             }
 
             hasilData = JSON.parse(savedResult);
+            
+            // Convert TKP score from 0-166 scale to 0-225 scale for display
+            if (hasilData.tkp) {
+                // Convert TKP score from old scale (0-166) to new scale (0-225)
+                hasilData.tkp = Math.round((hasilData.tkp / 166) * 225);
+                // Update total score to reflect new TKP scale
+                hasilData.total = hasilData.twk + hasilData.tiu + hasilData.tkp;
+            }
+            
             displayResult();
         }
 
@@ -667,24 +919,29 @@
             };
             const timeOptions = { hour: '2-digit', minute: '2-digit' };
 
-            document.getElementById('tanggalUjian').textContent = 
-                selesaiDate.toLocaleDateString('id-ID', dateOptions) + 
-                ' • ' + 
-                selesaiDate.toLocaleTimeString('id-ID', timeOptions);
+            const tanggalText = selesaiDate.toLocaleDateString('id-ID', dateOptions);
+            const waktuText = selesaiDate.toLocaleTimeString('id-ID', timeOptions);
+            
+            document.getElementById('tanggalUjian').textContent = `${tanggalText} • ${waktuText}`;
+            document.getElementById('footerTanggal').textContent = tanggalText;
+            document.getElementById('waktuSelesai').textContent = waktuText;
 
-            document.getElementById('waktuSelesai').textContent = selesaiDate.toLocaleTimeString('id-ID', timeOptions);
-
-            // Display scores
+            // Display scores with new max values
             document.getElementById('skorTWK').textContent = hasilData.twk;
             document.getElementById('skorTIU').textContent = hasilData.tiu;
             document.getElementById('skorTKP').textContent = hasilData.tkp;
             document.getElementById('totalScore').textContent = hasilData.total;
 
-            // Calculate percentages for progress bars
-            const twkPercent = Math.round((hasilData.twk / 150) * 100);
-            const tiuPercent = Math.round((hasilData.tiu / 175) * 100);
-            const tkpPercent = Math.round((hasilData.tkp / 166) * 100);
-            const totalPercent = Math.round((hasilData.total / 500) * 100);
+            // Calculate percentages for progress bars based on new max values
+            const twkPercent = Math.round((hasilData.twk / MAX_SCORE.TWK) * 100);
+            const tiuPercent = Math.round((hasilData.tiu / MAX_SCORE.TIU) * 100);
+            const tkpPercent = Math.round((hasilData.tkp / MAX_SCORE.TKP) * 100);
+            const totalPercent = Math.round((hasilData.total / MAX_SCORE.TOTAL) * 100);
+
+            // Calculate threshold percentages for markers
+            const twkThresholdPercent = (AMBANG_BATAS.TWK / MAX_SCORE.TWK) * 100;
+            const tiuThresholdPercent = (AMBANG_BATAS.TIU / MAX_SCORE.TIU) * 100;
+            const tkpThresholdPercent = (AMBANG_BATAS.TKP / MAX_SCORE.TKP) * 100;
 
             // Animate progress bars
             setTimeout(() => {
@@ -706,21 +963,10 @@
             document.getElementById('tiuTerjawab').textContent = `${hasilData.tiuJawab}/35`;
             document.getElementById('tkpTerjawab').textContent = `${hasilData.tkpJawab}/45`;
 
-            // Display skor detail
-            document.getElementById('twkSkorDetail').textContent = hasilData.twk;
-            document.getElementById('tiuSkorDetail').textContent = hasilData.tiu;
-            document.getElementById('tkpSkorDetail').textContent = hasilData.tkp;
-            document.getElementById('tkpSkorDetail2').textContent = hasilData.tkp;
-
             // Animate category progress bars
             const twkJawabPercent = Math.round((hasilData.twkJawab / 30) * 100);
             const tiuJawabPercent = Math.round((hasilData.tiuJawab / 35) * 100);
             const tkpJawabPercent = Math.round((hasilData.tkpJawab / 45) * 100);
-
-            // Calculate percentage of threshold for visualization
-            const twkThresholdPercent = Math.round((hasilData.twk / SKD_THRESHOLDS.TWK) * 100);
-            const tiuThresholdPercent = Math.round((hasilData.tiu / SKD_THRESHOLDS.TIU) * 100);
-            const tkpThresholdPercent = Math.round((hasilData.tkp / SKD_THRESHOLDS.TKP) * 100);
 
             setTimeout(() => {
                 document.getElementById('twkProgress').style.width = `${twkJawabPercent}%`;
@@ -731,121 +977,114 @@
             // Display percentages
             document.getElementById('twkPersen').textContent = `${twkJawabPercent}%`;
             document.getElementById('tiuPersen').textContent = `${tiuJawabPercent}%`;
-            document.getElementById('tkpPersen').textContent = `${tkpThresholdPercent}%`;
+            document.getElementById('tkpPersen').textContent = `${tkpJawabPercent}%`;
 
             // Display correct counts
             document.getElementById('twkBenar').textContent = hasilData.twkBenar || 0;
             document.getElementById('tiuBenar').textContent = hasilData.tiuBenar || 0;
+            document.getElementById('tkpSkorDetail').textContent = hasilData.tkp;
+
+            // Display nilai
+            document.getElementById('twkNilai').textContent = hasilData.twk;
+            document.getElementById('tiuNilai').textContent = hasilData.tiu;
+            document.getElementById('tkpNilai').textContent = hasilData.tkp;
 
             // Calculate accuracy
             const twkAccuracy = hasilData.twkJawab > 0 ? Math.round((hasilData.twkBenar / hasilData.twkJawab) * 100) : 0;
             const tiuAccuracy = hasilData.tiuJawab > 0 ? Math.round((hasilData.tiuBenar / hasilData.tiuJawab) * 100) : 0;
-            const totalAccuracy = (hasilData.twkJawab + hasilData.tiuJawab) > 0 ? 
-                Math.round(((hasilData.twkBenar + hasilData.tiuBenar) / (hasilData.twkJawab + hasilData.tiuJawab)) * 100) : 0;
+            const totalAnswered = hasilData.twkJawab + hasilData.tiuJawab;
+            const totalCorrect = (hasilData.twkBenar || 0) + (hasilData.tiuBenar || 0);
+            const totalAccuracy = totalAnswered > 0 ? Math.round((totalCorrect / totalAnswered) * 100) : 0;
 
-            setTimeout(() => {
-                document.getElementById('akurasiTWK').textContent = `${twkAccuracy}%`;
-                document.getElementById('akurasiTIU').textContent = `${tiuAccuracy}%`;
-                document.getElementById('totalAkurasi').textContent = `${totalAccuracy}%`;
-            }, 900);
+            // Display accuracy
+            document.getElementById('akurasiTWK').textContent = `${twkAccuracy}%`;
+            document.getElementById('akurasiTIU').textContent = `${tiuAccuracy}%`;
+            document.getElementById('totalAkurasi').textContent = `${totalAccuracy}%`;
+            
+            // Display accuracy in breakdown
+            document.getElementById('twkAccuracy').textContent = `${twkAccuracy}%`;
+            document.getElementById('tiuAccuracy').textContent = `${tiuAccuracy}%`;
+            document.getElementById('tkpAccuracy').textContent = `${tkpPercent}%`;
 
             // Display time used
-            document.getElementById('waktuDigunakan').textContent = hasilData.waktu.split('m')[0] + 'm';
-            document.getElementById('waktuDetail').textContent = hasilData.waktu;
+            const waktu = hasilData.waktu || "0m";
+            document.getElementById('waktuDigunakan').textContent = waktu;
+            document.getElementById('waktuDetail').textContent = waktu;
+            
+            // Calculate and display remaining time (assuming 90 minutes total)
+            const totalTime = 90; // minutes
+            const usedTime = parseInt(waktu) || 0;
+            const remainingTime = Math.max(0, totalTime - usedTime);
+            document.getElementById('waktuSisa').textContent = `${remainingTime}m`;
 
             // Display additional info
             document.getElementById('raguCount').textContent = hasilData.ragu || 0;
             document.getElementById('bookmarkCount').textContent = hasilData.bookmarks || 0;
 
+            // Check passing status for each category and total
+            checkPassingStatus();
+            
             // Display result message and emoji based on score
             displayResultMessage(hasilData.total);
 
-            // Check SKD thresholds and display status
-            checkSKDThresholds();
-
-            // Generate recommendations based on thresholds
+            // Generate recommendations
             generateRecommendations();
         }
 
-        function checkSKDThresholds() {
+        function checkPassingStatus() {
             if (!hasilData) return;
-
-            const twkScore = hasilData.twk;
-            const tiuScore = hasilData.tiu;
-            const tkpScore = hasilData.tkp;
-            const totalScore = hasilData.total;
-
-            // Check each threshold
-            const twkPassed = twkScore >= SKD_THRESHOLDS.TWK;
-            const tiuPassed = tiuScore >= SKD_THRESHOLDS.TIU;
-            const tkpPassed = tkpScore >= SKD_THRESHOLDS.TKP;
-            const totalPassed = totalScore >= SKD_THRESHOLDS.TOTAL;
-
-            // Overall SKD status (must pass all)
-            const skdPassed = twkPassed && tiuPassed && tkpPassed && totalPassed;
-
-            // Update status badges
-            updateStatusBadge('twkStatus', twkPassed, `TWK: ${twkScore}/${SKD_THRESHOLDS.TWK}`);
-            updateStatusBadge('tiuStatus', tiuPassed, `TIU: ${tiuScore}/${SKD_THRESHOLDS.TIU}`);
-            updateStatusBadge('tkpStatus', tkpPassed, `TKP: ${tkpScore}/${SKD_THRESHOLDS.TKP}`);
-            updateStatusBadge('totalStatus', totalPassed, `Total: ${totalScore}/${SKD_THRESHOLDS.TOTAL}`);
-            updateStatusBadge('totalPassStatus', skdPassed, skdPassed ? 'LULUS SKD' : 'TIDAK LULUS');
-
-            // Update threshold info
-            document.getElementById('twkThresholdInfo').innerHTML = getThresholdInfo('TWK', twkScore, SKD_THRESHOLDS.TWK, twkPassed);
-            document.getElementById('tiuThresholdInfo').innerHTML = getThresholdInfo('TIU', tiuScore, SKD_THRESHOLDS.TIU, tiuPassed);
-            document.getElementById('tkpThresholdInfo').innerHTML = getThresholdInfo('TKP', tkpScore, SKD_THRESHOLDS.TKP, tkpPassed);
-
-            // Update SKD status summary
-            document.getElementById('skdTWKStatus').innerHTML = getStatusIcon(twkPassed) + ` ${twkScore}`;
-            document.getElementById('skdTIUStatus').innerHTML = getStatusIcon(tiuPassed) + ` ${tiuScore}`;
-            document.getElementById('skdTKPStatus').innerHTML = getStatusIcon(tkpPassed) + ` ${tkpScore}`;
-            document.getElementById('skdTotalStatus').innerHTML = getStatusIcon(totalPassed) + ` ${totalScore}`;
-
-            // Update SKD final status
-            const skdStatusDetail = document.getElementById('skdStatusDetail');
-            const skdFinalStatus = document.getElementById('skdFinalStatus');
             
-            if (skdPassed) {
-                skdStatusDetail.textContent = 'LULUS SKD';
-                skdStatusDetail.className = 'text-xs font-medium text-green-700';
-                skdFinalStatus.textContent = '✓ SELAMAT! Anda memenuhi semua ambang batas SKD';
-                skdFinalStatus.className = 'mt-3 p-2 rounded text-center text-sm font-medium bg-green-100 text-green-800 border border-green-200';
+            const passingStatus = document.getElementById('passingStatus');
+            
+            // Check each category
+            const twkPassed = hasilData.twk >= AMBANG_BATAS.TWK;
+            const tiuPassed = hasilData.tiu >= AMBANG_BATAS.TIU;
+            const tkpPassed = hasilData.tkp >= AMBANG_BATAS.TKP;
+            const totalPassed = hasilData.total >= AMBANG_BATAS.TOTAL;
+            
+            // Update status text for each category
+            document.getElementById('twkStatus').textContent = twkPassed ? "✓ LULUS" : "✗ GAGAL";
+            document.getElementById('twkStatus').className = twkPassed ? "font-bold text-green-600" : "font-bold text-red-600";
+            document.getElementById('twkThresholdText').textContent = twkPassed ? "✓ Terpenuhi" : "✗ Tidak Terpenuhi";
+            document.getElementById('twkThresholdText').className = twkPassed ? "font-bold text-green-600" : "font-bold text-red-600";
+            
+            document.getElementById('tiuStatus').textContent = tiuPassed ? "✓ LULUS" : "✗ GAGAL";
+            document.getElementById('tiuStatus').className = tiuPassed ? "font-bold text-green-600" : "font-bold text-red-600";
+            document.getElementById('tiuThresholdText').textContent = tiuPassed ? "✓ Terpenuhi" : "✗ Tidak Terpenuhi";
+            document.getElementById('tiuThresholdText').className = tiuPassed ? "font-bold text-green-600" : "font-bold text-red-600";
+            
+            document.getElementById('tkpStatus').textContent = tkpPassed ? "✓ LULUS" : "✗ GAGAL";
+            document.getElementById('tkpStatus').className = tkpPassed ? "font-bold text-green-600" : "font-bold text-red-600";
+            document.getElementById('tkpThresholdText').textContent = tkpPassed ? "✓ Terpenuhi" : "✗ Tidak Terpenuhi";
+            document.getElementById('tkpThresholdText').className = tkpPassed ? "font-bold text-green-600" : "font-bold text-red-600";
+            
+            // Check overall status
+            const allCategoriesPassed = twkPassed && tiuPassed && tkpPassed && totalPassed;
+            
+            if (allCategoriesPassed) {
+                passingStatus.innerHTML = `
+                    <i class="fa-solid fa-trophy text-yellow-500"></i>
+                    <span class="text-green-700">SELAMAT! ANDA LULUS SKD</span>
+                    <i class="fa-solid fa-trophy text-yellow-500"></i>
+                `;
+                passingStatus.className = "mt-3 inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-bold bg-gradient-to-r from-green-100 to-green-200 text-green-800 border border-green-300";
             } else {
-                skdStatusDetail.textContent = 'TIDAK LULUS SKD';
-                skdStatusDetail.className = 'text-xs font-medium text-red-700';
+                let reasons = [];
+                if (!twkPassed) reasons.push("TWK");
+                if (!tiuPassed) reasons.push("TIU");
+                if (!tkpPassed) reasons.push("TKP");
+                if (!totalPassed) reasons.push("Total Skor");
                 
-                let failedReasons = [];
-                if (!twkPassed) failedReasons.push('TWK');
-                if (!tiuPassed) failedReasons.push('TIU');
-                if (!tkpPassed) failedReasons.push('TKP');
-                if (!totalPassed) failedReasons.push('TOTAL');
+                passingStatus.innerHTML = `
+                    <i class="fa-solid fa-exclamation-triangle text-red-500"></i>
+                    <span class="text-red-700">ANDA GAGAL SKD</span>
+                    <i class="fa-solid fa-exclamation-triangle text-red-500"></i>
+                `;
+                passingStatus.className = "mt-3 inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-bold bg-gradient-to-r from-red-100 to-red-200 text-red-800 border border-red-300";
                 
-                skdFinalStatus.textContent = `✗ Belum memenuhi ambang batas: ${failedReasons.join(', ')}`;
-                skdFinalStatus.className = 'mt-3 p-2 rounded text-center text-sm font-medium bg-red-100 text-red-800 border border-red-200';
+                // Add tooltip or additional info
+                passingStatus.title = `Gagal pada: ${reasons.join(", ")}`;
             }
-        }
-
-        function updateStatusBadge(elementId, passed, text) {
-            const element = document.getElementById(elementId);
-            if (element) {
-                element.textContent = text;
-                element.className = `text-xs font-medium px-2 py-0.5 rounded-full inline-block ${passed ? 'status-pass' : 'status-fail'}`;
-            }
-        }
-
-        function getThresholdInfo(category, score, threshold, passed) {
-            const diff = score - threshold;
-            if (passed) {
-                return `<span class="text-green-600"><i class="fa-solid fa-check-circle mr-1"></i>Memenuhi ambang batas (+${diff})</span>`;
-            } else {
-                return `<span class="text-red-600"><i class="fa-solid fa-times-circle mr-1"></i>Kurang ${Math.abs(diff)} poin dari ambang batas</span>`;
-            }
-        }
-
-        function getStatusIcon(passed) {
-            return passed ? '<span class="text-green-600"><i class="fa-solid fa-check"></i></span>' : 
-                           '<span class="text-red-600"><i class="fa-solid fa-xmark"></i></span>';
         }
 
         function displayResultMessage(totalScore) {
@@ -855,23 +1094,23 @@
             let message = '';
             let emoji = '';
 
-            if (totalScore >= 400) {
-                message = 'Luar biasa! Skor sangat tinggi di atas ambang batas.';
+            if (totalScore >= 450) {
+                message = 'Luar biasa! Skor sangat tinggi di atas rata-rata.';
                 emoji = '🏆';
-            } else if (totalScore >= 350) {
-                message = 'Bagus sekali! Performa sangat baik.';
+            } else if (totalScore >= 400) {
+                message = 'Sangat baik! Performa Anda mengagumkan.';
                 emoji = '🎯';
-            } else if (totalScore >= 300) {
-                message = 'Hasil yang baik! Periksa ambang batas per kategori.';
+            } else if (totalScore >= 350) {
+                message = 'Bagus! Hasil Anda melebihi ekspektasi.';
                 emoji = '⭐';
-            } else if (totalScore >= SKD_THRESHOLDS.TOTAL) {
-                message = 'Memenuhi ambang batas total. Periksa kategori lainnya.';
-                emoji = '✅';
-            } else if (totalScore >= 200) {
-                message = 'Perlu lebih banyak latihan untuk mencapai ambang batas.';
-                emoji = '💪';
+            } else if (totalScore >= 300) {
+                message = 'Cukup baik. Tingkatkan lagi untuk hasil optimal.';
+                emoji = '👍';
+            } else if (totalScore >= AMBANG_BATAS.TOTAL) {
+                message = 'Anda mencapai ambang batas minimal. Perlu peningkatan.';
+                emoji = '📈';
             } else {
-                message = 'Pelajari kembali materinya untuk memenuhi ambang batas.';
+                message = 'Perlu belajar lebih giat untuk mencapai ambang batas.';
                 emoji = '📚';
             }
 
@@ -889,101 +1128,82 @@
             const tkpScore = hasilData.tkp;
             const totalScore = hasilData.total;
 
-            // Check SKD thresholds
-            const twkPassed = twkScore >= SKD_THRESHOLDS.TWK;
-            const tiuPassed = tiuScore >= SKD_THRESHOLDS.TIU;
-            const tkpPassed = tkpScore >= SKD_THRESHOLDS.TKP;
-            const totalPassed = totalScore >= SKD_THRESHOLDS.TOTAL;
-
-            // Generate recommendations based on thresholds
-            if (!twkPassed) {
-                const needed = SKD_THRESHOLDS.TWK - twkScore;
+            // Check for failed categories
+            if (twkScore < AMBANG_BATAS.TWK) {
                 recommendations.push({
                     icon: 'fa-landmark',
-                    color: 'red',
-                    title: 'TWK Belum Memenuhi',
-                    text: `Kurang ${needed} poin dari ambang batas (65). Fokus pada materi Pancasila, UUD 1945, NKRI.`
-                });
-            } else if (twkScore < 100) {
-                recommendations.push({
-                    icon: 'fa-landmark',
-                    color: 'blue',
-                    title: 'Tingkatkan TWK',
-                    text: 'Pelajari materi wawasan kebangsaan lebih dalam untuk skor lebih tinggi.'
+                    color: 'twk',
+                    title: 'Perbaiki TWK',
+                    text: `Skor TWK Anda ${twkScore}, di bawah ambang batas (${AMBANG_BATAS.TWK}). Pelajari materi wawasan kebangsaan, Pancasila, UUD 1945, dan NKRI.`
                 });
             }
 
-            if (!tiuPassed) {
-                const needed = SKD_THRESHOLDS.TIU - tiuScore;
+            if (tiuScore < AMBANG_BATAS.TIU) {
                 recommendations.push({
                     icon: 'fa-brain',
-                    color: 'red',
-                    title: 'TIU Belum Memenuhi',
-                    text: `Kurang ${needed} poin dari ambang batas (80). Perbanyak latihan verbal, numerik, dan figural.`
-                });
-            } else if (tiuScore < 110) {
-                recommendations.push({
-                    icon: 'fa-brain',
-                    color: 'amber',
-                    title: 'Latih TIU',
-                    text: 'Perbanyak latihan soal logika, analitis, dan pemahaman.'
+                    color: 'tiu',
+                    title: 'Tingkatkan TIU',
+                    text: `Skor TIU Anda ${tiuScore}, di bawah ambang batas (${AMBANG_BATAS.TIU}). Latih kemampuan verbal, numerik, dan logika dengan lebih intensif.`
                 });
             }
 
-            if (!tkpPassed) {
-                const needed = SKD_THRESHOLDS.TKP - tkpScore;
+            if (tkpScore < AMBANG_BATAS.TKP) {
                 recommendations.push({
                     icon: 'fa-user-check',
-                    color: 'red',
-                    title: 'TKP Belum Memenuhi',
-                    text: `Kurang ${needed} poin dari ambang batas (166). Pahami nilai-nilai pelayanan publik dan integritas.`
-                });
-            } else if (tkpScore < 166) {
-                recommendations.push({
-                    icon: 'fa-user-check',
-                    color: 'purple',
+                    color: 'tkp',
                     title: 'Asah TKP',
-                    text: 'Tingkatkan pemahaman karakteristik pribadi untuk skor maksimal.'
+                    text: `Skor TKP Anda ${tkpScore}, di bawah ambang batas (${AMBANG_BATAS.TKP}). Pahami nilai-nilai karakter pribadi, integritas, dan etos kerja.`
                 });
             }
 
-            if (!totalPassed) {
-                const needed = SKD_THRESHOLDS.TOTAL - totalScore;
+            if (totalScore < AMBANG_BATAS.TOTAL) {
                 recommendations.push({
                     icon: 'fa-chart-line',
-                    color: 'red',
-                    title: 'Total Skor Belum Cukup',
-                    text: `Kurang ${needed} poin dari ambang batas total (271). Fokus pada kategori dengan skor terendah.`
+                    color: 'danger',
+                    title: 'Target Total Skor',
+                    text: `Total skor Anda ${totalScore}, belum mencapai ambang batas (${AMBANG_BATAS.TOTAL}). Fokus pada kategori dengan skor terendah.`
                 });
             }
 
             if (recommendations.length === 0) {
                 recommendations.push({
                     icon: 'fa-flag-checkered',
-                    color: 'green',
-                    title: 'Semua Ambang Batas Terpenuhi',
-                    text: 'Selamat! Anda telah memenuhi semua persyaratan SKD. Pertahankan dan tingkatkan lagi.'
+                    color: 'success',
+                    title: 'Pertahankan Prestasi!',
+                    text: 'Semua kategori telah memenuhi ambang batas. Terus latih diri untuk persiapan ujian selanjutnya.'
+                });
+            }
+
+            // Add time management recommendation if time used is too long
+            const waktu = parseInt(hasilData.waktu) || 0;
+            if (waktu > 80) { // If used more than 80 minutes
+                recommendations.push({
+                    icon: 'fa-clock',
+                    color: 'warning',
+                    title: 'Manajemen Waktu',
+                    text: `Anda menggunakan ${waktu} menit. Latih kecepatan mengerjakan soal tanpa mengurangi akurasi.`
                 });
             }
 
             // Render recommendations
             recommendations.forEach((rec, index) => {
                 const colorClasses = {
-                    blue: 'border-blue-200 bg-blue-50',
-                    amber: 'border-amber-200 bg-amber-50',
-                    purple: 'border-purple-200 bg-purple-50',
-                    red: 'border-red-200 bg-red-50',
-                    green: 'border-green-200 bg-green-50',
-                    gray: 'border-gray-200 bg-gray-50'
+                    'twk': 'border-blue-200 bg-gradient-to-r from-blue-50 to-blue-100',
+                    'tiu': 'border-amber-200 bg-gradient-to-r from-amber-50 to-amber-100',
+                    'tkp': 'border-purple-200 bg-gradient-to-r from-purple-50 to-purple-100',
+                    'success': 'border-green-200 bg-gradient-to-r from-green-50 to-green-100',
+                    'warning': 'border-yellow-200 bg-gradient-to-r from-yellow-50 to-yellow-100',
+                    'danger': 'border-red-200 bg-gradient-to-r from-red-50 to-red-100',
+                    'info': 'border-blue-200 bg-gradient-to-r from-blue-50 to-blue-100'
                 };
 
                 const recHTML = `
-                    <div class="p-3 rounded-lg border ${colorClasses[rec.color]}">
-                        <div class="flex items-start gap-2">
-                            <i class="fa-solid ${rec.icon} text-${rec.color}-600 mt-0.5"></i>
+                    <div class="p-4 rounded-xl border ${colorClasses[rec.color]}">
+                        <div class="flex items-start gap-3">
+                            <i class="fa-solid ${rec.icon} text-${rec.color} text-xl mt-0.5"></i>
                             <div>
-                                <p class="font-medium text-gray-800 text-sm mb-1">${rec.title}</p>
-                                <p class="text-xs text-gray-600">${rec.text}</p>
+                                <p class="font-bold text-gray-800 text-base mb-1">${rec.title}</p>
+                                <p class="text-sm text-gray-700">${rec.text}</p>
                             </div>
                         </div>
                     </div>
@@ -997,6 +1217,8 @@
             const fromSoalPage = sessionStorage.getItem('from_soalpaket1');
             if (fromSoalPage === 'true') {
                 sessionStorage.removeItem('from_soalpaket1');
+                // Show success toast for new result
+                showToast('success', 'Hasil Ujian Tersimpan!', 'Hasil ujian Anda telah disimpan dan dapat diakses kapan saja.');
             }
         }
 
@@ -1016,10 +1238,18 @@
 
         function ulangiUjian() {
             document.getElementById('modalUlangi').classList.remove('hidden');
+            setTimeout(() => {
+                document.getElementById('modalContent').classList.remove('scale-95');
+                document.getElementById('modalContent').classList.add('scale-100');
+            }, 10);
         }
 
         function tutupModal() {
-            document.getElementById('modalUlangi').classList.add('hidden');
+            document.getElementById('modalContent').classList.remove('scale-100');
+            document.getElementById('modalContent').classList.add('scale-95');
+            setTimeout(() => {
+                document.getElementById('modalUlangi').classList.add('hidden');
+            }, 200);
         }
 
         function konfirmasiUlangi() {
@@ -1028,9 +1258,19 @@
             window.location.href = `soalpaket1.html?id=${userPIN}`;
         }
 
+        function lihatPaketLain() {
+            // Determine next paket
+            const pakets = ['paket1', 'paket2', 'paket3'];
+            const currentIndex = pakets.indexOf(userPaket);
+            const nextIndex = (currentIndex + 1) % pakets.length;
+            const nextPaket = pakets[nextIndex];
+            
+            window.location.href = `dashboard${nextPaket}.html?id=${userPIN}`;
+        }
+
         function hubungiKami() {
             const phoneNumber = "6281234567890";
-            const message = `Halo, saya ingin bertanya tentang hasil ujian Paket 1 dengan PIN: ${userPIN}. Skor: TWK=${hasilData?.twk}, TIU=${hasilData?.tiu}, TKP=${hasilData?.tkp}, Total=${hasilData?.total}`;
+            const message = `Halo, saya ingin bertanya tentang hasil ujian Paket 1 dengan PIN: ${userPIN}`;
             const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
             window.open(whatsappUrl, '_blank');
         }
@@ -1044,44 +1284,53 @@
         }
 
         function showToast(type, title, message) {
+            // Remove existing toasts
+            const existingToasts = document.querySelectorAll('.custom-toast');
+            existingToasts.forEach(toast => toast.remove());
+
             const toast = document.createElement('div');
-            toast.className = `fixed top-4 right-4 z-50 max-w-sm`;
+            toast.className = `custom-toast fixed top-4 right-4 z-50 max-w-sm`;
 
             let bgColor = 'bg-white';
             let borderColor = 'border-gray-200';
             let icon = 'fa-circle-info';
             let iconColor = 'text-blue-500';
+            let titleColor = 'text-gray-900';
+            let animationClass = 'animate-slide-in-right';
 
             switch (type) {
                 case 'success':
-                    bgColor = 'bg-green-50';
+                    bgColor = 'bg-gradient-to-r from-green-50 to-green-100';
                     borderColor = 'border-green-200';
                     icon = 'fa-circle-check';
                     iconColor = 'text-green-500';
+                    titleColor = 'text-green-800';
                     break;
                 case 'error':
-                    bgColor = 'bg-red-50';
+                    bgColor = 'bg-gradient-to-r from-red-50 to-red-100';
                     borderColor = 'border-red-200';
                     icon = 'fa-circle-xmark';
                     iconColor = 'text-red-500';
+                    titleColor = 'text-red-800';
                     break;
                 case 'warning':
-                    bgColor = 'bg-yellow-50';
-                    borderColor = 'border-yellow-200';
+                    bgColor = 'bg-gradient-to-r from-amber-50 to-amber-100';
+                    borderColor = 'border-amber-200';
                     icon = 'fa-triangle-exclamation';
-                    iconColor = 'text-yellow-500';
+                    iconColor = 'text-amber-500';
+                    titleColor = 'text-amber-800';
                     break;
             }
 
             toast.innerHTML = `
-                <div class="${bgColor} border ${borderColor} rounded-lg shadow-md p-4">
+                <div class="${bgColor} border ${borderColor} rounded-xl shadow-xl p-4 ${animationClass}">
                     <div class="flex items-start gap-3">
-                        <i class="fa-solid ${icon} ${iconColor} mt-0.5"></i>
+                        <i class="fa-solid ${icon} ${iconColor} text-xl mt-0.5"></i>
                         <div class="flex-1">
-                            <h4 class="font-medium text-gray-900">${title}</h4>
-                            <p class="text-sm text-gray-600 mt-1">${message}</p>
+                            <h4 class="font-bold ${titleColor}">${title}</h4>
+                            <p class="text-sm text-gray-700 mt-1">${message}</p>
                         </div>
-                        <button onclick="this.parentElement.parentElement.remove()" class="text-gray-400 hover:text-gray-600">
+                        <button onclick="this.parentElement.parentElement.remove()" class="text-gray-400 hover:text-gray-600 transition-colors">
                             <i class="fa-solid fa-times"></i>
                         </button>
                     </div>
@@ -1092,9 +1341,15 @@
 
             setTimeout(() => {
                 if (toast.parentElement) {
-                    toast.remove();
+                    toast.style.opacity = '0';
+                    toast.style.transform = 'translateX(100%)';
+                    setTimeout(() => {
+                        if (toast.parentElement) {
+                            toast.remove();
+                        }
+                    }, 300);
                 }
-            }, 4000);
+            }, 5000);
         }
     </script>
 </body>
