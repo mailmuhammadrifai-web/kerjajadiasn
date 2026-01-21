@@ -7,85 +7,150 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
 
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f8fafc;
+            font-family: 'Poppins', sans-serif;
+            background-color: #1a1a2e;
+            color: #ffffff;
         }
 
         .card {
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-            border: 1px solid #e2e8f0;
+            background: linear-gradient(135deg, #16213e 0%, #0f3460 100%);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        .score-badge {
+        .premium-badge {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            color: white;
             font-weight: 700;
-            color: #1e40af;
         }
 
-        .progress-ring {
-            transform: rotate(-90deg);
+        .pin-display {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            letter-spacing: 3px;
         }
 
-        .progress-ring-circle {
-            stroke-dasharray: 283;
-            stroke-dashoffset: 283;
-            transition: stroke-dashoffset 1s ease;
+        .score-circle {
+            width: 220px;
+            height: 220px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #16213e 0%, #0f3460 100%);
+            border: 8px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+        }
+
+        .score-inner {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
         }
 
         .stat-card {
-            transition: all 0.2s ease;
-            border: 1px solid #e2e8f0;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
         }
 
         .stat-card:hover {
-            border-color: #3b82f6;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-5px);
         }
 
-        .custom-scrollbar::-webkit-scrollbar {
-            width: 4px;
+        .progress-bar {
+            height: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
         }
 
-        .custom-scrollbar::-webkit-scrollbar-track {
-            background: #f1f5f9;
+        .progress-fill {
+            height: 100%;
+            border-radius: 10px;
+            transition: width 1s ease;
         }
 
-        .custom-scrollbar::-webkit-scrollbar-thumb {
-            background: #cbd5e1;
-            border-radius: 4px;
+        .twk-progress { background: linear-gradient(90deg, #3b82f6 0%, #1d4ed8 100%); }
+        .tiu-progress { background: linear-gradient(90deg, #10b981 0%, #059669 100%); }
+        .tkp-progress { background: linear-gradient(90deg, #8b5cf6 0%, #7c3aed 100%); }
+
+        .status-indicator {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #10b981;
+            animation: pulse 2s infinite;
         }
 
-        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-            background: #94a3b8;
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
+        .section-title {
+            position: relative;
+            padding-left: 15px;
+        }
+
+        .section-title::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 5px;
+            height: 20px;
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            border-radius: 5px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+            color: white;
+            border: none;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(59, 130, 246, 0.3);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .icon-circle {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
         }
 
         .fade-in {
             animation: fadeIn 0.5s ease-out;
         }
 
-        .slide-up {
-            animation: slideUp 0.4s ease-out;
-        }
-
         @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @keyframes slideUp {
-            from { transform: translateY(10px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-
-        .gradient-text {
-            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
@@ -93,104 +158,171 @@
     <!-- Main Container -->
     <div class="container mx-auto px-4 py-8 max-w-6xl">
         <!-- Header -->
-        <header class="mb-8 fade-in">
-            <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-6">
-                <div>
-                    <div class="flex items-center gap-3 mb-4">
-                        <div class="p-3 rounded-xl bg-blue-50 text-blue-600">
-                            <i class="fa-solid fa-chart-line text-xl"></i>
-                        </div>
-                        <div>
-                            <h1 class="text-2xl font-bold text-gray-900">Hasil Ujian CAT CPNS</h1>
-                            <p class="text-gray-600">Paket Soal 1 • <span id="tanggalUjian" class="font-medium">Memuat tanggal...</span></p>
-                        </div>
+        <header class="mb-10 fade-in">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8">
+                <div class="flex items-center gap-4">
+                    <div class="icon-circle bg-gradient-to-r from-blue-500 to-indigo-600">
+                        <i class="fa-solid fa-crown"></i>
                     </div>
-
-                    <!-- PIN Display -->
-                    <div class="inline-flex items-center gap-3 bg-blue-50 px-4 py-3 rounded-lg">
-                        <div class="flex items-center gap-2">
-                            <i class="fa-solid fa-id-card text-blue-600"></i>
-                            <span class="text-sm font-medium text-gray-700">PIN Peserta:</span>
-                        </div>
-                        <div id="pinDisplay" class="bg-white px-3 py-1 rounded font-mono font-semibold text-blue-700 border border-blue-200">
-                            MEMUAT...
+                    <div>
+                        <h1 class="text-3xl font-bold text-white mb-1">KERJA JADI ASN</h1>
+                        <div class="flex items-center gap-3">
+                            <div class="premium-badge px-4 py-1 rounded-full text-sm">
+                                PAKET PREMIUM 1
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <span class="status-indicator"></span>
+                                <span id="statusSesi" class="text-sm text-gray-300">Memuat status...</span>
+                            </div>
                         </div>
                     </div>
                 </div>
 
+                <!-- Time and Date Display -->
+                <div class="text-right">
+                    <div class="text-sm text-gray-400 mb-1">HASIL UJIAN CAT CPNS</div>
+                    <div class="text-lg font-bold text-white mb-1" id="tanggalUjian">Memuat tanggal...</div>
+                    <div class="text-sm text-gray-300">Paket Soal 1</div>
+                </div>
+            </div>
+
+            <!-- PIN Display -->
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8">
+                <div class="flex-1">
+                    <div class="text-sm text-gray-400 mb-2 uppercase tracking-wider">PIN PESERTA</div>
+                    <div id="pinDisplay" class="pin-display px-6 py-4 rounded-xl text-2xl font-bold text-center md:text-left tracking-wider">
+                        7XK9WP
+                    </div>
+                </div>
+
                 <div class="flex flex-col sm:flex-row gap-3">
-                    <button id="btnDashboard" class="px-5 py-2.5 bg-gray-700 text-white rounded-lg font-medium hover:bg-gray-800 transition-colors flex items-center justify-center gap-2">
+                    <button id="btnDashboard" class="btn-secondary px-6 py-3 rounded-xl font-semibold flex items-center justify-center gap-2">
                         <i class="fa-solid fa-house"></i>
                         <span>Dashboard</span>
                     </button>
-                    <button onclick="cetakHasil()" class="px-5 py-2.5 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors flex items-center justify-center gap-2">
+                    <button onclick="cetakHasil()" class="btn-primary px-6 py-3 rounded-xl font-semibold flex items-center justify-center gap-2">
                         <i class="fa-solid fa-print"></i>
                         <span>Cetak Hasil</span>
                     </button>
                 </div>
             </div>
+
+            <!-- Motto -->
+            <div class="text-center mb-8">
+                <h2 class="text-2xl font-bold text-white mb-3">Siap Maksimalkan Persiapan ASN Anda!</h2>
+                <p class="text-gray-300 max-w-2xl mx-auto">
+                    Gunakan 10 kuota tryout premium dengan strategi. Analisis hasil, tingkatkan akurasi, dan raih skor terbaik!
+                </p>
+            </div>
         </header>
 
-        <!-- Main Result Card -->
-        <div class="card p-6 mb-8">
-            <div class="flex flex-col lg:flex-row items-center justify-between gap-8">
-                <!-- Score Circle -->
-                <div class="flex flex-col items-center">
-                    <div class="relative w-48 h-48 mb-4">
-                        <svg class="w-full h-full" viewBox="0 0 100 100">
-                            <!-- Background circle -->
-                            <circle cx="50" cy="50" r="45" fill="none" stroke="#e2e8f0" stroke-width="8"/>
-                            <!-- Progress circle -->
-                            <circle id="totalScoreCircle" class="progress-ring-circle" cx="50" cy="50" r="45" fill="none" stroke="#3b82f6" stroke-width="8" stroke-linecap="round" />
-                        </svg>
-                        <div class="absolute inset-0 flex flex-col items-center justify-center">
-                            <span id="totalScore" class="score-badge text-5xl font-bold">0</span>
-                            <span class="text-gray-500 font-medium text-sm">DARI 500</span>
-                            <div id="resultEmoji" class="text-2xl mt-2"></div>
-                        </div>
+        <!-- Main Result Section -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-10">
+            <!-- Left Column: Score Circle -->
+            <div class="lg:col-span-1 flex justify-center">
+                <div class="score-circle fade-in">
+                    <div class="score-inner">
+                        <div id="totalScore" class="text-6xl font-black text-white mb-2">0</div>
+                        <div class="text-gray-400 font-medium mb-1">DARI 500</div>
+                        <div id="resultEmoji" class="text-3xl mb-3"></div>
+                        <div id="resultMessage" class="text-sm text-gray-300 max-w-xs">Memuat hasil ujian...</div>
                     </div>
-                    <div class="text-center">
-                        <h2 class="text-lg font-semibold text-gray-800 mb-1">Skor Total</h2>
-                        <p id="resultMessage" class="text-gray-600 text-sm max-w-xs">Memuat hasil ujian...</p>
+                </div>
+            </div>
+
+            <!-- Right Column: Stats Grid -->
+            <div class="lg:col-span-2">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="stat-card p-6 fade-in">
+                        <div class="flex items-center justify-between mb-4">
+                            <div>
+                                <div class="text-4xl font-bold text-blue-400" id="skorTWK">0</div>
+                                <div class="text-sm font-semibold text-gray-300 uppercase mt-1">TWK</div>
+                                <div class="text-xs text-gray-400">Wawasan Kebangsaan</div>
+                            </div>
+                            <div class="icon-circle bg-blue-500/20 text-blue-400">
+                                <i class="fa-solid fa-landmark"></i>
+                            </div>
+                        </div>
+                        <div class="progress-bar">
+                            <div id="progressTWK" class="progress-fill twk-progress" style="width: 0%"></div>
+                        </div>
+                        <div class="text-xs text-gray-400 mt-2 text-right" id="twkDetail">0/150 poin</div>
+                    </div>
+
+                    <div class="stat-card p-6 fade-in" style="animation-delay: 0.1s">
+                        <div class="flex items-center justify-between mb-4">
+                            <div>
+                                <div class="text-4xl font-bold text-green-400" id="skorTIU">0</div>
+                                <div class="text-sm font-semibold text-gray-300 uppercase mt-1">TIU</div>
+                                <div class="text-xs text-gray-400">Tes Intelegensi Umum</div>
+                            </div>
+                            <div class="icon-circle bg-green-500/20 text-green-400">
+                                <i class="fa-solid fa-brain"></i>
+                            </div>
+                        </div>
+                        <div class="progress-bar">
+                            <div id="progressTIU" class="progress-fill tiu-progress" style="width: 0%"></div>
+                        </div>
+                        <div class="text-xs text-gray-400 mt-2 text-right" id="tiuDetail">0/175 poin</div>
+                    </div>
+
+                    <div class="stat-card p-6 fade-in" style="animation-delay: 0.2s">
+                        <div class="flex items-center justify-between mb-4">
+                            <div>
+                                <div class="text-4xl font-bold text-purple-400" id="skorTKP">0</div>
+                                <div class="text-sm font-semibold text-gray-300 uppercase mt-1">TKP</div>
+                                <div class="text-xs text-gray-400">Karakteristik Pribadi</div>
+                            </div>
+                            <div class="icon-circle bg-purple-500/20 text-purple-400">
+                                <i class="fa-solid fa-user-check"></i>
+                            </div>
+                        </div>
+                        <div class="progress-bar">
+                            <div id="progressTKP" class="progress-fill tkp-progress" style="width: 0%"></div>
+                        </div>
+                        <div class="text-xs text-gray-400 mt-2 text-right" id="tkpDetail">0/166 poin</div>
                     </div>
                 </div>
 
-                <!-- Stats Grid -->
-                <div class="flex-1 grid grid-cols-2 md:grid-cols-4 gap-4">
-                    <div class="stat-card rounded-lg p-4 text-center">
-                        <div class="text-2xl font-bold text-blue-600 mb-1" id="skorTWK">0</div>
-                        <div class="text-xs font-semibold text-blue-700 uppercase mb-1">TWK</div>
-                        <div class="text-xs text-gray-600">Wawasan Kebangsaan</div>
-                        <div class="mt-2 w-full bg-blue-100 h-1.5 rounded-full overflow-hidden">
-                            <div id="progressTWK" class="h-full bg-blue-600 transition-all duration-1000" style="width: 0%"></div>
+                <!-- Additional Stats -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
+                    <div class="stat-card p-5">
+                        <div class="flex items-center gap-4">
+                            <div class="icon-circle bg-amber-500/20 text-amber-400">
+                                <i class="fa-solid fa-clock"></i>
+                            </div>
+                            <div>
+                                <div class="text-2xl font-bold text-white" id="waktuDigunakan">0m</div>
+                                <div class="text-sm text-gray-300">Waktu Digunakan</div>
+                                <div class="text-xs text-gray-400" id="waktuDetail">Memuat...</div>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="stat-card rounded-lg p-4 text-center">
-                        <div class="text-2xl font-bold text-green-600 mb-1" id="skorTIU">0</div>
-                        <div class="text-xs font-semibold text-green-700 uppercase mb-1">TIU</div>
-                        <div class="text-xs text-gray-600">Tes Intelegensi Umum</div>
-                        <div class="mt-2 w-full bg-green-100 h-1.5 rounded-full overflow-hidden">
-                            <div id="progressTIU" class="h-full bg-green-600 transition-all duration-1000" style="width: 0%"></div>
+                    <div class="stat-card p-5">
+                        <div class="flex items-center gap-4">
+                            <div class="icon-circle bg-red-500/20 text-red-400">
+                                <i class="fa-solid fa-question-circle"></i>
+                            </div>
+                            <div>
+                                <div class="text-2xl font-bold text-white" id="raguCount">0</div>
+                                <div class="text-sm text-gray-300">Soal Ragu</div>
+                                <div class="text-xs text-gray-400">Ditandai ragu-ragu</div>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="stat-card rounded-lg p-4 text-center">
-                        <div class="text-2xl font-bold text-purple-600 mb-1" id="skorTKP">0</div>
-                        <div class="text-xs font-semibold text-purple-700 uppercase mb-1">TKP</div>
-                        <div class="text-xs text-gray-600">Karakteristik Pribadi</div>
-                        <div class="mt-2 w-full bg-purple-100 h-1.5 rounded-full overflow-hidden">
-                            <div id="progressTKP" class="h-full bg-purple-600 transition-all duration-1000" style="width: 0%"></div>
-                        </div>
-                    </div>
-
-                    <div class="stat-card rounded-lg p-4 text-center">
-                        <div class="text-2xl font-bold text-gray-700 mb-1" id="waktuDigunakan">0m</div>
-                        <div class="text-xs font-semibold text-gray-800 uppercase mb-1">WAKTU</div>
-                        <div class="text-xs text-gray-600">Digunakan</div>
-                        <div class="mt-2 flex items-center justify-center text-gray-500">
-                            <i class="fa-solid fa-clock text-xs mr-1"></i>
-                            <span id="waktuDetail" class="text-xs">Memuat...</span>
+                    <div class="stat-card p-5">
+                        <div class="flex items-center gap-4">
+                            <div class="icon-circle bg-cyan-500/20 text-cyan-400">
+                                <i class="fa-solid fa-bookmark"></i>
+                            </div>
+                            <div>
+                                <div class="text-2xl font-bold text-white" id="bookmarkCount">0</div>
+                                <div class="text-sm text-gray-300">Bookmark</div>
+                                <div class="text-xs text-gray-400">Soal ditandai</div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -198,250 +330,173 @@
         </div>
 
         <!-- Detailed Analysis -->
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-            <!-- Left Column: Performance Breakdown -->
+        <div class="card p-8 mb-10 fade-in" style="animation-delay: 0.3s">
+            <h3 class="section-title text-xl font-bold text-white mb-6">Analisis Detail Performa</h3>
+            
             <div class="space-y-6">
-                <div class="card p-6">
-                    <h3 class="text-lg font-semibold text-gray-800 mb-4 flex items-center gap-2">
-                        <i class="fa-solid fa-chart-bar text-blue-600"></i>
-                        <span>Analisis Performa</span>
-                    </h3>
-
-                    <div class="space-y-5">
-                        <!-- TWK Breakdown -->
-                        <div>
-                            <div class="flex justify-between items-center mb-1">
-                                <div class="flex items-center gap-2">
-                                    <div class="w-2 h-2 rounded-full bg-blue-500"></div>
-                                    <span class="font-medium text-gray-700 text-sm">TWK (Wawasan Kebangsaan)</span>
-                                </div>
-                                <span class="text-sm font-medium text-gray-700"><span id="twkBenar">0</span>/30 Benar</span>
-                            </div>
-                            <div class="flex items-center gap-3 text-sm">
-                                <span class="text-gray-600 text-xs">Jawaban:</span>
-                                <span id="twkTerjawab" class="font-medium">0/30</span>
-                                <div class="flex-1 h-1.5 bg-gray-200 rounded-full overflow-hidden">
-                                    <div id="twkProgress" class="h-full bg-blue-500 transition-all duration-1000" style="width: 0%"></div>
-                                </div>
-                                <span id="twkPersen" class="text-gray-600 font-medium text-xs">0%</span>
-                            </div>
+                <!-- TWK Analysis -->
+                <div>
+                    <div class="flex justify-between items-center mb-3">
+                        <div class="flex items-center gap-3">
+                            <div class="w-3 h-3 rounded-full bg-blue-500"></div>
+                            <span class="font-semibold text-white">TWK - Wawasan Kebangsaan</span>
                         </div>
-
-                        <!-- TIU Breakdown -->
-                        <div>
-                            <div class="flex justify-between items-center mb-1">
-                                <div class="flex items-center gap-2">
-                                    <div class="w-2 h-2 rounded-full bg-green-500"></div>
-                                    <span class="font-medium text-gray-700 text-sm">TIU (Tes Intelegensi Umum)</span>
-                                </div>
-                                <span class="text-sm font-medium text-gray-700"><span id="tiuBenar">0</span>/35 Benar</span>
-                            </div>
-                            <div class="flex items-center gap-3 text-sm">
-                                <span class="text-gray-600 text-xs">Jawaban:</span>
-                                <span id="tiuTerjawab" class="font-medium">0/35</span>
-                                <div class="flex-1 h-1.5 bg-gray-200 rounded-full overflow-hidden">
-                                    <div id="tiuProgress" class="h-full bg-green-500 transition-all duration-1000" style="width: 0%"></div>
-                                </div>
-                                <span id="tiuPersen" class="text-gray-600 font-medium text-xs">0%</span>
-                            </div>
-                        </div>
-
-                        <!-- TKP Breakdown -->
-                        <div>
-                            <div class="flex justify-between items-center mb-1">
-                                <div class="flex items-center gap-2">
-                                    <div class="w-2 h-2 rounded-full bg-purple-500"></div>
-                                    <span class="font-medium text-gray-700 text-sm">TKP (Karakteristik Pribadi)</span>
-                                </div>
-                                <span class="text-sm font-medium text-gray-700">Skor: <span id="tkpSkorDetail">0</span>/166</span>
-                            </div>
-                            <div class="flex items-center gap-3 text-sm">
-                                <span class="text-gray-600 text-xs">Jawaban:</span>
-                                <span id="tkpTerjawab" class="font-medium">0/45</span>
-                                <div class="flex-1 h-1.5 bg-gray-200 rounded-full overflow-hidden">
-                                    <div id="tkpProgress" class="h-full bg-purple-500 transition-all duration-1000" style="width: 0%"></div>
-                                </div>
-                                <span id="tkpPersen" class="text-gray-600 font-medium text-xs">0%</span>
-                            </div>
-                        </div>
+                        <span class="text-sm font-medium text-gray-300">
+                            <span id="twkBenar">0</span>/30 Benar • 
+                            <span id="twkTerjawab">0</span>/30 Terjawab
+                        </span>
                     </div>
-
-                    <!-- Accuracy Stats -->
-                    <div class="mt-6 pt-5 border-t border-gray-200">
-                        <div class="grid grid-cols-3 gap-4">
-                            <div class="text-center">
-                                <div class="text-xl font-bold text-blue-600" id="akurasiTWK">0%</div>
-                                <div class="text-xs text-gray-600 font-medium uppercase mt-1">Akurasi TWK</div>
-                            </div>
-                            <div class="text-center">
-                                <div class="text-xl font-bold text-green-600" id="akurasiTIU">0%</div>
-                                <div class="text-xs text-gray-600 font-medium uppercase mt-1">Akurasi TIU</div>
-                            </div>
-                            <div class="text-center">
-                                <div class="text-xl font-bold text-gray-700" id="totalAkurasi">0%</div>
-                                <div class="text-xs text-gray-600 font-medium uppercase mt-1">Akurasi Total</div>
-                            </div>
+                    <div class="flex items-center gap-4">
+                        <div class="flex-1 progress-bar">
+                            <div id="twkProgress" class="progress-fill twk-progress" style="width: 0%"></div>
                         </div>
+                        <span id="twkPersen" class="text-sm font-bold text-white min-w-12 text-right">0%</span>
                     </div>
+                    <div class="text-xs text-gray-400 mt-2" id="akurasiTWK">Akurasi: 0%</div>
                 </div>
 
-                <!-- Additional Info -->
-                <div class="card p-6">
-                    <h3 class="text-lg font-semibold text-gray-800 mb-4 flex items-center gap-2">
-                        <i class="fa-solid fa-circle-info text-gray-600"></i>
-                        <span>Informasi Tambahan</span>
-                    </h3>
-
-                    <div class="grid grid-cols-2 gap-4 mb-4">
-                        <div class="bg-blue-50 rounded-lg p-4">
-                            <div class="flex items-center gap-3 mb-2">
-                                <div class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center">
-                                    <i class="fa-solid fa-question-circle text-blue-600"></i>
-                                </div>
-                                <div>
-                                    <div class="text-xl font-bold text-blue-600" id="raguCount">0</div>
-                                    <div class="text-xs text-blue-700 font-medium">Soal Ragu</div>
-                                </div>
-                            </div>
-                            <p class="text-xs text-gray-600">Ditandai ragu-ragu saat mengerjakan</p>
+                <!-- TIU Analysis -->
+                <div>
+                    <div class="flex justify-between items-center mb-3">
+                        <div class="flex items-center gap-3">
+                            <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                            <span class="font-semibold text-white">TIU - Tes Intelegensi Umum</span>
                         </div>
-
-                        <div class="bg-purple-50 rounded-lg p-4">
-                            <div class="flex items-center gap-3 mb-2">
-                                <div class="w-8 h-8 rounded-full bg-purple-100 flex items-center justify-center">
-                                    <i class="fa-solid fa-bookmark text-purple-600"></i>
-                                </div>
-                                <div>
-                                    <div class="text-xl font-bold text-purple-600" id="bookmarkCount">0</div>
-                                    <div class="text-xs text-purple-700 font-medium">Bookmark</div>
-                                </div>
-                            </div>
-                            <p class="text-xs text-gray-600">Soal yang ditandai untuk ulasan</p>
-                        </div>
+                        <span class="text-sm font-medium text-gray-300">
+                            <span id="tiuBenar">0</span>/35 Benar • 
+                            <span id="tiuTerjawab">0</span>/35 Terjawab
+                        </span>
                     </div>
+                    <div class="flex items-center gap-4">
+                        <div class="flex-1 progress-bar">
+                            <div id="tiuProgress" class="progress-fill tiu-progress" style="width: 0%"></div>
+                        </div>
+                        <span id="tiuPersen" class="text-sm font-bold text-white min-w-12 text-right">0%</span>
+                    </div>
+                    <div class="text-xs text-gray-400 mt-2" id="akurasiTIU">Akurasi: 0%</div>
+                </div>
 
-                    <div class="text-sm text-gray-600">
-                        <p class="mb-1"><i class="fa-solid fa-check-circle text-green-500 mr-2"></i> Hasil disimpan secara otomatis</p>
-                        <p><i class="fa-solid fa-clock text-blue-500 mr-2"></i> Selesai: <span id="waktuSelesai" class="font-medium">Memuat...</span></p>
+                <!-- TKP Analysis -->
+                <div>
+                    <div class="flex justify-between items-center mb-3">
+                        <div class="flex items-center gap-3">
+                            <div class="w-3 h-3 rounded-full bg-purple-500"></div>
+                            <span class="font-semibold text-white">TKP - Karakteristik Pribadi</span>
+                        </div>
+                        <span class="text-sm font-medium text-gray-300">
+                            Skor: <span id="tkpSkorDetail">0</span>/166 • 
+                            <span id="tkpTerjawab">0</span>/45 Terjawab
+                        </span>
+                    </div>
+                    <div class="flex items-center gap-4">
+                        <div class="flex-1 progress-bar">
+                            <div id="tkpProgress" class="progress-fill tkp-progress" style="width: 0%"></div>
+                        </div>
+                        <span id="tkpPersen" class="text-sm font-bold text-white min-w-12 text-right">0%</span>
                     </div>
                 </div>
             </div>
 
-            <!-- Right Column: Recommendation & Actions -->
-            <div class="space-y-6">
-                <div class="card p-6">
-                    <h3 class="text-lg font-semibold text-gray-800 mb-4 flex items-center gap-2">
-                        <i class="fa-solid fa-lightbulb text-amber-600"></i>
-                        <span>Rekomendasi & Tips</span>
-                    </h3>
-
-                    <div id="recommendationContainer" class="space-y-3 mb-4">
-                        <!-- Recommendations will be dynamically inserted here -->
+            <!-- Summary Stats -->
+            <div class="mt-8 pt-8 border-t border-gray-800">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="text-center p-4 bg-blue-500/10 rounded-xl">
+                        <div class="text-3xl font-bold text-blue-400" id="totalAkurasiTWK">0%</div>
+                        <div class="text-sm text-gray-300 mt-1">Akurasi TWK</div>
                     </div>
-
-                    <div class="p-3 bg-blue-50 rounded-lg border border-blue-100">
-                        <div class="flex items-start gap-2">
-                            <i class="fa-solid fa-graduation-cap text-blue-600 mt-0.5"></i>
-                            <div>
-                                <p class="font-medium text-blue-800 mb-1 text-sm">Tips untuk Percobaan Selanjutnya</p>
-                                <p class="text-xs text-blue-700">Fokus pada kategori dengan skor terendah. Gunakan fitur bookmark untuk menandai soal yang perlu dipelajari ulang.</p>
-                            </div>
-                        </div>
+                    <div class="text-center p-4 bg-green-500/10 rounded-xl">
+                        <div class="text-3xl font-bold text-green-400" id="totalAkurasiTIU">0%</div>
+                        <div class="text-sm text-gray-300 mt-1">Akurasi TIU</div>
                     </div>
-                </div>
-
-                <!-- Action Buttons -->
-                <div class="card p-6">
-                    <h3 class="text-lg font-semibold text-gray-800 mb-4 flex items-center gap-2">
-                        <i class="fa-solid fa-rocket text-gray-600"></i>
-                        <span>Aksi Selanjutnya</span>
-                    </h3>
-
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-                        <button onclick="lihatPembahasan()" class="p-3 rounded-lg bg-gray-50 border border-gray-200 hover:border-gray-300 hover:bg-gray-100 transition-colors">
-                            <div class="flex items-center gap-3">
-                                <div class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center">
-                                    <i class="fa-solid fa-file-alt text-gray-600"></i>
-                                </div>
-                                <div class="text-left">
-                                    <p class="font-medium text-gray-700">Lihat Pembahasan</p>
-                                    <p class="text-xs text-gray-600">Review jawaban dan penjelasan</p>
-                                </div>
-                            </div>
-                        </button>
-
-                        <button onclick="ulangiUjian()" class="p-3 rounded-lg bg-green-50 border border-green-200 hover:border-green-300 hover:bg-green-100 transition-colors">
-                            <div class="flex items-center gap-3">
-                                <div class="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center">
-                                    <i class="fa-solid fa-redo text-green-600"></i>
-                                </div>
-                                <div class="text-left">
-                                    <p class="font-medium text-green-700">Ulangi Ujian</p>
-                                    <p class="text-xs text-green-600">Coba lagi dengan soal yang sama</p>
-                                </div>
-                            </div>
-                        </button>
+                    <div class="text-center p-4 bg-purple-500/10 rounded-xl">
+                        <div class="text-3xl font-bold text-white" id="totalAkurasi">0%</div>
+                        <div class="text-sm text-gray-300 mt-1">Akurasi Total</div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Footer -->
-        <footer class="bg-gray-900 text-white rounded-lg p-6">
-            <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-6">
-                <div class="flex items-center gap-3">
-                    <div class="p-2 rounded-lg bg-blue-600">
-                        <i class="fa-solid fa-crown"></i>
+        <!-- Actions & Footer -->
+        <div class="fade-in" style="animation-delay: 0.4s">
+            <!-- Action Buttons -->
+            <div class="flex flex-col sm:flex-row gap-4 mb-8">
+                <button onclick="lihatPembahasan()" class="btn-secondary flex-1 py-4 rounded-xl font-semibold flex items-center justify-center gap-3">
+                    <div class="icon-circle bg-gray-800">
+                        <i class="fa-solid fa-file-alt"></i>
                     </div>
-                    <div>
-                        <h2 class="gradient-text text-xl font-bold mb-1">KERJA JADI ASN</h2>
-                        <p class="text-gray-300 text-sm">
-                            Platform tryout ASN dengan sistem pembelajaran adaptif.
-                        </p>
+                    <div class="text-left">
+                        <div class="text-lg font-bold">Lihat Pembahasan</div>
+                        <div class="text-sm text-gray-400">Review jawaban dan penjelasan</div>
                     </div>
-                </div>
+                </button>
 
-            <div class="border-t border-gray-800 pt-6">
-                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
-                    <div class="flex items-center gap-3">
-                        <div class="bg-gray-800 px-3 py-2 rounded">
-                            <p class="text-xs text-gray-400 uppercase font-medium">PIN PESERTA</p>
-                            <p id="footerPin" class="font-mono font-medium text-white">MEMUAT...</p>
+                <button onclick="ulangiUjian()" class="btn-primary flex-1 py-4 rounded-xl font-semibold flex items-center justify-center gap-3">
+                    <div class="icon-circle bg-green-600">
+                        <i class="fa-solid fa-redo"></i>
+                    </div>
+                    <div class="text-left">
+                        <div class="text-lg font-bold">Ulangi Ujian</div>
+                        <div class="text-sm text-white/80">Coba lagi dengan soal yang sama</div>
+                    </div>
+                </button>
+
+                <button onclick="hubungiKami()" class="btn-secondary flex-1 py-4 rounded-xl font-semibold flex items-center justify-center gap-3">
+                    <div class="icon-circle bg-green-600">
+                        <i class="fa-brands fa-whatsapp"></i>
+                    </div>
+                    <div class="text-left">
+                        <div class="text-lg font-bold">Hubungi Kami</div>
+                        <div class="text-sm text-gray-400">Tanya langsung via WhatsApp</div>
+                    </div>
+                </button>
+            </div>
+
+            <!-- Footer Info -->
+            <div class="card p-6">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
+                    <div>
+                        <div class="text-sm text-gray-400 mb-2">ID PESERTA</div>
+                        <div class="pin-display px-4 py-2 rounded-lg text-lg font-bold inline-block">
+                            7XK9WP
                         </div>
-                        <div class="text-gray-400 text-xs">
-                            <p><i class="fa-solid fa-check text-green-500 mr-1"></i> Akses langsung</p>
-                            <p><i class="fa-solid fa-bolt text-amber-500 mr-1"></i> Proses instan</p>
+                        <div class="mt-4">
+                            <div class="flex items-center gap-2 text-sm text-gray-400">
+                                <i class="fa-solid fa-check-circle text-green-500"></i>
+                                <span>Hasil disimpan secara otomatis</span>
+                            </div>
+                            <div class="flex items-center gap-2 text-sm text-gray-400 mt-1">
+                                <i class="fa-solid fa-clock text-blue-500"></i>
+                                <span>Selesai: <span id="waktuSelesai" class="font-medium text-white">Memuat...</span></span>
+                            </div>
                         </div>
                     </div>
 
                     <div class="text-center md:text-right">
-                        <button onclick="hubungiKami()" class="px-4 py-2 bg-green-600 text-white rounded-lg font-medium hover:bg-green-700 transition-colors flex items-center justify-center gap-2 mb-2">
-                            <i class="fa-brands fa-whatsapp"></i>
-                            <span>Hubungi Kami</span>
-                        </button>
-                        <p class="text-xs text-gray-400">Tanya langsung via WhatsApp</p>
+                        <div class="text-4xl font-bold text-amber-500 mb-2">10</div>
+                        <div class="text-sm text-gray-300">Kuota Tryout Premium</div>
+                        <div class="text-xs text-gray-400">Sisa 9 kuota</div>
                     </div>
                 </div>
-            </div>
 
-            <div class="mt-6 pt-6 border-t border-gray-800 text-center">
-                <p class="text-xs text-gray-400">
-                    &copy; 2024 KERJA JADI ASN. All rights reserved.
-                </p>
+                <div class="mt-6 pt-6 border-t border-gray-800 text-center">
+                    <p class="text-sm text-gray-400">
+                        &copy; 2024 KERJA JADI ASN. Semua hak dilindungi undang-undang.
+                    </p>
+                </div>
             </div>
-        </footer>
+        </div>
     </div>
 
     <!-- Confirmation Modal for Retry -->
-    <div id="modalUlangi" class="hidden fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center p-4">
-        <div class="bg-white rounded-lg p-6 max-w-md w-full">
-            <h3 class="text-lg font-semibold text-gray-800 mb-3">Ulangi Ujian Paket 1</h3>
-            <p class="text-gray-600 text-sm mb-4">Apakah Anda yakin ingin mengulang ujian ini? Hasil sebelumnya akan tetap tersimpan, tetapi progress baru akan dimulai dari awal.</p>
-            <div class="flex gap-3">
-                <button onclick="tutupModal()" class="flex-1 px-4 py-2 bg-gray-100 text-gray-700 font-medium rounded-lg hover:bg-gray-200 transition-colors">
+    <div id="modalUlangi" class="hidden fixed inset-0 z-50 bg-black bg-opacity-70 flex items-center justify-center p-4">
+        <div class="card p-8 max-w-md w-full fade-in">
+            <h3 class="text-2xl font-bold text-white mb-4">Ulangi Ujian Paket 1</h3>
+            <p class="text-gray-300 mb-6">Apakah Anda yakin ingin mengulang ujian ini? Hasil sebelumnya akan tetap tersimpan, tetapi progress baru akan dimulai dari awal.</p>
+            <div class="flex gap-4">
+                <button onclick="tutupModal()" class="btn-secondary flex-1 py-3 rounded-xl font-semibold">
                     Batal
                 </button>
-                <button onclick="konfirmasiUlangi()" class="flex-1 px-4 py-2 bg-green-600 text-white font-medium rounded-lg hover:bg-green-700 transition-colors">
+                <button onclick="konfirmasiUlangi()" class="btn-primary flex-1 py-3 rounded-xl font-semibold">
                     Ya, Mulai Ulang
                 </button>
             </div>
@@ -485,19 +540,18 @@
 
             // Display PIN
             document.getElementById('pinDisplay').textContent = userPIN;
-            document.getElementById('footerPin').textContent = userPIN;
-
-            // Update dashboard button based on paket
+            
+            // Update dashboard button
             const dashboardBtn = document.getElementById('btnDashboard');
             dashboardBtn.onclick = function() {
                 window.location.href = `dashboard${userPaket}.html?id=${userPIN}`;
             };
 
+            // Update status session
+            updateSessionStatus();
+
             // Load result data
             loadResultData();
-
-            // Check if this is a new result (from soalpaket1.html)
-            checkNewResult();
         });
 
         // ====================== HELPER FUNCTIONS ======================
@@ -508,6 +562,16 @@
                 }
             }
             return null;
+        }
+
+        function updateSessionStatus() {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString('id-ID', { 
+                hour: '2-digit', 
+                minute: '2-digit',
+                second: '2-digit'
+            });
+            document.getElementById('statusSesi').textContent = timeString;
         }
 
         function loadResultData() {
@@ -529,24 +593,37 @@
             // Format dates
             const selesaiDate = new Date(hasilData.selesai);
             const dateOptions = { 
+                weekday: 'long',
                 year: 'numeric', 
                 month: 'long', 
                 day: 'numeric'
             };
-            const timeOptions = { hour: '2-digit', minute: '2-digit' };
-            
+            const timeOptions = { 
+                hour: '2-digit', 
+                minute: '2-digit',
+                timeZoneName: 'short'
+            };
+
             document.getElementById('tanggalUjian').textContent = 
                 selesaiDate.toLocaleDateString('id-ID', dateOptions) + 
                 ' • ' + 
                 selesaiDate.toLocaleTimeString('id-ID', timeOptions);
-                
-            document.getElementById('waktuSelesai').textContent = selesaiDate.toLocaleTimeString('id-ID', timeOptions);
+
+            document.getElementById('waktuSelesai').textContent = selesaiDate.toLocaleTimeString('id-ID', { 
+                hour: '2-digit', 
+                minute: '2-digit' 
+            });
 
             // Display scores
             document.getElementById('skorTWK').textContent = hasilData.twk;
             document.getElementById('skorTIU').textContent = hasilData.tiu;
             document.getElementById('skorTKP').textContent = hasilData.tkp;
             document.getElementById('totalScore').textContent = hasilData.total;
+
+            // Update detail text
+            document.getElementById('twkDetail').textContent = `${hasilData.twk}/150 poin`;
+            document.getElementById('tiuDetail').textContent = `${hasilData.tiu}/175 poin`;
+            document.getElementById('tkpDetail').textContent = `${hasilData.tkp}/166 poin`;
 
             // Calculate percentages for progress bars
             const twkPercent = Math.round((hasilData.twk / 150) * 100);
@@ -560,14 +637,6 @@
                 document.getElementById('progressTIU').style.width = `${tiuPercent}%`;
                 document.getElementById('progressTKP').style.width = `${tkpPercent}%`;
             }, 300);
-
-            // Animate progress circle
-            setTimeout(() => {
-                const totalScoreCircle = document.getElementById('totalScoreCircle');
-                const circumference = 2 * Math.PI * 45;
-                const offset = circumference - (totalPercent / 100) * circumference;
-                totalScoreCircle.style.strokeDashoffset = offset;
-            }, 500);
 
             // Display answered counts
             document.getElementById('twkTerjawab').textContent = `${hasilData.twkJawab}/30`;
@@ -602,8 +671,10 @@
                 Math.round(((hasilData.twkBenar + hasilData.tiuBenar) / (hasilData.twkJawab + hasilData.tiuJawab)) * 100) : 0;
 
             setTimeout(() => {
-                document.getElementById('akurasiTWK').textContent = `${twkAccuracy}%`;
-                document.getElementById('akurasiTIU').textContent = `${tiuAccuracy}%`;
+                document.getElementById('akurasiTWK').textContent = `Akurasi: ${twkAccuracy}%`;
+                document.getElementById('akurasiTIU').textContent = `Akurasi: ${tiuAccuracy}%`;
+                document.getElementById('totalAkurasiTWK').textContent = `${twkAccuracy}%`;
+                document.getElementById('totalAkurasiTIU').textContent = `${tiuAccuracy}%`;
                 document.getElementById('totalAkurasi').textContent = `${totalAccuracy}%`;
             }, 900);
 
@@ -617,9 +688,6 @@
 
             // Display result message and emoji based on score
             displayResultMessage(hasilData.total);
-
-            // Generate recommendations
-            generateRecommendations();
         }
 
         function displayResultMessage(totalScore) {
@@ -651,83 +719,6 @@
 
             resultMessage.textContent = message;
             resultEmoji.textContent = emoji;
-        }
-
-        function generateRecommendations() {
-            const container = document.getElementById('recommendationContainer');
-            container.innerHTML = '';
-
-            const recommendations = [];
-            const twkScore = hasilData.twk;
-            const tiuScore = hasilData.tiu;
-            const tkpScore = hasilData.tkp;
-
-            if (twkScore < 100) {
-                recommendations.push({
-                    icon: 'fa-landmark',
-                    color: 'blue',
-                    title: 'Perbaiki Wawasan Kebangsaan',
-                    text: 'Pelajari Pancasila, UUD 1945, dan konsep NKRI.'
-                });
-            }
-
-            if (tiuScore < 110) {
-                recommendations.push({
-                    icon: 'fa-brain',
-                    color: 'green',
-                    title: 'Tingkatkan Kemampuan Analitis',
-                    text: 'Latih logika dan analisis dengan soal TIU.'
-                });
-            }
-
-            if (tkpScore < 120) {
-                recommendations.push({
-                    icon: 'fa-user-check',
-                    color: 'purple',
-                    title: 'Asah Karakter Pribadi',
-                    text: 'Pahami nilai integritas dan etika ASN.'
-                });
-            }
-
-            if (recommendations.length === 0) {
-                recommendations.push({
-                    icon: 'fa-flag-checkered',
-                    color: 'gray',
-                    title: 'Pertahankan Performa',
-                    text: 'Hasil Anda sudah baik. Lanjutkan latihan.'
-                });
-            }
-
-            // Render recommendations
-            recommendations.forEach((rec, index) => {
-                const colorClasses = {
-                    blue: 'border-blue-200 bg-blue-50',
-                    green: 'border-green-200 bg-green-50',
-                    purple: 'border-purple-200 bg-purple-50',
-                    gray: 'border-gray-200 bg-gray-50'
-                };
-
-                const recHTML = `
-                    <div class="p-3 rounded-lg border ${colorClasses[rec.color]}">
-                        <div class="flex items-start gap-2">
-                            <i class="fa-solid ${rec.icon} text-${rec.color}-600 mt-0.5"></i>
-                            <div>
-                                <p class="font-medium text-gray-800 text-sm mb-1">${rec.title}</p>
-                                <p class="text-xs text-gray-600">${rec.text}</p>
-                            </div>
-                        </div>
-                    </div>
-                `;
-
-                container.innerHTML += recHTML;
-            });
-        }
-
-        function checkNewResult() {
-            const fromSoalPage = sessionStorage.getItem('from_soalpaket1');
-            if (fromSoalPage === 'true') {
-                sessionStorage.removeItem('from_soalpaket1');
-            }
         }
 
         // ====================== ACTION FUNCTIONS ======================
@@ -772,41 +763,41 @@
             const toast = document.createElement('div');
             toast.className = `fixed top-4 right-4 z-50 max-w-sm`;
 
-            let bgColor = 'bg-white';
-            let borderColor = 'border-gray-200';
+            let bgColor = 'bg-gray-800';
+            let borderColor = 'border-gray-700';
             let icon = 'fa-circle-info';
-            let iconColor = 'text-blue-500';
+            let iconColor = 'text-blue-400';
 
             switch (type) {
                 case 'success':
-                    bgColor = 'bg-green-50';
-                    borderColor = 'border-green-200';
+                    bgColor = 'bg-green-900/50';
+                    borderColor = 'border-green-700';
                     icon = 'fa-circle-check';
-                    iconColor = 'text-green-500';
+                    iconColor = 'text-green-400';
                     break;
                 case 'error':
-                    bgColor = 'bg-red-50';
-                    borderColor = 'border-red-200';
+                    bgColor = 'bg-red-900/50';
+                    borderColor = 'border-red-700';
                     icon = 'fa-circle-xmark';
-                    iconColor = 'text-red-500';
+                    iconColor = 'text-red-400';
                     break;
                 case 'warning':
-                    bgColor = 'bg-yellow-50';
-                    borderColor = 'border-yellow-200';
+                    bgColor = 'bg-yellow-900/50';
+                    borderColor = 'border-yellow-700';
                     icon = 'fa-triangle-exclamation';
-                    iconColor = 'text-yellow-500';
+                    iconColor = 'text-yellow-400';
                     break;
             }
 
             toast.innerHTML = `
-                <div class="${bgColor} border ${borderColor} rounded-lg shadow-md p-4">
+                <div class="${bgColor} border ${borderColor} rounded-xl shadow-lg p-4">
                     <div class="flex items-start gap-3">
                         <i class="fa-solid ${icon} ${iconColor} mt-0.5"></i>
                         <div class="flex-1">
-                            <h4 class="font-medium text-gray-900">${title}</h4>
-                            <p class="text-sm text-gray-600 mt-1">${message}</p>
+                            <h4 class="font-semibold text-white">${title}</h4>
+                            <p class="text-sm text-gray-300 mt-1">${message}</p>
                         </div>
-                        <button onclick="this.parentElement.parentElement.remove()" class="text-gray-400 hover:text-gray-600">
+                        <button onclick="this.parentElement.parentElement.remove()" class="text-gray-400 hover:text-white">
                             <i class="fa-solid fa-times"></i>
                         </button>
                     </div>
@@ -821,6 +812,9 @@
                 }
             }, 4000);
         }
+
+        // Update session status every second
+        setInterval(updateSessionStatus, 1000);
     </script>
 </body>
 </html>
