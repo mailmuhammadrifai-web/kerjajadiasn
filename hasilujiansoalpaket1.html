@@ -90,6 +90,14 @@
             background-color: #fffbeb;
         }
 
+        .bg-soft-green {
+            background-color: #f0fdf4;
+        }
+
+        .bg-soft-red {
+            background-color: #fef2f2;
+        }
+
         .text-soft-blue {
             color: #1e40af;
         }
@@ -98,12 +106,41 @@
             color: #d97706;
         }
 
+        .text-soft-green {
+            color: #166534;
+        }
+
+        .text-soft-red {
+            color: #dc2626;
+        }
+
         .border-soft-blue {
             border-color: #bfdbfe;
         }
 
         .border-soft-yellow {
             border-color: #fde68a;
+        }
+
+        .border-soft-green {
+            border-color: #bbf7d0;
+        }
+
+        .border-soft-red {
+            border-color: #fecaca;
+        }
+
+        /* Status indicator */
+        .status-pass {
+            background-color: #dcfce7;
+            color: #166534;
+            border-color: #bbf7d0;
+        }
+
+        .status-fail {
+            background-color: #fee2e2;
+            color: #dc2626;
+            border-color: #fecaca;
         }
 
         /* Mobile optimizations */
@@ -153,6 +190,15 @@
                             MEMUAT...
                         </div>
                     </div>
+
+                    <!-- Ambang Batas Info -->
+                    <div class="mt-3 flex flex-wrap gap-2">
+                        <div class="inline-flex items-center gap-1 bg-soft-green px-2 py-1 rounded text-xs">
+                            <i class="fa-solid fa-flag-checkered text-green-600 text-xs"></i>
+                            <span class="font-medium text-gray-700">Ambang Batas SKD:</span>
+                            <span class="font-semibold text-green-700">TWK ≥65 | TIU ≥80 | TKP ≥166 | Total ≥271</span>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="flex flex-wrap gap-2 mt-4 md:mt-0">
@@ -184,6 +230,7 @@
                             <span id="totalScore" class="score-badge text-4xl md:text-5xl font-bold">0</span>
                             <span class="text-gray-500 font-medium text-xs md:text-sm">DARI 500</span>
                             <div id="resultEmoji" class="text-xl md:text-2xl mt-1"></div>
+                            <div id="totalStatus" class="text-xs font-medium mt-2 px-2 py-1 rounded-full"></div>
                         </div>
                     </div>
                     <div class="text-center">
@@ -196,38 +243,45 @@
                 <div class="flex-1 grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
                     <div class="stat-card rounded-lg p-3 text-center bg-soft-blue/30 border-soft-blue">
                         <div class="text-xl md:text-2xl font-bold text-blue-600 mb-1" id="skorTWK">0</div>
+                        <div id="twkStatus" class="text-xs font-medium mb-1 px-2 py-0.5 rounded-full inline-block"></div>
                         <div class="text-xs font-semibold text-blue-700 uppercase mb-1">TWK</div>
-                        <div class="text-xs text-gray-600">Wawasan Kebangsaan</div>
+                        <div class="text-xs text-gray-600">Wawasan Kebangsaan (≥65)</div>
                         <div class="mt-2 w-full bg-blue-100 h-1.5 rounded-full overflow-hidden">
                             <div id="progressTWK" class="h-full bg-blue-600 transition-all duration-1000" style="width: 0%"></div>
                         </div>
+                        <div class="text-xs text-gray-500 mt-1">Min: 65 | Max: 150</div>
                     </div>
 
                     <div class="stat-card rounded-lg p-3 text-center bg-soft-yellow/30 border-soft-yellow">
                         <div class="text-xl md:text-2xl font-bold text-amber-600 mb-1" id="skorTIU">0</div>
+                        <div id="tiuStatus" class="text-xs font-medium mb-1 px-2 py-0.5 rounded-full inline-block"></div>
                         <div class="text-xs font-semibold text-amber-700 uppercase mb-1">TIU</div>
-                        <div class="text-xs text-gray-600">Tes Intelegensi Umum</div>
+                        <div class="text-xs text-gray-600">Tes Intelegensi Umum (≥80)</div>
                         <div class="mt-2 w-full bg-amber-100 h-1.5 rounded-full overflow-hidden">
                             <div id="progressTIU" class="h-full bg-amber-600 transition-all duration-1000" style="width: 0%"></div>
                         </div>
+                        <div class="text-xs text-gray-500 mt-1">Min: 80 | Max: 175</div>
                     </div>
 
                     <div class="stat-card rounded-lg p-3 text-center bg-purple-50 border border-purple-100">
                         <div class="text-xl md:text-2xl font-bold text-purple-600 mb-1" id="skorTKP">0</div>
+                        <div id="tkpStatus" class="text-xs font-medium mb-1 px-2 py-0.5 rounded-full inline-block"></div>
                         <div class="text-xs font-semibold text-purple-700 uppercase mb-1">TKP</div>
-                        <div class="text-xs text-gray-600">Karakteristik Pribadi</div>
+                        <div class="text-xs text-gray-600">Karakteristik Pribadi (≥166)</div>
                         <div class="mt-2 w-full bg-purple-100 h-1.5 rounded-full overflow-hidden">
                             <div id="progressTKP" class="h-full bg-purple-600 transition-all duration-1000" style="width: 0%"></div>
                         </div>
+                        <div class="text-xs text-gray-500 mt-1">Min: 166 | Max: 166</div>
                     </div>
 
                     <div class="stat-card rounded-lg p-3 text-center bg-gray-50 border border-gray-100">
                         <div class="text-xl md:text-2xl font-bold text-gray-700 mb-1" id="waktuDigunakan">0m</div>
-                        <div class="text-xs font-semibold text-gray-800 uppercase mb-1">WAKTU</div>
-                        <div class="text-xs text-gray-600">Digunakan</div>
+                        <div id="totalPassStatus" class="text-xs font-medium mb-1 px-2 py-0.5 rounded-full inline-block"></div>
+                        <div class="text-xs font-semibold text-gray-800 uppercase mb-1">STATUS</div>
+                        <div class="text-xs text-gray-600">Kelulusan SKD</div>
                         <div class="mt-2 flex items-center justify-center text-gray-500">
-                            <i class="fa-solid fa-clock text-xs mr-1"></i>
-                            <span id="waktuDetail" class="text-xs">Memuat...</span>
+                            <i class="fa-solid fa-flag text-xs mr-1"></i>
+                            <span id="skdStatusDetail" class="text-xs font-medium">Memuat...</span>
                         </div>
                     </div>
                 </div>
@@ -241,83 +295,115 @@
                 <div class="card p-4 md:p-6">
                     <h3 class="text-base md:text-lg font-semibold text-gray-800 mb-3 md:mb-4 flex items-center gap-2">
                         <i class="fa-solid fa-chart-simple text-blue-600"></i>
-                        <span>Analisis Performa</span>
+                        <span>Analisis Performa vs Ambang Batas</span>
                     </h3>
 
                     <div class="space-y-4 md:space-y-5">
                         <!-- TWK Breakdown -->
-                        <div>
-                            <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-1 gap-1">
+                        <div class="p-3 rounded-lg border border-gray-200">
+                            <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-2 gap-1">
                                 <div class="flex items-center gap-2">
                                     <div class="w-2 h-2 rounded-full bg-blue-500"></div>
                                     <span class="font-medium text-gray-700 text-sm">TWK (Wawasan Kebangsaan)</span>
                                 </div>
-                                <span class="text-sm font-medium text-gray-700"><span id="twkBenar">0</span>/30 Benar</span>
+                                <div class="flex items-center gap-2">
+                                    <span class="text-sm font-medium text-gray-700"><span id="twkBenar">0</span>/30 Benar</span>
+                                    <div id="twkThresholdBadge" class="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-700">
+                                        Ambang: 65
+                                    </div>
+                                </div>
                             </div>
-                            <div class="flex items-center gap-2 md:gap-3 text-sm">
-                                <span class="text-gray-600 text-xs">Jawaban:</span>
-                                <span id="twkTerjawab" class="font-medium">0/30</span>
-                                <div class="flex-1 h-1.5 bg-gray-200 rounded-full overflow-hidden">
+                            <div class="flex items-center gap-2 md:gap-3 text-sm mb-2">
+                                <span class="text-gray-600 text-xs">Skor:</span>
+                                <span id="twkSkorDetail" class="font-medium">0</span>
+                                <div class="flex-1 h-2 bg-gray-200 rounded-full overflow-hidden relative">
+                                    <div class="absolute h-full w-1 bg-red-500 left-[43.33%]" title="Ambang Batas 65"></div>
                                     <div id="twkProgress" class="h-full bg-blue-500 transition-all duration-1000" style="width: 0%"></div>
                                 </div>
                                 <span id="twkPersen" class="text-gray-600 font-medium text-xs">0%</span>
                             </div>
+                            <div id="twkThresholdInfo" class="text-xs text-gray-600"></div>
                         </div>
 
                         <!-- TIU Breakdown -->
-                        <div>
-                            <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-1 gap-1">
+                        <div class="p-3 rounded-lg border border-gray-200">
+                            <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-2 gap-1">
                                 <div class="flex items-center gap-2">
                                     <div class="w-2 h-2 rounded-full bg-amber-500"></div>
                                     <span class="font-medium text-gray-700 text-sm">TIU (Tes Intelegensi Umum)</span>
                                 </div>
-                                <span class="text-sm font-medium text-gray-700"><span id="tiuBenar">0</span>/35 Benar</span>
+                                <div class="flex items-center gap-2">
+                                    <span class="text-sm font-medium text-gray-700"><span id="tiuBenar">0</span>/35 Benar</span>
+                                    <div id="tiuThresholdBadge" class="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-700">
+                                        Ambang: 80
+                                    </div>
+                                </div>
                             </div>
-                            <div class="flex items-center gap-2 md:gap-3 text-sm">
-                                <span class="text-gray-600 text-xs">Jawaban:</span>
-                                <span id="tiuTerjawab" class="font-medium">0/35</span>
-                                <div class="flex-1 h-1.5 bg-gray-200 rounded-full overflow-hidden">
+                            <div class="flex items-center gap-2 md:gap-3 text-sm mb-2">
+                                <span class="text-gray-600 text-xs">Skor:</span>
+                                <span id="tiuSkorDetail" class="font-medium">0</span>
+                                <div class="flex-1 h-2 bg-gray-200 rounded-full overflow-hidden relative">
+                                    <div class="absolute h-full w-1 bg-red-500 left-[45.71%]" title="Ambang Batas 80"></div>
                                     <div id="tiuProgress" class="h-full bg-amber-500 transition-all duration-1000" style="width: 0%"></div>
                                 </div>
                                 <span id="tiuPersen" class="text-gray-600 font-medium text-xs">0%</span>
                             </div>
+                            <div id="tiuThresholdInfo" class="text-xs text-gray-600"></div>
                         </div>
 
                         <!-- TKP Breakdown -->
-                        <div>
-                            <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-1 gap-1">
+                        <div class="p-3 rounded-lg border border-gray-200">
+                            <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-2 gap-1">
                                 <div class="flex items-center gap-2">
                                     <div class="w-2 h-2 rounded-full bg-purple-500"></div>
                                     <span class="font-medium text-gray-700 text-sm">TKP (Karakteristik Pribadi)</span>
                                 </div>
-                                <span class="text-sm font-medium text-gray-700">Skor: <span id="tkpSkorDetail">0</span>/166</span>
+                                <div class="flex items-center gap-2">
+                                    <span class="text-sm font-medium text-gray-700">Skor: <span id="tkpSkorDetail">0</span>/166</span>
+                                    <div id="tkpThresholdBadge" class="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-700">
+                                        Ambang: 166
+                                    </div>
+                                </div>
                             </div>
-                            <div class="flex items-center gap-2 md:gap-3 text-sm">
-                                <span class="text-gray-600 text-xs">Jawaban:</span>
-                                <span id="tkpTerjawab" class="font-medium">0/45</span>
-                                <div class="flex-1 h-1.5 bg-gray-200 rounded-full overflow-hidden">
+                            <div class="flex items-center gap-2 md:gap-3 text-sm mb-2">
+                                <span class="text-gray-600 text-xs">Skor:</span>
+                                <span id="tkpSkorDetail2" class="font-medium">0</span>
+                                <div class="flex-1 h-2 bg-gray-200 rounded-full overflow-hidden relative">
+                                    <div class="absolute h-full w-1 bg-red-500 left-[100%] -ml-1" title="Ambang Batas 166"></div>
                                     <div id="tkpProgress" class="h-full bg-purple-500 transition-all duration-1000" style="width: 0%"></div>
                                 </div>
                                 <span id="tkpPersen" class="text-gray-600 font-medium text-xs">0%</span>
                             </div>
+                            <div id="tkpThresholdInfo" class="text-xs text-gray-600"></div>
                         </div>
                     </div>
 
-                    <!-- Accuracy Stats -->
+                    <!-- SKD Status Summary -->
                     <div class="mt-4 md:mt-6 pt-4 border-t border-gray-200">
-                        <div class="grid grid-cols-3 gap-3 md:gap-4">
-                            <div class="text-center">
-                                <div class="text-lg md:text-xl font-bold text-blue-600" id="akurasiTWK">0%</div>
-                                <div class="text-xs text-gray-600 font-medium uppercase mt-1">Akurasi TWK</div>
+                        <h4 class="text-sm font-semibold text-gray-800 mb-3 flex items-center gap-2">
+                            <i class="fa-solid fa-clipboard-check text-blue-600"></i>
+                            <span>Status Kelulusan SKD</span>
+                        </h4>
+                        <div id="skdStatusSummary" class="p-3 rounded-lg border border-gray-200 bg-gray-50">
+                            <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                                <div class="text-center">
+                                    <div id="skdTWKStatus" class="text-lg md:text-xl font-bold">-</div>
+                                    <div class="text-xs text-gray-600 font-medium uppercase mt-1">TWK</div>
+                                </div>
+                                <div class="text-center">
+                                    <div id="skdTIUStatus" class="text-lg md:text-xl font-bold">-</div>
+                                    <div class="text-xs text-gray-600 font-medium uppercase mt-1">TIU</div>
+                                </div>
+                                <div class="text-center">
+                                    <div id="skdTKPStatus" class="text-lg md:text-xl font-bold">-</div>
+                                    <div class="text-xs text-gray-600 font-medium uppercase mt-1">TKP</div>
+                                </div>
+                                <div class="text-center">
+                                    <div id="skdTotalStatus" class="text-lg md:text-xl font-bold">-</div>
+                                    <div class="text-xs text-gray-600 font-medium uppercase mt-1">TOTAL</div>
+                                </div>
                             </div>
-                            <div class="text-center">
-                                <div class="text-lg md:text-xl font-bold text-amber-600" id="akurasiTIU">0%</div>
-                                <div class="text-xs text-gray-600 font-medium uppercase mt-1">Akurasi TIU</div>
-                            </div>
-                            <div class="text-center">
-                                <div class="text-lg md:text-xl font-bold text-gray-700" id="totalAkurasi">0%</div>
-                                <div class="text-xs text-gray-600 font-medium uppercase mt-1">Akurasi Total</div>
-                            </div>
+                            <div id="skdFinalStatus" class="mt-3 p-2 rounded text-center text-sm font-medium"></div>
                         </div>
                     </div>
                 </div>
@@ -369,7 +455,7 @@
                 <div class="card p-4 md:p-6">
                     <h3 class="text-base md:text-lg font-semibold text-gray-800 mb-3 flex items-center gap-2">
                         <i class="fa-solid fa-lightbulb text-amber-600"></i>
-                        <span>Rekomendasi</span>
+                        <span>Rekomendasi Berdasarkan Ambang Batas</span>
                     </h3>
 
                     <div id="recommendationContainer" class="space-y-3 mb-4">
@@ -380,8 +466,8 @@
                         <div class="flex items-start gap-2">
                             <i class="fa-solid fa-graduation-cap text-blue-600 mt-0.5"></i>
                             <div>
-                                <p class="font-medium text-blue-800 mb-1 text-sm">Tips:</p>
-                                <p class="text-xs text-blue-700">Fokus pada kategori dengan skor terendah dan gunakan pembahasan soal untuk belajar.</p>
+                                <p class="font-medium text-blue-800 mb-1 text-sm">Tips SKD:</p>
+                                <p class="text-xs text-blue-700">Pastikan semua kategori memenuhi ambang batas minimal. Fokus pada kategori dengan skor terendah terlebih dahulu.</p>
                             </div>
                         </div>
                     </div>
@@ -433,7 +519,7 @@
                     <div>
                         <h2 class="text-base font-bold text-gray-900 mb-1">Hasil Ujian Paket 1</h2>
                         <p class="text-gray-600 text-xs">
-                            Sistem evaluasi hasil belajar.
+                            Sistem evaluasi hasil belajar dengan ambang batas SKD.
                         </p>
                     </div>
                 </div>
@@ -452,6 +538,10 @@
                         <div class="bg-gray-50 px-3 py-2 rounded border border-gray-100">
                             <p class="text-xs text-gray-500 uppercase font-medium">PIN PESERTA</p>
                             <p id="footerPin" class="font-mono font-medium text-gray-900 text-sm">MEMUAT...</p>
+                        </div>
+                        <div class="bg-gray-50 px-3 py-2 rounded border border-gray-100">
+                            <p class="text-xs text-gray-500 uppercase font-medium">AMBANG BATAS</p>
+                            <p class="font-medium text-gray-900 text-xs">TWK≥65 TIU≥80 TKP≥166 Total≥271</p>
                         </div>
                     </div>
 
@@ -485,6 +575,14 @@
             "paket1": ["7XK9WP", "B4ZM1Q", "9TV2NL", "RS8MX3", "5CR1VT", "KP9MZ4", "G6HD2S", "1VT8NR", "FN2VK5", "2YM4BX", "MR2VT8", "5HG9SL", "XP3KZ7", "2YN5VQ", "8WQ4PZ", "VS7NL2"],
             "paket2": ["9ZW1RF", "4FB6NT", "7XK1WP", "B2MK9P", "LP9QX4", "Y7CR2V", "4FB8NR", "9TW1MZ", "SK3JP7", "1VT5NR", "FN9VK3", "2YM7BX", "SK9JP4", "MR7VT1", "3ZW7RB", "KP1MX9", "G6HD1S"],
             "paket3": ["VS4NL8", "RT9XM2", "B2MK8P", "7XL1WQ", "5HG2SD", "9ZW4RB", "KP8MX3", "FN5VK2", "8WQ4PZ", "2YM9BX", "7KP1RT", "5HG6SD", "9ZW3RF", "RS4ML9", "VN7VK1", "8WQ3PZ", "4FB1NT"]
+        };
+
+        // ====================== AMBANG BATAS SKD ======================
+        const SKD_THRESHOLDS = {
+            TWK: 65,    // Minimal 65 poin
+            TIU: 80,    // Minimal 80 poin
+            TKP: 166,   // Minimal 166 poin (maksimal juga 166)
+            TOTAL: 271  // Minimal 271 poin (65+80+166)
         };
 
         // ====================== GLOBAL VARIABLES ======================
@@ -608,10 +706,21 @@
             document.getElementById('tiuTerjawab').textContent = `${hasilData.tiuJawab}/35`;
             document.getElementById('tkpTerjawab').textContent = `${hasilData.tkpJawab}/45`;
 
+            // Display skor detail
+            document.getElementById('twkSkorDetail').textContent = hasilData.twk;
+            document.getElementById('tiuSkorDetail').textContent = hasilData.tiu;
+            document.getElementById('tkpSkorDetail').textContent = hasilData.tkp;
+            document.getElementById('tkpSkorDetail2').textContent = hasilData.tkp;
+
             // Animate category progress bars
             const twkJawabPercent = Math.round((hasilData.twkJawab / 30) * 100);
             const tiuJawabPercent = Math.round((hasilData.tiuJawab / 35) * 100);
             const tkpJawabPercent = Math.round((hasilData.tkpJawab / 45) * 100);
+
+            // Calculate percentage of threshold for visualization
+            const twkThresholdPercent = Math.round((hasilData.twk / SKD_THRESHOLDS.TWK) * 100);
+            const tiuThresholdPercent = Math.round((hasilData.tiu / SKD_THRESHOLDS.TIU) * 100);
+            const tkpThresholdPercent = Math.round((hasilData.tkp / SKD_THRESHOLDS.TKP) * 100);
 
             setTimeout(() => {
                 document.getElementById('twkProgress').style.width = `${twkJawabPercent}%`;
@@ -622,12 +731,11 @@
             // Display percentages
             document.getElementById('twkPersen').textContent = `${twkJawabPercent}%`;
             document.getElementById('tiuPersen').textContent = `${tiuJawabPercent}%`;
-            document.getElementById('tkpPersen').textContent = `${tkpJawabPercent}%`;
+            document.getElementById('tkpPersen').textContent = `${tkpThresholdPercent}%`;
 
             // Display correct counts
             document.getElementById('twkBenar').textContent = hasilData.twkBenar || 0;
             document.getElementById('tiuBenar').textContent = hasilData.tiuBenar || 0;
-            document.getElementById('tkpSkorDetail').textContent = hasilData.tkp;
 
             // Calculate accuracy
             const twkAccuracy = hasilData.twkJawab > 0 ? Math.round((hasilData.twkBenar / hasilData.twkJawab) * 100) : 0;
@@ -652,8 +760,92 @@
             // Display result message and emoji based on score
             displayResultMessage(hasilData.total);
 
-            // Generate recommendations
+            // Check SKD thresholds and display status
+            checkSKDThresholds();
+
+            // Generate recommendations based on thresholds
             generateRecommendations();
+        }
+
+        function checkSKDThresholds() {
+            if (!hasilData) return;
+
+            const twkScore = hasilData.twk;
+            const tiuScore = hasilData.tiu;
+            const tkpScore = hasilData.tkp;
+            const totalScore = hasilData.total;
+
+            // Check each threshold
+            const twkPassed = twkScore >= SKD_THRESHOLDS.TWK;
+            const tiuPassed = tiuScore >= SKD_THRESHOLDS.TIU;
+            const tkpPassed = tkpScore >= SKD_THRESHOLDS.TKP;
+            const totalPassed = totalScore >= SKD_THRESHOLDS.TOTAL;
+
+            // Overall SKD status (must pass all)
+            const skdPassed = twkPassed && tiuPassed && tkpPassed && totalPassed;
+
+            // Update status badges
+            updateStatusBadge('twkStatus', twkPassed, `TWK: ${twkScore}/${SKD_THRESHOLDS.TWK}`);
+            updateStatusBadge('tiuStatus', tiuPassed, `TIU: ${tiuScore}/${SKD_THRESHOLDS.TIU}`);
+            updateStatusBadge('tkpStatus', tkpPassed, `TKP: ${tkpScore}/${SKD_THRESHOLDS.TKP}`);
+            updateStatusBadge('totalStatus', totalPassed, `Total: ${totalScore}/${SKD_THRESHOLDS.TOTAL}`);
+            updateStatusBadge('totalPassStatus', skdPassed, skdPassed ? 'LULUS SKD' : 'TIDAK LULUS');
+
+            // Update threshold info
+            document.getElementById('twkThresholdInfo').innerHTML = getThresholdInfo('TWK', twkScore, SKD_THRESHOLDS.TWK, twkPassed);
+            document.getElementById('tiuThresholdInfo').innerHTML = getThresholdInfo('TIU', tiuScore, SKD_THRESHOLDS.TIU, tiuPassed);
+            document.getElementById('tkpThresholdInfo').innerHTML = getThresholdInfo('TKP', tkpScore, SKD_THRESHOLDS.TKP, tkpPassed);
+
+            // Update SKD status summary
+            document.getElementById('skdTWKStatus').innerHTML = getStatusIcon(twkPassed) + ` ${twkScore}`;
+            document.getElementById('skdTIUStatus').innerHTML = getStatusIcon(tiuPassed) + ` ${tiuScore}`;
+            document.getElementById('skdTKPStatus').innerHTML = getStatusIcon(tkpPassed) + ` ${tkpScore}`;
+            document.getElementById('skdTotalStatus').innerHTML = getStatusIcon(totalPassed) + ` ${totalScore}`;
+
+            // Update SKD final status
+            const skdStatusDetail = document.getElementById('skdStatusDetail');
+            const skdFinalStatus = document.getElementById('skdFinalStatus');
+            
+            if (skdPassed) {
+                skdStatusDetail.textContent = 'LULUS SKD';
+                skdStatusDetail.className = 'text-xs font-medium text-green-700';
+                skdFinalStatus.textContent = '✓ SELAMAT! Anda memenuhi semua ambang batas SKD';
+                skdFinalStatus.className = 'mt-3 p-2 rounded text-center text-sm font-medium bg-green-100 text-green-800 border border-green-200';
+            } else {
+                skdStatusDetail.textContent = 'TIDAK LULUS SKD';
+                skdStatusDetail.className = 'text-xs font-medium text-red-700';
+                
+                let failedReasons = [];
+                if (!twkPassed) failedReasons.push('TWK');
+                if (!tiuPassed) failedReasons.push('TIU');
+                if (!tkpPassed) failedReasons.push('TKP');
+                if (!totalPassed) failedReasons.push('TOTAL');
+                
+                skdFinalStatus.textContent = `✗ Belum memenuhi ambang batas: ${failedReasons.join(', ')}`;
+                skdFinalStatus.className = 'mt-3 p-2 rounded text-center text-sm font-medium bg-red-100 text-red-800 border border-red-200';
+            }
+        }
+
+        function updateStatusBadge(elementId, passed, text) {
+            const element = document.getElementById(elementId);
+            if (element) {
+                element.textContent = text;
+                element.className = `text-xs font-medium px-2 py-0.5 rounded-full inline-block ${passed ? 'status-pass' : 'status-fail'}`;
+            }
+        }
+
+        function getThresholdInfo(category, score, threshold, passed) {
+            const diff = score - threshold;
+            if (passed) {
+                return `<span class="text-green-600"><i class="fa-solid fa-check-circle mr-1"></i>Memenuhi ambang batas (+${diff})</span>`;
+            } else {
+                return `<span class="text-red-600"><i class="fa-solid fa-times-circle mr-1"></i>Kurang ${Math.abs(diff)} poin dari ambang batas</span>`;
+            }
+        }
+
+        function getStatusIcon(passed) {
+            return passed ? '<span class="text-green-600"><i class="fa-solid fa-check"></i></span>' : 
+                           '<span class="text-red-600"><i class="fa-solid fa-xmark"></i></span>';
         }
 
         function displayResultMessage(totalScore) {
@@ -664,22 +856,22 @@
             let emoji = '';
 
             if (totalScore >= 400) {
-                message = 'Luar biasa! Skor sangat tinggi.';
+                message = 'Luar biasa! Skor sangat tinggi di atas ambang batas.';
                 emoji = '🏆';
             } else if (totalScore >= 350) {
                 message = 'Bagus sekali! Performa sangat baik.';
                 emoji = '🎯';
             } else if (totalScore >= 300) {
-                message = 'Hasil yang baik!';
+                message = 'Hasil yang baik! Periksa ambang batas per kategori.';
                 emoji = '⭐';
-            } else if (totalScore >= 250) {
-                message = 'Cukup baik. Perlu sedikit peningkatan.';
-                emoji = '👍';
+            } else if (totalScore >= SKD_THRESHOLDS.TOTAL) {
+                message = 'Memenuhi ambang batas total. Periksa kategori lainnya.';
+                emoji = '✅';
             } else if (totalScore >= 200) {
-                message = 'Perlu lebih banyak latihan.';
+                message = 'Perlu lebih banyak latihan untuk mencapai ambang batas.';
                 emoji = '💪';
             } else {
-                message = 'Pelajari kembali materinya.';
+                message = 'Pelajari kembali materinya untuk memenuhi ambang batas.';
                 emoji = '📚';
             }
 
@@ -695,40 +887,82 @@
             const twkScore = hasilData.twk;
             const tiuScore = hasilData.tiu;
             const tkpScore = hasilData.tkp;
+            const totalScore = hasilData.total;
 
-            if (twkScore < 100) {
+            // Check SKD thresholds
+            const twkPassed = twkScore >= SKD_THRESHOLDS.TWK;
+            const tiuPassed = tiuScore >= SKD_THRESHOLDS.TIU;
+            const tkpPassed = tkpScore >= SKD_THRESHOLDS.TKP;
+            const totalPassed = totalScore >= SKD_THRESHOLDS.TOTAL;
+
+            // Generate recommendations based on thresholds
+            if (!twkPassed) {
+                const needed = SKD_THRESHOLDS.TWK - twkScore;
+                recommendations.push({
+                    icon: 'fa-landmark',
+                    color: 'red',
+                    title: 'TWK Belum Memenuhi',
+                    text: `Kurang ${needed} poin dari ambang batas (65). Fokus pada materi Pancasila, UUD 1945, NKRI.`
+                });
+            } else if (twkScore < 100) {
                 recommendations.push({
                     icon: 'fa-landmark',
                     color: 'blue',
                     title: 'Tingkatkan TWK',
-                    text: 'Pelajari materi wawasan kebangsaan.'
+                    text: 'Pelajari materi wawasan kebangsaan lebih dalam untuk skor lebih tinggi.'
                 });
             }
 
-            if (tiuScore < 110) {
+            if (!tiuPassed) {
+                const needed = SKD_THRESHOLDS.TIU - tiuScore;
+                recommendations.push({
+                    icon: 'fa-brain',
+                    color: 'red',
+                    title: 'TIU Belum Memenuhi',
+                    text: `Kurang ${needed} poin dari ambang batas (80). Perbanyak latihan verbal, numerik, dan figural.`
+                });
+            } else if (tiuScore < 110) {
                 recommendations.push({
                     icon: 'fa-brain',
                     color: 'amber',
                     title: 'Latih TIU',
-                    text: 'Perbanyak latihan soal logika dan analisis.'
+                    text: 'Perbanyak latihan soal logika, analitis, dan pemahaman.'
                 });
             }
 
-            if (tkpScore < 120) {
+            if (!tkpPassed) {
+                const needed = SKD_THRESHOLDS.TKP - tkpScore;
+                recommendations.push({
+                    icon: 'fa-user-check',
+                    color: 'red',
+                    title: 'TKP Belum Memenuhi',
+                    text: `Kurang ${needed} poin dari ambang batas (166). Pahami nilai-nilai pelayanan publik dan integritas.`
+                });
+            } else if (tkpScore < 166) {
                 recommendations.push({
                     icon: 'fa-user-check',
                     color: 'purple',
                     title: 'Asah TKP',
-                    text: 'Pahami nilai-nilai karakter pribadi.'
+                    text: 'Tingkatkan pemahaman karakteristik pribadi untuk skor maksimal.'
+                });
+            }
+
+            if (!totalPassed) {
+                const needed = SKD_THRESHOLDS.TOTAL - totalScore;
+                recommendations.push({
+                    icon: 'fa-chart-line',
+                    color: 'red',
+                    title: 'Total Skor Belum Cukup',
+                    text: `Kurang ${needed} poin dari ambang batas total (271). Fokus pada kategori dengan skor terendah.`
                 });
             }
 
             if (recommendations.length === 0) {
                 recommendations.push({
                     icon: 'fa-flag-checkered',
-                    color: 'gray',
-                    title: 'Pertahankan',
-                    text: 'Hasil sudah baik. Lanjutkan latihan.'
+                    color: 'green',
+                    title: 'Semua Ambang Batas Terpenuhi',
+                    text: 'Selamat! Anda telah memenuhi semua persyaratan SKD. Pertahankan dan tingkatkan lagi.'
                 });
             }
 
@@ -738,6 +972,8 @@
                     blue: 'border-blue-200 bg-blue-50',
                     amber: 'border-amber-200 bg-amber-50',
                     purple: 'border-purple-200 bg-purple-50',
+                    red: 'border-red-200 bg-red-50',
+                    green: 'border-green-200 bg-green-50',
                     gray: 'border-gray-200 bg-gray-50'
                 };
 
@@ -794,7 +1030,7 @@
 
         function hubungiKami() {
             const phoneNumber = "6281234567890";
-            const message = `Halo, saya ingin bertanya tentang hasil ujian Paket 1 dengan PIN: ${userPIN}`;
+            const message = `Halo, saya ingin bertanya tentang hasil ujian Paket 1 dengan PIN: ${userPIN}. Skor: TWK=${hasilData?.twk}, TIU=${hasilData?.tiu}, TKP=${hasilData?.tkp}, Total=${hasilData?.total}`;
             const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
             window.open(whatsappUrl, '_blank');
         }
