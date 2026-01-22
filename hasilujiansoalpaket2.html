@@ -846,6 +846,16 @@
         let userPIN = null;
         let userPaket = null;
 
+        // ====================== HELPER FUNCTIONS ======================
+        function determinePaket(pin) {
+            for (const [paket, pins] of Object.entries(paketMapping)) {
+                if (pins.includes(pin)) {
+                    return paket;
+                }
+            }
+            return null;
+        }
+
         // ====================== INITIALIZATION ======================
         document.addEventListener('DOMContentLoaded', function() {
             // Set current year in footer
@@ -863,33 +873,40 @@
                 return;
             }
 
-            // Determine user's paket based on PIN (untuk paket 2)
-            userPaket = "paket2"; // Karena ini halaman hasil paket 2
-            
+            // Determine user's paket based on PIN
+            userPaket = determinePaket(userPIN);
+
+            if (!userPaket) {
+                showError('PIN tidak valid', 'PIN tidak terdaftar di paket manapun');
+                return;
+            }
+
             // Display PIN
             document.getElementById('pinDisplay').textContent = userPIN;
             document.getElementById('footerPin').textContent = userPIN;
 
-            // Update dashboard button untuk paket 2
+            // Update dashboard button berdasarkan paket
             const dashboardBtn = document.getElementById('btnDashboard');
             dashboardBtn.onclick = function() {
-                window.location.href = `dashboardpaket2.html?id=${userPIN}`;
+                // Arahkan ke dashboard sesuai paket
+                window.location.href = `dashboard${userPaket}.html?id=${userPIN}`;
             };
 
-            // Load result data untuk paket 2
+            // Load result data untuk paket yang sesuai
             loadResultData();
 
             // Check if this is a new result
             checkNewResult();
         });
 
-        // ====================== HELPER FUNCTIONS ======================
+        // ====================== DATA LOADING FUNCTIONS ======================
         function loadResultData() {
-            const resultKey = `hasil_paket2_${userPIN}`; // Key sesuai dengan soalpaket2.html
+            // Key untuk menyimpan hasil ujian berdasarkan paket
+            const resultKey = `hasil_${userPaket}_${userPIN}`;
             const savedResult = localStorage.getItem(resultKey);
 
             if (!savedResult) {
-                showError('Hasil ujian tidak ditemukan', 'Anda belum mengerjakan Paket 2.');
+                showError('Hasil ujian tidak ditemukan', `Anda belum mengerjakan ${userPaket}.`);
                 return;
             }
 
@@ -916,7 +933,7 @@
             document.getElementById('footerTanggal').textContent = tanggalText;
             document.getElementById('waktuSelesai').textContent = waktuText;
 
-            // Display scores sesuai dengan perhitungan di soalpaket2.html
+            // Display scores sesuai dengan perhitungan
             document.getElementById('skorTWK').textContent = hasilData.twk;
             document.getElementById('skorTIU').textContent = hasilData.tiu;
             document.getElementById('skorTKP').textContent = hasilData.tkp;
@@ -1116,8 +1133,8 @@
             recommendations.push({
                 icon: 'fa-layer-group',
                 color: 'blue',
-                title: 'Paket Intermediate Level',
-                text: 'Paket 2 memiliki tingkat kesulitan sedang dengan variasi soal yang beragam untuk menguji pemahaman konsep.'
+                title: `Paket ${userPaket.toUpperCase()} - ${getPaketLevel(userPaket)}`,
+                text: getPaketDescription(userPaket)
             });
 
             // Check for failed categories
@@ -1204,12 +1221,30 @@
             });
         }
 
+        function getPaketLevel(paket) {
+            switch(paket) {
+                case 'paket1': return 'Beginner Level';
+                case 'paket2': return 'Intermediate Level';
+                case 'paket3': return 'Advanced Level';
+                default: return 'Level';
+            }
+        }
+
+        function getPaketDescription(paket) {
+            switch(paket) {
+                case 'paket1': return 'Paket 1 memiliki tingkat kesulitan dasar dengan fokus pada pemahaman konsep fundamental. Cocok untuk pemula.';
+                case 'paket2': return 'Paket 2 memiliki tingkat kesulitan sedang dengan variasi soal yang beragam untuk menguji pemahaman konsep.';
+                case 'paket3': return 'Paket 3 memiliki tingkat kesulitan tinggi dengan soal yang kompleks dan membutuhkan analisis mendalam.';
+                default: return 'Paket soal latihan.';
+            }
+        }
+
         function checkNewResult() {
-            const fromSoalPage = sessionStorage.getItem('from_soalpaket2');
+            const fromSoalPage = sessionStorage.getItem(`from_${userPaket}`);
             if (fromSoalPage === 'true') {
-                sessionStorage.removeItem('from_soalpaket2');
+                sessionStorage.removeItem(`from_${userPaket}`);
                 // Show success toast for new result
-                showToast('success', 'Hasil Ujian Tersimpan!', 'Hasil ujian Paket 2 telah disimpan dan dapat diakses kapan saja.');
+                showToast('success', 'Hasil Ujian Tersimpan!', `Hasil ujian ${userPaket} telah disimpan dan dapat diakses kapan saja.`);
             }
         }
 
@@ -1223,8 +1258,8 @@
                 showError('Error', 'PIN tidak ditemukan');
                 return;
             }
-            // Redirect to pembahasan page untuk paket 2
-            window.location.href = `pembahasansoalpaket2.html?id=${userPIN}`;
+            // Redirect to pembahasan page untuk paket yang sesuai
+            window.location.href = `pembahasansoal${userPaket}.html?id=${userPIN}`;
         }
 
         function ulangiUjian() {
@@ -1244,17 +1279,17 @@
         }
 
         function konfirmasiUlangi() {
-            // Hapus progress untuk paket 2
-            const progressKey = `progress_paket2_${userPIN}`;
+            // Hapus progress untuk paket yang sesuai
+            const progressKey = `progress_${userPaket}_${userPIN}`;
             localStorage.removeItem(progressKey);
             
-            // Redirect ke soal paket 2
-            window.location.href = `soalpaket2.html?id=${userPIN}`;
+            // Redirect ke soal paket yang sesuai
+            window.location.href = `soal${userPaket}.html?id=${userPIN}`;
         }
 
         function hubungiKami() {
             const phoneNumber = "6285754052806";
-            const message = `Halo, saya ingin bertanya tentang hasil ujian PAKET 2 dengan PIN: ${userPIN}`;
+            const message = `Halo, saya ingin bertanya tentang hasil ujian ${userPaket.toUpperCase()} dengan PIN: ${userPIN}`;
             const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
             window.open(whatsappUrl, '_blank');
         }
