@@ -180,7 +180,7 @@
         }
 
         .bg-gradient-twk {
-            background: linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%);
+            background: linear-gradient(135deg, #3B82F6 0%, #1D4ed8 100%);
         }
 
         .bg-gradient-tiu {
@@ -317,7 +317,7 @@
 
         /* Badge untuk paket 2 */
         .badge-paket-2 {
-            background: linear-gradient(135deg, #8B5CF6 0%, #6366F1 100%);
+            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
             color: white;
             padding: 2px 10px;
             border-radius: 20px;
@@ -328,7 +328,7 @@
         }
     </style>
 </head>
-<body class="min-h-screen bg-gradient-to-br from-purple-50 to-indigo-50">
+<body class="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50">
     <!-- Main Container -->
     <div class="container mx-auto px-4 py-6 max-w-6xl">
         <!-- Header -->
@@ -336,36 +336,36 @@
             <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
                 <div class="flex-1">
                     <div class="flex items-center gap-4 mb-4">
-                        <div class="p-3 rounded-xl bg-gradient-primary text-white shadow-lg">
+                        <div class="p-3 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg">
                             <i class="fa-solid fa-chart-line text-xl"></i>
                         </div>
                         <div>
                             <div class="flex items-center gap-2 mb-1">
-                                <h1 class="text-2xl md:text-3xl font-bold text-gray-900">Hasil Ujian Paket 2</h1>
+                                <h1 class="text-2xl md:text-3xl font-bold text-slate-900">Hasil Ujian Paket 2</h1>
                                 <span class="badge-paket-2">PAKET 2</span>
                             </div>
-                            <p class="text-gray-600"><span id="tanggalUjian">Memuat tanggal...</span></p>
+                            <p class="text-slate-600"><span id="tanggalUjian">Memuat tanggal...</span></p>
                         </div>
                     </div>
 
                     <!-- PIN Display -->
-                    <div class="inline-flex items-center gap-3 bg-white px-4 py-3 rounded-xl shadow-md border border-gray-200">
+                    <div class="inline-flex items-center gap-3 bg-white px-4 py-3 rounded-xl shadow-md border border-slate-200">
                         <div class="flex items-center gap-2">
-                            <i class="fa-solid fa-id-card text-primary text-lg"></i>
-                            <span class="text-sm font-semibold text-gray-700">PIN Peserta:</span>
+                            <i class="fa-solid fa-id-card text-blue-600 text-lg"></i>
+                            <span class="text-sm font-semibold text-slate-700">PIN Peserta:</span>
                         </div>
-                        <div id="pinDisplay" class="bg-gradient-to-r from-purple-50 to-indigo-50 px-4 py-2 rounded-lg font-mono font-bold text-primary border-2 border-dashed border-primary/30 text-base tracking-wider">
+                        <div id="pinDisplay" class="bg-gradient-to-r from-blue-50 to-indigo-50 px-4 py-2 rounded-lg font-mono font-bold text-blue-600 border-2 border-dashed border-blue-300 text-base tracking-wider">
                             MEMUAT...
                         </div>
                     </div>
                 </div>
 
                 <div class="flex flex-wrap gap-3 mt-4 md:mt-0">
-                    <button id="btnDashboard" class="px-5 py-3 bg-white text-gray-700 rounded-xl font-semibold hover:bg-gray-50 transition-all duration-300 flex items-center justify-center gap-3 text-sm shadow-md hover:shadow-lg border border-gray-200">
+                    <button id="btnDashboard" class="px-5 py-3 bg-white text-slate-700 rounded-xl font-semibold hover:bg-slate-50 transition-all duration-300 flex items-center justify-center gap-3 text-sm shadow-md hover:shadow-lg border border-slate-200">
                         <i class="fa-solid fa-arrow-left"></i>
                         <span>Dashboard</span>
                     </button>
-                    <button onclick="cetakHasil()" class="px-5 py-3 bg-gradient-primary text-white rounded-xl font-semibold hover:opacity-90 transition-all duration-300 flex items-center justify-center gap-3 text-sm shadow-lg hover:shadow-xl pulse">
+                    <button onclick="cetakHasil()" class="px-5 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl font-semibold hover:opacity-90 transition-all duration-300 flex items-center justify-center gap-3 text-sm shadow-lg hover:shadow-xl pulse">
                         <i class="fa-solid fa-print"></i>
                         <span>Cetak Hasil</span>
                     </button>
@@ -374,7 +374,7 @@
         </header>
 
         <!-- Main Result Card -->
-        <div class="card p-6 md:p-8 mb-8 slide-up" style="border: 2px solid rgba(139, 92, 246, 0.1);">
+        <div class="card p-6 md:p-8 mb-8 slide-up" style="border: 2px solid rgba(37, 99, 235, 0.1);">
             <div class="flex flex-col lg:flex-row items-center justify-between gap-8">
                 <!-- Score Circle -->
                 <div class="flex flex-col items-center">
@@ -386,20 +386,20 @@
                             <circle id="totalScoreCircle" class="progress-ring-circle" cx="50" cy="50" r="45" fill="none" stroke="url(#gradient)" stroke-width="10" stroke-linecap="round" />
                             <defs>
                                 <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                                    <stop offset="0%" stop-color="#8B5CF6" />
-                                    <stop offset="100%" stop-color="#6366F1" />
+                                    <stop offset="0%" stop-color="#3B82F6" />
+                                    <stop offset="100%" stop-color="#1D4ED8" />
                                 </linearGradient>
                             </defs>
                         </svg>
                         <div class="absolute inset-0 flex flex-col items-center justify-center">
                             <span id="totalScore" class="score-badge text-5xl md:text-6xl font-black score-badge-animation">0</span>
-                            <span class="text-gray-500 font-semibold text-sm md:text-base mt-2">DARI 550</span>
+                            <span class="text-slate-500 font-semibold text-sm md:text-base mt-2">DARI 550</span>
                             <div id="resultEmoji" class="text-3xl md:text-4xl mt-3"></div>
                         </div>
                     </div>
                     <div class="text-center">
-                        <h2 class="text-xl md:text-2xl font-bold text-gray-800 mb-2">Skor Total</h2>
-                        <p id="resultMessage" class="text-gray-600 max-w-xs">Memuat hasil ujian...</p>
+                        <h2 class="text-xl md:text-2xl font-bold text-slate-800 mb-2">Skor Total</h2>
+                        <p id="resultMessage" class="text-slate-600 max-w-xs">Memuat hasil ujian...</p>
                         <div id="passingStatus" class="mt-3 inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold">
                             <!-- Status lulus/tidak akan dimasukkan oleh JavaScript -->
                         </div>
@@ -411,16 +411,16 @@
                     <!-- TWK Card -->
                     <div class="stat-card rounded-xl p-4 text-center relative shine-effect">
                         <div class="absolute top-0 left-0 right-0 h-2 bg-gradient-twk rounded-t-xl"></div>
-                        <div class="text-2xl md:text-3xl font-black text-twk mb-2" id="skorTWK">0</div>
-                        <div class="text-sm font-bold text-twk uppercase mb-1">TWK</div>
-                        <div class="text-xs text-gray-600 mb-3">Wawasan Kebangsaan</div>
+                        <div class="text-2xl md:text-3xl font-black text-blue-600 mb-2" id="skorTWK">0</div>
+                        <div class="text-sm font-bold text-blue-700 uppercase mb-1">TWK</div>
+                        <div class="text-xs text-slate-600 mb-3">Wawasan Kebangsaan</div>
                         <div class="progress-bar-container">
                             <div id="progressTWK" class="progress-bar-fill" style="width: 0%"></div>
                         </div>
                         <div class="mt-3 flex justify-between text-xs">
-                            <span class="font-medium text-gray-600">Min: 65</span>
-                            <span class="font-bold text-twk" id="twkStatus"></span>
-                            <span class="font-medium text-gray-600">Max: 150</span>
+                            <span class="font-medium text-slate-600">Min: 65</span>
+                            <span class="font-bold text-blue-600" id="twkStatus"></span>
+                            <span class="font-medium text-slate-600">Max: 150</span>
                         </div>
                         <div class="threshold-indicator">
                             <div class="threshold-marker" style="left: 43.33%;"></div>
@@ -430,16 +430,16 @@
                     <!-- TIU Card -->
                     <div class="stat-card rounded-xl p-4 text-center relative shine-effect">
                         <div class="absolute top-0 left-0 right-0 h-2 bg-gradient-tiu rounded-t-xl"></div>
-                        <div class="text-2xl md:text-3xl font-black text-tiu mb-2" id="skorTIU">0</div>
-                        <div class="text-sm font-bold text-tiu uppercase mb-1">TIU</div>
-                        <div class="text-xs text-gray-600 mb-3">Tes Intelegensi Umum</div>
+                        <div class="text-2xl md:text-3xl font-black text-amber-600 mb-2" id="skorTIU">0</div>
+                        <div class="text-sm font-bold text-amber-700 uppercase mb-1">TIU</div>
+                        <div class="text-xs text-slate-600 mb-3">Tes Intelegensi Umum</div>
                         <div class="progress-bar-container">
-                            <div id="progressTIU" class="progress-bar-fill bg-gradient-tiu" style="width: 0%"></div>
+                            <div id="progressTIU" class="progress-bar-fill bg-gradient-to-r from-amber-500 to-amber-600" style="width: 0%"></div>
                         </div>
                         <div class="mt-3 flex justify-between text-xs">
-                            <span class="font-medium text-gray-600">Min: 80</span>
-                            <span class="font-bold text-tiu" id="tiuStatus"></span>
-                            <span class="font-medium text-gray-600">Max: 175</span>
+                            <span class="font-medium text-slate-600">Min: 80</span>
+                            <span class="font-bold text-amber-600" id="tiuStatus"></span>
+                            <span class="font-medium text-slate-600">Max: 175</span>
                         </div>
                         <div class="threshold-indicator">
                             <div class="threshold-marker" style="left: 45.71%;"></div>
@@ -449,16 +449,16 @@
                     <!-- TKP Card -->
                     <div class="stat-card rounded-xl p-4 text-center relative shine-effect">
                         <div class="absolute top-0 left-0 right-0 h-2 bg-gradient-tkp rounded-t-xl"></div>
-                        <div class="text-2xl md:text-3xl font-black text-tkp mb-2" id="skorTKP">0</div>
-                        <div class="text-sm font-bold text-tkp uppercase mb-1">TKP</div>
-                        <div class="text-xs text-gray-600 mb-3">Karakteristik Pribadi</div>
+                        <div class="text-2xl md:text-3xl font-black text-purple-600 mb-2" id="skorTKP">0</div>
+                        <div class="text-sm font-bold text-purple-700 uppercase mb-1">TKP</div>
+                        <div class="text-xs text-slate-600 mb-3">Karakteristik Pribadi</div>
                         <div class="progress-bar-container">
-                            <div id="progressTKP" class="progress-bar-fill bg-gradient-tkp" style="width: 0%"></div>
+                            <div id="progressTKP" class="progress-bar-fill bg-gradient-to-r from-purple-500 to-purple-600" style="width: 0%"></div>
                         </div>
                         <div class="mt-3 flex justify-between text-xs">
-                            <span class="font-medium text-gray-600">Min: 166</span>
-                            <span class="font-bold text-tkp" id="tkpStatus"></span>
-                            <span class="font-medium text-gray-600">Max: 225</span>
+                            <span class="font-medium text-slate-600">Min: 166</span>
+                            <span class="font-bold text-purple-600" id="tkpStatus"></span>
+                            <span class="font-medium text-slate-600">Max: 225</span>
                         </div>
                         <div class="threshold-indicator">
                             <div class="threshold-marker" style="left: 73.78%;"></div>
@@ -467,16 +467,16 @@
 
                     <!-- Time Card -->
                     <div class="stat-card rounded-xl p-4 text-center relative shine-effect">
-                        <div class="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-gray-400 to-gray-600 rounded-t-xl"></div>
-                        <div class="text-2xl md:text-3xl font-black text-gray-700 mb-2" id="waktuDigunakan">0m</div>
-                        <div class="text-sm font-bold text-gray-800 uppercase mb-1">WAKTU</div>
-                        <div class="text-xs text-gray-600 mb-3">Digunakan</div>
-                        <div class="flex items-center justify-center text-gray-600 mb-4">
+                        <div class="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-slate-400 to-slate-600 rounded-t-xl"></div>
+                        <div class="text-2xl md:text-3xl font-black text-slate-700 mb-2" id="waktuDigunakan">0m</div>
+                        <div class="text-sm font-bold text-slate-800 uppercase mb-1">WAKTU</div>
+                        <div class="text-xs text-slate-600 mb-3">Digunakan</div>
+                        <div class="flex items-center justify-center text-slate-600 mb-4">
                             <i class="fa-solid fa-clock text-lg mr-2"></i>
                             <span id="waktuDetail" class="text-sm font-medium">Memuat...</span>
                         </div>
-                        <div class="px-3 py-1 bg-gray-100 rounded-full inline-block">
-                            <span class="text-xs font-medium text-gray-700">Sisa: <span id="waktuSisa">0m</span></span>
+                        <div class="px-3 py-1 bg-slate-100 rounded-full inline-block">
+                            <span class="text-xs font-medium text-slate-700">Sisa: <span id="waktuSisa">0m</span></span>
                         </div>
                     </div>
                 </div>
@@ -488,8 +488,8 @@
             <!-- Left Column: Performance Breakdown -->
             <div class="space-y-6">
                 <div class="card p-6">
-                    <h3 class="text-lg md:text-xl font-bold text-gray-800 mb-6 flex items-center gap-3">
-                        <div class="p-2 rounded-lg bg-gradient-primary text-white">
+                    <h3 class="text-lg md:text-xl font-bold text-slate-800 mb-6 flex items-center gap-3">
+                        <div class="p-2 rounded-lg bg-gradient-to-r from-blue-600 to-indigo-600 text-white">
                             <i class="fa-solid fa-chart-simple"></i>
                         </div>
                         <span>Analisis Performa Detail</span>
@@ -500,26 +500,26 @@
                         <div class="p-4 rounded-xl border border-blue-100 bg-blue-50/50">
                             <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-3 gap-2">
                                 <div class="flex items-center gap-3">
-                                    <div class="w-3 h-3 rounded-full bg-twk"></div>
-                                    <span class="font-bold text-gray-700">TWK (Wawasan Kebangsaan)</span>
+                                    <div class="w-3 h-3 rounded-full bg-blue-600"></div>
+                                    <span class="font-bold text-slate-700">TWK (Wawasan Kebangsaan)</span>
                                 </div>
                                 <div class="flex items-center gap-4">
-                                    <span class="text-sm font-medium text-gray-700"><span id="twkBenar">0</span>/30 Benar</span>
-                                    <span class="px-3 py-1 rounded-full text-xs font-bold bg-twk/10 text-twk" id="twkAccuracy">0%</span>
+                                    <span class="text-sm font-medium text-slate-700"><span id="twkBenar">0</span>/30 Benar</span>
+                                    <span class="px-3 py-1 rounded-full text-xs font-bold bg-blue-100 text-blue-700" id="twkAccuracy">0%</span>
                                 </div>
                             </div>
                             <div class="space-y-3">
                                 <div class="flex items-center gap-3 text-sm">
-                                    <span class="text-gray-600 text-xs font-medium">Jawaban:</span>
+                                    <span class="text-slate-600 text-xs font-medium">Jawaban:</span>
                                     <span id="twkTerjawab" class="font-bold">0/30</span>
-                                    <div class="flex-1 h-2.5 bg-gray-200 rounded-full overflow-hidden">
-                                        <div id="twkProgress" class="h-full bg-gradient-twk transition-all duration-1000" style="width: 0%"></div>
+                                    <div class="flex-1 h-2.5 bg-slate-200 rounded-full overflow-hidden">
+                                        <div id="twkProgress" class="h-full bg-gradient-to-r from-blue-500 to-blue-600 transition-all duration-1000" style="width: 0%"></div>
                                     </div>
-                                    <span id="twkPersen" class="text-gray-700 font-bold text-sm">0%</span>
+                                    <span id="twkPersen" class="text-slate-700 font-bold text-sm">0%</span>
                                 </div>
                                 <div class="flex justify-between text-xs">
-                                    <span class="font-medium text-gray-600">Nilai: <span id="twkNilai">0</span>/150</span>
-                                    <span class="font-medium text-gray-600">Ambang Batas: 65</span>
+                                    <span class="font-medium text-slate-600">Nilai: <span id="twkNilai">0</span>/150</span>
+                                    <span class="font-medium text-slate-600">Ambang Batas: 65</span>
                                     <span class="font-medium" id="twkThresholdText"></span>
                                 </div>
                             </div>
@@ -529,26 +529,26 @@
                         <div class="p-4 rounded-xl border border-amber-100 bg-amber-50/50">
                             <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-3 gap-2">
                                 <div class="flex items-center gap-3">
-                                    <div class="w-3 h-3 rounded-full bg-tiu"></div>
-                                    <span class="font-bold text-gray-700">TIU (Tes Intelegensi Umum)</span>
+                                    <div class="w-3 h-3 rounded-full bg-amber-500"></div>
+                                    <span class="font-bold text-slate-700">TIU (Tes Intelegensi Umum)</span>
                                 </div>
                                 <div class="flex items-center gap-4">
-                                    <span class="text-sm font-medium text-gray-700"><span id="tiuBenar">0</span>/35 Benar</span>
-                                    <span class="px-3 py-1 rounded-full text-xs font-bold bg-tiu/10 text-tiu" id="tiuAccuracy">0%</span>
+                                    <span class="text-sm font-medium text-slate-700"><span id="tiuBenar">0</span>/35 Benar</span>
+                                    <span class="px-3 py-1 rounded-full text-xs font-bold bg-amber-100 text-amber-700" id="tiuAccuracy">0%</span>
                                 </div>
                             </div>
                             <div class="space-y-3">
                                 <div class="flex items-center gap-3 text-sm">
-                                    <span class="text-gray-600 text-xs font-medium">Jawaban:</span>
+                                    <span class="text-slate-600 text-xs font-medium">Jawaban:</span>
                                     <span id="tiuTerjawab" class="font-bold">0/35</span>
-                                    <div class="flex-1 h-2.5 bg-gray-200 rounded-full overflow-hidden">
-                                        <div id="tiuProgress" class="h-full bg-gradient-tiu transition-all duration-1000" style="width: 0%"></div>
+                                    <div class="flex-1 h-2.5 bg-slate-200 rounded-full overflow-hidden">
+                                        <div id="tiuProgress" class="h-full bg-gradient-to-r from-amber-500 to-amber-600 transition-all duration-1000" style="width: 0%"></div>
                                     </div>
-                                    <span id="tiuPersen" class="text-gray-700 font-bold text-sm">0%</span>
+                                    <span id="tiuPersen" class="text-slate-700 font-bold text-sm">0%</span>
                                 </div>
                                 <div class="flex justify-between text-xs">
-                                    <span class="font-medium text-gray-600">Nilai: <span id="tiuNilai">0</span>/175</span>
-                                    <span class="font-medium text-gray-600">Ambang Batas: 80</span>
+                                    <span class="font-medium text-slate-600">Nilai: <span id="tiuNilai">0</span>/175</span>
+                                    <span class="font-medium text-slate-600">Ambang Batas: 80</span>
                                     <span class="font-medium" id="tiuThresholdText"></span>
                                 </div>
                             </div>
@@ -558,26 +558,26 @@
                         <div class="p-4 rounded-xl border border-purple-100 bg-purple-50/50">
                             <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-3 gap-2">
                                 <div class="flex items-center gap-3">
-                                    <div class="w-3 h-3 rounded-full bg-tkp"></div>
-                                    <span class="font-bold text-gray-700">TKP (Karakteristik Pribadi)</span>
+                                    <div class="w-3 h-3 rounded-full bg-purple-600"></div>
+                                    <span class="font-bold text-slate-700">TKP (Karakteristik Pribadi)</span>
                                 </div>
                                 <div class="flex items-center gap-4">
-                                    <span class="text-sm font-medium text-gray-700">Skor: <span id="tkpSkorDetail">0</span>/225</span>
-                                    <span class="px-3 py-1 rounded-full text-xs font-bold bg-tkp/10 text-tkp" id="tkpAccuracy">0%</span>
+                                    <span class="text-sm font-medium text-slate-700">Skor: <span id="tkpSkorDetail">0</span>/225</span>
+                                    <span class="px-3 py-1 rounded-full text-xs font-bold bg-purple-100 text-purple-700" id="tkpAccuracy">0%</span>
                                 </div>
                             </div>
                             <div class="space-y-3">
                                 <div class="flex items-center gap-3 text-sm">
-                                    <span class="text-gray-600 text-xs font-medium">Jawaban:</span>
+                                    <span class="text-slate-600 text-xs font-medium">Jawaban:</span>
                                     <span id="tkpTerjawab" class="font-bold">0/45</span>
-                                    <div class="flex-1 h-2.5 bg-gray-200 rounded-full overflow-hidden">
-                                        <div id="tkpProgress" class="h-full bg-gradient-tkp transition-all duration-1000" style="width: 0%"></div>
+                                    <div class="flex-1 h-2.5 bg-slate-200 rounded-full overflow-hidden">
+                                        <div id="tkpProgress" class="h-full bg-gradient-to-r from-purple-500 to-purple-600 transition-all duration-1000" style="width: 0%"></div>
                                     </div>
-                                    <span id="tkpPersen" class="text-gray-700 font-bold text-sm">0%</span>
+                                    <span id="tkpPersen" class="text-slate-700 font-bold text-sm">0%</span>
                                 </div>
                                 <div class="flex justify-between text-xs">
-                                    <span class="font-medium text-gray-600">Nilai: <span id="tkpNilai">0</span>/225</span>
-                                    <span class="font-medium text-gray-600">Ambang Batas: 166</span>
+                                    <span class="font-medium text-slate-600">Nilai: <span id="tkpNilai">0</span>/225</span>
+                                    <span class="font-medium text-slate-600">Ambang Batas: 166</span>
                                     <span class="font-medium" id="tkpThresholdText"></span>
                                 </div>
                             </div>
@@ -585,20 +585,20 @@
                     </div>
 
                     <!-- Overall Accuracy -->
-                    <div class="mt-8 pt-6 border-t border-gray-200">
-                        <h4 class="text-lg font-bold text-gray-800 mb-4">Akurasi Keseluruhan</h4>
+                    <div class="mt-8 pt-6 border-t border-slate-200">
+                        <h4 class="text-lg font-bold text-slate-800 mb-4">Akurasi Keseluruhan</h4>
                         <div class="grid grid-cols-3 gap-4">
                             <div class="text-center p-4 rounded-xl bg-gradient-to-br from-blue-50 to-blue-100 border border-blue-200">
-                                <div class="text-2xl font-black text-twk" id="akurasiTWK">0%</div>
-                                <div class="text-sm text-gray-700 font-bold uppercase mt-1">Akurasi TWK</div>
+                                <div class="text-2xl font-black text-blue-600" id="akurasiTWK">0%</div>
+                                <div class="text-sm text-slate-700 font-bold uppercase mt-1">Akurasi TWK</div>
                             </div>
                             <div class="text-center p-4 rounded-xl bg-gradient-to-br from-amber-50 to-amber-100 border border-amber-200">
-                                <div class="text-2xl font-black text-tiu" id="akurasiTIU">0%</div>
-                                <div class="text-sm text-gray-700 font-bold uppercase mt-1">Akurasi TIU</div>
+                                <div class="text-2xl font-black text-amber-600" id="akurasiTIU">0%</div>
+                                <div class="text-sm text-slate-700 font-bold uppercase mt-1">Akurasi TIU</div>
                             </div>
-                            <div class="text-center p-4 rounded-xl bg-gradient-to-br from-gray-50 to-gray-100 border border-gray-200">
-                                <div class="text-2xl font-black text-gray-800" id="totalAkurasi">0%</div>
-                                <div class="text-sm text-gray-700 font-bold uppercase mt-1">Akurasi Total</div>
+                            <div class="text-center p-4 rounded-xl bg-gradient-to-br from-slate-50 to-slate-100 border border-slate-200">
+                                <div class="text-2xl font-black text-slate-800" id="totalAkurasi">0%</div>
+                                <div class="text-sm text-slate-700 font-bold uppercase mt-1">Akurasi Total</div>
                             </div>
                         </div>
                     </div>
@@ -606,8 +606,8 @@
 
                 <!-- Additional Info -->
                 <div class="card p-6">
-                    <h3 class="text-lg md:text-xl font-bold text-gray-800 mb-6 flex items-center gap-3">
-                        <div class="p-2 rounded-lg bg-gradient-info text-white">
+                    <h3 class="text-lg md:text-xl font-bold text-slate-800 mb-6 flex items-center gap-3">
+                        <div class="p-2 rounded-lg bg-gradient-to-r from-blue-500 to-blue-600 text-white">
                             <i class="fa-solid fa-circle-info"></i>
                         </div>
                         <span>Informasi Ujian</span>
@@ -670,8 +670,8 @@
             <!-- Right Column: Recommendation & Actions -->
             <div class="space-y-6">
                 <div class="card p-6">
-                    <h3 class="text-lg md:text-xl font-bold text-gray-800 mb-6 flex items-center gap-3">
-                        <div class="p-2 rounded-lg bg-gradient-warning text-white">
+                    <h3 class="text-lg md:text-xl font-bold text-slate-800 mb-6 flex items-center gap-3">
+                        <div class="p-2 rounded-lg bg-gradient-to-r from-amber-500 to-amber-600 text-white">
                             <i class="fa-solid fa-lightbulb"></i>
                         </div>
                         <span>Rekomendasi & Analisis</span>
@@ -679,23 +679,23 @@
 
                     <div id="recommendationContainer" class="space-y-4 mb-6">
                         <!-- Recommendations will be dynamically inserted here -->
-                        <div class="p-4 rounded-xl bg-gradient-to-br from-gray-50 to-gray-100 border border-gray-200">
+                        <div class="p-4 rounded-xl bg-gradient-to-br from-slate-50 to-slate-100 border border-slate-200">
                             <div class="flex items-start gap-3">
-                                <i class="fa-solid fa-spinner fa-spin text-gray-600 mt-1"></i>
+                                <i class="fa-solid fa-spinner fa-spin text-slate-600 mt-1"></i>
                                 <div>
-                                    <p class="font-bold text-gray-800 mb-1">Memuat rekomendasi...</p>
-                                    <p class="text-sm text-gray-600">Analisis hasil ujian sedang diproses</p>
+                                    <p class="font-bold text-slate-800 mb-1">Memuat rekomendasi...</p>
+                                    <p class="text-sm text-slate-600">Analisis hasil ujian sedang diproses</p>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="p-4 rounded-xl bg-gradient-to-r from-primary/10 to-purple-500/10 border border-primary/20">
+                    <div class="p-4 rounded-xl bg-gradient-to-r from-blue-500/10 to-blue-600/10 border border-blue-200">
                         <div class="flex items-start gap-3">
-                            <i class="fa-solid fa-graduation-cap text-primary text-xl mt-0.5"></i>
+                            <i class="fa-solid fa-graduation-cap text-blue-600 text-xl mt-0.5"></i>
                             <div>
-                                <p class="font-bold text-primary mb-2 text-lg">Tips Sukses SKD:</p>
-                                <ul class="space-y-2 text-sm text-gray-700">
+                                <p class="font-bold text-blue-600 mb-2 text-lg">Tips Sukses SKD:</p>
+                                <ul class="space-y-2 text-sm text-slate-700">
                                     <li class="flex items-start gap-2">
                                         <i class="fa-solid fa-check text-green-500 mt-0.5"></i>
                                         <span>Fokus pada kategori dengan skor di bawah ambang batas</span>
@@ -716,8 +716,8 @@
 
                 <!-- Action Buttons -->
                 <div class="card p-6">
-                    <h3 class="text-lg md:text-xl font-bold text-gray-800 mb-6 flex items-center gap-3">
-                        <div class="p-2 rounded-lg bg-gradient-primary text-white">
+                    <h3 class="text-lg md:text-xl font-bold text-slate-800 mb-6 flex items-center gap-3">
+                        <div class="p-2 rounded-lg bg-gradient-to-r from-blue-600 to-indigo-600 text-white">
                             <i class="fa-solid fa-rocket"></i>
                         </div>
                         <span>Aksi Selanjutnya</span>
@@ -753,42 +753,42 @@
         </div>
 
         <!-- Footer -->
-        <footer class="bg-white rounded-2xl p-6 md:p-8 shadow-lg border border-gray-200">
+        <footer class="bg-white rounded-2xl p-6 md:p-8 shadow-lg border border-slate-200">
             <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-6">
                 <div class="flex items-center gap-4">
-                    <div class="p-3 rounded-xl bg-gradient-primary text-white shadow-md">
+                    <div class="p-3 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-md">
                         <i class="fa-solid fa-chalkboard-teacher text-xl"></i>
                     </div>
                     <div>
-                        <h2 class="text-xl font-bold text-gray-900 mb-1">Sistem Ujian CAT SKD - Paket 2</h2>
-                        <p class="text-gray-600 text-sm">
+                        <h2 class="text-xl font-bold text-slate-900 mb-1">Sistem Ujian CAT CPNS - Paket 2</h2>
+                        <p class="text-slate-600 text-sm">
                             Paket Intermediate Level dengan variasi soal menengah
                         </p>
                     </div>
                 </div>
 
                 <div class="text-center md:text-right">
-                    <button onclick="hubungiKami()" class="px-5 py-3 bg-gradient-success text-white rounded-xl font-bold hover:opacity-90 transition-all duration-300 flex items-center justify-center gap-3 shadow-md hover:shadow-lg">
+                    <button onclick="hubungiKami()" class="px-5 py-3 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-xl font-bold hover:opacity-90 transition-all duration-300 flex items-center justify-center gap-3 shadow-md hover:shadow-lg">
                         <i class="fa-solid fa-comment"></i>
                         <span>Butuh Bantuan?</span>
                     </button>
                 </div>
             </div>
 
-            <div class="border-t border-gray-200 pt-6">
+            <div class="border-t border-slate-200 pt-6">
                 <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
                     <div class="flex items-center gap-4">
-                        <div class="bg-gradient-to-r from-purple-50 to-indigo-50 px-4 py-3 rounded-xl border-2 border-dashed border-primary/30">
-                            <p class="text-xs text-gray-500 uppercase font-bold mb-1">PIN PESERTA</p>
-                            <p id="footerPin" class="font-mono font-black text-primary text-lg tracking-widest">MEMUAT...</p>
+                        <div class="bg-gradient-to-r from-blue-50 to-indigo-50 px-4 py-3 rounded-xl border-2 border-dashed border-blue-300">
+                            <p class="text-xs text-slate-500 uppercase font-bold mb-1">PIN PESERTA</p>
+                            <p id="footerPin" class="font-mono font-black text-blue-600 text-lg tracking-widest">MEMUAT...</p>
                         </div>
                         <div class="text-sm">
-                            <p class="font-medium text-gray-700">Paket: <span class="font-bold text-primary">PAKET 2 (INTERMEDIATE)</span></p>
-                            <p class="text-gray-600">Tanggal Ujian: <span id="footerTanggal" class="font-medium">-</span></p>
+                            <p class="font-medium text-slate-700">Paket: <span class="font-bold text-blue-600">PAKET 2 (INTERMEDIATE)</span></p>
+                            <p class="text-slate-600">Tanggal Ujian: <span id="footerTanggal" class="font-medium">-</span></p>
                         </div>
                     </div>
 
-                    <div class="text-sm text-gray-500">
+                    <div class="text-sm text-slate-500">
                         <p class="font-medium">&copy; <span id="currentYear"></span> Sistem Ujian CAT CPNS</p>
                         <p class="text-xs mt-1">Versi 2.0 | Ambang Batas SKD 2024</p>
                     </div>
@@ -801,17 +801,17 @@
     <div id="modalUlangi" class="hidden fixed inset-0 z-50 bg-black bg-opacity-60 flex items-center justify-center p-4">
         <div class="bg-white rounded-2xl p-6 max-w-md w-full mx-4 transform transition-all duration-300 scale-95" id="modalContent">
             <div class="flex items-center gap-3 mb-4">
-                <div class="p-2 rounded-lg bg-gradient-warning text-white">
+                <div class="p-2 rounded-lg bg-gradient-to-r from-amber-500 to-amber-600 text-white">
                     <i class="fa-solid fa-exclamation-triangle"></i>
                 </div>
-                <h3 class="text-xl font-bold text-gray-800">Ulangi Ujian Paket 2</h3>
+                <h3 class="text-xl font-bold text-slate-800">Ulangi Ujian Paket 2</h3>
             </div>
-            <p class="text-gray-600 mb-6">Apakah Anda yakin ingin mengulang ujian ini? Progress baru akan dimulai dari awal dan hasil sebelumnya tetap tersimpan.</p>
+            <p class="text-slate-600 mb-6">Apakah Anda yakin ingin mengulang ujian ini? Progress baru akan dimulai dari awal dan hasil sebelumnya tetap tersimpan.</p>
             <div class="flex gap-3">
-                <button onclick="tutupModal()" class="flex-1 px-4 py-3 bg-gray-100 text-gray-700 font-bold rounded-xl hover:bg-gray-200 transition-all duration-300">
+                <button onclick="tutupModal()" class="flex-1 px-4 py-3 bg-slate-100 text-slate-700 font-bold rounded-xl hover:bg-slate-200 transition-all duration-300">
                     Batal
                 </button>
-                <button onclick="konfirmasiUlangi()" class="flex-1 px-4 py-3 bg-gradient-primary text-white font-bold rounded-xl hover:opacity-90 transition-all duration-300 shadow-md">
+                <button onclick="konfirmasiUlangi()" class="flex-1 px-4 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold rounded-xl hover:opacity-90 transition-all duration-300 shadow-md">
                     Ya, Mulai Ulang
                 </button>
             </div>
@@ -831,14 +831,14 @@
             TWK: 65,    // Minimal 65 dari 150
             TIU: 80,    // Minimal 80 dari 175
             TKP: 166,   // Minimal 166 dari 225
-            TOTAL: 271  // Minimal 271 dari 550
+            TOTAL: 311  // Minimal 311 dari 550 (sesuai dengan perhitungan soalpaket2.html)
         };
 
         const MAX_SCORE = {
-            TWK: 150,
-            TIU: 175,
-            TKP: 225,
-            TOTAL: 550
+            TWK: 150,   // 30 soal × 5 poin
+            TIU: 175,   // 35 soal × 5 poin
+            TKP: 225,   // 45 soal × 5 poin (maksimal)
+            TOTAL: 550  // 150 + 175 + 225
         };
 
         // ====================== GLOBAL VARIABLES ======================
@@ -863,25 +863,20 @@
                 return;
             }
 
-            // Determine user's paket based on PIN
-            userPaket = determinePaket(userPIN);
-
-            if (!userPaket) {
-                showError('PIN tidak valid', 'PIN tidak terdaftar di paket manapun');
-                return;
-            }
-
+            // Determine user's paket based on PIN (untuk paket 2)
+            userPaket = "paket2"; // Karena ini halaman hasil paket 2
+            
             // Display PIN
             document.getElementById('pinDisplay').textContent = userPIN;
             document.getElementById('footerPin').textContent = userPIN;
 
-            // Update dashboard button based on paket
+            // Update dashboard button untuk paket 2
             const dashboardBtn = document.getElementById('btnDashboard');
             dashboardBtn.onclick = function() {
-                window.location.href = `dashboard${userPaket}.html?id=${userPIN}`;
+                window.location.href = `dashboardpaket2.html?id=${userPIN}`;
             };
 
-            // Load result data for the specific paket
+            // Load result data untuk paket 2
             loadResultData();
 
             // Check if this is a new result
@@ -889,34 +884,16 @@
         });
 
         // ====================== HELPER FUNCTIONS ======================
-        function determinePaket(pin) {
-            for (const [paket, pins] of Object.entries(paketMapping)) {
-                if (pins.includes(pin)) {
-                    return paket;
-                }
-            }
-            return null;
-        }
-
         function loadResultData() {
-            const resultKey = `hasil_${userPaket}_${userPIN}`;
+            const resultKey = `hasil_paket2_${userPIN}`; // Key sesuai dengan soalpaket2.html
             const savedResult = localStorage.getItem(resultKey);
 
             if (!savedResult) {
-                showError('Hasil ujian tidak ditemukan', `Anda belum mengerjakan ${userPaket}.`);
+                showError('Hasil ujian tidak ditemukan', 'Anda belum mengerjakan Paket 2.');
                 return;
             }
 
             hasilData = JSON.parse(savedResult);
-            
-            // Convert TKP score from 0-166 scale to 0-225 scale for display
-            if (hasilData.tkp) {
-                // Convert TKP score from old scale (0-166) to new scale (0-225)
-                hasilData.tkp = Math.round((hasilData.tkp / 166) * 225);
-                // Update total score to reflect new TKP scale
-                hasilData.total = hasilData.twk + hasilData.tiu + hasilData.tkp;
-            }
-            
             displayResult();
         }
 
@@ -939,13 +916,13 @@
             document.getElementById('footerTanggal').textContent = tanggalText;
             document.getElementById('waktuSelesai').textContent = waktuText;
 
-            // Display scores with new max values
+            // Display scores sesuai dengan perhitungan di soalpaket2.html
             document.getElementById('skorTWK').textContent = hasilData.twk;
             document.getElementById('skorTIU').textContent = hasilData.tiu;
             document.getElementById('skorTKP').textContent = hasilData.tkp;
             document.getElementById('totalScore').textContent = hasilData.total;
 
-            // Calculate percentages for progress bars based on new max values
+            // Calculate percentages for progress bars
             const twkPercent = Math.round((hasilData.twk / MAX_SCORE.TWK) * 100);
             const tiuPercent = Math.round((hasilData.tiu / MAX_SCORE.TIU) * 100);
             const tkpPercent = Math.round((hasilData.tkp / MAX_SCORE.TKP) * 100);
@@ -1000,7 +977,8 @@
             // Calculate accuracy
             const twkAccuracy = hasilData.twkJawab > 0 ? Math.round((hasilData.twkBenar / hasilData.twkJawab) * 100) : 0;
             const tiuAccuracy = hasilData.tiuJawab > 0 ? Math.round((hasilData.tiuBenar / hasilData.tiuJawab) * 100) : 0;
-            const totalAnswered = hasilData.twkJawab + hasilData.tiuJawab;
+            const tkpAccuracy = Math.round((hasilData.tkp / MAX_SCORE.TKP) * 100);
+            const totalAnswered = hasilData.twkJawab + hasilData.tiuJawab + hasilData.tkpJawab;
             const totalCorrect = (hasilData.twkBenar || 0) + (hasilData.tiuBenar || 0);
             const totalAccuracy = totalAnswered > 0 ? Math.round((totalCorrect / totalAnswered) * 100) : 0;
 
@@ -1012,16 +990,17 @@
             // Display accuracy in breakdown
             document.getElementById('twkAccuracy').textContent = `${twkAccuracy}%`;
             document.getElementById('tiuAccuracy').textContent = `${tiuAccuracy}%`;
-            document.getElementById('tkpAccuracy').textContent = `${tkpPercent}%`;
+            document.getElementById('tkpAccuracy').textContent = `${tkpAccuracy}%`;
 
             // Display time used
             const waktu = hasilData.waktu || "0m";
             document.getElementById('waktuDigunakan').textContent = waktu;
             document.getElementById('waktuDetail').textContent = waktu;
             
-            // Calculate and display remaining time (assuming 90 minutes total)
-            const totalTime = 90; // minutes
-            const usedTime = parseInt(waktu) || 0;
+            // Calculate and display remaining time (100 menit total sesuai soalpaket2.html)
+            const totalTime = 100; // minutes
+            const usedTimeMatch = waktu.match(/(\d+)m/);
+            const usedTime = usedTimeMatch ? parseInt(usedTimeMatch[1]) : 0;
             const remainingTime = Math.max(0, totalTime - usedTime);
             document.getElementById('waktuSisa').textContent = `${remainingTime}m`;
 
@@ -1111,12 +1090,9 @@
             } else if (totalScore >= 350) {
                 message = 'Bagus! Hasil Anda melebihi ekspektasi.';
                 emoji = '⭐';
-            } else if (totalScore >= 300) {
-                message = 'Cukup baik. Tingkatkan lagi untuk hasil optimal.';
-                emoji = '👍';
             } else if (totalScore >= AMBANG_BATAS.TOTAL) {
-                message = 'Anda mencapai ambang batas minimal. Perlu peningkatan.';
-                emoji = '📈';
+                message = 'Cukup baik. Anda mencapai ambang batas minimal.';
+                emoji = '👍';
             } else {
                 message = 'Perlu belajar lebih giat untuk mencapai ambang batas.';
                 emoji = '📚';
@@ -1139,7 +1115,7 @@
             // Add paket-specific recommendation
             recommendations.push({
                 icon: 'fa-layer-group',
-                color: 'primary',
+                color: 'blue',
                 title: 'Paket Intermediate Level',
                 text: 'Paket 2 memiliki tingkat kesulitan sedang dengan variasi soal yang beragam untuk menguji pemahaman konsep.'
             });
@@ -1148,7 +1124,7 @@
             if (twkScore < AMBANG_BATAS.TWK) {
                 recommendations.push({
                     icon: 'fa-landmark',
-                    color: 'twk',
+                    color: 'blue',
                     title: 'Perbaiki TWK',
                     text: `Skor TWK Anda ${twkScore}, di bawah ambang batas (${AMBANG_BATAS.TWK}). Pelajari materi wawasan kebangsaan, Pancasila, UUD 1945, dan NKRI.`
                 });
@@ -1157,7 +1133,7 @@
             if (tiuScore < AMBANG_BATAS.TIU) {
                 recommendations.push({
                     icon: 'fa-brain',
-                    color: 'tiu',
+                    color: 'amber',
                     title: 'Tingkatkan TIU',
                     text: `Skor TIU Anda ${tiuScore}, di bawah ambang batas (${AMBANG_BATAS.TIU}). Latih kemampuan verbal, numerik, dan logika dengan lebih intensif.`
                 });
@@ -1166,7 +1142,7 @@
             if (tkpScore < AMBANG_BATAS.TKP) {
                 recommendations.push({
                     icon: 'fa-user-check',
-                    color: 'tkp',
+                    color: 'purple',
                     title: 'Asah TKP',
                     text: `Skor TKP Anda ${tkpScore}, di bawah ambang batas (${AMBANG_BATAS.TKP}). Pahami nilai-nilai karakter pribadi, integritas, dan etos kerja.`
                 });
@@ -1175,7 +1151,7 @@
             if (totalScore < AMBANG_BATAS.TOTAL) {
                 recommendations.push({
                     icon: 'fa-chart-line',
-                    color: 'danger',
+                    color: 'red',
                     title: 'Target Total Skor',
                     text: `Total skor Anda ${totalScore}, belum mencapai ambang batas (${AMBANG_BATAS.TOTAL}). Fokus pada kategori dengan skor terendah.`
                 });
@@ -1184,18 +1160,19 @@
             if (recommendations.length === 1) { // Hanya recommendation paket yang ada
                 recommendations.push({
                     icon: 'fa-flag-checkered',
-                    color: 'success',
+                    color: 'green',
                     title: 'Pertahankan Prestasi!',
                     text: 'Semua kategori telah memenuhi ambang batas. Terus latih diri untuk persiapan ujian selanjutnya.'
                 });
             }
 
             // Add time management recommendation if time used is too long
-            const waktu = parseInt(hasilData.waktu) || 0;
+            const waktuMatch = hasilData.waktu?.match(/(\d+)m/);
+            const waktu = waktuMatch ? parseInt(waktuMatch[1]) : 0;
             if (waktu > 80) { // If used more than 80 minutes
                 recommendations.push({
                     icon: 'fa-clock',
-                    color: 'warning',
+                    color: 'amber',
                     title: 'Manajemen Waktu',
                     text: `Anda menggunakan ${waktu} menit. Latih kecepatan mengerjakan soal tanpa mengurangi akurasi.`
                 });
@@ -1204,22 +1181,20 @@
             // Render recommendations
             recommendations.forEach((rec, index) => {
                 const colorClasses = {
-                    'primary': 'border-purple-200 bg-gradient-to-r from-purple-50 to-purple-100',
-                    'twk': 'border-blue-200 bg-gradient-to-r from-blue-50 to-blue-100',
-                    'tiu': 'border-amber-200 bg-gradient-to-r from-amber-50 to-amber-100',
-                    'tkp': 'border-purple-200 bg-gradient-to-r from-purple-50 to-purple-100',
-                    'success': 'border-green-200 bg-gradient-to-r from-green-50 to-green-100',
-                    'warning': 'border-yellow-200 bg-gradient-to-r from-yellow-50 to-yellow-100',
-                    'danger': 'border-red-200 bg-gradient-to-r from-red-50 to-red-100'
+                    'blue': 'border-blue-200 bg-gradient-to-r from-blue-50 to-blue-100',
+                    'amber': 'border-amber-200 bg-gradient-to-r from-amber-50 to-amber-100',
+                    'purple': 'border-purple-200 bg-gradient-to-r from-purple-50 to-purple-100',
+                    'green': 'border-green-200 bg-gradient-to-r from-green-50 to-green-100',
+                    'red': 'border-red-200 bg-gradient-to-r from-red-50 to-red-100'
                 };
 
                 const recHTML = `
                     <div class="p-4 rounded-xl border ${colorClasses[rec.color]} slide-up" style="animation-delay: ${index * 100}ms">
                         <div class="flex items-start gap-3">
-                            <i class="fa-solid ${rec.icon} text-${rec.color} text-xl mt-0.5"></i>
+                            <i class="fa-solid ${rec.icon} text-${rec.color}-600 text-xl mt-0.5"></i>
                             <div>
-                                <p class="font-bold text-gray-800 text-base mb-1">${rec.title}</p>
-                                <p class="text-sm text-gray-700">${rec.text}</p>
+                                <p class="font-bold text-slate-800 text-base mb-1">${rec.title}</p>
+                                <p class="text-sm text-slate-700">${rec.text}</p>
                             </div>
                         </div>
                     </div>
@@ -1230,11 +1205,11 @@
         }
 
         function checkNewResult() {
-            const fromSoalPage = sessionStorage.getItem(`from_soal${userPaket}`);
+            const fromSoalPage = sessionStorage.getItem('from_soalpaket2');
             if (fromSoalPage === 'true') {
-                sessionStorage.removeItem(`from_soal${userPaket}`);
+                sessionStorage.removeItem('from_soalpaket2');
                 // Show success toast for new result
-                showToast('success', 'Hasil Ujian Tersimpan!', `Hasil ujian ${userPaket} telah disimpan dan dapat diakses kapan saja.`);
+                showToast('success', 'Hasil Ujian Tersimpan!', 'Hasil ujian Paket 2 telah disimpan dan dapat diakses kapan saja.');
             }
         }
 
@@ -1248,8 +1223,8 @@
                 showError('Error', 'PIN tidak ditemukan');
                 return;
             }
-            // Redirect to pembahasan page for the specific paket
-            window.location.href = `pembahasansoal${userPaket}.html?id=${userPIN}`;
+            // Redirect to pembahasan page untuk paket 2
+            window.location.href = `pembahasansoalpaket2.html?id=${userPIN}`;
         }
 
         function ulangiUjian() {
@@ -1269,14 +1244,17 @@
         }
 
         function konfirmasiUlangi() {
-            const progressKey = `progress_${userPaket}_${userPIN}`;
+            // Hapus progress untuk paket 2
+            const progressKey = `progress_paket2_${userPIN}`;
             localStorage.removeItem(progressKey);
-            window.location.href = `soal${userPaket}.html?id=${userPIN}`;
+            
+            // Redirect ke soal paket 2
+            window.location.href = `soalpaket2.html?id=${userPIN}`;
         }
 
         function hubungiKami() {
             const phoneNumber = "6285754052806";
-            const message = `Halo, saya ingin bertanya tentang hasil ujian ${userPaket.toUpperCase()} dengan PIN: ${userPIN}`;
+            const message = `Halo, saya ingin bertanya tentang hasil ujian PAKET 2 dengan PIN: ${userPIN}`;
             const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
             window.open(whatsappUrl, '_blank');
         }
@@ -1298,10 +1276,10 @@
             toast.className = `custom-toast fixed top-4 right-4 z-50 max-w-sm`;
 
             let bgColor = 'bg-white';
-            let borderColor = 'border-gray-200';
+            let borderColor = 'border-slate-200';
             let icon = 'fa-circle-info';
             let iconColor = 'text-blue-500';
-            let titleColor = 'text-gray-900';
+            let titleColor = 'text-slate-900';
 
             switch (type) {
                 case 'success':
@@ -1333,9 +1311,9 @@
                         <i class="fa-solid ${icon} ${iconColor} text-xl mt-0.5"></i>
                         <div class="flex-1">
                             <h4 class="font-bold ${titleColor}">${title}</h4>
-                            <p class="text-sm text-gray-700 mt-1">${message}</p>
+                            <p class="text-sm text-slate-700 mt-1">${message}</p>
                         </div>
-                        <button onclick="this.parentElement.parentElement.remove()" class="text-gray-400 hover:text-gray-600 transition-colors">
+                        <button onclick="this.parentElement.parentElement.remove()" class="text-slate-400 hover:text-slate-600 transition-colors">
                             <i class="fa-solid fa-times"></i>
                         </button>
                     </div>
