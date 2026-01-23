@@ -1661,298 +1661,35 @@
         }
 
 // ========== 11. LOGOUT FUNCTION ==========
-function confirmLogout() {
-    showLogoutModal();
-}
-
-function logout(reason = 'unknown') {
-    // Clear intervals
-    if (sessionInterval) clearInterval(sessionInterval);
-    if (sessionTimer) clearInterval(sessionTimer);
-
-    // Track logout
-    trackActivity('logout', { reason: reason });
-
-    // Clear session data
-    sessionStorage.removeItem('currentSession');
-
-    // Close modal if open
-    closeLogoutModal();
-    
-    // Show logout message
-    showNotification('success', 'Berhasil Logout', 'Anda telah keluar dari dashboard');
-
-    // Redirect to login
-    setTimeout(() => {
-        const redirectUrl = reason === 'session_expired' 
-            ? 'login.html?message=session_expired'
-            : 'login.html?message=logout_success';
-
-        window.location.href = redirectUrl;
-    }, 1500);
-}
-
-// Create logout modal HTML and styles
-function initLogoutModal() {
-    // Create modal HTML
-    const modalHTML = `
-        <div id="logoutModal" class="logout-modal" style="display: none;">
-            <div class="logout-modal-overlay"></div>
-            <div class="logout-modal-content">
-                <div class="logout-modal-header">
-                    <h3>Konfirmasi Logout</h3>
-                    <button class="logout-modal-close" onclick="closeLogoutModal()">&times;</button>
-                </div>
-                <div class="logout-modal-body">
-                    <div class="logout-icon">
-                        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#ff6b6b" stroke-width="2">
-                            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
-                            <polyline points="16 17 21 12 16 7"></polyline>
-                            <line x1="21" y1="12" x2="9" y2="12"></line>
-                        </svg>
-                    </div>
-                    <p>Apakah Anda yakin ingin keluar dari dashboard?</p>
-                    <p class="logout-warning">Semua progress yang belum disimpan akan hilang.</p>
-                </div>
-                <div class="logout-modal-footer">
-                    <button class="logout-btn-cancel" onclick="closeLogoutModal()">Batal</button>
-                    <button class="logout-btn-confirm" onclick="logout('user_initiated')">Ya, Logout</button>
-                </div>
-            </div>
-        </div>
-    `;
-
-    // Create modal styles
-    const styleHTML = `
-        <style>
-            .logout-modal {
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                z-index: 10000;
-                display: flex;
-                align-items: center;
-                justify-content: center;
+        function confirmLogout() {
+            if (confirm('Apakah Anda yakin ingin keluar dari dashboard? Semua progress yang belum disimpan akan hilang.')) {
+                logout('user_initiated');
             }
-            
-            .logout-modal-overlay {
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background: rgba(0, 0, 0, 0.5);
-                backdrop-filter: blur(3px);
-            }
-            
-            .logout-modal-content {
-                position: relative;
-                background: white;
-                border-radius: 12px;
-                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-                width: 90%;
-                max-width: 400px;
-                overflow: hidden;
-                animation: modalFadeIn 0.3s ease-out;
-                z-index: 10001;
-            }
-            
-            @keyframes modalFadeIn {
-                from {
-                    opacity: 0;
-                    transform: translateY(-20px) scale(0.95);
-                }
-                to {
-                    opacity: 1;
-                    transform: translateY(0) scale(1);
-                }
-            }
-            
-            .logout-modal-header {
-                padding: 20px 24px;
-                border-bottom: 1px solid #e9ecef;
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                background: #f8f9fa;
-            }
-            
-            .logout-modal-header h3 {
-                margin: 0;
-                color: #333;
-                font-size: 18px;
-                font-weight: 600;
-            }
-            
-            .logout-modal-close {
-                background: none;
-                border: none;
-                font-size: 24px;
-                cursor: pointer;
-                color: #6c757d;
-                padding: 0;
-                width: 30px;
-                height: 30px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                border-radius: 50%;
-                transition: all 0.2s;
-            }
-            
-            .logout-modal-close:hover {
-                background: #e9ecef;
-                color: #333;
-            }
-            
-            .logout-modal-body {
-                padding: 30px 24px;
-                text-align: center;
-            }
-            
-            .logout-icon {
-                margin-bottom: 20px;
-            }
-            
-            .logout-modal-body p {
-                margin: 0 0 10px 0;
-                color: #333;
-                font-size: 16px;
-                line-height: 1.5;
-            }
-            
-            .logout-warning {
-                color: #ff6b6b !important;
-                font-weight: 500;
-                font-size: 14px !important;
-            }
-            
-            .logout-modal-footer {
-                padding: 20px 24px;
-                border-top: 1px solid #e9ecef;
-                display: flex;
-                gap: 12px;
-                justify-content: flex-end;
-                background: #f8f9fa;
-            }
-            
-            .logout-btn-cancel,
-            .logout-btn-confirm {
-                padding: 10px 24px;
-                border: none;
-                border-radius: 6px;
-                font-size: 14px;
-                font-weight: 500;
-                cursor: pointer;
-                transition: all 0.2s;
-            }
-            
-            .logout-btn-cancel {
-                background: #e9ecef;
-                color: #495057;
-            }
-            
-            .logout-btn-cancel:hover {
-                background: #dee2e6;
-            }
-            
-            .logout-btn-confirm {
-                background: #ff6b6b;
-                color: white;
-            }
-            
-            .logout-btn-confirm:hover {
-                background: #ff5252;
-                box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3);
-            }
-            
-            /* Animation for closing */
-            .logout-modal.closing .logout-modal-content {
-                animation: modalFadeOut 0.2s ease-in forwards;
-            }
-            
-            @keyframes modalFadeOut {
-                from {
-                    opacity: 1;
-                    transform: translateY(0) scale(1);
-                }
-                to {
-                    opacity: 0;
-                    transform: translateY(-20px) scale(0.95);
-                }
-            }
-        </style>
-    `;
-
-    // Add modal and styles to document
-    document.body.insertAdjacentHTML('beforeend', modalHTML);
-    document.head.insertAdjacentHTML('beforeend', styleHTML);
-}
-
-// Show logout modal
-function showLogoutModal() {
-    let modal = document.getElementById('logoutModal');
-    
-    // If modal doesn't exist, initialize it
-    if (!modal) {
-        initLogoutModal();
-        modal = document.getElementById('logoutModal');
-    }
-    
-    // Remove closing class if exists
-    modal.classList.remove('closing');
-    
-    // Show modal
-    modal.style.display = 'flex';
-    
-    // Prevent body scroll
-    document.body.style.overflow = 'hidden';
-}
-
-// Close logout modal
-function closeLogoutModal() {
-    const modal = document.getElementById('logoutModal');
-    if (!modal) return;
-    
-    // Add closing animation
-    modal.classList.add('closing');
-    
-    // Wait for animation to complete before hiding
-    setTimeout(() => {
-        modal.style.display = 'none';
-        modal.classList.remove('closing');
-        
-        // Restore body scroll
-        document.body.style.overflow = '';
-    }, 200);
-}
-
-// Close modal on ESC key
-document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') {
-        const modal = document.getElementById('logoutModal');
-        if (modal && modal.style.display === 'flex') {
-            closeLogoutModal();
         }
-    }
-});
 
-// Close modal when clicking outside
-document.addEventListener('click', function(e) {
-    const modal = document.getElementById('logoutModal');
-    if (modal && modal.style.display === 'flex') {
-        if (e.target.classList.contains('logout-modal-overlay')) {
-            closeLogoutModal();
+        function logout(reason = 'unknown') {
+            // Clear intervals
+            if (sessionInterval) clearInterval(sessionInterval);
+            if (sessionTimer) clearInterval(sessionTimer);
+
+            // Track logout
+            trackActivity('logout', { reason: reason });
+
+            // Clear session data
+            sessionStorage.removeItem('currentSession');
+
+            // Show logout message
+            showNotification('success', 'Berhasil Logout', 'Anda telah keluar dari dashboard');
+
+            // Redirect to login
+            setTimeout(() => {
+                const redirectUrl = reason === 'session_expired' 
+                    ? 'login.html?message=session_expired'
+                    : 'login.html?message=logout_success';
+
+                window.location.href = redirectUrl;
+            }, 1500);
         }
-    }
-});
-
-// Initialize modal on page load
-document.addEventListener('DOMContentLoaded', function() {
-    // Modal will be initialized on first use
-});
         
         // ========== 12. ANALYTICS & TELEMETRY ==========
         function trackActivity(action, detail = {}) {
