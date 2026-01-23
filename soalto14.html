@@ -1,0 +1,1311 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ujian CAT CPNS - Paket 14</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&display=swap');
+        body { 
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+        }
+        .no-soal-btn.active { 
+            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%); 
+            color: white; 
+            border-color: #2563eb; 
+            box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.3);
+        }
+        .no-soal-btn.ragu { 
+            background: linear-gradient(135deg, #eab308 0%, #ca8a04 100%); 
+            color: white; 
+            border-color: #eab308;
+            box-shadow: 0 4px 6px -1px rgba(234, 179, 8, 0.3);
+        }
+        .no-soal-btn.filled { 
+            background: linear-gradient(135deg, #16a34a 0%, #15803d 100%); 
+            color: white; 
+            border-color: #16a34a;
+            box-shadow: 0 4px 6px -1px rgba(22, 163, 74, 0.3);
+        }
+        .no-soal-btn.marked { 
+            background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%); 
+            color: white; 
+            border-color: #8b5cf6;
+            box-shadow: 0 4px 6px -1px rgba(139, 92, 246, 0.3);
+        }
+        .custom-scrollbar::-webkit-scrollbar { 
+            width: 6px; 
+            height: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track { 
+            background: #f1f5f9; 
+            border-radius: 10px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb { 
+            background: #cbd5e1; 
+            border-radius: 10px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { 
+            background: #94a3b8;
+        }
+        .modal { 
+            display: none; 
+            position: fixed; 
+            z-index: 1000; 
+            left: 0; 
+            top: 0; 
+            width: 100%; 
+            height: 100%; 
+            background-color: rgba(0,0,0,0.5); 
+            animation: fadeIn 0.3s ease;
+        }
+        .modal-content { 
+            background-color: white; 
+            margin: 5% auto; 
+            padding: 0; 
+            border-radius: 24px; 
+            width: 90%; 
+            max-width: 500px;
+            animation: slideIn 0.3s ease;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            overflow: hidden;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes slideIn {
+            from { transform: translateY(-20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        .radio-custom:checked + .radio-label {
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+            color: white;
+            border-color: #3b82f6;
+            box-shadow: 0 4px 6px -1px rgba(59, 130, 246, 0.3);
+        }
+        .radio-custom:checked + .radio-label .radio-indicator {
+            background-color: white;
+        }
+        .radio-label {
+            transition: all 0.2s ease;
+            border: 2px solid #e2e8f0;
+        }
+        .radio-label:hover {
+            border-color: #93c5fd;
+            background-color: #f8fafc;
+        }
+        .kategori-badge {
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+            color: white;
+            font-weight: 800;
+            letter-spacing: 0.05em;
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            box-shadow: 0 4px 6px -1px rgba(59, 130, 246, 0.3);
+        }
+        .timer-critical {
+            animation: pulse 1s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        .soal-navigation {
+            position: sticky;
+            top: 80px;
+        }
+        @media (max-width: 768px) {
+            .modal-content {
+                margin: 10% auto;
+                width: 95%;
+            }
+            .soal-container {
+                padding: 1rem !important;
+            }
+            .radio-label {
+                padding: 0.75rem !important;
+            }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+    <!-- Header -->
+    <header class="bg-white border-b border-slate-200 py-3 md:py-4 sticky top-0 z-50 shadow-sm">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-3">
+                <div class="flex items-center gap-3">
+                    <div class="bg-gradient-to-r from-violet-600 to-purple-600 text-white px-3 py-1 rounded-lg font-bold text-xs uppercase tracking-wider shadow-sm">
+                        CAT ASN - PAKET 14
+                    </div>
+                    <div>
+                        <p class="text-[10px] text-slate-500 font-bold uppercase leading-none">ID PESERTA</p>
+                        <p id="pesertaID" class="text-sm font-black text-slate-800 tracking-wide font-mono">MEMUAT...</p>
+                    </div>
+                </div>
+                
+                <div class="flex items-center justify-between md:justify-end gap-4 w-full md:w-auto">
+                    <div class="text-right">
+                        <p class="text-[10px] text-slate-500 font-bold uppercase leading-none mb-1">Sisa Waktu</p>
+                        <p id="timer" class="text-xl md:text-2xl font-mono font-extrabold text-blue-600">100:00</p>
+                    </div>
+                    <button onclick="showConfirmModal()" class="bg-gradient-to-r from-red-500 to-red-600 text-white px-4 py-2 rounded-xl font-bold hover:from-red-600 hover:to-red-700 transition-all text-sm shadow-lg shadow-red-100 active:scale-95 flex items-center gap-2">
+                        <i class="fa-solid fa-flag-checkered"></i>
+                        <span class="hidden md:inline">Selesai</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Konfirmasi Modal -->
+    <div id="modalKonfirmasi" class="modal">
+        <div class="modal-content">
+            <div class="p-6 border-b border-slate-100">
+                <h3 class="text-xl font-bold text-slate-800 mb-2">Konfirmasi Pengumpulan</h3>
+                <p id="statistikTerjawab" class="text-slate-600">Mengumpulkan hasil ujian Anda...</p>
+            </div>
+            
+            <div class="p-6">
+                <div class="grid grid-cols-3 gap-4 mb-6">
+                    <div class="bg-gradient-to-br from-blue-50 to-blue-100 p-4 rounded-xl text-center border border-blue-200">
+                        <p class="text-2xl font-black text-blue-600" id="statTWK">0</p>
+                        <p class="text-xs text-blue-700 font-bold uppercase mt-1">TWK</p>
+                        <p class="text-[10px] text-blue-600 mt-1">30 soal</p>
+                    </div>
+                    <div class="bg-gradient-to-br from-green-50 to-green-100 p-4 rounded-xl text-center border border-green-200">
+                        <p class="text-2xl font-black text-green-600" id="statTIU">0</p>
+                        <p class="text-xs text-green-700 font-bold uppercase mt-1">TIU</p>
+                        <p class="text-[10px] text-green-600 mt-1">35 soal</p>
+                    </div>
+                    <div class="bg-gradient-to-br from-purple-50 to-purple-100 p-4 rounded-xl text-center border border-purple-200">
+                        <p class="text-2xl font-black text-purple-600" id="statTKP">0</p>
+                        <p class="text-xs text-purple-700 font-bold uppercase mt-1">TKP</p>
+                        <p class="text-[10px] text-purple-600 mt-1">45 soal</p>
+                    </div>
+                </div>
+                
+                <div class="bg-slate-50 rounded-xl p-4 mb-6">
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="text-sm font-medium text-slate-700">Total Terjawab</span>
+                        <span id="totalTerjawab" class="text-lg font-black text-slate-800">0/110</span>
+                    </div>
+                    <div class="w-full bg-slate-200 h-2 rounded-full overflow-hidden">
+                        <div id="progressBar" class="h-full bg-gradient-to-r from-blue-500 to-green-500" style="width: 0%"></div>
+                    </div>
+                    <p id="persentaseTerjawab" class="text-xs text-slate-500 text-right mt-1">0%</p>
+                </div>
+                
+                <div class="bg-yellow-50 border border-yellow-200 rounded-xl p-4 mb-6">
+                    <div class="flex items-start gap-3">
+                        <i class="fa-solid fa-triangle-exclamation text-yellow-600 mt-0.5"></i>
+                        <div>
+                            <p class="text-sm font-bold text-yellow-800 mb-1">Perhatian!</p>
+                            <p class="text-xs text-yellow-700">Setelah mengumpulkan, Anda tidak dapat mengubah jawaban. Pastikan semua soal telah diperiksa.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flex flex-col sm:flex-row gap-3">
+                    <button onclick="tutupModal()" class="flex-1 px-4 py-3 bg-slate-100 text-slate-700 font-bold rounded-xl hover:bg-slate-200 transition-colors flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-arrow-left"></i>
+                        Lanjutkan Ujian
+                    </button>
+                    <button onclick="kirimHasil()" class="flex-1 px-4 py-3 bg-gradient-to-r from-green-500 to-emerald-600 text-white font-bold rounded-xl hover:from-green-600 hover:to-emerald-700 transition-all flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-paper-plane"></i>
+                        Ya, Kumpulkan
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mark Soal Modal -->
+    <div id="modalMarkSoal" class="modal">
+        <div class="modal-content">
+            <div class="p-6 border-b border-slate-100">
+                <h3 class="text-xl font-bold text-slate-800 mb-2">Tandai Soal</h3>
+                <p class="text-slate-600">Berikan penanda untuk soal nomor <span id="markSoalNumber" class="font-bold">1</span></p>
+            </div>
+            
+            <div class="p-6">
+                <div class="grid grid-cols-2 gap-3 mb-6">
+                    <button onclick="markSoal('review')" class="p-4 rounded-xl border-2 border-blue-200 bg-blue-50 hover:bg-blue-100 transition-colors">
+                        <div class="flex flex-col items-center gap-2">
+                            <div class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center">
+                                <i class="fa-solid fa-eye text-blue-600"></i>
+                            </div>
+                            <span class="text-sm font-bold text-blue-700">Tinjau Ulang</span>
+                        </div>
+                    </button>
+                    <button onclick="markSoal('important')" class="p-4 rounded-xl border-2 border-purple-200 bg-purple-50 hover:bg-purple-100 transition-colors">
+                        <div class="flex flex-col items-center gap-2">
+                            <div class="w-8 h-8 rounded-full bg-purple-100 flex items-center justify-center">
+                                <i class="fa-solid fa-star text-purple-600"></i>
+                            </div>
+                            <span class="text-sm font-bold text-purple-700">Penting</span>
+                        </div>
+                    </button>
+                    <button onclick="markSoal('difficult')" class="p-4 rounded-xl border-2 border-red-200 bg-red-50 hover:bg-red-100 transition-colors">
+                        <div class="flex flex-col items-center gap-2">
+                            <div class="w-8 h-8 rounded-full bg-red-100 flex items-center justify-center">
+                                <i class="fa-solid fa-fire text-red-600"></i>
+                            </div>
+                            <span class="text-sm font-bold text-red-700">Sulit</span>
+                        </div>
+                    </button>
+                    <button onclick="markSoal('skip')" class="p-4 rounded-xl border-2 border-yellow-200 bg-yellow-50 hover:bg-yellow-100 transition-colors">
+                        <div class="flex flex-col items-center gap-2">
+                            <div class="w-8 h-8 rounded-full bg-yellow-100 flex items-center justify-center">
+                                <i class="fa-solid fa-forward text-yellow-600"></i>
+                            </div>
+                            <span class="text-sm font-bold text-yellow-700">Lewati</span>
+                        </div>
+                    </button>
+                </div>
+                
+                <div class="flex gap-3">
+                    <button onclick="clearMark()" class="flex-1 px-4 py-3 bg-slate-100 text-slate-700 font-bold rounded-xl hover:bg-slate-200 transition-colors">
+                        Hapus Penanda
+                    </button>
+                    <button onclick="tutupMarkModal()" class="flex-1 px-4 py-3 bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-bold rounded-xl hover:from-blue-600 hover:to-indigo-700 transition-all">
+                        Tutup
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <main class="container mx-auto px-4 py-4 md:py-6 flex flex-col lg:flex-row gap-4 md:gap-6 flex-grow">
+        <!-- Soal Container -->
+        <div class="flex-grow space-y-4 md:space-y-6">
+            <div class="bg-white rounded-2xl md:rounded-3xl p-4 md:p-6 lg:p-8 shadow-sm border border-slate-200 min-h-[400px] md:min-h-[450px] relative soal-container">
+                <!-- Header Soal -->
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+                    <div class="flex items-center gap-3">
+                        <span class="kategori-badge text-xs md:text-sm" id="kategori-soal">TWK</span>
+                        <div class="hidden md:block text-slate-400">
+                            <span class="font-medium">Soal</span>
+                            <span id="current-no" class="font-black text-slate-900 text-lg mx-1">1</span>
+                            <span class="font-medium">dari 110</span>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center gap-2 md:gap-3">
+                        <button onclick="openMarkModal()" class="w-9 h-9 rounded-lg bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-600 transition-colors tooltip" title="Tandai soal">
+                            <i class="fa-solid fa-tag"></i>
+                        </button>
+                        <button onclick="toggleBookmark()" id="bookmarkBtn" class="w-9 h-9 rounded-lg bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-600 transition-colors tooltip" title="Bookmark soal">
+                            <i class="fa-regular fa-bookmark"></i>
+                        </button>
+                        <span class="text-slate-400 text-sm font-medium md:hidden">
+                            <span id="current-no-mobile" class="font-black text-slate-900">1</span>/110
+                        </span>
+                    </div>
+                </div>
+                
+                <!-- Teks Soal -->
+                <div class="mb-6 md:mb-8">
+                    <p id="teks-soal" class="text-base md:text-lg text-slate-800 leading-relaxed md:leading-relaxed font-medium">Memuat soal...</p>
+                </div>
+                
+                <!-- Opsi Jawaban -->
+                <div id="opsi-jawaban" class="space-y-3">
+                    <!-- Opsi akan dimuat dinamis -->
+                </div>
+                
+                <!-- Loading State -->
+                <div id="loadingState" class="absolute inset-0 bg-white bg-opacity-80 flex flex-col items-center justify-center rounded-2xl hidden">
+                    <div class="w-12 h-12 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mb-4"></div>
+                    <p class="text-slate-600 font-medium">Memuat soal...</p>
+                </div>
+            </div>
+
+            <!-- Navigation Buttons -->
+            <div class="flex flex-col sm:flex-row justify-between items-center gap-4 bg-white p-4 rounded-2xl shadow-sm border border-slate-200">
+                <button onclick="prevSoal()" class="w-full sm:w-auto px-6 py-3 rounded-xl font-bold text-slate-700 bg-slate-100 hover:bg-slate-200 transition-colors flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-arrow-left"></i>
+                    <span>Sebelumnya</span>
+                </button>
+                
+                <div class="flex items-center gap-4">
+                    <label class="flex items-center gap-3 cursor-pointer bg-gradient-to-r from-yellow-50 to-amber-50 px-4 py-3 rounded-xl text-yellow-700 font-bold text-sm border border-yellow-100 hover:border-yellow-200 active:scale-95 transition-all">
+                        <input type="checkbox" id="checkRagu" onchange="toggleRagu()" class="w-5 h-5 text-yellow-600 rounded">
+                        <i class="fa-solid fa-question-circle"></i>
+                        <span>Ragu-ragu</span>
+                    </label>
+                    
+                    <div class="hidden md:flex items-center gap-2 text-slate-500">
+                        <span class="text-xs font-bold">Pilihan:</span>
+                        <div class="flex gap-1">
+                            <kbd class="px-2 py-1 bg-slate-100 rounded text-xs font-mono">1-5</kbd>
+                        </div>
+                    </div>
+                </div>
+                
+                <button onclick="nextSoal()" class="w-full sm:w-auto px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl font-bold hover:from-blue-700 hover:to-indigo-700 transition-all flex items-center justify-center gap-2">
+                    <span>Selanjutnya</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </button>
+            </div>
+            
+            <!-- Quick Navigation -->
+            <div class="bg-white rounded-2xl p-4 shadow-sm border border-slate-200 md:hidden">
+                <div class="flex items-center justify-between mb-3">
+                    <h4 class="font-bold text-slate-800 text-sm">Lompat ke Soal</h4>
+                    <div class="flex gap-2">
+                        <button onclick="jumpToFirstUnanswered()" class="text-xs bg-blue-50 text-blue-600 px-3 py-1 rounded-lg font-bold">
+                            Belum
+                        </button>
+                        <button onclick="jumpToRagu()" class="text-xs bg-yellow-50 text-yellow-600 px-3 py-1 rounded-lg font-bold">
+                            Ragu
+                        </button>
+                    </div>
+                </div>
+                <div class="grid grid-cols-5 gap-2">
+                    <input type="number" id="jumpInput" min="1" max="110" placeholder="No" class="col-span-3 px-3 py-2 border border-slate-200 rounded-lg text-center font-bold">
+                    <button onclick="jumpToSoal()" class="col-span-2 bg-blue-600 text-white rounded-lg font-bold text-sm">
+                        Lompat
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sidebar Navigation -->
+        <aside class="w-full lg:w-80 space-y-4 md:space-y-6 soal-navigation">
+            <!-- Nomor Soal Grid -->
+            <div class="bg-white rounded-2xl md:rounded-3xl p-4 md:p-6 shadow-sm border border-slate-200">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="font-bold text-slate-800 flex items-center gap-2">
+                        <i class="fa-solid fa-grid text-blue-600"></i>
+                        <span>Navigasi Soal</span>
+                    </h3>
+                    <button onclick="toggleSoalFilter()" id="filterButton" class="w-8 h-8 rounded-lg bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-600 transition-colors">
+                        <i class="fa-solid fa-filter"></i>
+                    </button>
+                </div>
+                
+                <!-- Filter Options -->
+                <div id="filterOptions" class="hidden mb-4 p-3 bg-slate-50 rounded-xl border border-slate-200">
+                    <div class="grid grid-cols-2 gap-2 mb-3">
+                        <button onclick="filterSoal('all')" class="text-xs px-3 py-2 rounded-lg bg-blue-600 text-white font-bold">
+                            Semua
+                        </button>
+                        <button onclick="filterSoal('unanswered')" class="text-xs px-3 py-2 rounded-lg bg-slate-200 text-slate-700 font-bold hover:bg-slate-300">
+                            Belum
+                        </button>
+                    </div>
+                    <div class="grid grid-cols-3 gap-2">
+                        <button onclick="filterSoal('answered')" class="text-xs px-2 py-2 rounded-lg bg-green-100 text-green-700 font-bold hover:bg-green-200">
+                            Terjawab
+                        </button>
+                        <button onclick="filterSoal('ragu')" class="text-xs px-2 py-2 rounded-lg bg-yellow-100 text-yellow-700 font-bold hover:bg-yellow-200">
+                            Ragu
+                        </button>
+                        <button onclick="filterSoal('marked')" class="text-xs px-2 py-2 rounded-lg bg-purple-100 text-purple-700 font-bold hover:bg-purple-200">
+                            Tanda
+                        </button>
+                    </div>
+                </div>
+                
+                <div id="grid-nomor" class="grid grid-cols-5 md:grid-cols-6 lg:grid-cols-5 gap-2 max-h-[300px] md:max-h-[350px] overflow-y-auto pr-2 custom-scrollbar">
+                    <!-- Nomor soal akan dimuat dinamis -->
+                </div>
+                
+                <!-- Legend -->
+                <div class="mt-6 pt-6 border-t border-slate-100">
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-2">
+                        <div class="flex items-center gap-2">
+                            <span class="w-3 h-3 rounded-sm bg-green-600"></span>
+                            <span class="text-[10px] font-bold text-slate-500 uppercase">Terjawab</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="w-3 h-3 rounded-sm bg-yellow-500"></span>
+                            <span class="text-[10px] font-bold text-slate-500 uppercase">Ragu</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="w-3 h-3 rounded-sm bg-purple-600"></span>
+                            <span class="text-[10px] font-bold text-slate-500 uppercase">Tanda</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="w-3 h-3 rounded-sm bg-blue-600"></span>
+                            <span class="text-[10px] font-bold text-slate-500 uppercase">Aktif</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="w-3 h-3 rounded-sm bg-slate-300"></span>
+                            <span class="text-[10px] font-bold text-slate-500 uppercase">Belum</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="w-3 h-3 rounded-sm bg-slate-100 border border-slate-300"></span>
+                            <span class="text-[10px] font-bold text-slate-500 uppercase">Selesai</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Statistik Cepat -->
+            <div class="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl md:rounded-3xl p-4 md:p-6 shadow-sm border border-blue-100">
+                <h4 class="font-bold text-slate-800 mb-4">Statistik Cepat</h4>
+                <div class="space-y-4">
+                    <div>
+                        <div class="flex justify-between text-sm text-slate-600 mb-1">
+                            <span>TWK</span>
+                            <span id="statTwkMini">0/30</span>
+                        </div>
+                        <div class="w-full bg-blue-200 h-2 rounded-full overflow-hidden">
+                            <div id="progressTwk" class="h-full bg-blue-600" style="width: 0%"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-sm text-slate-600 mb-1">
+                            <span>TIU</span>
+                            <span id="statTiuMini">0/35</span>
+                        </div>
+                        <div class="w-full bg-green-200 h-2 rounded-full overflow-hidden">
+                            <div id="progressTiu" class="h-full bg-green-600" style="width: 0%"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-sm text-slate-600 mb-1">
+                            <span>TKP</span>
+                            <span id="statTkpMini">0/45</span>
+                        </div>
+                        <div class="w-full bg-purple-200 h-2 rounded-full overflow-hidden">
+                            <div id="progressTkp" class="h-full bg-purple-600" style="width: 0%"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mt-6 pt-6 border-t border-blue-100">
+                    <button onclick="showConfirmModal()" class="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold py-3 rounded-xl hover:from-blue-700 hover:to-indigo-700 transition-all flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-flag-checkered"></i>
+                        Selesai Ujian
+                    </button>
+                </div>
+            </div>
+        </aside>
+    </main>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed bottom-4 right-4 z-50 hidden">
+        <div class="bg-white rounded-xl shadow-lg border border-slate-200 p-4 max-w-sm animate-slideInRight">
+            <div class="flex items-start gap-3">
+                <div id="toastIcon" class="text-xl"></div>
+                <div class="flex-1">
+                    <h4 id="toastTitle" class="font-bold text-slate-800"></h4>
+                    <p id="toastMessage" class="text-sm text-slate-600 mt-1"></p>
+                </div>
+                <button onclick="hideToast()" class="text-slate-400 hover:text-slate-600">
+                    <i class="fa-solid fa-times"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ====================== GLOBAL VARIABLES ======================
+        const ID_PAKET = "14";
+        let ID_PESERTA = null;
+        let currentIdx = 0;
+        let jawabanUser = new Array(110).fill(null);
+        let statusRagu = new Array(110).fill(false);
+        let statusMark = new Array(110).fill(null);
+        let bookmarks = new Array(110).fill(false);
+        let timerInterval = null;
+        let timeRemaining = 100 * 60;
+        let currentFilter = 'all';
+
+        // ====================== BANK SOAL PAKET 14 ======================
+        const bankSoal = [
+            // === TWK - 30 SOAL (SOAL BERBEDA DARI PAKET 13) ===
+            { id: 1, kategori: "TWK", tanya: "Indonesia terletak di antara dua benua, yaitu...", opsi: ["A. Asia dan Afrika", "B. Asia dan Australia", "C. Asia dan Eropa", "D. Eropa dan Australia", "E. Amerika dan Asia"], kunci: 1 },
+            { id: 2, kategori: "TWK", tanya: "Ketetapan MPRS No. XX/MPRS/1966 menetapkan bahwa...", opsi: ["A. Pancasila sebagai dasar negara", "B. Pembubaran PKI", "C. Supersemar", "D. Orde Baru", "E. Referendum Timor Timur"], kunci: 0 },
+            { id: 3, kategori: "TWK", tanya: "Tokoh perumus Pancasila yang juga dikenal sebagai 'Singa Podium' adalah...", opsi: ["A. Soekarno", "B. Moh. Hatta", "C. Soepomo", "D. M. Yamin", "E. Ki Hajar Dewantara"], kunci: 0 },
+            { id: 4, kategori: "TWK", tanya: "Naskah proklamasi kemerdekaan Indonesia ditulis di rumah...", opsi: ["A. Laksamana Maeda", "B. Soekarno", "C. Moh. Hatta", "D. Ahmad Soebardjo", "E. Soewirjo"], kunci: 0 },
+            { id: 5, kategori: "TWK", tanya: "Perjanjian Renville diselenggarakan di atas kapal perang milik...", opsi: ["A. Amerika Serikat", "B. Belanda", "C. Inggris", "D. Australia", "E. Jepang"], kunci: 0 },
+            { id: 6, kategori: "TWK", tanya: "UU No. 5 Tahun 2014 mengatur tentang...", opsi: ["A. Aparatur Sipil Negara", "B. Pemilihan Umum", "C. Otonomi Daerah", "D. Partai Politik", "E. Pendidikan Nasional"], kunci: 0 },
+            { id: 7, kategori: "TWK", tanya: "Lagu 'Bagimu Negeri' diciptakan oleh...", opsi: ["A. W.R. Supratman", "B. Kusbini", "C. Cornel Simanjuntak", "D. Ismail Marzuki", "E. H. Mutahar"], kunci: 1 },
+            { id: 8, kategori: "TWK", tanya: "Pasal 33 UUD 1945 mengatur tentang...", opsi: ["A. Perekonomian nasional", "B. Hak asasi manusia", "C. Pertahanan negara", "D. Pendidikan", "E. Kesejahteraan sosial"], kunci: 0 },
+            { id: 9, kategori: "TWK", tanya: "Konferensi Asia Afrika dilaksanakan pertama kali di kota...", opsi: ["A. Jakarta", "B. Bandung", "C. Bangkok", "D. New Delhi", "E. Manila"], kunci: 1 },
+            { id: 10, kategori: "TWK", tanya: "Semboyan 'Unity in Diversity' merupakan terjemahan dari...", opsi: ["A. Bhinneka Tunggal Ika", "B. Pancasila", "C. Wawasan Nusantara", "D. Sumpah Pemuda", "E. Proklamasi"], kunci: 0 },
+            { id: 11, kategori: "TWK", tanya: "Bentuk negara Indonesia menurut UUD 1945 adalah...", opsi: ["A. Kesatuan", "B. Serikat", "C. Monarki", "D. Republik", "E. Demokrasi"], kunci: 0 },
+            { id: 12, kategori: "TWK", tanya: "Kebijakan 'Merdeka atau Mati' dikumandangkan dalam peristiwa...", opsi: ["A. Bandung Lautan Api", "B. Pertempuran Surabaya", "C. Puputan Margarana", "D. Serangan Umum 1 Maret", "E. Peristiwa 10 November"], kunci: 2 },
+            { id: 13, kategori: "TWK", tanya: "Lembaga negara yang berwenang memberhentikan presiden adalah...", opsi: ["A. MPR", "B. DPR", "C. MA", "D. MK", "E. KY"], kunci: 3 },
+            { id: 14, kategori: "TWK", tanya: "Pembentukan BPUPKI diumumkan oleh perdana menteri Jepang bernama...", opsi: ["A. Hideki Tojo", "B. Koiso", "C. Terauchi", "D. Yamamoto", "E. Hirohito"], kunci: 1 },
+            { id: 15, kategori: "TWK", tanya: "Istilah 'Pancasila' pertama kali dikemukakan dalam sidang BPUPKI tanggal...", opsi: ["A. 29 Mei 1945", "B. 1 Juni 1945", "C. 22 Juni 1945", "D. 10 Juli 1945", "E. 17 Agustus 1945"], kunci: 1 },
+            { id: 16, kategori: "TWK", tanya: "Tritura (Tiga Tuntutan Rakyat) muncul pada tahun...", opsi: ["A. 1945", "B. 1955", "C. 1966", "D. 1974", "E. 1998"], kunci: 2 },
+            { id: 17, kategori: "TWK", tanya: "Peristiwa Rengasdengklok terjadi pada tanggal...", opsi: ["A. 16 Agustus 1945", "B. 17 Agustus 1945", "C. 18 Agustus 1945", "D. 19 Agustus 1945", "E. 20 Agustus 1945"], kunci: 0 },
+            { id: 18, kategori: "TWK", tanya: "Tokoh yang mengetik naskah proklamasi adalah...", opsi: ["A. Sayuti Melik", "B. B.M. Diah", "C. Sudiro", "D. Sukarni", "E. Latif Hendraningrat"], kunci: 0 },
+            { id: 19, kategori: "TWK", tanya: "Gerakan Non-Blok didirikan pada tahun...", opsi: ["A. 1955", "B. 1961", "C. 1966", "D. 1970", "E. 1980"], kunci: 1 },
+            { id: 20, kategori: "TWK", tanya: "Pasal 28J UUD 1945 mengatur tentang...", opsi: ["A. Hak membela negara", "B. Kewajiban menghormati HAM orang lain", "C. Kebebasan beragama", "D. Hak memperoleh pendidikan", "E. Hak atas pekerjaan"], kunci: 1 },
+            { id: 21, kategori: "TWK", tanya: "Kebijakan 'Berdikari' (Berdiri di Atas Kaki Sendiri) dicetuskan oleh...", opsi: ["A. Soekarno", "B. Soeharto", "C. B.J. Habibie", "D. Megawati", "E. Susilo Bambang Yudhoyono"], kunci: 0 },
+            { id: 22, kategori: "TWK", tanya: "Batas wilayah ZEE Indonesia adalah...", opsi: ["A. 12 mil laut", "B. 24 mil laut", "C. 200 mil laut", "D. 350 mil laut", "E. Tidak terbatas"], kunci: 2 },
+            { id: 23, kategori: "TWK", tanya: "Pemilu pertama di Indonesia dilaksanakan pada tahun...", opsi: ["A. 1945", "B. 1955", "C. 1971", "D. 1999", "E. 2004"], kunci: 1 },
+            { id: 24, kategori: "TWK", tanya: "Lambang sila ketiga Pancasila adalah...", opsi: ["A. Bintang", "B. Rantai", "C. Pohon beringin", "D. Kepala banteng", "E. Padi dan kapas"], kunci: 2 },
+            { id: 25, kategori: "TWK", tanya: "Tujuan nasional Indonesia tercantum dalam Pembukaan UUD 1945 alinea...", opsi: ["A. Pertama", "B. Kedua", "C. Ketiga", "D. Keempat", "E. Kelima"], kunci: 3 },
+            { id: 26, kategori: "TWK", tanya: "Keputusan penting dalam Konferensi Meja Bundar adalah...", opsi: ["A. Pengakuan kedaulatan Indonesia", "B. Pembentukan RIS", "C. Irian Barat diserahkan", "D. Pembentukan APRA", "E. Penarikan tentara Belanda"], kunci: 0 },
+            { id: 27, kategori: "TWK", tanya: "Lembaga yang berwenang mengangkat duta dan konsul adalah...", opsi: ["A. Presiden", "B. MPR", "C. DPR", "D. MA", "E. Kemenlu"], kunci: 0 },
+            { id: 28, kategori: "TWK", tanya: "Peristiwa 'Long March Siliwangi' terjadi pada tahun...", opsi: ["A. 1945", "B. 1948", "C. 1949", "D. 1950", "E. 1955"], kunci: 1 },
+            { id: 29, kategori: "TWK", tanya: "Sistem pemerintahan daerah diatur dalam UU No...", opsi: ["A. 22 Tahun 1999", "B. 23 Tahun 2014", "C. 32 Tahun 2004", "D. 33 Tahun 2004", "E. 12 Tahun 2011"], kunci: 1 },
+            { id: 30, kategori: "TWK", tanya: "Makna 'Sumpah Pemuda' bagi bangsa Indonesia adalah...", opsi: ["A. Kesadaran berbangsa satu", "B. Kemerdekaan Indonesia", "C. Persatuan melawan penjajah", "D. Bahasa Indonesia sebagai bahasa persatuan", "E. Semua benar"], kunci: 4 },
+
+            // === TIU - 35 SOAL (SOAL BERBEDA DARI PAKET 13) ===
+            { id: 31, kategori: "TIU", tanya: "Jika 2x + 5 = 15, maka nilai x adalah...", opsi: ["A. 3", "B. 4", "C. 5", "D. 6", "E. 7"], kunci: 2 },
+            { id: 32, kategori: "TIU", tanya: "Sinonim dari kata 'ANOMALI' adalah...", opsi: ["A. Kelainan", "B. Normal", "C. Biasa", "D. Standar", "E. Reguler"], kunci: 0 },
+            { id: 33, kategori: "TIU", tanya: "Antonim dari kata 'KONSERVATIF' adalah...", opsi: ["A. Liberal", "B. Tradisional", "C. Kolot", "D. Kaku", "E. Statis"], kunci: 0 },
+            { id: 34, kategori: "TIU", tanya: "5, 8, 13, 21, 34, ...", opsi: ["A. 42", "B. 47", "C. 55", "D. 60", "E. 65"], kunci: 2 },
+            { id: 35, kategori: "TIU", tanya: "PENULIS : BUKU = PELUKIS : ...", opsi: ["A. Kanvas", "B. Kuas", "C. Lukisan", "D. Cat", "E. Galeri"], kunci: 2 },
+            { id: 36, kategori: "TIU", tanya: "Jika 15% dari suatu bilangan adalah 45, maka bilangan tersebut adalah...", opsi: ["A. 200", "B. 250", "C. 300", "D. 350", "E. 400"], kunci: 2 },
+            { id: 37, kategori: "TIU", tanya: "Dalam suatu kelas, 20 siswa menyukai matematika, 15 siswa menyukai fisika, dan 8 siswa menyukai keduanya. Jumlah siswa dalam kelas tersebut adalah...", opsi: ["A. 27", "B. 35", "C. 43", "D. 50", "E. 55"], kunci: 0 },
+            { id: 38, kategori: "TIU", tanya: "Sinonim dari 'EFEKTIF' adalah...", opsi: ["A. Manjur", "B. Gagal", "C. Sia-sia", "D. Lemah", "E. Tidak berguna"], kunci: 0 },
+            { id: 39, kategori: "TIU", tanya: "Jika a = 3 dan b = 4, maka a³ + b² = ...", opsi: ["A. 27", "B. 31", "C. 35", "D. 43", "E. 51"], kunci: 3 },
+            { id: 40, kategori: "TIU", tanya: "2, 4, 8, 16, 32, ...", opsi: ["A. 48", "B. 56", "C. 64", "D. 72", "E. 80"], kunci: 2 },
+            { id: 41, kategori: "TIU", tanya: "AIR : HAUS = MAKANAN : ...", opsi: ["A. Kenyang", "B. Lapar", "C. Enak", "D. Sehat", "E. Nikmat"], kunci: 1 },
+            { id: 42, kategori: "TIU", tanya: "Jika harga 5 kg beras adalah Rp 60.000, maka harga 8 kg beras adalah...", opsi: ["A. Rp 85.000", "B. Rp 90.000", "C. Rp 95.000", "D. Rp 96.000", "E. Rp 100.000"], kunci: 3 },
+            { id: 43, kategori: "TIU", tanya: "Sinonim dari 'PRODUKTIVITAS' adalah...", opsi: ["A. Hasil kerja", "B. Kemalasan", "C. Inefisiensi", "D. Pemborosan", "E. Kegagalan"], kunci: 0 },
+            { id: 44, kategori: "TIU", tanya: "3, 7, 15, 31, 63, ...", opsi: ["A. 95", "B. 111", "C. 127", "D. 143", "E. 159"], kunci: 2 },
+            { id: 45, kategori: "TIU", tanya: "GURU : MURID = DOKTER : ...", opsi: ["A. Perawat", "B. Pasien", "C. Obat", "D. Rumah sakit", "E. Penyakit"], kunci: 1 },
+            { id: 46, kategori: "TIU", tanya: "Jika 3x - 7 = 14, maka nilai x adalah...", opsi: ["A. 5", "B. 6", "C. 7", "D. 8", "E. 9"], kunci: 2 },
+            { id: 47, kategori: "TIU", tanya: "Sinonim dari 'KREATIF' adalah...", opsi: ["A. Inovatif", "B. Biasa", "C. Monoton", "D. Membosankan", "E. Statis"], kunci: 0 },
+            { id: 48, kategori: "TIU", tanya: "Luas persegi panjang dengan panjang 12 cm dan lebar 8 cm adalah...", opsi: ["A. 80 cm²", "B. 86 cm²", "C. 92 cm²", "D. 96 cm²", "E. 100 cm²"], kunci: 3 },
+            { id: 49, kategori: "TIU", tanya: "1, 8, 27, 64, 125, ...", opsi: ["A. 150", "B. 180", "C. 210", "D. 216", "E. 250"], kunci: 3 },
+            { id: 50, kategori: "TIU", tanya: "BUNGA : TAMAN = BUKU : ...", opsi: ["A. Toko", "B. Perpustakaan", "C. Lemari", "D. Rak", "E. Penerbit"], kunci: 1 },
+            { id: 51, kategori: "TIU", tanya: "Jika 25% dari 200 adalah x, maka nilai x adalah...", opsi: ["A. 25", "B. 40", "C. 50", "D. 75", "E. 100"], kunci: 2 },
+            { id: 52, kategori: "TIU", tanya: "Antonim dari 'KOMPLEKS' adalah...", opsi: ["A. Sederhana", "B. Rumit", "C. Sulit", "D. Berbelit", "E. Multiaspek"], kunci: 0 },
+            { id: 53, kategori: "TIU", tanya: "10, 20, 40, 80, 160, ...", opsi: ["A. 200", "B. 240", "C. 280", "D. 320", "E. 360"], kunci: 3 },
+            { id: 54, kategori: "TIU", tanya: "MATAHARI : MATAHARI TERBIT = BULAN : ...", opsi: ["A. Bulan purnama", "B. Gerhana bulan", "C. Bulan sabit", "D. Fase bulan", "E. Cahaya bulan"], kunci: 0 },
+            { id: 55, kategori: "TIU", tanya: "Jika 2a + 3b = 19 dan a + b = 7, maka nilai a adalah...", opsi: ["A. 2", "B. 3", "C. 4", "D. 5", "E. 6"], kunci: 0 },
+            { id: 56, kategori: "TIU", tanya: "Sinonim dari 'AKURAT' adalah...", opsi: ["A. Tepat", "B. Salah", "C. Keliru", "D. Menyimpang", "E. Tidak tepat"], kunci: 0 },
+            { id: 57, kategori: "TIU", tanya: "Volume kubus dengan sisi 6 cm adalah...", opsi: ["A. 144 cm³", "B. 180 cm³", "C. 210 cm³", "D. 216 cm³", "E. 250 cm³"], kunci: 3 },
+            { id: 58, kategori: "TIU", tanya: "100, 95, 85, 70, 50, ...", opsi: ["A. 35", "B. 30", "C. 25", "D. 20", "E. 15"], kunci: 2 },
+            { id: 59, kategori: "TIU", tanya: "PISAU : TAJAM = BENANG : ...", opsi: ["A. Putih", "B. Halus", "C. Panjang", "D. Tipis", "E. Lentur"], kunci: 1 },
+            { id: 60, kategori: "TIU", tanya: "Jika 60% dari suatu bilangan adalah 120, maka bilangan tersebut adalah...", opsi: ["A. 150", "B. 180", "C. 200", "D. 220", "E. 250"], kunci: 2 },
+            { id: 61, kategori: "TIU", tanya: "Antonim dari 'PRODUKTIF' adalah...", opsi: ["A. Tidak produktif", "B. Efisien", "C. Cepat", "D. Hemat", "E. Optimal"], kunci: 0 },
+            { id: 62, kategori: "TIU", tanya: "Keliling lingkaran dengan diameter 28 cm (π = 22/7) adalah...", opsi: ["A. 66 cm", "B. 77 cm", "C. 88 cm", "D. 99 cm", "E. 110 cm"], kunci: 2 },
+            { id: 63, kategori: "TIU", tanya: "4, 9, 16, 25, 36, ...", opsi: ["A. 42", "B. 45", "C. 49", "D. 54", "E. 64"], kunci: 2 },
+            { id: 64, kategori: "TIU", tanya: "API : PANAS = ES : ...", opsi: ["A. Cair", "B. Beku", "C. Dingin", "D. Padat", "E. Transparan"], kunci: 2 },
+            { id: 65, kategori: "TIU", tanya: "Jika waktu 08.30 ditambah 2 jam 45 menit, maka hasilnya adalah...", opsi: ["A. 11.00", "B. 11.15", "C. 11.30", "D. 11.45", "E. 12.00"], kunci: 1 },
+
+            // === TKP - 45 SOAL (SOAL BERBEDA DARI PAKET 13) ===
+            { id: 66, kategori: "TKP", tanya: "Ketika menemui masalah di tempat kerja, sikap saya adalah...", opsi: ["A. Mencari solusi sendiri", "B. Langsung minta bantuan", "C. Diam dan menunggu", "D. Menyalahkan orang lain", "E. Melaporkan ke atasan"], kunci: 0, bobot: [5, 3, 2, 1, 4] },
+            { id: 67, kategori: "TKP", tanya: "Saya ditugaskan untuk memimpin rapat, tetapi peserta rapat tidak kooperatif. Saya akan...", opsi: ["A. Membatalkan rapat", "B. Memaksa mereka mengikuti", "C. Mencari tahu penyebabnya", "D. Melaporkan ke atasan", "E. Membiarkan saja"], kunci: 2, bobot: [2, 1, 5, 3, 2] },
+            { id: 68, kategori: "TKP", tanya: "Ketika atasan memberikan tugas di luar job description saya, saya akan...", opsi: ["A. Langsung menolak", "B. Menerima dengan keluhan", "C. Menerima dengan profesional", "D. Minta penjelasan dahulu", "E. Delegasikan ke orang lain"], kunci: 2, bobot: [1, 2, 5, 4, 3] },
+            { id: 69, kategori: "TKP", tanya: "Saya melihat rekan kerja melakukan kesalahan dalam laporan keuangan. Tindakan saya...", opsi: ["A. Biarkan saja", "B. Segera laporkan ke atasan", "C. Bicara baik-baik dengannya", "D. Mencari keuntungan dari situasi", "E. Menunggu orang lain yang menyelesaikan"], kunci: 2, bobot: [2, 4, 5, 1, 2] },
+            { id: 70, kategori: "TKP", tanya: "Ketika deadline pekerjaan sangat mendesak, saya akan...", opsi: ["A. Panik dan stres", "B. Kerja lembur dengan terencana", "C. Minta bantuan rekan", "D. Mengeluh tentang beban kerja", "E. Menunda pekerjaan lain"], kunci: 1, bobot: [1, 5, 4, 2, 3] },
+            { id: 71, kategori: "TKP", tanya: "Saya ditawari promosi jabatan, tetapi harus pindah ke kota lain. Keputusan saya...", opsi: ["A. Langsung menerima", "B. Menolak karena keluarga", "C. Pertimbangkan dengan matang", "D. Minta waktu berpikir", "E. Konsultasi dengan keluarga"], kunci: 4, bobot: [2, 3, 4, 3, 5] },
+            { id: 72, kategori: "TKP", tanya: "Dalam bekerja sama dengan tim, saya lebih suka...", opsi: ["A. Bekerja sendiri", "B. Menunggu instruksi", "C. Memimpin tim", "D. Berkolaborasi aktif", "E. Mengikuti arahan"], kunci: 3, bobot: [2, 3, 4, 5, 4] },
+            { id: 73, kategori: "TKP", tanya: "Ketika ide saya tidak diterima dalam rapat, saya akan...", opsi: ["A. Kecewa dan diam", "B. Mempertahankan pendapat", "C. Menerima keputusan tim", "D. Mencari dukungan lain", "E. Evaluasi ide sendiri"], kunci: 2, bobot: [2, 3, 5, 3, 4] },
+            { id: 74, kategori: "TKP", tanya: "Saya menemukan inefisiensi dalam prosedur kerja. Tindakan saya...", opsi: ["A. Biarkan saja", "B. Laporkan dengan solusi", "C. Laporkan tanpa solusi", "D. Manfaatkan untuk diri sendiri", "E. Tunggu orang lain yang melaporkan"], kunci: 1, bobot: [1, 5, 3, 1, 2] },
+            { id: 75, kategori: "TKP", tanya: "Ketika menghadapi pelanggan yang marah, sikap saya adalah...", opsi: ["A. Membalas dengan marah", "B. Menenangkan dan mendengarkan", "C. Memanggil atasan", "D. Mengabaikannya", "E. Mencari alasan"], kunci: 1, bobot: [1, 5, 3, 1, 2] },
+            { id: 76, kategori: "TKP", tanya: "Saya harus mengambil keputusan penting tanpa arahan atasan. Sikap saya...", opsi: ["A. Tunda sampai atasan kembali", "B. Ambil keputusan berdasarkan analisis", "C. Tanya rekan senior", "D. Ambil keputusan asal-asalan", "E. Tidak mengambil keputusan"], kunci: 1, bobot: [3, 5, 4, 1, 2] },
+            { id: 77, kategori: "TKP", tanya: "Ketika rekan kerja mendapat penghargaan, reaksi saya...", opsi: ["A. Iri dan dengki", "B. Acuh tak acuh", "C. Mengucapkan selamat", "D. Mencari kelemahannya", "E. Menyamakan diri"], kunci: 2, bobot: [1, 2, 5, 1, 3] },
+            { id: 78, kategori: "TKP", tanya: "Saya diminta lembur di hari libur keluarga. Tindakan saya...", opsi: ["A. Langsung menolak", "B. Menerima dengan terpaksa", "C. Negosiasi jadwal", "D. Minta kompensasi", "E. Datang tapi tidak serius"], kunci: 2, bobot: [2, 3, 5, 4, 2] },
+            { id: 79, kategori: "TKP", tanya: "Dalam menghadapi perubahan teknologi, sikap saya...", opsi: ["A. Menolak perubahan", "B. Mempelajari dengan antusias", "C. Tunggu dipaksa", "D. Minta diajari", "E. Cari cara menghindari"], kunci: 1, bobot: [1, 5, 3, 4, 1] },
+            { id: 80, kategori: "TKP", tanya: "Ketika atasan memberikan kritik, respon saya...", opsi: ["A. Membela diri", "B. Menerima dengan baik", "C. Diam saja", "D. Tersinggung", "E. Membalas kritik"], kunci: 1, bobot: [2, 5, 3, 1, 1] },
+            { id: 81, kategori: "TKP", tanya: "Saya mengetahui konflik antar rekan kerja. Tindakan saya...", opsi: ["A. Ikut campur", "B. Menjadi penengah", "C. Mengabaikan", "D. Melaporkan atasan", "E. Memihak salah satu"], kunci: 1, bobot: [2, 5, 2, 4, 1] },
+            { id: 82, kategori: "TKP", tanya: "Ketika merasa jenuh dengan pekerjaan rutin, saya akan...", opsi: ["A. Mengeluh terus", "B. Mencari variasi kerja", "C. Meminta mutasi", "D. Menurunkan kinerja", "E. Mencari pekerjaan lain"], kunci: 1, bobot: [1, 5, 3, 2, 2] },
+            { id: 83, kategori: "TKP", tanya: "Saya diberi target yang sulit dicapai. Sikap saya...", opsi: ["A. Menolak target", "B. Berusaha maksimal", "C. Minta target diturunkan", "D. Bekerja biasa saja", "E. Menyalahkan atasan"], kunci: 1, bobot: [2, 5, 3, 2, 1] },
+            { id: 84, kategori: "TKP", tanya: "Dalam rapat, pendapat saya berbeda dengan mayoritas. Tindakan saya...", opsi: ["A. Mempertahankan pendapat", "B. Mengikuti mayoritas", "C. Mencari kompromi", "D. Diam saja", "E. Meninggalkan rapat"], kunci: 2, bobot: [3, 4, 5, 2, 1] },
+            { id: 85, kategori: "TKP", tanya: "Ketika menemukan uang di kantor, saya akan...", opsi: ["A. Ambil untuk diri sendiri", "B. Laporkan ke atasan", "C. Biarkan saja", "D. Tanyakan ke rekan", "E. Simpan dulu kemudian cari pemilik"], kunci: 1, bobot: [1, 5, 2, 3, 4] },
+            { id: 86, kategori: "TKP", tanya: "Saya melihat atasan melakukan kesalahan. Tindakan saya...", opsi: ["A. Langsung menegur", "B. Sampaikan secara sopan", "C. Diam saja", "D. Laporkan ke atasannya", "E. Bicara dengan rekan"], kunci: 1, bobot: [2, 5, 3, 4, 2] },
+            { id: 87, kategori: "TKP", tanya: "Ketika rekan kerja sakit, saya akan...", opsi: ["A. Bantu pekerjaannya", "B. Biarkan saja", "C. Laporkan ke atasan", "D. Menunggu sembuh", "E. Menyesal tidak bisa membantu"], kunci: 0, bobot: [5, 2, 4, 2, 3] },
+            { id: 88, kategori: "TKP", tanya: "Saya harus memilih antara kepentingan pribadi dan pekerjaan. Sikap saya...", opsi: ["A. Utamakan pribadi", "B. Utamakan pekerjaan", "C. Cari jalan tengah", "D. Konsultasi atasan", "E. Tunda keputusan"], kunci: 2, bobot: [2, 4, 5, 3, 2] },
+            { id: 89, kategori: "TKP", tanya: "Ketika teknologi baru diperkenalkan, reaksi saya...", opsi: ["A. Takut mencoba", "B. Antusias mempelajari", "C. Tunggu contoh dulu", "D. Tolak perubahan", "E. Biasa saja"], kunci: 1, bobot: [2, 5, 3, 1, 2] },
+            { id: 90, kategori: "TKP", tanya: "Saya merasa beban kerja tidak adil dibanding rekan. Tindakan saya...", opsi: ["A. Mengeluh ke atasan", "B. Bicara baik-baik dengan atasan", "C. Diam saja", "D. Menurunkan kinerja", "E. Komplain ke rekan"], kunci: 1, bobot: [3, 5, 2, 1, 2] },
+            { id: 91, kategori: "TKP", tanya: "Dalam menyelesaikan masalah, saya lebih mengandalkan...", opsi: ["A. Intuisi", "B. Data dan fakta", "C. Pengalaman", "D. Saran orang lain", "E. Trial and error"], kunci: 1, bobot: [2, 5, 4, 3, 2] },
+            { id: 92, kategori: "TKP", tanya: "Ketika mendapat pujian dari atasan, sikap saya...", opsi: ["A. Sombong", "B. Terima dengan rendah hati", "C. Anggap biasa", "D. Bagikan ke rekan", "E. Minta penghargaan lebih"], kunci: 1, bobot: [1, 5, 3, 4, 2] },
+            { id: 93, kategori: "TKP", tanya: "Saya menghadapi deadline bertabrakan. Tindakan saya...", opsi: ["A. Kerjakan semuanya sekaligus", "B. Buat prioritas", "C. Minta bantuan", "D. Minta perpanjangan", "E. Kerjakan yang mudah dulu"], kunci: 1, bobot: [2, 5, 4, 3, 3] },
+            { id: 94, kategori: "TKP", tanya: "Ketika rekan kerja berprestasi, saya merasa...", opsi: ["A. Iri dan bersaing", "B. Terinspirasi", "C. Biasa saja", "D. Menganggap remeh", "E. Ingin seperti dia"], kunci: 1, bobot: [2, 5, 3, 1, 4] },
+            { id: 95, kategori: "TKP", tanya: "Saya harus belajar keterampilan baru untuk pekerjaan. Sikap saya...", opsi: ["A. Menolak", "B. Belajar dengan sungguh", "C. Belajar seperlunya", "D. Tunggu dipaksa", "E. Minta diajari"], kunci: 1, bobot: [1, 5, 3, 2, 4] },
+            { id: 96, kategori: "TKP", tanya: "Dalam tim kerja, peran yang saya sukai adalah...", opsi: ["A. Pemimpin", "B. Anggota aktif", "C. Pengamat", "D. Penengah", "E. Pelaksana"], kunci: 1, bobot: [4, 5, 2, 4, 3] },
+            { id: 97, kategori: "TKP", tanya: "Ketika gagal mencapai target, reaksi saya...", opsi: ["A. Menyalahkan orang lain", "B. Evaluasi dan perbaiki", "C. Putus asa", "D. Minta target baru", "E. Menutupi kegagalan"], kunci: 1, bobot: [1, 5, 2, 3, 1] },
+            { id: 98, kategori: "TKP", tanya: "Saya menghadapi pelanggan yang tidak puas. Tindakan saya...", opsi: ["A. Menyalahkan pelanggan", "B. Memahami keluhannya", "C. Minta atasan menangani", "D. Menawarkan kompensasi", "E. Mengabaikannya"], kunci: 1, bobot: [1, 5, 3, 4, 1] },
+            { id: 99, kategori: "TKP", tanya: "Dalam menghadapi tekanan pekerjaan, saya biasanya...", opsi: ["A. Stres dan panik", "B. Tetap tenang", "C. Minta bantuan", "D. Mengeluh", "E. Menunda pekerjaan"], kunci: 1, bobot: [1, 5, 4, 2, 2] },
+            { id: 100, kategori: "TKP", tanya: "Ketika ada peluang promosi, saya akan...", opsi: ["A. Langsung mendaftar", "B. Siapkan diri dulu", "C. Tunggu ditunjuk", "D. Tidak tertarik", "E. Minta rekomendasi"], kunci: 1, bobot: [3, 5, 3, 2, 4] },
+            { id: 101, kategori: "TKP", tanya: "Saya harus bekerja dengan orang yang sulit. Sikap saya...", opsi: ["A. Menghindari", "B. Berusaha memahami", "C. Konfrontasi", "D. Laporkan atasan", "E. Biarkan saja"], kunci: 1, bobot: [2, 5, 1, 3, 2] },
+            { id: 102, kategori: "TKP", tanya: "Ketika atasan tidak adil, tindakan saya...", opsi: ["A. Diam saja", "B. Bicara baik-baik", "C. Komplain ke HRD", "D. Menurunkan kinerja", "E. Cari pekerjaan lain"], kunci: 1, bobot: [2, 5, 4, 1, 2] },
+            { id: 103, kategori: "TKP", tanya: "Dalam menerima informasi penting, saya akan...", opsi: ["A. Langsung sebarkan", "B. Simpan sendiri", "C. Saring dan sampaikan", "D. Abaikan", "E. Konfirmasi kebenarannya"], kunci: 4, bobot: [2, 3, 4, 1, 5] },
+            { id: 104, kategori: "TKP", tanya: "Saya melihat pelanggaran aturan oleh rekan. Tindakan saya...", opsi: ["A. Ikut melanggar", "B. Tegur secara pribadi", "C. Laporkan ke atasan", "D. Biarkan saja", "E. Ingatkan di depan umum"], kunci: 1, bobot: [1, 5, 4, 2, 3] },
+            { id: 105, kategori: "TKP", tanya: "Ketika menghadapi pekerjaan monoton, saya...", opsi: ["A. Tetap bersemangat", "B. Cari cara variatif", "C. Mengeluh", "D. Menunda-nunda", "E. Minta tugas lain"], kunci: 1, bobot: [4, 5, 2, 2, 3] },
+            { id: 106, kategori: "TKP", tanya: "Saya harus mengambil cuti mendadak. Tindakan saya...", opsi: ["A. Langsung pulang", "B. Minta izin dan atur pekerjaan", "C. Tidak izin", "D. Minta rekan gantikan", "E. Hubungi atasan dari rumah"], kunci: 1, bobot: [1, 5, 1, 4, 3] },
+            { id: 107, kategori: "TKP", tanya: "Dalam rapat evaluasi kinerja, sikap saya...", opsi: ["A. Defensif", "B. Terbuka menerima masukan", "C. Diam saja", "D. Saling menyalahkan", "E. Fokus pada kelebihan"], kunci: 1, bobot: [1, 5, 3, 1, 2] },
+            { id: 108, kategori: "TKP", tanya: "Ketika ada kesempatan pelatihan, saya...", opsi: ["A. Tidak tertarik", "B. Antusias mengikuti", "C. Tunggu dipaksa", "D. Ikut setengah hati", "E. Minta waktu berpikir"], kunci: 1, bobot: [1, 5, 3, 2, 3] },
+            { id: 109, kategori: "TKP", tanya: "Saya menghadapi konflik kepentingan. Tindakan saya...", opsi: ["A. Pilih kepentingan pribadi", "B Utamakan kepentingan organisasi", "C. Cari win-win solution", "D. Minta pihak ketiga memutuskan", "E. Hindari konflik"], kunci: 2, bobot: [1, 4, 5, 3, 2] },
+            { id: 110, kategori: "TKP", tanya: "Dalam bekerja, saya lebih mementingkan...", opsi: ["A. Proses yang benar", "B. Hasil yang maksimal", "C. Keduanya seimbang", "D. Kepuasan atasan", "E. Pengakuan rekan"], kunci: 2, bobot: [4, 4, 5, 3, 2] }
+        ];
+
+        // ====================== INITIALIZATION ======================
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Soal page Paket 14 initializing...');
+            
+            // Get PIN from URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const pinFromURL = urlParams.get('id');
+            
+            if (pinFromURL) {
+                ID_PESERTA = pinFromURL;
+                document.getElementById('pesertaID').textContent = ID_PESERTA;
+                
+                // Load saved progress if exists
+                loadProgress();
+                
+                // Initialize display
+                renderGrid();
+                displaySoal();
+                updateStats();
+                startTimer();
+                
+                // Setup event listeners
+                setupEventListeners();
+                
+                console.log('Soal page Paket 14 initialized with PIN:', ID_PESERTA);
+                showToast('success', 'Ujian Dimulai', 'Selamat mengerjakan Paket 14! Waktu Anda 100 menit.');
+            } else {
+                showToast('error', 'PIN Tidak Valid', 'Redirecting to dashboard...');
+                setTimeout(() => {
+                    window.location.href = 'login.html';
+                }, 2000);
+            }
+        });
+
+        // ====================== PROGRESS MANAGEMENT ======================
+        function loadProgress() {
+            const progressKey = `progress_paket14_${ID_PESERTA}`;
+            const savedProgress = localStorage.getItem(progressKey);
+            
+            if (savedProgress) {
+                const progress = JSON.parse(savedProgress);
+                jawabanUser = progress.jawaban || jawabanUser;
+                statusRagu = progress.ragu || statusRagu;
+                statusMark = progress.mark || statusMark;
+                bookmarks = progress.bookmarks || bookmarks;
+                
+                // Load timer if exists
+                if (progress.timeRemaining) {
+                    timeRemaining = progress.timeRemaining;
+                }
+                
+                console.log('Progress Paket 14 loaded from localStorage');
+            }
+        }
+
+        function saveProgress() {
+            const progressKey = `progress_paket14_${ID_PESERTA}`;
+            const progress = {
+                jawaban: jawabanUser,
+                ragu: statusRagu,
+                mark: statusMark,
+                bookmarks: bookmarks,
+                timeRemaining: timeRemaining,
+                lastSaved: new Date().toISOString()
+            };
+            
+            localStorage.setItem(progressKey, JSON.stringify(progress));
+        }
+
+        // ====================== TIMER MANAGEMENT ======================
+        function startTimer() {
+            if (timerInterval) clearInterval(timerInterval);
+            
+            timerInterval = setInterval(() => {
+                if (timeRemaining <= 0) {
+                    clearInterval(timerInterval);
+                    showConfirmModal();
+                    return;
+                }
+                
+                timeRemaining--;
+                updateTimerDisplay();
+                
+                // Save progress every 30 seconds
+                if (timeRemaining % 30 === 0) {
+                    saveProgress();
+                }
+                
+                // Show warning when 10 minutes remaining
+                if (timeRemaining === 10 * 60) {
+                    showToast('warning', 'Waktu Tinggal 10 Menit', 'Segera selesaikan jawaban Anda!');
+                }
+                
+                // Show critical warning when 5 minutes remaining
+                if (timeRemaining === 5 * 60) {
+                    showToast('error', 'Waktu Tinggal 5 Menit', 'Selesaikan dan periksa jawaban Anda!');
+                    document.getElementById('timer').classList.add('timer-critical');
+                }
+                
+                // Auto-save when 1 minute remaining
+                if (timeRemaining === 60) {
+                    saveProgress();
+                    showToast('info', 'Auto-save', 'Progress Paket 14 telah disimpan otomatis.');
+                }
+            }, 1000);
+        }
+
+        function updateTimerDisplay() {
+            const m = Math.floor(timeRemaining / 60);
+            const s = timeRemaining % 60;
+            const timerEl = document.getElementById('timer');
+            
+            timerEl.textContent = `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+            
+            // Update color based on time remaining
+            if (timeRemaining <= 5 * 60) {
+                timerEl.className = 'text-xl md:text-2xl font-mono font-extrabold text-red-600 timer-critical';
+            } else if (timeRemaining <= 30 * 60) {
+                timerEl.className = 'text-xl md:text-2xl font-mono font-extrabold text-yellow-600';
+            } else {
+                timerEl.className = 'text-xl md:text-2xl font-mono font-extrabold text-blue-600';
+            }
+        }
+
+        // ====================== SOAL DISPLAY FUNCTIONS ======================
+        function renderGrid() {
+            const grid = document.getElementById('grid-nomor');
+            grid.innerHTML = '';
+            
+            bankSoal.forEach((s, i) => {
+                const btn = document.createElement('button');
+                btn.innerText = i + 1;
+                btn.className = `no-soal-btn w-full aspect-square text-xs font-bold rounded-xl border-2 transition-all duration-200 ${currentIdx === i ? 'active ring-4 ring-blue-100' : ''}`;
+                
+                // Apply status classes
+                if (statusMark[i]) btn.classList.add('marked');
+                else if (statusRagu[i]) btn.classList.add('ragu');
+                else if (jawabanUser[i] !== null) btn.classList.add('filled');
+                else btn.classList.add('bg-white', 'text-slate-500', 'border-slate-200', 'hover:bg-slate-50');
+                
+                // Apply filter visibility
+                if (!shouldShowSoal(i)) {
+                    btn.classList.add('hidden');
+                }
+                
+                btn.onclick = () => {
+                    currentIdx = i;
+                    displaySoal();
+                };
+                btn.title = `Soal ${i + 1} - ${s.kategori}`;
+                grid.appendChild(btn);
+            });
+        }
+
+        function displaySoal() {
+            const soal = bankSoal[currentIdx];
+            
+            // Update display elements
+            document.getElementById('current-no').textContent = currentIdx + 1;
+            document.getElementById('current-no-mobile').textContent = currentIdx + 1;
+            document.getElementById('kategori-soal').textContent = soal.kategori;
+            document.getElementById('teks-soal').textContent = soal.tanya;
+            document.getElementById('checkRagu').checked = statusRagu[currentIdx];
+            
+            // Update bookmark button
+            const bookmarkBtn = document.getElementById('bookmarkBtn');
+            if (bookmarks[currentIdx]) {
+                bookmarkBtn.innerHTML = '<i class="fa-solid fa-bookmark text-blue-600"></i>';
+                bookmarkBtn.title = 'Hapus bookmark';
+            } else {
+                bookmarkBtn.innerHTML = '<i class="fa-regular fa-bookmark"></i>';
+                bookmarkBtn.title = 'Bookmark soal';
+            }
+            
+            // Render opsi jawaban
+            const opsiContainer = document.getElementById('opsi-jawaban');
+            opsiContainer.innerHTML = '';
+            
+            soal.opsi.forEach((o, i) => {
+                const isChecked = jawabanUser[currentIdx] === i;
+                const optionId = `opt-${currentIdx}-${i}`;
+                
+                opsiContainer.innerHTML += `
+                    <div class="relative">
+                        <input type="radio" name="jawaban" id="${optionId}" value="${i}" 
+                               class="absolute opacity-0 w-0 h-0 radio-custom" 
+                               ${isChecked ? 'checked' : ''}
+                               onchange="pilihJawaban(${i})">
+                        <label for="${optionId}" class="radio-label flex items-center gap-4 p-4 rounded-2xl border-2 cursor-pointer transition-all">
+                            <div class="flex items-center justify-center w-6 h-6 rounded-full border-2 ${isChecked ? 'border-white' : 'border-slate-300'}">
+                                <div class="radio-indicator w-3 h-3 rounded-full ${isChecked ? 'bg-white' : 'bg-transparent'}"></div>
+                            </div>
+                            <div class="flex-1">
+                                <span class="text-slate-800 font-medium text-sm md:text-base">${o}</span>
+                            </div>
+                            ${isChecked ? '<i class="fa-solid fa-check text-white"></i>' : ''}
+                        </label>
+                    </div>
+                `;
+            });
+            
+            // Update grid
+            renderGrid();
+            
+            // Update stats
+            updateStats();
+            
+            // Save progress
+            saveProgress();
+        }
+
+        function pilihJawaban(idx) {
+            jawabanUser[currentIdx] = idx;
+            renderGrid();
+            updateStats();
+            saveProgress();
+            
+            // Auto-next jika di mobile dan fitur aktif
+            if (window.innerWidth < 768 && localStorage.getItem('autoNext') === 'true') {
+                setTimeout(nextSoal, 300);
+            }
+        }
+
+        function toggleRagu() {
+            statusRagu[currentIdx] = document.getElementById('checkRagu').checked;
+            renderGrid();
+            saveProgress();
+            
+            if (statusRagu[currentIdx]) {
+                showToast('info', 'Ditandai Ragu', `Soal ${currentIdx + 1} ditandai ragu-ragu`);
+            }
+        }
+
+        function toggleBookmark() {
+            bookmarks[currentIdx] = !bookmarks[currentIdx];
+            const bookmarkBtn = document.getElementById('bookmarkBtn');
+            
+            if (bookmarks[currentIdx]) {
+                bookmarkBtn.innerHTML = '<i class="fa-solid fa-bookmark text-blue-600"></i>';
+                showToast('success', 'Bookmark', `Soal ${currentIdx + 1} ditandai`);
+            } else {
+                bookmarkBtn.innerHTML = '<i class="fa-regular fa-bookmark"></i>';
+                showToast('info', 'Bookmark', `Bookmark soal ${currentIdx + 1} dihapus`);
+            }
+            
+            renderGrid();
+            saveProgress();
+        }
+
+        // ====================== NAVIGATION FUNCTIONS ======================
+        function nextSoal() {
+            if (currentIdx < bankSoal.length - 1) {
+                currentIdx++;
+                displaySoal();
+                scrollToTop();
+            } else {
+                showToast('info', 'Soal Terakhir', 'Anda sudah di soal terakhir');
+            }
+        }
+
+        function prevSoal() {
+            if (currentIdx > 0) {
+                currentIdx--;
+                displaySoal();
+                scrollToTop();
+            } else {
+                showToast('info', 'Soal Pertama', 'Anda sudah di soal pertama');
+            }
+        }
+
+        function jumpToSoal() {
+            const input = document.getElementById('jumpInput');
+            const target = parseInt(input.value) - 1;
+            
+            if (target >= 0 && target < bankSoal.length) {
+                currentIdx = target;
+                displaySoal();
+                scrollToTop();
+                input.value = '';
+                showToast('success', 'Lompat ke Soal', `Pindah ke soal ${currentIdx + 1}`);
+            } else {
+                showToast('error', 'Nomor Tidak Valid', `Masukkan angka 1-${bankSoal.length}`);
+            }
+        }
+
+        function jumpToFirstUnanswered() {
+            const unansweredIndex = jawabanUser.findIndex(j => j === null);
+            if (unansweredIndex !== -1) {
+                currentIdx = unansweredIndex;
+                displaySoal();
+                scrollToTop();
+                showToast('info', 'Soal Belum Terjawab', `Pindah ke soal ${currentIdx + 1}`);
+            } else {
+                showToast('success', 'Semua Terjawab', 'Semua soal sudah dijawab!');
+            }
+        }
+
+        function jumpToRagu() {
+            const raguIndex = statusRagu.findIndex(r => r === true);
+            if (raguIndex !== -1) {
+                currentIdx = raguIndex;
+                displaySoal();
+                scrollToTop();
+                showToast('info', 'Soal Ragu-ragu', `Pindah ke soal ${currentIdx + 1}`);
+            } else {
+                showToast('info', 'Tidak Ada Ragu', 'Tidak ada soal yang ditandai ragu-ragu');
+            }
+        }
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // ====================== FILTER FUNCTIONS ======================
+        function toggleSoalFilter() {
+            const filterOptions = document.getElementById('filterOptions');
+            const filterButton = document.getElementById('filterButton');
+            
+            if (filterOptions.classList.contains('hidden')) {
+                filterOptions.classList.remove('hidden');
+                filterButton.classList.add('bg-blue-100', 'text-blue-600');
+            } else {
+                filterOptions.classList.add('hidden');
+                filterButton.classList.remove('bg-blue-100', 'text-blue-600');
+            }
+        }
+
+        function filterSoal(filter) {
+            currentFilter = filter;
+            const filterOptions = document.getElementById('filterOptions');
+            const filterButton = document.getElementById('filterButton');
+            
+            filterOptions.classList.add('hidden');
+            filterButton.classList.remove('bg-blue-100', 'text-blue-600');
+            
+            renderGrid();
+            
+            let message = '';
+            switch(filter) {
+                case 'answered':
+                    message = 'Menampilkan soal yang sudah dijawab';
+                    break;
+                case 'unanswered':
+                    message = 'Menampilkan soal belum dijawab';
+                    break;
+                case 'ragu':
+                    message = 'Menampilkan soal ragu-ragu';
+                    break;
+                case 'marked':
+                    message = 'Menampilkan soal bertanda';
+                    break;
+                default:
+                    message = 'Menampilkan semua soal';
+            }
+            
+            showToast('info', 'Filter', message);
+        }
+
+        function shouldShowSoal(index) {
+            if (currentFilter === 'all') return true;
+            if (currentFilter === 'answered') return jawabanUser[index] !== null;
+            if (currentFilter === 'unanswered') return jawabanUser[index] === null;
+            if (currentFilter === 'ragu') return statusRagu[index] === true;
+            if (currentFilter === 'marked') return statusMark[index] !== null;
+            return true;
+        }
+
+        // ====================== MARK FUNCTIONS ======================
+        function openMarkModal() {
+            document.getElementById('markSoalNumber').textContent = currentIdx + 1;
+            document.getElementById('modalMarkSoal').style.display = 'block';
+        }
+
+        function tutupMarkModal() {
+            document.getElementById('modalMarkSoal').style.display = 'none';
+        }
+
+        function markSoal(type) {
+            statusMark[currentIdx] = type;
+            renderGrid();
+            saveProgress();
+            tutupMarkModal();
+            
+            const messages = {
+                'review': 'Ditandai untuk ditinjau ulang',
+                'important': 'Ditandai sebagai penting',
+                'difficult': 'Ditandai sebagai sulit',
+                'skip': 'Ditandai untuk dilewati'
+            };
+            
+            showToast('success', 'Soal Ditandai', messages[type]);
+        }
+
+        function clearMark() {
+            statusMark[currentIdx] = null;
+            renderGrid();
+            saveProgress();
+            tutupMarkModal();
+            showToast('info', 'Penanda Dihapus', 'Penanda soal telah dihapus');
+        }
+
+        // ====================== STATISTICS FUNCTIONS ======================
+        function updateStats() {
+            // Hitung statistik per kategori
+            const twkAnswered = jawabanUser.slice(0, 30).filter(j => j !== null).length;
+            const tiuAnswered = jawabanUser.slice(30, 65).filter(j => j !== null).length;
+            const tkpAnswered = jawabanUser.slice(65, 110).filter(j => j !== null).length;
+            const totalAnswered = twkAnswered + tiuAnswered + tkpAnswered;
+            
+            // Update mini stats
+            document.getElementById('statTwkMini').textContent = `${twkAnswered}/30`;
+            document.getElementById('statTiuMini').textContent = `${tiuAnswered}/35`;
+            document.getElementById('statTkpMini').textContent = `${tkpAnswered}/45`;
+            
+            // Update progress bars
+            document.getElementById('progressTwk').style.width = `${(twkAnswered / 30) * 100}%`;
+            document.getElementById('progressTiu').style.width = `${(tiuAnswered / 35) * 100}%`;
+            document.getElementById('progressTkp').style.width = `${(tkpAnswered / 45) * 100}%`;
+            
+            // Show notification if significant progress
+            if (totalAnswered % 10 === 0 && totalAnswered > 0) {
+                showToast('success', 'Progress Baik', `Anda telah menjawab ${totalAnswered} soal!`);
+            }
+        }
+
+        function showConfirmModal() {
+            clearInterval(timerInterval);
+            
+            // Hitung statistik
+            const twkAnswered = jawabanUser.slice(0, 30).filter(j => j !== null).length;
+            const tiuAnswered = jawabanUser.slice(30, 65).filter(j => j !== null).length;
+            const tkpAnswered = jawabanUser.slice(65, 110).filter(j => j !== null).length;
+            const totalAnswered = twkAnswered + tiuAnswered + tkpAnswered;
+            const percentage = Math.round((totalAnswered / 110) * 100);
+            
+            // Update modal content
+            document.getElementById('statTWK').textContent = twkAnswered;
+            document.getElementById('statTIU').textContent = tiuAnswered;
+            document.getElementById('statTKP').textContent = tkpAnswered;
+            document.getElementById('totalTerjawab').textContent = `${totalAnswered}/110`;
+            document.getElementById('progressBar').style.width = `${percentage}%`;
+            document.getElementById('persentaseTerjawab').textContent = `${percentage}%`;
+            
+            let message = '';
+            if (totalAnswered === 110) {
+                message = 'Semua soal telah dijawab. Anda yakin ingin mengumpulkan?';
+            } else if (totalAnswered >= 90) {
+                message = `Anda telah menjawab ${totalAnswered} dari 110 soal (${percentage}%). Lanjutkan mengumpulkan?`;
+            } else {
+                message = `Anda baru menjawab ${totalAnswered} soal (${percentage}%). Pastikan untuk memeriksa kembali sebelum mengumpulkan.`;
+            }
+            
+            document.getElementById('statistikTerjawab').textContent = message;
+            document.getElementById('modalKonfirmasi').style.display = 'block';
+        }
+
+        function tutupModal() {
+            document.getElementById('modalKonfirmasi').style.display = 'none';
+            startTimer(); // Resume timer
+        }
+
+        function kirimHasil() {
+            // Hitung skor
+            let skorTWK = 0, skorTIU = 0, skorTKP = 0;
+            let benarTWK = 0, benarTIU = 0;
+            
+            bankSoal.forEach((soal, idx) => {
+                const jawab = jawabanUser[idx];
+                if (jawab !== null) {
+                    if (soal.kategori === "TWK") {
+                        if (jawab === soal.kunci) {
+                            skorTWK += 5;
+                            benarTWK++;
+                        }
+                    } else if (soal.kategori === "TIU") {
+                        if (jawab === soal.kunci) {
+                            skorTIU += 5;
+                            benarTIU++;
+                        }
+                    } else if (soal.kategori === "TKP") {
+                        if (soal.bobot) {
+                            skorTKP += soal.bobot[jawab];
+                        }
+                    }
+                }
+            });
+            
+            // Normalisasi skor TKP (0-166)
+            const skorTKPNormalized = Math.round((skorTKP / 550) * 166);
+            
+            const totalSkor = skorTWK + skorTIU + skorTKPNormalized;
+            
+            // Hitung waktu yang digunakan
+            const waktuDigunakan = 100 * 60 - timeRemaining;
+            const menit = Math.floor(waktuDigunakan / 60);
+            const detik = waktuDigunakan % 60;
+            
+            // Simpan hasil
+            const resultData = {
+                pin: ID_PESERTA,
+                paket: ID_PAKET,
+                twk: skorTWK,
+                tiu: skorTIU,
+                tkp: skorTKPNormalized,
+                total: totalSkor,
+                twkJawab: jawabanUser.slice(0, 30).filter(j => j !== null).length,
+                tiuJawab: jawabanUser.slice(30, 65).filter(j => j !== null).length,
+                tkpJawab: jawabanUser.slice(65, 110).filter(j => j !== null).length,
+                twkBenar: benarTWK,
+                tiuBenar: benarTIU,
+                waktu: `${menit}m ${detik}s`,
+                selesai: new Date().toISOString(),
+                jawaban: jawabanUser,
+                ragu: statusRagu.filter(r => r === true).length,
+                bookmarks: bookmarks.filter(b => b === true).length
+            };
+            
+            // Simpan ke localStorage
+            localStorage.setItem(`hasil_paket${ID_PAKET}_${ID_PESERTA}`, JSON.stringify(resultData));
+            
+            // Hapus progress
+            localStorage.removeItem(`progress_paket14_${ID_PESERTA}`);
+            
+            // Update progress di dashboard
+            const progressKey = `progress_${ID_PESERTA}`;
+            let progress = JSON.parse(localStorage.getItem(progressKey)) || {};
+            progress[`paket_${ID_PAKET}`] = true;
+            progress[`score_${ID_PAKET}`] = totalSkor;
+            progress[`time_${ID_PAKET}`] = `${menit}m ${detik}s`;
+            progress[`accuracy_${ID_PAKET}`] = Math.round(((benarTWK + benarTIU) / 65) * 100);
+            localStorage.setItem(progressKey, JSON.stringify(progress));
+            
+            // Redirect ke halaman hasil
+            showToast('success', 'Hasil Dikirim', 'Mengalihkan ke halaman hasil...');
+            setTimeout(() => {
+                window.location.href = `hasilujiansoalto${ID_PAKET}.html?id=${ID_PESERTA}`;
+            }, 1500);
+        }
+
+        // ====================== TOAST NOTIFICATION ======================
+        function showToast(type, title, message) {
+            const toast = document.getElementById('toast');
+            const toastIcon = document.getElementById('toastIcon');
+            const toastTitle = document.getElementById('toastTitle');
+            const toastMessage = document.getElementById('toastMessage');
+            
+            // Set icon and colors
+            let iconClass, bgColor;
+            switch (type) {
+                case 'success':
+                    iconClass = 'fa-solid fa-circle-check text-green-500';
+                    bgColor = 'bg-green-50 border-green-200';
+                    break;
+                case 'error':
+                    iconClass = 'fa-solid fa-circle-xmark text-red-500';
+                    bgColor = 'bg-red-50 border-red-200';
+                    break;
+                case 'warning':
+                    iconClass = 'fa-solid fa-triangle-exclamation text-yellow-500';
+                    bgColor = 'bg-yellow-50 border-yellow-200';
+                    break;
+                default:
+                    iconClass = 'fa-solid fa-circle-info text-blue-500';
+                    bgColor = 'bg-blue-50 border-blue-200';
+            }
+            
+            toastIcon.className = iconClass;
+            toastTitle.textContent = title;
+            toastMessage.textContent = message;
+            toast.querySelector('div').className = `bg-white rounded-xl shadow-lg border p-4 max-w-sm animate-slideInRight ${bgColor}`;
+            toast.classList.remove('hidden');
+            
+            // Auto hide after 5 seconds
+            setTimeout(hideToast, 5000);
+        }
+
+        function hideToast() {
+            document.getElementById('toast').classList.add('hidden');
+        }
+
+        // ====================== EVENT LISTENERS SETUP ======================
+        function setupEventListeners() {
+            // Keyboard shortcuts
+            document.addEventListener('keydown', (e) => {
+                // Prevent default for number keys
+                if (e.key >= '1' && e.key <= '5') {
+                    e.preventDefault();
+                    const idx = parseInt(e.key) - 1;
+                    pilihJawaban(idx);
+                }
+                
+                // Navigation with arrow keys
+                if (e.key === 'ArrowRight' || e.key === ' ') {
+                    e.preventDefault();
+                    nextSoal();
+                }
+                if (e.key === 'ArrowLeft') {
+                    e.preventDefault();
+                    prevSoal();
+                }
+                
+                // Toggle ragu with R key
+                if (e.key === 'r' || e.key === 'R') {
+                    e.preventDefault();
+                    document.getElementById('checkRagu').click();
+                }
+                
+                // Bookmark with B key
+                if (e.key === 'b' || e.key === 'B') {
+                    e.preventDefault();
+                    toggleBookmark();
+                }
+                
+                // Mark with M key
+                if (e.key === 'm' || e.key === 'M') {
+                    e.preventDefault();
+                    openMarkModal();
+                }
+                
+                // Submit with Enter (only when modal is open)
+                if (e.key === 'Enter' && document.getElementById('modalKonfirmasi').style.display === 'block') {
+                    e.preventDefault();
+                    kirimHasil();
+                }
+                
+                // Escape to close modals
+                if (e.key === 'Escape') {
+                    if (document.getElementById('modalKonfirmasi').style.display === 'block') {
+                        tutupModal();
+                    }
+                    if (document.getElementById('modalMarkSoal').style.display === 'block') {
+                        tutupMarkModal();
+                    }
+                }
+            });
+            
+            // Auto-save when leaving page
+            window.addEventListener('beforeunload', (e) => {
+                if (timeRemaining > 0) {
+                    saveProgress();
+                    // Show confirmation only if there's unsaved progress
+                    e.preventDefault();
+                    e.returnValue = 'Progress Anda akan disimpan. Anda yakin ingin meninggalkan halaman?';
+                    return e.returnValue;
+                }
+            });
+            
+            // Save on visibility change
+            document.addEventListener('visibilitychange', () => {
+                if (document.hidden) {
+                    saveProgress();
+                    showToast('info', 'Auto-save', 'Progress disimpan saat tab tidak aktif');
+                }
+            });
+        }
+
+        // ====================== WINDOW UNLOAD WARNING ======================
+        window.addEventListener('load', () => {
+            // Warn user before leaving
+            window.onbeforeunload = function() {
+                if (timeRemaining > 0) {
+                    saveProgress();
+                    return 'Progress ujian Anda akan disimpan. Anda yakin ingin meninggalkan halaman?';
+                }
+            };
+        });
+
+    </script>
+
+</body>
+</html>
