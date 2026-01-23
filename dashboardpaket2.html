@@ -315,6 +315,21 @@
         .safe-area-top {
             padding-top: env(safe-area-inset-top, 20px);
         }
+        
+        /* Error State */
+        .error-state {
+            background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+            border-color: #f87171;
+        }
+        
+        /* Pin shimmer effect */
+        .shimmer {
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: loading 1.5s infinite;
+            color: transparent;
+            border-radius: 4px;
+        }
     </style>
 </head>
 <body class="min-h-screen bg-slate-50 safe-area-bottom">
@@ -370,6 +385,24 @@
         </div>
     </div>
 
+    <!-- Error State (Hidden by default) -->
+    <div id="errorState" class="hidden error-state rounded-2xl p-6 mb-6 border border-red-300">
+        <div class="flex items-center gap-3">
+            <div class="w-12 h-12 bg-red-100 rounded-xl flex items-center justify-center">
+                <i class="fa-solid fa-triangle-exclamation text-red-600 text-xl"></i>
+            </div>
+            <div>
+                <h3 class="font-bold text-red-800 text-lg mb-1">Kesalahan Login</h3>
+                <p id="errorMessage" class="text-red-700">PIN tidak ditemukan. Silakan login kembali.</p>
+            </div>
+        </div>
+        <div class="mt-4">
+            <button onclick="redirectToLogin()" class="bg-red-600 text-white font-bold px-6 py-3 rounded-xl hover:bg-red-700 transition-colors touch-button">
+                <i class="fa-solid fa-right-to-bracket mr-2"></i>Kembali ke Login
+            </button>
+        </div>
+    </div>
+
     <!-- Navigation -->
     <nav class="bg-white border-b border-slate-200 sticky top-0 z-40 shadow-sm safe-area-top">
         <div class="container mx-auto px-4">
@@ -392,7 +425,7 @@
                     <div class="text-right">
                         <p class="text-[10px] font-bold text-slate-500 uppercase tracking-wider">PIN Peserta</p>
                         <div class="flex items-center gap-2">
-                            <p id="displayPin" class="text-sm font-black text-slate-800 tracking-wide font-mono">MEMUAT...</p>
+                            <p id="displayPin" class="text-sm font-black text-slate-800 tracking-wide font-mono shimmer">MEMUAT...</p>
                             <button onclick="copyPin()" class="text-slate-400 hover:text-purple-600 touch-button">
                                 <i class="fa-regular fa-copy text-xs"></i>
                             </button>
@@ -408,7 +441,7 @@
                         <div id="profileMenu" class="absolute right-0 top-12 w-56 bg-white rounded-xl shadow-lg border border-slate-200 py-2 hidden z-50 animate-fadeIn">
                             <div class="px-4 py-3 border-b border-slate-100">
                                 <p class="text-xs font-bold text-slate-500 uppercase mb-1">Paket 2 Premium</p>
-                                <p id="menuPin" class="text-sm font-black text-slate-800 truncate"></p>
+                                <p id="menuPin" class="text-sm font-black text-slate-800 truncate shimmer">MEMUAT...</p>
                                 <p class="text-xs text-slate-500 mt-1">15 Tryout + Materi Lengkap</p>
                             </div>
 
@@ -458,7 +491,7 @@
                 <div class="flex items-center gap-2">
                     <i class="fa-solid fa-id-card text-purple-600 text-sm"></i>
                     <p class="text-xs font-bold text-slate-500">PIN:</p>
-                    <p id="mobilePin" class="text-sm font-black text-slate-800 font-mono">MEMUAT...</p>
+                    <p id="mobilePin" class="text-sm font-black text-slate-800 font-mono shimmer">MEMUAT...</p>
                 </div>
                 <button onclick="copyPin()" class="text-slate-400 hover:text-purple-600 touch-button">
                     <i class="fa-regular fa-copy text-xs"></i>
@@ -467,8 +500,8 @@
         </div>
     </div>
 
-    <!-- Main Content -->
-    <main class="container mx-auto px-4 py-4 sm:py-6">
+    <!-- Main Content (Hidden by default until PIN is loaded) -->
+    <main id="mainContent" class="container mx-auto px-4 py-4 sm:py-6 hidden">
         <!-- Session Warning -->
         <div id="sessionWarning" class="mb-4 sm:mb-6 bg-yellow-50 border border-yellow-200 rounded-xl p-4 hidden">
             <div class="flex items-center justify-between mobile-stack gap-3">
@@ -975,18 +1008,74 @@
         let currentFilter = 'all';
         let userRank = 0;
 
-        // ========== 2. INITIALIZATION ==========
+        // ========== 2. PIN HANDLING FUNCTIONS ==========
+        function getPinFromURL() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get('pin');
+        }
+
+        function getPinFromStorage() {
+            // Coba dari berbagai sumber storage
+            return localStorage.getItem('pinAkses') || 
+                   sessionStorage.getItem('pinAkses') ||
+                   localStorage.getItem('userPin') ||
+                   sessionStorage.getItem('userPin');
+        }
+
+        function validatePin(pin) {
+            if (!pin) {
+                return {
+                    valid: false,
+                    message: 'PIN tidak ditemukan. Silakan login kembali.'
+                };
+            }
+            
+            // Minimal 4 karakter, bisa huruf dan angka
+            if (pin.length < 4) {
+                return {
+                    valid: false,
+                    message: 'Format PIN tidak valid. Minimal 4 karakter.'
+                };
+            }
+            
+            // Boleh huruf dan angka saja
+            if (!/^[a-zA-Z0-9]+$/.test(pin)) {
+                return {
+                    valid: false,
+                    message: 'Format PIN tidak valid. Hanya boleh huruf dan angka.'
+                };
+            }
+            
+            return {
+                valid: true,
+                message: 'PIN valid'
+            };
+        }
+
+        function savePin(pin) {
+            // Simpan ke berbagai storage untuk redundancy
+            localStorage.setItem('pinAkses', pin);
+            sessionStorage.setItem('pinAkses', pin);
+            localStorage.setItem('userPin', pin);
+            localStorage.setItem(`paket_peserta_${pin}`, "2");
+            
+            // Simpan juga di cookies untuk session management
+            document.cookie = `pinAkses=${pin}; path=/; max-age=86400`; // 24 jam
+            document.cookie = `paket=2; path=/; max-age=86400`;
+        }
+
+        // ========== 3. INITIALIZATION ==========
         document.addEventListener('DOMContentLoaded', async function() {
             console.log('Dashboard Paket 2 initializing...');
 
             // Set current year in footer
             document.getElementById('currentYear').textContent = new Date().getFullYear();
 
-            // Initialize dashboard
-            await initializeDashboard();
-
             // Setup event listeners
             setupEventListeners();
+
+            // Initialize dashboard
+            await initializeDashboard();
 
             // Handle orientation change
             window.addEventListener('orientationchange', handleOrientationChange);
@@ -995,9 +1084,101 @@
             console.log('Dashboard Paket 2 initialized successfully');
         });
 
-        // ========== 3. RESPONSIVE FUNCTIONS ==========
+        async function initializeDashboard() {
+            try {
+                // 1. Get PIN from various sources
+                pinAkses = getPinFromURL() || getPinFromStorage();
+                
+                // 2. Validate PIN
+                const validation = validatePin(pinAkses);
+                if (!validation.valid) {
+                    throw new Error(validation.message);
+                }
+
+                // 3. Save PIN for future use
+                savePin(pinAkses);
+
+                // 4. Update UI with PIN
+                updatePINDisplays();
+
+                // 5. Show main content
+                document.getElementById('mainContent').classList.remove('hidden');
+                document.getElementById('errorState').classList.add('hidden');
+
+                // 6. Load soal list
+                await renderSoalList();
+
+                // 7. Update progress and stats
+                updateProgressStats();
+
+                // 8. Update ranking
+                updateRanking();
+
+                // 9. Show welcome notification
+                showNotification('success', 'Berhasil Login!', `Selamat datang di dashboard Paket 2 Premium!`);
+
+                // 10. Adjust layout for current screen size
+                updateLayout();
+
+            } catch (error) {
+                console.error('Initialization error:', error);
+                showErrorState(error.message || 'Terjadi kesalahan saat login. Silakan login kembali.');
+            }
+        }
+
+        function showErrorState(message) {
+            document.getElementById('errorMessage').textContent = message;
+            document.getElementById('errorState').classList.remove('hidden');
+            document.getElementById('mainContent').classList.add('hidden');
+        }
+
+        function redirectToLogin() {
+            // Clear all storage
+            localStorage.clear();
+            sessionStorage.clear();
+            
+            // Redirect to login
+            window.location.href = 'login.html';
+        }
+
+        // ========== 4. PIN DISPLAY FUNCTIONS ==========
+        function updatePINDisplays() {
+            // Update all PIN displays
+            const pinElements = [
+                'displayPin',
+                'welcomePin',
+                'menuPin',
+                'modalPin',
+                'mobilePin'
+            ];
+
+            pinElements.forEach(id => {
+                const element = document.getElementById(id);
+                if (element) {
+                    element.textContent = pinAkses;
+                    element.classList.remove('shimmer');
+                }
+            });
+        }
+
+        function copyPin() {
+            if (!pinAkses) {
+                showNotification('error', 'Gagal Menyalin', 'PIN belum tersedia');
+                return;
+            }
+
+            navigator.clipboard.writeText(pinAkses)
+                .then(() => {
+                    showNotification('success', 'PIN Disalin', 'PIN telah disalin ke clipboard');
+                })
+                .catch(err => {
+                    console.error('Failed to copy PIN:', err);
+                    showNotification('error', 'Gagal Menyalin', 'Tidak dapat menyalin PIN');
+                });
+        }
+
+        // ========== 5. RESPONSIVE FUNCTIONS ==========
         function handleOrientationChange() {
-            // Force redraw on orientation change
             setTimeout(() => {
                 updateLayout();
             }, 100);
@@ -1010,9 +1191,7 @@
         function updateLayout() {
             const isMobile = window.innerWidth < 768;
             
-            // Update mobile-specific UI elements
             if (isMobile) {
-                // Adjust font sizes for mobile
                 document.querySelectorAll('.text-adjust').forEach(el => {
                     if (window.innerWidth < 400) {
                         el.style.fontSize = '0.875rem';
@@ -1033,7 +1212,7 @@
             };
         }
 
-        // ========== 4. MOBILE MENU FUNCTIONS ==========
+        // ========== 6. MOBILE MENU FUNCTIONS ==========
         function showMobileMenu() {
             const content = `
                 <div class="space-y-3">
@@ -1071,7 +1250,6 @@
         }
 
         function showMobileTryout() {
-            // Scroll to tryout section
             scrollToTryout();
         }
 
@@ -1080,6 +1258,8 @@
         }
 
         function showMobileProfile() {
+            if (!pinAkses) return;
+            
             const content = `
                 <div class="space-y-4">
                     <div class="text-center">
@@ -1087,7 +1267,7 @@
                             <i class="fa-solid fa-user text-white text-2xl"></i>
                         </div>
                         <h3 class="font-bold text-slate-800">Profil Peserta</h3>
-                        <p class="text-sm text-slate-500">PIN: ${pinAkses || 'Loading...'}</p>
+                        <p class="text-sm text-slate-500">PIN: ${pinAkses}</p>
                     </div>
                     
                     <div class="space-y-2">
@@ -1131,117 +1311,20 @@
             document.body.style.overflow = '';
         }
 
-        // ========== 5. DASHBOARD INITIALIZATION ==========
-        async function initializeDashboard() {
-            try {
-                // Get PIN from URL parameters or localStorage
-                const urlParams = new URLSearchParams(window.location.search);
-                pinAkses = urlParams.get('id');
-
-                // If not in URL, check localStorage (from login)
-                if (!pinAkses) {
-                    pinAkses = localStorage.getItem('pinAkses');
-                }
-
-                // If still no PIN, check sessionStorage
-                if (!pinAkses) {
-                    pinAkses = sessionStorage.getItem('pinAkses');
-                }
-
-                // If still no PIN, redirect to login
-                if (!pinAkses) {
-                    throw new Error('PIN tidak ditemukan. Silakan login kembali.');
-                }
-
-                // Validate PIN format
-                if (!/^[a-zA-Z0-9]{4,}$/.test(pinAkses)) {
-                    throw new Error('Format PIN tidak valid. Gunakan huruf dan angka (minimal 4 karakter)');
-                }
-
-                // Save PIN for future use
-                localStorage.setItem('pinAkses', pinAkses);
-                sessionStorage.setItem('pinAkses', pinAkses);
-                localStorage.setItem(`paket_peserta_${pinAkses}`, "2");
-
-                // Show loading state
-                showLoading();
-
-                // Initialize session
-                await initializeSession();
-
-                // Update PIN displays
-                updatePINDisplays();
-
-                // Load soal list
-                await renderSoalList();
-
-                // Update progress and stats
-                updateProgressStats();
-
-                // Update ranking
-                updateRanking();
-
-                // Hide loading state
-                hideLoading();
-
-                // Show welcome notification
-                showNotification('success', 'Berhasil Login!', `Selamat datang di dashboard Paket 2 Premium!`);
-
-                // Adjust layout for current screen size
-                updateLayout();
-
-            } catch (error) {
-                console.error('Initialization error:', error);
-                showNotification('error', 'Kesalahan Login', error.message || 'Terjadi kesalahan saat login');
-
-                // Redirect to login after delay
-                setTimeout(() => {
-                    window.location.href = 'login.html?error=' + encodeURIComponent(error.message || 'Silakan login kembali');
-                }, 3000);
-            }
-        }
-
-        // ========== 6. PIN MANAGEMENT ==========
-        function updatePINDisplays() {
-            // Update all PIN displays
-            const pinElements = [
-                'displayPin',
-                'welcomePin',
-                'menuPin',
-                'modalPin',
-                'mobilePin'
-            ];
-
-            pinElements.forEach(id => {
-                const element = document.getElementById(id);
-                if (element) {
-                    element.textContent = pinAkses;
-                }
-            });
-        }
-
-        function copyPin() {
-            navigator.clipboard.writeText(pinAkses)
-                .then(() => {
-                    showNotification('success', 'PIN Disalin', 'PIN telah disalin ke clipboard');
-                })
-                .catch(err => {
-                    console.error('Failed to copy PIN:', err);
-                    showNotification('error', 'Gagal Menyalin', 'Tidak dapat menyalin PIN');
-                });
-        }
-
         // ========== 7. SOAL LIST MANAGEMENT ==========
         async function renderSoalList() {
             try {
+                if (!pinAkses) {
+                    throw new Error('PIN tidak tersedia');
+                }
+
                 // Show loading state
                 document.getElementById('loadingState').classList.remove('hidden');
-                document.getElementById('errorState').classList.add('hidden');
                 document.getElementById('soalListContainer').classList.add('hidden');
                 document.getElementById('emptyState').classList.add('hidden');
 
                 // Simulate API delay
-                await new Promise(resolve => setTimeout(resolve, 1000));
+                await new Promise(resolve => setTimeout(resolve, 800));
 
                 // Get progress data
                 const progressKey = `progress_${pinAkses}`;
@@ -1263,7 +1346,7 @@
                         score,
                         completionTime,
                         accuracy,
-                        link: `soalpaket${i}.html?id=${pinAkses}`,
+                        link: `soalpaket${i}.html?pin=${pinAkses}`,
                         bestScore: score && score >= 450
                     });
                 }
@@ -1275,6 +1358,9 @@
                 const completedCount = soalList.filter(s => s.isCompleted).length;
                 updateCompletedCount(completedCount);
 
+                // Update quick stats
+                updateQuickStats(soalList);
+
                 // Hide loading state
                 document.getElementById('loadingState').classList.add('hidden');
                 document.getElementById('soalListContainer').classList.remove('hidden');
@@ -1285,7 +1371,7 @@
             } catch (error) {
                 console.error('Error rendering soal list:', error);
                 document.getElementById('loadingState').classList.add('hidden');
-                document.getElementById('errorState').classList.remove('hidden');
+                showNotification('error', 'Kesalahan', 'Gagal memuat daftar tryout');
             }
         }
 
@@ -1419,6 +1505,104 @@
             }
         }
 
+        function updateQuickStats(soalList) {
+            const completedSoal = soalList.filter(s => s.isCompleted);
+            
+            if (completedSoal.length === 0) {
+                return;
+            }
+
+            // Rata-rata skor
+            const totalScore = completedSoal.reduce((sum, s) => sum + (s.score || 0), 0);
+            const avgScore = Math.round(totalScore / completedSoal.length);
+            document.getElementById('avgScore').textContent = avgScore;
+
+            // Skor terbaik
+            const bestScore = Math.max(...completedSoal.map(s => s.score || 0));
+            document.getElementById('bestScore').textContent = bestScore;
+
+            // Total waktu (dalam jam)
+            const totalMinutes = completedSoal.reduce((sum, s) => sum + (s.completionTime || 0), 0);
+            const totalHours = Math.round(totalMinutes / 60);
+            document.getElementById('totalTime').textContent = totalHours;
+
+            // Akurasi rata-rata
+            const totalAccuracy = completedSoal.reduce((sum, s) => sum + (s.accuracy || 0), 0);
+            const avgAccuracy = Math.round(totalAccuracy / completedSoal.length);
+            document.getElementById('accuracy').textContent = `${avgAccuracy}%`;
+        }
+
+        function updateProgressStats() {
+            // This function can be expanded to update more stats
+            updateRanking();
+        }
+
+        function updateRanking() {
+            // Simulate ranking update
+            const randomRank = Math.floor(Math.random() * 100) + 1;
+            document.getElementById('userRank').textContent = randomRank;
+        }
+
+        function filterSoal(filter) {
+            currentFilter = filter;
+            
+            // Update active filter button
+            document.querySelectorAll('[onclick^="filterSoal"]').forEach(btn => {
+                btn.classList.remove('bg-gradient-to-r', 'from-purple-600', 'to-indigo-600', 'text-white');
+                btn.classList.add('bg-slate-100', 'text-slate-700');
+            });
+            
+            const activeBtn = document.querySelector(`[onclick="filterSoal('${filter}')"]`);
+            if (activeBtn) {
+                activeBtn.classList.remove('bg-slate-100', 'text-slate-700');
+                activeBtn.classList.add('bg-gradient-to-r', 'from-purple-600', 'to-indigo-600', 'text-white');
+            }
+            
+            // Filter soal cards
+            const cards = document.querySelectorAll('#soalListContainer > div');
+            cards.forEach(card => {
+                const isCompleted = card.getAttribute('data-completed') === 'true';
+                
+                switch(filter) {
+                    case 'completed':
+                        card.style.display = isCompleted ? 'block' : 'none';
+                        break;
+                    case 'pending':
+                        card.style.display = !isCompleted ? 'block' : 'none';
+                        break;
+                    default:
+                        card.style.display = 'block';
+                }
+            });
+        }
+
+        function toggleSort() {
+            isSortedAsc = !isSortedAsc;
+            
+            const sortButton = document.getElementById('sortButton');
+            sortButton.innerHTML = isSortedAsc 
+                ? '<i class="fa-solid fa-arrow-down-a-z text-slate-600"></i>'
+                : '<i class="fa-solid fa-arrow-down-z-a text-slate-600"></i>';
+            
+            // Sort soal cards
+            const container = document.getElementById('soalListContainer');
+            const cards = Array.from(container.children);
+            
+            cards.sort((a, b) => {
+                const idA = parseInt(a.getAttribute('data-id'));
+                const idB = parseInt(b.getAttribute('data-id'));
+                return isSortedAsc ? idA - idB : idB - idA;
+            });
+            
+            // Reappend sorted cards
+            cards.forEach(card => container.appendChild(card));
+        }
+
+        function refreshSoalList() {
+            renderSoalList();
+            showNotification('info', 'Memperbarui', 'Daftar tryout diperbarui');
+        }
+
         // ========== 8. UI FUNCTIONS ==========
         function scrollToTryout() {
             const tryoutSection = document.getElementById('tryoutSection');
@@ -1429,12 +1613,22 @@
         }
 
         function joinWhatsAppGroup() {
+            if (!pinAkses) {
+                showNotification('error', 'Gagal', 'PIN tidak tersedia');
+                return;
+            }
+            
             const message = `Halo admin, saya peserta Paket 2 dengan PIN: ${pinAkses} mau join grup VIP`;
             const encodedMessage = encodeURIComponent(message);
             window.open(`https://wa.me/6285696409288?text=${encodedMessage}`, '_blank');
         }
 
         function tambahPaket() {
+            if (!pinAkses) {
+                showNotification('error', 'Gagal', 'PIN tidak tersedia');
+                return;
+            }
+            
             if (!confirm('Anda akan diarahkan ke WhatsApp untuk pembelian paket tambahan (Rp 25.000). Lanjutkan?')) {
                 return;
             }
@@ -1443,76 +1637,12 @@
             window.open(`https://api.whatsapp.com/send?phone=6285696409288&text=${message}`, '_blank');
         }
 
-        function showLoading() {
-            document.body.classList.add('loading');
-        }
-
-        function hideLoading() {
-            document.body.classList.remove('loading');
-        }
-
-        // ========== 9. EVENT LISTENERS ==========
-        function setupEventListeners() {
-            // Close dropdowns when clicking outside
-            document.addEventListener('click', (event) => {
-                const profileMenu = document.getElementById('profileMenu');
-                const profileButton = document.querySelector('[onclick="toggleProfileMenu()"]');
-
-                if (profileMenu && !profileMenu.contains(event.target) && !profileButton.contains(event.target)) {
-                    profileMenu.classList.add('hidden');
-                }
-
-                // Close modals when clicking outside
-                const modals = ['progressModal', 'rankingModal'];
-                modals.forEach(modalId => {
-                    const modal = document.getElementById(modalId);
-                    const modalContent = modal?.querySelector('div > div');
-
-                    if (modal && !modal.classList.contains('hidden') && modalContent && !modalContent.contains(event.target)) {
-                        modal.classList.add('hidden');
-                    }
-                });
-            });
-
-            // Touch and click events
-            document.addEventListener('touchstart', function() {}, {passive: true});
-
-            // Handle back button on mobile
-            window.addEventListener('popstate', function(event) {
-                if (document.getElementById('mobileBottomSheet').classList.contains('active')) {
-                    hideBottomSheet();
-                    event.preventDefault();
-                }
-            });
-
-            // Prevent zoom on double tap (mobile)
-            let lastTouchEnd = 0;
-            document.addEventListener('touchend', function(event) {
-                const now = (new Date()).getTime();
-                if (now - lastTouchEnd <= 300) {
-                    event.preventDefault();
-                }
-                lastTouchEnd = now;
-            }, false);
-        }
-
-        // ========== 10. REMAINING FUNCTIONS ==========
-        // [Sisipkan fungsi-fungsi lain dari kode sebelumnya yang masih relevan:
-        // - Session management functions
-        // - Progress & statistics functions
-        // - Ranking functions
-        // - Notification system
-        // - Modals functions
-        // - Logout function
-        // - Initial setup functions]
-        // Note: Untuk menjaga konsistensi, saya akan memasukkan fungsi-fungsi inti
-
-        function toggleProfileMenu() {
-            const menu = document.getElementById('profileMenu');
-            menu.classList.toggle('hidden');
-        }
-
         function openMateri(type) {
+            if (!pinAkses) {
+                showNotification('error', 'Gagal', 'PIN tidak tersedia');
+                return;
+            }
+            
             const materiLinks = {
                 'twk': 'modul-twk.html',
                 'tiu': 'modul-tiu.html',
@@ -1520,12 +1650,13 @@
             };
             
             if (materiLinks[type]) {
-                window.open(`${materiLinks[type]}?id=${pinAkses}`, '_blank');
+                window.open(`${materiLinks[type]}?pin=${pinAkses}`, '_blank');
             } else {
                 showNotification('info', 'Materi', 'Materi akan segera tersedia!');
             }
         }
 
+        // ========== 9. NOTIFICATION SYSTEM ==========
         function showNotification(type, title, message) {
             const toast = document.getElementById('notification-toast');
             const toastIcon = document.getElementById('toast-icon');
@@ -1557,7 +1688,248 @@
             document.getElementById('notification-toast').classList.add('hidden');
         }
 
-        // Initialize on load
+        // ========== 10. MODAL FUNCTIONS ==========
+        function showProgressModal() {
+            if (!pinAkses) return;
+            
+            document.getElementById('modalPin').textContent = pinAkses;
+            
+            // Load progress content
+            const progressKey = `progress_${pinAkses}`;
+            const progress = JSON.parse(localStorage.getItem(progressKey)) || {};
+            
+            let progressHtml = '<div class="space-y-4">';
+            for (let i = 1; i <= 15; i++) {
+                const isCompleted = progress[`paket_${i}`] || false;
+                const score = progress[`score_${i}`] || '-';
+                const time = progress[`time_${i}`] || '-';
+                
+                progressHtml += `
+                    <div class="flex items-center justify-between p-3 bg-slate-50 rounded-lg">
+                        <div>
+                            <h4 class="font-bold text-slate-800">Tryout #${i}</h4>
+                            <p class="text-xs text-slate-500">TWK • TIU • TKP</p>
+                        </div>
+                        <div class="text-right">
+                            <div class="font-bold ${isCompleted ? 'text-green-600' : 'text-yellow-600'}">${score}</div>
+                            <div class="text-xs text-slate-500">${time} menit</div>
+                        </div>
+                    </div>
+                `;
+            }
+            progressHtml += '</div>';
+            
+            document.getElementById('progressContent').innerHTML = progressHtml;
+            document.getElementById('progressModal').classList.remove('hidden');
+        }
+
+        function hideProgressModal() {
+            document.getElementById('progressModal').classList.add('hidden');
+        }
+
+        function showRankingModal() {
+            // Simulate ranking data
+            const rankingHtml = `
+                <div class="space-y-4">
+                    <div class="text-center p-4 bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl">
+                        <p class="text-sm text-slate-600 mb-2">Peringkat Anda</p>
+                        <div class="text-4xl font-black text-purple-600">#${document.getElementById('userRank').textContent}</div>
+                        <p class="text-xs text-slate-500 mt-2">Dari 1000+ peserta Paket 2</p>
+                    </div>
+                    
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-slate-800">Top 10 Ranking</h4>
+                        ${Array.from({length: 10}, (_, i) => `
+                            <div class="flex items-center justify-between p-3 ${i < 3 ? 'bg-gradient-to-r from-yellow-50 to-amber-50 border border-yellow-200' : 'bg-slate-50'} rounded-lg">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-8 h-8 ${i < 3 ? 'bg-gradient-to-r from-yellow-500 to-amber-600 text-white' : 'bg-slate-200 text-slate-700'} rounded-full flex items-center justify-center font-bold">
+                                        ${i + 1}
+                                    </div>
+                                    <div>
+                                        <p class="text-sm font-medium text-slate-800">Peserta ${String.fromCharCode(65 + i)}***</p>
+                                        <p class="text-xs text-slate-500">Paket 2 Premium</p>
+                                    </div>
+                                </div>
+                                <div class="font-bold text-slate-800">${550 - i * 5}</div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('rankingContent').innerHTML = rankingHtml;
+            document.getElementById('rankingModal').classList.remove('hidden');
+        }
+
+        function hideRankingModal() {
+            document.getElementById('rankingModal').classList.add('hidden');
+        }
+
+        function showSettings() {
+            const content = `
+                <div class="space-y-4">
+                    <h3 class="font-bold text-slate-800 text-lg mb-2">Pengaturan</h3>
+                    
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between p-3 bg-slate-50 rounded-lg">
+                            <div>
+                                <p class="text-sm font-medium text-slate-800">Mode Gelap</p>
+                                <p class="text-xs text-slate-500">Tampilan gelap</p>
+                            </div>
+                            <label class="relative inline-flex items-center cursor-pointer">
+                                <input type="checkbox" class="sr-only peer">
+                                <div class="w-11 h-6 bg-slate-300 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-purple-600"></div>
+                            </label>
+                        </div>
+                        
+                        <div class="flex items-center justify-between p-3 bg-slate-50 rounded-lg">
+                            <div>
+                                <p class="text-sm font-medium text-slate-800">Notifikasi</p>
+                                <p class="text-xs text-slate-500">Peringkat & pembaruan</p>
+                            </div>
+                            <label class="relative inline-flex items-center cursor-pointer">
+                                <input type="checkbox" class="sr-only peer" checked>
+                                <div class="w-11 h-6 bg-slate-300 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-purple-600"></div>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <button onclick="clearProgressData()" class="w-full bg-red-50 text-red-700 font-bold py-3 rounded-xl hover:bg-red-100 transition-colors mt-4">
+                        <i class="fa-solid fa-trash mr-2"></i> Hapus Data Progress
+                    </button>
+                </div>
+            `;
+            
+            showBottomSheet(content);
+        }
+
+        function showHelpModal() {
+            const content = `
+                <div class="space-y-4">
+                    <h3 class="font-bold text-slate-800 text-lg mb-2">Bantuan</h3>
+                    
+                    <div class="space-y-3">
+                        <div class="p-3 bg-blue-50 rounded-lg">
+                            <h4 class="font-bold text-blue-800 text-sm mb-1">Cara Kerja Tryout</h4>
+                            <p class="text-sm text-blue-700">Pilih paket tryout, kerjakan soal dengan waktu terbatas, dan dapatkan skor beserta pembahasan.</p>
+                        </div>
+                        
+                        <div class="p-3 bg-green-50 rounded-lg">
+                            <h4 class="font-bold text-green-800 text-sm mb-1">Grup WhatsApp VIP</h4>
+                            <p class="text-sm text-green-700">Bergabung dengan grup untuk diskusi dengan mentor dan peserta lainnya.</p>
+                        </div>
+                        
+                        <div class="p-3 bg-purple-50 rounded-lg">
+                            <h4 class="font-bold text-purple-800 text-sm mb-1">PIN Peserta</h4>
+                            <p class="text-sm text-purple-700">PIN Anda adalah identitas unik. Jangan bagikan kepada siapapun.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="pt-4 border-t border-slate-200">
+                        <p class="text-sm text-slate-600 mb-3">Butuh bantuan lebih lanjut?</p>
+                        <button onclick="contactSupport()" class="w-full bg-gradient-to-r from-green-500 to-emerald-600 text-white font-bold py-3 rounded-xl">
+                            <i class="fa-brands fa-whatsapp mr-2"></i> Hubungi Support
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            showBottomSheet(content);
+        }
+
+        function contactSupport() {
+            const message = `Halo Support Kerja Jadi ASN,%0A%0ASaya butuh bantuan untuk dashboard Paket 2.%0A*PIN Peserta:* ${pinAkses}%0A*Masalah:* [Jelaskan masalah Anda di sini]%0A%0ATerima kasih.`;
+            window.open(`https://api.whatsapp.com/send?phone=6285696409288&text=${message}`, '_blank');
+        }
+
+        function clearProgressData() {
+            if (!confirm('Apakah Anda yakin ingin menghapus semua data progress? Tindakan ini tidak dapat dibatalkan.')) {
+                return;
+            }
+            
+            if (!pinAkses) return;
+            
+            localStorage.removeItem(`progress_${pinAkses}`);
+            showNotification('success', 'Berhasil', 'Data progress telah dihapus');
+            hideBottomSheet();
+            renderSoalList();
+        }
+
+        // ========== 11. LOGOUT FUNCTION ==========
+        function confirmLogout() {
+            if (!confirm('Apakah Anda yakin ingin keluar dari dashboard?')) {
+                return;
+            }
+            
+            // Clear session data
+            sessionStorage.clear();
+            localStorage.removeItem('pinAkses');
+            localStorage.removeItem('userPin');
+            
+            // Clear cookies
+            document.cookie = "pinAkses=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
+            document.cookie = "paket=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
+            
+            // Redirect to login
+            window.location.href = 'login.html';
+        }
+
+        // ========== 12. EVENT LISTENERS ==========
+        function setupEventListeners() {
+            // Close dropdowns when clicking outside
+            document.addEventListener('click', (event) => {
+                const profileMenu = document.getElementById('profileMenu');
+                const profileButton = document.querySelector('[onclick="toggleProfileMenu()"]');
+
+                if (profileMenu && !profileMenu.classList.contains('hidden') && 
+                    !profileMenu.contains(event.target) && 
+                    profileButton && !profileButton.contains(event.target)) {
+                    profileMenu.classList.add('hidden');
+                }
+
+                // Close modals when clicking outside
+                const modals = ['progressModal', 'rankingModal'];
+                modals.forEach(modalId => {
+                    const modal = document.getElementById(modalId);
+                    if (modal && !modal.classList.contains('hidden')) {
+                        const modalContent = modal.querySelector('div > div');
+                        if (modalContent && !modalContent.contains(event.target)) {
+                            modal.classList.add('hidden');
+                        }
+                    }
+                });
+            });
+
+            // Handle escape key
+            document.addEventListener('keydown', (event) => {
+                if (event.key === 'Escape') {
+                    hideBottomSheet();
+                    hideProgressModal();
+                    hideRankingModal();
+                    const profileMenu = document.getElementById('profileMenu');
+                    if (profileMenu && !profileMenu.classList.contains('hidden')) {
+                        profileMenu.classList.add('hidden');
+                    }
+                }
+            });
+
+            // Prevent zoom on double tap (mobile)
+            let lastTouchEnd = 0;
+            document.addEventListener('touchend', function(event) {
+                const now = (new Date()).getTime();
+                if (now - lastTouchEnd <= 300) {
+                    event.preventDefault();
+                }
+                lastTouchEnd = now;
+            }, false);
+        }
+
+        function toggleProfileMenu() {
+            const menu = document.getElementById('profileMenu');
+            menu.classList.toggle('hidden');
+        }
+
+        // Initialize layout
         setTimeout(updateLayout, 100);
     </script>
 </body>
