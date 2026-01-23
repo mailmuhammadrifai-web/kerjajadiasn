@@ -348,7 +348,7 @@
                                     <i class="fa-solid fa-circle-question w-5 text-green-500"></i>
                                     Bantuan & Panduan
                                 </a>
-                                <a href="#" onclick="confirmLogout()" class="flex items-center gap-3 px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors">
+                                <a href="#" onclick="confirm()" class="flex items-center gap-3 px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors">
                                     <i class="fa-solid fa-arrow-right-from-bracket w-5"></i>
                                     Keluar Dashboard
                                 </a>
@@ -1062,7 +1062,7 @@
             showNotification('warning', 'Sesi Berakhir', 'Sesi Anda telah berakhir. Silakan login kembali.');
 
             setTimeout(() => {
-                logout('session_expired');
+                ('session_expired');
             }, 3000);
         }
 
