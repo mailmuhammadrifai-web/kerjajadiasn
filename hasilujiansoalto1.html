@@ -2,829 +2,131 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
+    <title>Hasil Ujian SKD</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hasil Ujian - Paket 1</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
         body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
-        }
-        .custom-scrollbar::-webkit-scrollbar {
-            width: 6px;
-            height: 6px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-track {
-            background: #f1f5f9;
-            border-radius: 10px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-thumb {
-            background: #cbd5e1;
-            border-radius: 10px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-            background: #94a3b8;
-        }
-        .score-card {
-            transition: all 0.3s ease;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-        }
-        .score-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
-        }
-        .progress-ring {
-            transform: rotate(-90deg);
-        }
-        .progress-ring-circle {
-            stroke-dasharray: 440;
-            stroke-dashoffset: 440;
-            transition: stroke-dashoffset 1.5s ease-in-out;
-        }
-        .passing-grade-line {
-            position: absolute;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, #ef4444, transparent);
-            z-index: 10;
-        }
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        .animate-fadeInUp {
-            animation: fadeInUp 0.6s ease-out forwards;
-        }
-        .success-gradient {
-            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-        }
-        .warning-gradient {
-            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
-        }
-        .danger-gradient {
-            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+            font-family: 'Inter', sans-serif;
         }
     </style>
 </head>
-<body class="min-h-screen">
+<body class="min-h-screen flex items-center justify-center px-4">
 
-    <!-- Header -->
-    <header class="bg-white shadow-sm">
-        <div class="container mx-auto px-4 py-4">
-            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
-                <div class="flex items-center gap-4">
-                    <div class="bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-4 py-2 rounded-xl font-bold text-sm uppercase tracking-wider">
-                        HASIL UJIAN - PAKET 1
-                    </div>
-                    <div>
-                        <p class="text-xs text-slate-500 font-bold uppercase">ID PESERTA</p>
-                        <p id="pesertaID" class="text-lg font-black text-slate-800 font-mono">MEMUAT...</p>
-                    </div>
-                </div>
-                <div class="flex items-center gap-3">
-                    <button onclick="printHasil()" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl font-medium flex items-center gap-2 transition-colors">
-                        <i class="fa-solid fa-print"></i>
-                        <span class="hidden sm:inline">Cetak</span>
-                    </button>
-                    <button onclick="kembaliKeDashboard()" id="dashboardBtn" class="px-4 py-2 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl font-bold hover:from-blue-700 hover:to-indigo-700 transition-all flex items-center gap-2">
-                        <i class="fa-solid fa-arrow-left"></i>
-                        <span>Kembali ke Dashboard</span>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </header>
+<div class="max-w-4xl w-full bg-white rounded-3xl shadow-xl border border-slate-200 overflow-hidden">
 
-    <main class="container mx-auto px-4 py-6 md:py-8">
-        <!-- Section 1: Ringkasan Hasil -->
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
-            <!-- Kartu Total Skor -->
-            <div class="bg-white rounded-2xl p-6 score-card col-span-1 lg:col-span-3">
-                <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
-                    <div class="flex-1">
-                        <h1 class="text-2xl md:text-3xl font-bold text-slate-800 mb-2">Hasil Ujian SKD CPNS</h1>
-                        <p class="text-slate-600 mb-4">Berikut adalah hasil ujian Computer Assisted Test (CAT) CPNS Anda pada Paket 1</p>
-                        <div class="flex flex-wrap gap-4">
-                            <div class="flex items-center gap-2">
-                                <div class="w-3 h-3 rounded-full bg-blue-600"></div>
-                                <span class="text-sm text-slate-700">TWK: Tes Wawasan Kebangsaan</span>
-                            </div>
-                            <div class="flex items-center gap-2">
-                                <div class="w-3 h-3 rounded-full bg-green-600"></div>
-                                <span class="text-sm text-slate-700">TIU: Tes Intelegensi Umum</span>
-                            </div>
-                            <div class="flex items-center gap-2">
-                                <div class="w-3 h-3 rounded-full bg-purple-600"></div>
-                                <span class="text-sm text-slate-700">TKP: Tes Karakteristik Pribadi</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="relative w-40 h-40 mx-auto md:mx-0">
-                        <svg class="w-full h-full" viewBox="0 0 100 100">
-                            <!-- Background circle -->
-                            <circle cx="50" cy="50" r="45" fill="none" stroke="#f1f5f9" stroke-width="8"/>
-                            <!-- Progress circle -->
-                            <circle id="totalProgressCircle" cx="50" cy="50" r="45" fill="none" 
-                                    stroke="url(#totalGradient)" stroke-width="8" stroke-linecap="round"
-                                    class="progress-ring-circle" stroke-dashoffset="283"/>
-                            <defs>
-                                <linearGradient id="totalGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                                    <stop offset="0%" stop-color="#3b82f6"/>
-                                    <stop offset="100%" stop-color="#8b5cf6"/>
-                                </linearGradient>
-                            </defs>
-                            <text x="50" y="50" text-anchor="middle" dy="0.3em" class="text-2xl font-bold fill-slate-800">
-                                <tspan id="totalScoreDisplay" class="text-3xl">0</tspan>
-                            </text>
-                            <text x="50" y="62" text-anchor="middle" class="text-xs fill-slate-500">Dari 550</text>
-                        </svg>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Kartu TWK -->
-            <div class="bg-white rounded-2xl p-6 score-card">
-                <div class="flex items-start justify-between mb-4">
-                    <div>
-                        <div class="flex items-center gap-2 mb-2">
-                            <div class="w-3 h-3 rounded-full bg-blue-600"></div>
-                            <h3 class="text-lg font-bold text-slate-800">TWK</h3>
-                        </div>
-                        <p class="text-sm text-slate-600">Tes Wawasan Kebangsaan</p>
-                    </div>
-                    <div class="text-right">
-                        <p class="text-xs text-slate-500">Passing Grade</p>
-                        <p class="text-lg font-bold text-slate-800">65</p>
-                    </div>
-                </div>
-                <div class="relative h-3 bg-slate-200 rounded-full overflow-hidden mb-3">
-                    <div id="twkProgress" class="h-full bg-gradient-to-r from-blue-500 to-blue-600 rounded-full transition-all duration-1000" style="width: 0%"></div>
-                    <!-- Passing Grade Line -->
-                    <div class="passing-grade-line" style="left: 43.33%; width: 2px; height: 100%;">
-                        <div class="absolute -top-6 left-1/2 transform -translate-x-1/2 text-xs font-bold text-red-600">65</div>
-                    </div>
-                </div>
-                <div class="flex justify-between items-center">
-                    <div>
-                        <p class="text-3xl font-black text-slate-800" id="twkScore">0</p>
-                        <p class="text-xs text-slate-500">dari 150</p>
-                    </div>
-                    <div id="twkStatus" class="px-3 py-1 rounded-full text-xs font-bold">
-                        Memuat...
-                    </div>
-                </div>
-                <div class="mt-4 pt-4 border-t border-slate-100">
-                    <div class="grid grid-cols-2 gap-2 text-sm">
-                        <div>
-                            <p class="text-slate-500">Soal Terjawab</p>
-                            <p class="font-bold text-slate-800" id="twkJawab">0/30</p>
-                        </div>
-                        <div>
-                            <p class="text-slate-500">Jawaban Benar</p>
-                            <p class="font-bold text-slate-800" id="twkBenar">0</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Kartu TIU -->
-            <div class="bg-white rounded-2xl p-6 score-card">
-                <div class="flex items-start justify-between mb-4">
-                    <div>
-                        <div class="flex items-center gap-2 mb-2">
-                            <div class="w-3 h-3 rounded-full bg-green-600"></div>
-                            <h3 class="text-lg font-bold text-slate-800">TIU</h3>
-                        </div>
-                        <p class="text-sm text-slate-600">Tes Intelegensi Umum</p>
-                    </div>
-                    <div class="text-right">
-                        <p class="text-xs text-slate-500">Passing Grade</p>
-                        <p class="text-lg font-bold text-slate-800">80</p>
-                    </div>
-                </div>
-                <div class="relative h-3 bg-slate-200 rounded-full overflow-hidden mb-3">
-                    <div id="tiuProgress" class="h-full bg-gradient-to-r from-green-500 to-green-600 rounded-full transition-all duration-1000" style="width: 0%"></div>
-                    <!-- Passing Grade Line -->
-                    <div class="passing-grade-line" style="left: 45.71%; width: 2px; height: 100%;">
-                        <div class="absolute -top-6 left-1/2 transform -translate-x-1/2 text-xs font-bold text-red-600">80</div>
-                    </div>
-                </div>
-                <div class="flex justify-between items-center">
-                    <div>
-                        <p class="text-3xl font-black text-slate-800" id="tiuScore">0</p>
-                        <p class="text-xs text-slate-500">dari 175</p>
-                    </div>
-                    <div id="tiuStatus" class="px-3 py-1 rounded-full text-xs font-bold">
-                        Memuat...
-                    </div>
-                </div>
-                <div class="mt-4 pt-4 border-t border-slate-100">
-                    <div class="grid grid-cols-2 gap-2 text-sm">
-                        <div>
-                            <p class="text-slate-500">Soal Terjawab</p>
-                            <p class="font-bold text-slate-800" id="tiuJawab">0/35</p>
-                        </div>
-                        <div>
-                            <p class="text-slate-500">Jawaban Benar</p>
-                            <p class="font-bold text-slate-800" id="tiuBenar">0</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Kartu TKP -->
-            <div class="bg-white rounded-2xl p-6 score-card">
-                <div class="flex items-start justify-between mb-4">
-                    <div>
-                        <div class="flex items-center gap-2 mb-2">
-                            <div class="w-3 h-3 rounded-full bg-purple-600"></div>
-                            <h3 class="text-lg font-bold text-slate-800">TKP</h3>
-                        </div>
-                        <p class="text-sm text-slate-600">Tes Karakteristik Pribadi</p>
-                    </div>
-                    <div class="text-right">
-                        <p class="text-xs text-slate-500">Passing Grade</p>
-                        <p class="text-lg font-bold text-slate-800">166</p>
-                    </div>
-                </div>
-                <div class="relative h-3 bg-slate-200 rounded-full overflow-hidden mb-3">
-                    <div id="tkpProgress" class="h-full bg-gradient-to-r from-purple-500 to-purple-600 rounded-full transition-all duration-1000" style="width: 0%"></div>
-                    <!-- Passing Grade Line -->
-                    <div class="passing-grade-line" style="left: 73.78%; width: 2px; height: 100%;">
-                        <div class="absolute -top-6 left-1/2 transform -translate-x-1/2 text-xs font-bold text-red-600">166</div>
-                    </div>
-                </div>
-                <div class="flex justify-between items-center">
-                    <div>
-                        <p class="text-3xl font-black text-slate-800" id="tkpScore">0</p>
-                        <p class="text-xs text-slate-500">dari 225</p>
-                    </div>
-                    <div id="tkpStatus" class="px-3 py-1 rounded-full text-xs font-bold">
-                        Memuat...
-                    </div>
-                </div>
-                <div class="mt-4 pt-4 border-t border-slate-100">
-                    <div class="grid grid-cols-2 gap-2 text-sm">
-                        <div>
-                            <p class="text-slate-500">Soal Terjawab</p>
-                            <p class="font-bold text-slate-800" id="tkpJawab">0/45</p>
-                        </div>
-                        <div>
-                            <p class="text-slate-500">Skor Maksimal</p>
-                            <p class="font-bold text-slate-800">225</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Section 2: Status Kelulusan -->
-        <div class="bg-white rounded-2xl p-6 mb-8 animate-fadeInUp">
-            <h2 class="text-xl font-bold text-slate-800 mb-6">Status Kelulusan</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                    <h3 class="text-lg font-semibold text-slate-700 mb-4">Persyaratan Kelulusan</h3>
-                    <div class="space-y-3">
-                        <div class="flex items-center justify-between p-3 bg-blue-50 rounded-xl">
-                            <span class="font-medium text-slate-700">TWK ≥ 65</span>
-                            <span id="reqTWK" class="px-3 py-1 rounded-full text-xs font-bold bg-blue-100 text-blue-800">-</span>
-                        </div>
-                        <div class="flex items-center justify-between p-3 bg-green-50 rounded-xl">
-                            <span class="font-medium text-slate-700">TIU ≥ 80</span>
-                            <span id="reqTIU" class="px-3 py-1 rounded-full text-xs font-bold bg-green-100 text-green-800">-</span>
-                        </div>
-                        <div class="flex items-center justify-between p-3 bg-purple-50 rounded-xl">
-                            <span class="font-medium text-slate-700">TKP ≥ 166</span>
-                            <span id="reqTKP" class="px-3 py-1 rounded-full text-xs font-bold bg-purple-100 text-purple-800">-</span>
-                        </div>
-                        <div class="flex items-center justify-between p-3 bg-slate-50 rounded-xl">
-                            <span class="font-medium text-slate-700">Total ≥ 311</span>
-                            <span id="reqTotal" class="px-3 py-1 rounded-full text-xs font-bold bg-slate-100 text-slate-800">-</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="flex flex-col justify-center items-center p-6 rounded-2xl border-2 border-dashed" id="finalStatusContainer">
-                    <div id="finalStatusIcon" class="text-6xl mb-4">
-                        <i class="fa-solid fa-hourglass-half text-yellow-500"></i>
-                    </div>
-                    <h3 id="finalStatusTitle" class="text-2xl font-bold text-slate-800 mb-2">Memproses Hasil</h3>
-                    <p id="finalStatusDesc" class="text-slate-600 text-center">Sedang menghitung status kelulusan Anda...</p>
-                    <div class="mt-6 w-full max-w-xs">
-                        <div class="flex justify-between text-sm text-slate-600 mb-1">
-                            <span>Total Skor</span>
-                            <span id="finalScoreText">0/550</span>
-                        </div>
-                        <div class="w-full bg-slate-200 h-2 rounded-full overflow-hidden">
-                            <div id="finalScoreBar" class="h-full bg-gradient-to-r from-blue-500 to-purple-600 transition-all duration-1000" style="width: 0%"></div>
-                        </div>
-                        <div class="text-xs text-slate-500 text-right mt-1">
-                            <span id="finalPercentage">0%</span> dari passing grade total (311)
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Section 3: Detail Waktu & Statistik -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-            <div class="bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-2xl p-6">
-                <div class="flex items-center gap-4 mb-4">
-                    <div class="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center">
-                        <i class="fa-solid fa-clock text-2xl"></i>
-                    </div>
-                    <div>
-                        <p class="text-sm opacity-90">Waktu Pengerjaan</p>
-                        <p id="waktuPengerjaan" class="text-2xl font-black">00:00</p>
-                    </div>
-                </div>
-                <p class="text-sm opacity-90">Waktu yang digunakan untuk menyelesaikan seluruh soal ujian</p>
-            </div>
-
-            <div class="bg-gradient-to-br from-green-500 to-green-600 text-white rounded-2xl p-6">
-                <div class="flex items-center gap-4 mb-4">
-                    <div class="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center">
-                        <i class="fa-solid fa-calendar-check text-2xl"></i>
-                    </div>
-                    <div>
-                        <p class="text-sm opacity-90">Tanggal Selesai</p>
-                        <p id="tanggalSelesai" class="text-2xl font-black">-</p>
-                    </div>
-                </div>
-                <p class="text-sm opacity-90">Waktu penyelesaian ujian</p>
-            </div>
-
-            <div class="bg-gradient-to-br from-purple-500 to-purple-600 text-white rounded-2xl p-6">
-                <div class="flex items-center gap-4 mb-4">
-                    <div class="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center">
-                        <i class="fa-solid fa-chart-bar text-2xl"></i>
-                    </div>
-                    <div>
-                        <p class="text-sm opacity-90">Akurasi Jawaban</p>
-                        <p id="akurasiJawaban" class="text-2xl font-black">0%</p>
-                    </div>
-                </div>
-                <p class="text-sm opacity-90">Persentase jawaban benar dari soal TWK & TIU</p>
-            </div>
-        </div>
-
-        <!-- Section 4: Pembahasan Soal -->
-        <div class="bg-white rounded-2xl p-6 mb-8">
-            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
-                <div>
-                    <h2 class="text-xl font-bold text-slate-800 mb-2">Pembahasan Soal</h2>
-                    <p class="text-slate-600">Pelajari pembahasan detail untuk setiap soal pada Paket 1</p>
-                </div>
-                <a href="#" id="pembahasanLink" class="px-6 py-3 bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-bold rounded-xl hover:from-indigo-600 hover:to-purple-700 transition-all flex items-center justify-center gap-2">
-                    <i class="fa-solid fa-book-open"></i>
-                    Lihat Pembahasan Soal
-                </a>
-            </div>
-            <div class="border border-slate-200 rounded-xl p-4 bg-slate-50">
-                <div class="flex items-start gap-3">
-                    <i class="fa-solid fa-circle-info text-blue-600 mt-1"></i>
-                    <div>
-                        <p class="text-sm font-medium text-slate-800 mb-1">Informasi Pembahasan</p>
-                        <p class="text-sm text-slate-600">Halaman pembahasan berisi penjelasan lengkap untuk setiap soal, termasuk kunci jawaban, alasan, dan tips pengerjaan. Gunakan fitur ini untuk meningkatkan pemahaman Anda.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Section 5: Rekomendasi -->
-        <div class="bg-gradient-to-r from-slate-800 to-slate-900 text-white rounded-2xl p-6">
-            <h2 class="text-xl font-bold mb-4">Rekomendasi Berdasarkan Hasil</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                    <h3 class="text-lg font-semibold mb-3">Area Perbaikan</h3>
-                    <div id="areaPerbaikan" class="space-y-3">
-                        <div class="flex items-center gap-3 p-3 bg-white/10 rounded-xl">
-                            <i class="fa-solid fa-spinner text-yellow-400"></i>
-                            <span>Menganalisis hasil Anda...</span>
-                        </div>
-                    </div>
-                </div>
-                <div>
-                    <h3 class="text-lg font-semibold mb-3">Langkah Selanjutnya</h3>
-                    <div class="space-y-3">
-                        <div class="flex items-center gap-3 p-3 bg-white/10 rounded-xl">
-                            <i class="fa-solid fa-book text-blue-400"></i>
-                            <span>Pelajari pembahasan soal yang tersedia</span>
-                        </div>
-                        <div class="flex items-center gap-3 p-3 bg-white/10 rounded-xl">
-                            <i class="fa-solid fa-file-alt text-green-400"></i>
-                            <span>Coba paket soal lainnya untuk latihan</span>
-                        </div>
-                        <div class="flex items-center gap-3 p-3 bg-white/10 rounded-xl">
-                            <i class="fa-solid fa-chart-line text-purple-400"></i>
-                            <span>Pantau perkembangan skor di dashboard</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </main>
-
-    <!-- Footer -->
-    <footer class="bg-white border-t border-slate-200 py-6 mt-8">
-        <div class="container mx-auto px-4">
-            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
-                <div>
-                    <p class="text-sm text-slate-600">Sistem CAT CPNS - Hasil Ujian Paket 1</p>
-                    <p class="text-xs text-slate-500">Hasil ini bersifat simulasi untuk latihan mandiri</p>
-                </div>
-                <div class="flex items-center gap-4">
-                    <button onclick="printHasil()" class="text-sm text-slate-600 hover:text-slate-800 flex items-center gap-2">
-                        <i class="fa-solid fa-print"></i>
-                        Cetak Hasil
-                    </button>
-                    <button onclick="kembaliKeDashboard()" class="text-sm text-blue-600 hover:text-blue-800 font-medium flex items-center gap-2">
-                        <i class="fa-solid fa-arrow-left"></i>
-                        Kembali ke Dashboard
-                    </button>
-                </div>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Toast Notification -->
-    <div id="toast" class="fixed bottom-4 right-4 z-50 hidden">
-        <div class="bg-white rounded-xl shadow-lg border border-slate-200 p-4 max-w-sm animate-slideInRight">
-            <div class="flex items-start gap-3">
-                <div id="toastIcon" class="text-xl"></div>
-                <div class="flex-1">
-                    <h4 id="toastTitle" class="font-bold text-slate-800"></h4>
-                    <p id="toastMessage" class="text-sm text-slate-600 mt-1"></p>
-                </div>
-                <button onclick="hideToast()" class="text-slate-400 hover:text-slate-600">
-                    <i class="fa-solid fa-times"></i>
-                </button>
-            </div>
-        </div>
+    <!-- HEADER -->
+    <div class="bg-gradient-to-r from-blue-600 to-indigo-600 p-6 text-white">
+        <h1 class="text-2xl font-extrabold tracking-wide">HASIL UJIAN SKD</h1>
+        <p class="text-sm opacity-90 mt-1">Kode Peserta</p>
+        <p id="kodePeserta" class="font-mono text-lg font-bold tracking-widest">MEMUAT...</p>
     </div>
 
-    <script>
-        // ====================== GLOBAL VARIABLES ======================
-        let ID_PESERTA = null;
-        let hasilData = null;
-        const PIN_DATABASE = {
-            "paket1": ["7XK9WP", "B4ZM1Q", "9TV2NL", "RS8MX3", "5CR1VT", "KP9MZ4", "G6HD2S", "1VT8NR", "FN2VK5", "2YM4BX", "MR2VT8", "5HG9SL", "XP3KZ7", "2YN5VQ", "8WQ4PZ", "VS7NL2"],
-            "paket2": ["9ZW1RF", "4FB6NT", "7XK1WP", "B2MK9P", "LP9QX4", "Y7CR2V", "4FB8NR", "9TW1MZ", "SK3JP7", "1VT5NR", "FN9VK3", "2YM7BX", "SK9JP4", "MR7VT1", "3ZW7RB", "KP1MX9", "G6HD1S"],
-            "paket3": ["VS4NL8", "RT9XM2", "B2MK8P", "7XL1WQ", "5HG2SD", "9ZW4RB", "KP8MX3", "FN5VK2", "8WQ4PZ", "2YM9BX", "7KP1RT", "5HG6SD", "9ZW3RF", "RS4ML9", "VN7VK1", "8WQ3PZ", "4FB1NT"]
-        };
+    <!-- CONTENT -->
+    <div class="p-6 md:p-8 space-y-8">
 
-        // ====================== PASSING GRADE CONSTANTS ======================
-        const PASSING_TWK = 65;
-        const PASSING_TIU = 80;
-        const PASSING_TKP = 166;
-        const PASSING_TOTAL = 311;
-        const MAX_TWK = 150;
-        const MAX_TIU = 175;
-        const MAX_TKP = 225;
-        const MAX_TOTAL = 550;
+        <!-- NILAI -->
+        <div class="grid md:grid-cols-4 gap-4">
+            <div class="rounded-xl border p-4 text-center bg-blue-50">
+                <p class="text-sm font-semibold text-blue-700">TWK</p>
+                <p id="nilaiTWK" class="text-3xl font-black text-blue-800">0</p>
+                <p class="text-xs text-slate-500">PG 65 / 150</p>
+            </div>
+            <div class="rounded-xl border p-4 text-center bg-green-50">
+                <p class="text-sm font-semibold text-green-700">TIU</p>
+                <p id="nilaiTIU" class="text-3xl font-black text-green-800">0</p>
+                <p class="text-xs text-slate-500">PG 80 / 175</p>
+            </div>
+            <div class="rounded-xl border p-4 text-center bg-purple-50">
+                <p class="text-sm font-semibold text-purple-700">TKP</p>
+                <p id="nilaiTKP" class="text-3xl font-black text-purple-800">0</p>
+                <p class="text-xs text-slate-500">PG 166 / 225</p>
+            </div>
+            <div class="rounded-xl border p-4 text-center bg-slate-50">
+                <p class="text-sm font-semibold text-slate-700">TOTAL</p>
+                <p id="nilaiTotal" class="text-3xl font-black text-slate-900">0</p>
+                <p class="text-xs text-slate-500">PG 311 / 550</p>
+            </div>
+        </div>
 
-        // ====================== INITIALIZATION ======================
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('Hasil page initializing...');
+        <!-- STATUS -->
+        <div id="statusKelulusan" class="text-center p-5 rounded-2xl font-extrabold text-xl">
+            MEMERIKSA HASIL...
+        </div>
 
-            // Get PIN from URL
-            const urlParams = new URLSearchParams(window.location.search);
-            const pinFromURL = urlParams.get('id');
+        <!-- AKSI -->
+        <div class="grid md:grid-cols-2 gap-4">
+            <button onclick="kePembahasan()" class="w-full py-4 rounded-xl bg-gradient-to-r from-emerald-500 to-green-600 text-white font-bold hover:scale-[1.02] transition">
+                <i class="fa-solid fa-book-open mr-2"></i>
+                Lihat Pembahasan Soal
+            </button>
+            <button onclick="keDashboard()" class="w-full py-4 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold hover:scale-[1.02] transition">
+                <i class="fa-solid fa-house mr-2"></i>
+                Kembali ke Dashboard
+            </button>
+        </div>
 
-            if (pinFromURL) {
-                ID_PESERTA = pinFromURL;
-                document.getElementById('pesertaID').textContent = ID_PESERTA;
+    </div>
+</div>
 
-                // Load hasil data from localStorage
-                loadHasilData();
+<script>
+    // ================= PIN DATABASE =================
+    const pinDatabase = {
+        "paket1": ["7XK9WP","B4ZM1Q","9TV2NL","RS8MX3","5CR1VT","KP9MZ4","G6HD2S","1VT8NR","FN2VK5","2YM4BX","MR2VT8","5HG9SL","XP3KZ7","2YN5VQ","8WQ4PZ","VS7NL2"],
+        "paket2": ["9ZW1RF","4FB6NT","7XK1WP","B2MK9P","LP9QX4","Y7CR2V","4FB8NR","9TW1MZ","SK3JP7","1VT5NR","FN9VK3","2YM7BX","SK9JP4","MR7VT1","3ZW7RB","KP1MX9","G6HD1S"],
+        "paket3": ["VS4NL8","RT9XM2","B2MK8P","7XL1WQ","5HG2SD","9ZW4RB","KP8MX3","FN5VK2","8WQ4PZ","2YM9BX","7KP1RT","5HG6SD","9ZW3RF","RS4ML9","VN7VK1","8WQ3PZ","4FB1NT"]
+    };
 
-                // Update dashboard button based on PIN
-                updateDashboardButton();
+    // ================= AMBIL DATA =================
+    const pin = localStorage.getItem("pinPeserta");
+    const hasil = JSON.parse(localStorage.getItem("hasilSKD")) || {
+        twk: 0,
+        tiu: 0,
+        tkp: 0
+    };
 
-                // Update pembahasan link
-                document.getElementById('pembahasanLink').href = `pembahasansoalto1.html?id=${ID_PESERTA}`;
+    document.getElementById("kodePeserta").innerText = pin || "TIDAK TERDETEKSI";
 
-                console.log('Hasil page initialized with PIN:', ID_PESERTA);
-            } else {
-                showToast('error', 'PIN Tidak Valid', 'Redirecting to login...');
-                setTimeout(() => {
-                    window.location.href = 'login.html';
-                }, 2000);
-            }
-        });
+    document.getElementById("nilaiTWK").innerText = hasil.twk;
+    document.getElementById("nilaiTIU").innerText = hasil.tiu;
+    document.getElementById("nilaiTKP").innerText = hasil.tkp;
 
-        // ====================== LOAD HASIL DATA ======================
-        function loadHasilData() {
-            const hasilKey = `hasil_paket1_${ID_PESERTA}`;
-            const savedHasil = localStorage.getItem(hasilKey);
+    const total = hasil.twk + hasil.tiu + hasil.tkp;
+    document.getElementById("nilaiTotal").innerText = total;
 
-            if (savedHasil) {
-                hasilData = JSON.parse(savedHasil);
-                console.log('Hasil data loaded:', hasilData);
-                displayHasil();
-                animateProgress();
-                updateRecommendations();
-            } else {
-                showToast('error', 'Data Hasil Tidak Ditemukan', 'Anda belum menyelesaikan ujian Paket 1');
-                setTimeout(() => {
-                    window.location.href = 'soalto1.html';
-                }, 3000);
-            }
-        }
+    // ================= PASSING GRADE =================
+    const lulus =
+        hasil.twk >= 65 &&
+        hasil.tiu >= 80 &&
+        hasil.tkp >= 166 &&
+        total >= 311;
 
-        // ====================== DISPLAY HASIL ======================
-        function displayHasil() {
-            if (!hasilData) return;
+    const statusBox = document.getElementById("statusKelulusan");
+    if (lulus) {
+        statusBox.className = "text-center p-5 rounded-2xl font-extrabold text-xl bg-green-100 text-green-800";
+        statusBox.innerText = "🎉 LULUS PASSING GRADE SKD";
+    } else {
+        statusBox.className = "text-center p-5 rounded-2xl font-extrabold text-xl bg-red-100 text-red-700";
+        statusBox.innerText = "❌ BELUM LULUS PASSING GRADE";
+    }
 
-            // Display basic scores
-            document.getElementById('twkScore').textContent = hasilData.twk;
-            document.getElementById('tiuScore').textContent = hasilData.tiu;
-            document.getElementById('tkpScore').textContent = hasilData.tkp;
-            document.getElementById('totalScoreDisplay').textContent = hasilData.total;
+    // ================= NAVIGASI =================
+    function kePembahasan() {
+        window.location.href = "pembahasansoalto1.html";
+    }
 
-            // Display details
-            document.getElementById('twkJawab').textContent = `${hasilData.twkJawab}/30`;
-            document.getElementById('tiuJawab').textContent = `${hasilData.tiuJawab}/35`;
-            document.getElementById('tkpJawab').textContent = `${hasilData.tkpJawab}/45`;
-            document.getElementById('twkBenar').textContent = hasilData.twkBenar;
-            document.getElementById('tiuBenar').textContent = hasilData.tiuBenar;
-
-            // Display time
-            document.getElementById('waktuPengerjaan').textContent = hasilData.waktu;
-
-            // Display date
-            if (hasilData.selesai) {
-                const date = new Date(hasilData.selesai);
-                const formattedDate = date.toLocaleDateString('id-ID', {
-                    weekday: 'long',
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric'
-                });
-                document.getElementById('tanggalSelesai').textContent = formattedDate;
-            }
-
-            // Calculate accuracy
-            const totalSoalTWK_TIU = 65; // 30 TWK + 35 TIU
-            const totalBenar = hasilData.twkBenar + hasilData.tiuBenar;
-            const accuracy = Math.round((totalBenar / totalSoalTWK_TIU) * 100);
-            document.getElementById('akurasiJawaban').textContent = `${accuracy}%`;
-
-            // Update status indicators
-            updateStatusIndicators();
-        }
-
-        // ====================== ANIMATE PROGRESS BARS ======================
-        function animateProgress() {
-            if (!hasilData) return;
-
-            // Calculate percentages
-            const twkPercent = (hasilData.twk / MAX_TWK) * 100;
-            const tiuPercent = (hasilData.tiu / MAX_TIU) * 100;
-            const tkpPercent = (hasilData.tkp / MAX_TKP) * 100;
-            const totalPercent = (hasilData.total / MAX_TOTAL) * 100;
-
-            // Animate progress bars
-            setTimeout(() => {
-                document.getElementById('twkProgress').style.width = `${twkPercent}%`;
-                document.getElementById('tiuProgress').style.width = `${tiuPercent}%`;
-                document.getElementById('tkpProgress').style.width = `${tkpPercent}%`;
-                document.getElementById('finalScoreBar').style.width = `${totalPercent}%`;
-                
-                // Animate circular progress
-                const circle = document.getElementById('totalProgressCircle');
-                const circumference = 2 * Math.PI * 45;
-                const offset = circumference - (totalPercent / 100) * circumference;
-                circle.style.strokeDashoffset = offset;
-
-                // Update percentage text
-                document.getElementById('finalPercentage').textContent = `${Math.round(totalPercent)}%`;
-                document.getElementById('finalScoreText').textContent = `${hasilData.total}/550`;
-            }, 500);
-        }
-
-        // ====================== UPDATE STATUS INDICATORS ======================
-        function updateStatusIndicators() {
-            if (!hasilData) return;
-
-            // Check passing status for each section
-            const twkPassed = hasilData.twk >= PASSING_TWK;
-            const tiuPassed = hasilData.tiu >= PASSING_TIU;
-            const tkpPassed = hasilData.tkp >= PASSING_TKP;
-            const totalPassed = hasilData.total >= PASSING_TOTAL;
-
-            // Update TWK status
-            const twkStatus = document.getElementById('twkStatus');
-            if (twkPassed) {
-                twkStatus.className = 'px-3 py-1 rounded-full text-xs font-bold success-gradient text-white';
-                twkStatus.textContent = 'LULUS';
-                document.getElementById('reqTWK').className = 'px-3 py-1 rounded-full text-xs font-bold bg-green-100 text-green-800';
-                document.getElementById('reqTWK').textContent = '✓ LULUS';
-            } else {
-                twkStatus.className = 'px-3 py-1 rounded-full text-xs font-bold danger-gradient text-white';
-                twkStatus.textContent = 'TIDAK LULUS';
-                document.getElementById('reqTWK').className = 'px-3 py-1 rounded-full text-xs font-bold bg-red-100 text-red-800';
-                document.getElementById('reqTWK').textContent = '✗ GAGAL';
-            }
-
-            // Update TIU status
-            const tiuStatus = document.getElementById('tiuStatus');
-            if (tiuPassed) {
-                tiuStatus.className = 'px-3 py-1 rounded-full text-xs font-bold success-gradient text-white';
-                tiuStatus.textContent = 'LULUS';
-                document.getElementById('reqTIU').className = 'px-3 py-1 rounded-full text-xs font-bold bg-green-100 text-green-800';
-                document.getElementById('reqTIU').textContent = '✓ LULUS';
-            } else {
-                tiuStatus.className = 'px-3 py-1 rounded-full text-xs font-bold danger-gradient text-white';
-                tiuStatus.textContent = 'TIDAK LULUS';
-                document.getElementById('reqTIU').className = 'px-3 py-1 rounded-full text-xs font-bold bg-red-100 text-red-800';
-                document.getElementById('reqTIU').textContent = '✗ GAGAL';
-            }
-
-            // Update TKP status
-            const tkpStatus = document.getElementById('tkpStatus');
-            if (tkpPassed) {
-                tkpStatus.className = 'px-3 py-1 rounded-full text-xs font-bold success-gradient text-white';
-                tkpStatus.textContent = 'LULUS';
-                document.getElementById('reqTKP').className = 'px-3 py-1 rounded-full text-xs font-bold bg-green-100 text-green-800';
-                document.getElementById('reqTKP').textContent = '✓ LULUS';
-            } else {
-                tkpStatus.className = 'px-3 py-1 rounded-full text-xs font-bold danger-gradient text-white';
-                tkpStatus.textContent = 'TIDAK LULUS';
-                document.getElementById('reqTKP').className = 'px-3 py-1 rounded-full text-xs font-bold bg-red-100 text-red-800';
-                document.getElementById('reqTKP').textContent = '✗ GAGAL';
-            }
-
-            // Update total status
-            if (totalPassed) {
-                document.getElementById('reqTotal').className = 'px-3 py-1 rounded-full text-xs font-bold bg-green-100 text-green-800';
-                document.getElementById('reqTotal').textContent = '✓ LULUS';
-            } else {
-                document.getElementById('reqTotal').className = 'px-3 py-1 rounded-full text-xs font-bold bg-red-100 text-red-800';
-                document.getElementById('reqTotal').textContent = '✗ GAGAL';
-            }
-
-            // Update final status
-            updateFinalStatus(twkPassed, tiuPassed, tkpPassed, totalPassed);
-        }
-
-        // ====================== UPDATE FINAL STATUS ======================
-        function updateFinalStatus(twkPassed, tiuPassed, tkpPassed, totalPassed) {
-            const container = document.getElementById('finalStatusContainer');
-            const icon = document.getElementById('finalStatusIcon');
-            const title = document.getElementById('finalStatusTitle');
-            const desc = document.getElementById('finalStatusDesc');
-
-            const allPassed = twkPassed && tiuPassed && tkpPassed && totalPassed;
-
-            if (allPassed) {
-                // LULUS SEMUA
-                container.className = 'flex flex-col justify-center items-center p-6 rounded-2xl border-2 border-green-500 bg-green-50';
-                icon.innerHTML = '<i class="fa-solid fa-trophy text-green-500"></i>';
-                title.textContent = 'SELAMAT!';
-                title.className = 'text-2xl font-bold text-green-700 mb-2';
-                desc.textContent = `Anda LULUS ujian SKD dengan total skor ${hasilData.total}. Skor Anda memenuhi semua passing grade yang ditetapkan.`;
-                desc.className = 'text-green-600 text-center';
-            } else {
-                // TIDAK LULUS
-                container.className = 'flex flex-col justify-center items-center p-6 rounded-2xl border-2 border-red-500 bg-red-50';
-                icon.innerHTML = '<i class="fa-solid fa-times-circle text-red-500"></i>';
-                title.textContent = 'BELUM LULUS';
-                title.className = 'text-2xl font-bold text-red-700 mb-2';
-                
-                // Identify which sections failed
-                const failedSections = [];
-                if (!twkPassed) failedSections.push('TWK');
-                if (!tiuPassed) failedSections.push('TIU');
-                if (!tkpPassed) failedSections.push('TKP');
-                if (!totalPassed) failedSections.push('TOTAL');
-                
-                desc.textContent = `Skor Anda belum memenuhi passing grade. Perlu perbaikan di: ${failedSections.join(', ')}.`;
-                desc.className = 'text-red-600 text-center';
+    function keDashboard() {
+        let tujuan = "dashboard.html";
+        for (const paket in pinDatabase) {
+            if (pinDatabase[paket].includes(pin)) {
+                tujuan = `dashboard${paket}.html`;
             }
         }
+        window.location.href = tujuan;
+    }
+</script>
 
-        // ====================== UPDATE RECOMMENDATIONS ======================
-        function updateRecommendations() {
-            if (!hasilData) return;
-
-            const areaPerbaikan = document.getElementById('areaPerbaikan');
-            areaPerbaikan.innerHTML = '';
-
-            // Check weak areas
-            if (hasilData.twk < PASSING_TWK) {
-                areaPerbaikan.innerHTML += `
-                    <div class="flex items-center gap-3 p-3 bg-white/10 rounded-xl">
-                        <i class="fa-solid fa-flag text-blue-400"></i>
-                        <span>Tingkatkan pemahaman TWK (Wawasan Kebangsaan)</span>
-                    </div>
-                `;
-            }
-
-            if (hasilData.tiu < PASSING_TIU) {
-                areaPerbaikan.innerHTML += `
-                    <div class="flex items-center gap-3 p-3 bg-white/10 rounded-xl">
-                        <i class="fa-solid fa-brain text-green-400"></i>
-                        <span>Latih kemampuan TIU (Intelegensi Umum)</span>
-                    </div>
-                `;
-            }
-
-            if (hasilData.tkp < PASSING_TKP) {
-                areaPerbaikan.innerHTML += `
-                    <div class="flex items-center gap-3 p-3 bg-white/10 rounded-xl">
-                        <i class="fa-solid fa-user text-purple-400"></i>
-                        <span>Perbaiki penguasaan TKP (Karakteristik Pribadi)</span>
-                    </div>
-                `;
-            }
-
-            if (areaPerbaikan.innerHTML === '') {
-                areaPerbaikan.innerHTML = `
-                    <div class="flex items-center gap-3 p-3 bg-white/10 rounded-xl">
-                        <i class="fa-solid fa-check-circle text-green-400"></i>
-                        <span>Semua area sudah memenuhi standar</span>
-                    </div>
-                `;
-            }
-        }
-
-        // ====================== UPDATE DASHBOARD BUTTON ======================
-        function updateDashboardButton() {
-            if (!ID_PESERTA) return;
-
-            let dashboardUrl = 'dashboard.html'; // default
-            
-            // Check which paket the PIN belongs to
-            if (PIN_DATABASE.paket1.includes(ID_PESERTA)) {
-                dashboardUrl = 'dashboardpaket1.html';
-            } else if (PIN_DATABASE.paket2.includes(ID_PESERTA)) {
-                dashboardUrl = 'dashboardpaket2.html';
-            } else if (PIN_DATABASE.paket3.includes(ID_PESERTA)) {
-                dashboardUrl = 'dashboardpaket3.html';
-            }
-            
-            // Update button onclick
-            document.getElementById('dashboardBtn').onclick = function() {
-                window.location.href = `${dashboardUrl}?id=${ID_PESERTA}`;
-            };
-        }
-
-        // ====================== PRINT FUNCTION ======================
-        function printHasil() {
-            window.print();
-        }
-
-        // ====================== TOAST NOTIFICATION ======================
-        function showToast(type, title, message) {
-            const toast = document.getElementById('toast');
-            const toastIcon = document.getElementById('toastIcon');
-            const toastTitle = document.getElementById('toastTitle');
-            const toastMessage = document.getElementById('toastMessage');
-
-            let iconClass, bgColor;
-            switch (type) {
-                case 'success':
-                    iconClass = 'fa-solid fa-circle-check text-green-500';
-                    bgColor = 'bg-green-50 border-green-200';
-                    break;
-                case 'error':
-                    iconClass = 'fa-solid fa-circle-xmark text-red-500';
-                    bgColor = 'bg-red-50 border-red-200';
-                    break;
-                case 'warning':
-                    iconClass = 'fa-solid fa-triangle-exclamation text-yellow-500';
-                    bgColor = 'bg-yellow-50 border-yellow-200';
-                    break;
-                default:
-                    iconClass = 'fa-solid fa-circle-info text-blue-500';
-                    bgColor = 'bg-blue-50 border-blue-200';
-            }
-
-            toastIcon.className = iconClass;
-            toastTitle.textContent = title;
-            toastMessage.textContent = message;
-            toast.querySelector('div').className = `bg-white rounded-xl shadow-lg border p-4 max-w-sm animate-slideInRight ${bgColor}`;
-            toast.classList.remove('hidden');
-
-            setTimeout(hideToast, 5000);
-        }
-
-        function hideToast() {
-            document.getElementById('toast').classList.add('hidden');
-        }
-
-        // ====================== BACK TO DASHBOARD ======================
-        function kembaliKeDashboard() {
-            // This function is now handled by updateDashboardButton
-            // The button onclick is set dynamically based on PIN
-        }
-    </script>
 </body>
 </html>
