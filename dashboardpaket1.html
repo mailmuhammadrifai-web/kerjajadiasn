@@ -1662,8 +1662,265 @@
 
 // ========== 11. LOGOUT FUNCTION ==========
 function confirmLogout() {
-    if (confirm('Apakah Anda yakin ingin keluar dari dashboard? Semua progress yang belum disimpan akan hilang.')) {
-        logout('user_initiated');
+    showLogoutModal();
+}
+
+function showLogoutModal() {
+    // Cek apakah modal sudah ada
+    let modal = document.getElementById('logoutModal');
+    
+    if (!modal) {
+        // Buat modal jika belum ada
+        modal = document.createElement('div');
+        modal.id = 'logoutModal';
+        modal.className = 'logout-modal';
+        modal.innerHTML = `
+            <div class="logout-modal-content">
+                <div class="logout-modal-header">
+                    <div class="logout-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                            <path fill-rule="evenodd" d="M7.5 3.75A1.5 1.5 0 006 5.25v13.5a1.5 1.5 0 001.5 1.5h6a1.5 1.5 0 001.5-1.5V15a.75.75 0 011.5 0v3.75a3 3 0 01-3 3h-6a3 3 0 01-3-3V5.25a3 3 0 013-3h6a3 3 0 013 3V9A.75.75 0 0115 9V5.25a1.5 1.5 0 00-1.5-1.5h-6zm5.03 4.72a.75.75 0 010 1.06l-1.72 1.72h10.94a.75.75 0 010 1.5H10.81l1.72 1.72a.75.75 0 11-1.06 1.06l-3-3a.75.75 0 010-1.06l3-3a.75.75 0 011.06 0z" clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                    <h2>Konfirmasi Logout</h2>
+                    <button class="close-modal">&times;</button>
+                </div>
+                <div class="logout-modal-body">
+                    <p>Apakah Anda yakin ingin keluar dari dashboard?</p>
+                    <p class="warning-text">Semua progress yang belum disimpan akan hilang.</p>
+                </div>
+                <div class="logout-modal-footer">
+                    <button class="btn-cancel">Batal</button>
+                    <button class="btn-confirm-logout">Ya, Logout</button>
+                </div>
+            </div>
+        `;
+        
+        document.body.appendChild(modal);
+        
+        // Tambahkan CSS inline
+        const style = document.createElement('style');
+        style.textContent = `
+            /* Logout Modal Styles */
+            .logout-modal {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.5);
+                z-index: 1000;
+                align-items: center;
+                justify-content: center;
+                opacity: 0;
+                transition: opacity 0.3s ease;
+            }
+
+            .logout-modal.show {
+                opacity: 1;
+            }
+
+            .logout-modal-content {
+                background: white;
+                width: 90%;
+                max-width: 450px;
+                border-radius: 16px;
+                overflow: hidden;
+                box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+                transform: translateY(-20px);
+                transition: transform 0.3s ease;
+                animation: modalSlideIn 0.4s ease-out;
+            }
+
+            .logout-modal.show .logout-modal-content {
+                transform: translateY(0);
+            }
+
+            @keyframes modalSlideIn {
+                from {
+                    opacity: 0;
+                    transform: translateY(-40px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            .logout-modal-header {
+                background: linear-gradient(135deg, #ff4757 0%, #ff3838 100%);
+                color: white;
+                padding: 24px;
+                text-align: center;
+                position: relative;
+            }
+
+            .logout-icon {
+                width: 60px;
+                height: 60px;
+                margin: 0 auto 16px;
+                background: rgba(255, 255, 255, 0.2);
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .logout-icon svg {
+                width: 32px;
+                height: 32px;
+                filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+            }
+
+            .logout-modal-header h2 {
+                margin: 0;
+                font-size: 24px;
+                font-weight: 600;
+                letter-spacing: -0.5px;
+            }
+
+            .close-modal {
+                position: absolute;
+                top: 20px;
+                right: 20px;
+                background: none;
+                border: none;
+                color: white;
+                font-size: 28px;
+                cursor: pointer;
+                width: 36px;
+                height: 36px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                transition: background-color 0.2s;
+            }
+
+            .close-modal:hover {
+                background-color: rgba(255, 255, 255, 0.2);
+            }
+
+            .logout-modal-body {
+                padding: 32px;
+                text-align: center;
+            }
+
+            .logout-modal-body p {
+                margin: 0 0 12px;
+                font-size: 16px;
+                line-height: 1.5;
+                color: #333;
+            }
+
+            .warning-text {
+                color: #ff4757 !important;
+                font-weight: 600;
+                font-size: 14px !important;
+                padding: 12px;
+                background-color: rgba(255, 71, 87, 0.1);
+                border-radius: 8px;
+                border-left: 4px solid #ff4757;
+            }
+
+            .logout-modal-footer {
+                padding: 20px 32px 32px;
+                display: flex;
+                gap: 16px;
+                justify-content: center;
+            }
+
+            .btn-cancel, .btn-confirm-logout {
+                padding: 14px 32px;
+                border-radius: 10px;
+                font-size: 16px;
+                font-weight: 600;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                border: 2px solid transparent;
+                min-width: 140px;
+            }
+
+            .btn-cancel {
+                background-color: #f1f3f5;
+                color: #495057;
+                border-color: #dee2e6;
+            }
+
+            .btn-cancel:hover {
+                background-color: #e9ecef;
+                transform: translateY(-2px);
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            }
+
+            .btn-confirm-logout {
+                background: linear-gradient(135deg, #ff4757 0%, #ff3838 100%);
+                color: white;
+                box-shadow: 0 4px 15px rgba(255, 71, 87, 0.4);
+            }
+
+            .btn-confirm-logout:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 6px 20px rgba(255, 71, 87, 0.6);
+            }
+
+            /* Responsive Design */
+            @media (max-width: 480px) {
+                .logout-modal-content {
+                    width: 95%;
+                    margin: 20px;
+                }
+                
+                .logout-modal-footer {
+                    flex-direction: column;
+                }
+                
+                .btn-cancel, .btn-confirm-logout {
+                    width: 100%;
+                }
+            }
+        `;
+        
+        document.head.appendChild(style);
+        
+        // Tambahkan event listeners
+        document.querySelector('.close-modal').addEventListener('click', hideLogoutModal);
+        document.querySelector('.btn-cancel').addEventListener('click', hideLogoutModal);
+        document.querySelector('.btn-confirm-logout').addEventListener('click', () => {
+            logout('user_initiated');
+            hideLogoutModal();
+        });
+        
+        // Tutup modal jika klik di luar konten modal
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                hideLogoutModal();
+            }
+        });
+        
+        // Tambahkan event listener untuk tombol escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                hideLogoutModal();
+            }
+        });
+    }
+    
+    // Tampilkan modal dengan animasi
+    modal.style.display = 'flex';
+    setTimeout(() => {
+        modal.classList.add('show');
+    }, 10);
+}
+
+function hideLogoutModal() {
+    const modal = document.getElementById('logoutModal');
+    if (modal) {
+        modal.classList.remove('show');
+        setTimeout(() => {
+            modal.style.display = 'none';
+        }, 300);
     }
 }
 
