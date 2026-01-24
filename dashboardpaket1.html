@@ -1661,35 +1661,35 @@
         }
 
 // ========== 11. LOGOUT FUNCTION ==========
-        function confirmLogout() {
-            if (confirm('Apakah Anda yakin ingin keluar dari dashboard? Semua progress yang belum disimpan akan hilang.')) {
-                logout('user_initiated');
-            }
-        }
+function confirmLogout() {
+    if (confirm('Apakah Anda yakin ingin keluar dari dashboard? Semua progress yang belum disimpan akan hilang.')) {
+        logout('user_initiated');
+    }
+}
 
-        function logout(reason = 'unknown') {
-            // Clear intervals
-            if (sessionInterval) clearInterval(sessionInterval);
-            if (sessionTimer) clearInterval(sessionTimer);
+function logout(reason = 'unknown') {
+    // Clear intervals
+    if (sessionInterval) clearInterval(sessionInterval);
+    if (sessionTimer) clearInterval(sessionTimer);
 
-            // Track logout
-            trackActivity('logout', { reason: reason });
+    // Track logout
+    trackActivity('logout', { reason: reason });
 
-            // Clear session data
-            sessionStorage.removeItem('currentSession');
+    // Clear session data
+    sessionStorage.removeItem('currentSession');
 
-            // Show logout message
-            showNotification('success', 'Berhasil Logout', 'Anda telah keluar dari dashboard');
+    // Show logout message
+    showNotification('success', 'Berhasil Logout', 'Anda telah keluar dari dashboard');
 
-            // Redirect to login
-            setTimeout(() => {
-                const redirectUrl = reason === 'session_expired' 
-                    ? 'login.html?message=session_expired'
-                    : 'login.html?message=logout_success';
+    // Redirect to login
+    setTimeout(() => {
+        const redirectUrl = reason === 'session_expired' 
+            ? 'login.html?message=session_expired'
+            : 'login.html?message=logout_success';
 
-                window.location.href = redirectUrl;
-            }, 1500);
-        }
+        window.location.href = redirectUrl;
+    }, 1500);
+}
         
         // ========== 12. ANALYTICS & TELEMETRY ==========
         function trackActivity(action, detail = {}) {
