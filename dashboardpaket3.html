@@ -2006,12 +2006,34 @@ function hideLogoutModal() {
 }
 
 function logout(reason = 'unknown') {
-    // Clear intervals
-    if (sessionInterval) clearInterval(sessionInterval);
-    if (sessionTimer) clearInterval(sessionTimer);
+    // Clear intervals - TAMBAHKAN KONDISI UNTUK MENGHINDARI ERROR
+    try {
+        // Clear session timer
+        if (typeof sessionTimer !== 'undefined' && sessionTimer) {
+            clearInterval(sessionTimer);
+        }
+        
+        // Clear confetti interval
+        if (typeof confettiInterval !== 'undefined' && confettiInterval) {
+            clearInterval(confettiInterval);
+        }
+        
+        // Clear sessionInterval jika ada
+        if (typeof sessionInterval !== 'undefined' && sessionInterval) {
+            clearInterval(sessionInterval);
+        }
+    } catch (error) {
+        console.log('Error clearing intervals:', error);
+    }
 
-    // Track logout
-    trackActivity('logout', { reason: reason });
+    // Track logout - HAPUS JIKA FUNGSI trackActivity TIDAK ADA
+    try {
+        if (typeof trackActivity === 'function') {
+            trackActivity('logout', { reason: reason });
+        }
+    } catch (error) {
+        console.log('Error tracking activity:', error);
+    }
 
     // Clear session data
     sessionStorage.removeItem('currentSession');
