@@ -258,16 +258,13 @@
                 border: 1px solid #ddd !important;
             }
         }
-
-        /* Confetti Particle */
-        .confetti-particle {
+    
+            .confetti-ribbon {
             position: fixed;
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
             pointer-events: none;
             z-index: 1000;
-            opacity: 0.8;
+            opacity: 0.9;
+            transform-origin: center;
         }
     </style>
 </head>
@@ -1099,8 +1096,8 @@
 
                 // Create welcome confetti
                 setTimeout(() => {
-                    createConfettiBurst();
-                }, 500);
+                createWelcomeRibbonShower(); // Efek spesial untuk welcome
+                }, 800);
 
             } catch (error) {
                 console.error('Initialization error:', error);
@@ -2051,80 +2048,264 @@ function logout(reason = 'unknown') {
     }, 1500);
 }
         
-        // ========== 15. CONFETTI EFFECT (FIXED) ==========
-        function createConfettiBurst() {
-            const colors = ['#8b5cf6', '#a855f7', '#3b82f6', '#10b981', '#f59e0b'];
-            const container = document.getElementById('confetti-container');
+       // ========== 15. CONFETTI EFFECT - PITA WARNA-WARNI ==========
+function createConfettiBurst() {
+    const colors = [
+        '#8b5cf6', '#a855f7', '#3b82f6', '#10b981', '#f59e0b', 
+        '#ef4444', '#ec4899', '#06b6d4', '#84cc16', '#f97316'
+    ];
+    const container = document.getElementById('confetti-container');
+    
+    // Clear existing confetti
+    container.innerHTML = '';
+    
+    // Create 25 pita/potongan kertas warna-warni
+    for (let i = 0; i < 25; i++) {
+        const ribbon = document.createElement('div');
+        ribbon.className = 'confetti-ribbon';
+        
+        // Tipe pita acak (persegi panjang atau segitiga)
+        const isTriangle = Math.random() > 0.7;
+        
+        // Random position at top
+        const startX = Math.random() * 100;
+        ribbon.style.left = startX + 'vw';
+        ribbon.style.top = '-30px';
+        
+        // Random color
+        const color = colors[Math.floor(Math.random() * colors.length)];
+        ribbon.style.backgroundColor = color;
+        
+        // Random size dan bentuk
+        if (isTriangle) {
+            // Segitiga (pita berbentuk segitiga)
+            const size = Math.random() * 20 + 15;
+            ribbon.style.width = '0';
+            ribbon.style.height = '0';
+            ribbon.style.borderLeft = size/2 + 'px solid transparent';
+            ribbon.style.borderRight = size/2 + 'px solid transparent';
+            ribbon.style.borderBottom = size + 'px solid ' + color;
+            ribbon.style.backgroundColor = 'transparent';
+        } else {
+            // Persegi panjang (pita biasa)
+            const width = Math.random() * 30 + 15;
+            const height = Math.random() * 10 + 5;
+            ribbon.style.width = width + 'px';
+            ribbon.style.height = height + 'px';
+            ribbon.style.borderRadius = '2px';
             
-            // Clear existing confetti
-            container.innerHTML = '';
-            
-            // Create 30 confetti particles
-            for (let i = 0; i < 30; i++) {
-                const confetti = document.createElement('div');
-                confetti.className = 'confetti-particle';
-                
-                // Random position at top
-                confetti.style.left = Math.random() * 100 + 'vw';
-                confetti.style.top = '-20px';
-                
-                // Random color
-                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-                
-                // Random size
-                const size = Math.random() * 10 + 6;
-                confetti.style.width = size + 'px';
-                confetti.style.height = size + 'px';
-                
-                container.appendChild(confetti);
-                
-                // Animate confetti
-                animateConfetti(confetti);
+            // Tambahkan efek gradien untuk beberapa pita
+            if (Math.random() > 0.5) {
+                ribbon.style.background = `linear-gradient(135deg, ${color} 0%, ${color} 50%, ${color}80 100%)`;
             }
         }
+        
+        // Rotasi awal acak
+        const initialRotation = Math.random() * 360;
+        ribbon.style.transform = `rotate(${initialRotation}deg)`;
+        
+        container.appendChild(ribbon);
+        
+        // Animate ribbon
+        animateRibbon(ribbon, startX, isTriangle);
+    }
+}
 
-        function animateConfetti(confetti) {
-            const startX = parseFloat(confetti.style.left);
-            const startY = -20;
-            const endY = window.innerHeight + 20;
+function animateRibbon(ribbon, startX, isTriangle) {
+    const startY = -30;
+    const endY = window.innerHeight + 50;
+    
+    // Random movement parameters
+    const amplitude = Math.random() * 150 + 80; // Lebih lebar untuk efek melayang
+    const frequency = Math.random() * 0.015 + 0.008; // Lebih lambat
+    const spinSpeed = Math.random() * 5 + 3; // Kecepatan putaran
+    
+    // Random fall speed (lebih lambat dari bola)
+    const speed = Math.random() * 1.5 + 0.8;
+    
+    let position = startY;
+    let time = 0;
+    let rotation = parseInt(ribbon.style.transform.match(/\d+/)[0]) || 0;
+    
+    function animate() {
+        time += 0.1;
+        position += speed;
+        
+        // Calculate horizontal oscillation (sinusoidal)
+        const xOffset = Math.sin(time * frequency) * amplitude;
+        ribbon.style.left = (startX + xOffset) + 'vw';
+        ribbon.style.top = position + 'px';
+        
+        // Rotasi yang lebih smooth untuk pita
+        rotation += spinSpeed;
+        ribbon.style.transform = `rotate(${rotation}deg)`;
+        
+        // Wobble effect (gerakan naik turun kecil)
+        const wobble = Math.sin(time * 0.2) * 3;
+        ribbon.style.transform += ` translateY(${wobble}px)`;
+        
+        // Scale down saat mendekati bawah
+        const progress = (position - startY) / (endY - startY);
+        if (progress > 0.7) {
+            const scale = 1 - (progress - 0.7) * 3.33;
+            ribbon.style.transform += ` scale(${scale})`;
+        }
+        
+        // Fade out near bottom
+        if (position > endY * 0.7) {
+            ribbon.style.opacity = (endY - position) / (endY * 0.3);
+        }
+        
+        // Tambahkan efek bayangan saat turun
+        const shadowY = Math.max(2, Math.min(8, position / 50));
+        ribbon.style.boxShadow = `0 ${shadowY}px ${shadowY}px rgba(0,0,0,0.2)`;
+        
+        if (position < endY) {
+            requestAnimationFrame(animate);
+        } else {
+            ribbon.remove();
+        }
+    }
+    
+    animate();
+}
+
+        // ========== 15.5. WELCOME RIBBON SHOWER ==========
+function createWelcomeRibbonShower() {
+    const colors = [
+        '#8b5cf6', '#a855f7', '#3b82f6', '#10b981', '#f59e0b',
+        '#ec4899', '#06b6d4', '#84cc16', '#f97316', '#6366f1'
+    ];
+    const container = document.getElementById('confetti-container');
+    
+    // Clear existing confetti
+    container.innerHTML = '';
+    
+    // Create welcome message ribbons
+    const welcomeMessages = ['VIP', 'ULTIMATE', 'SELAMAT DATANG', 'PAKET 3', 'SUKSES ASN'];
+    
+    // Create 40 ribbons for a more dramatic effect
+    for (let i = 0; i < 40; i++) {
+        const ribbon = document.createElement('div');
+        ribbon.className = 'confetti-ribbon';
+        
+        // Decide ribbon type
+        const ribbonType = Math.random();
+        const color = colors[Math.floor(Math.random() * colors.length)];
+        
+        // Random starting position across top
+        const startX = Math.random() * 100;
+        ribbon.style.left = startX + 'vw';
+        ribbon.style.top = '-50px';
+        
+        // Different ribbon styles
+        if (ribbonType < 0.3) {
+            // Long thin ribbons
+            const width = Math.random() * 60 + 30;
+            const height = Math.random() * 4 + 2;
+            ribbon.style.width = width + 'px';
+            ribbon.style.height = height + 'px';
+            ribbon.style.borderRadius = '1px';
+            ribbon.style.background = `linear-gradient(90deg, transparent 0%, ${color} 50%, transparent 100%)`;
             
-            // Random horizontal movement
-            const amplitude = Math.random() * 100 + 50;
-            const frequency = Math.random() * 0.02 + 0.01;
+        } else if (ribbonType < 0.6) {
+            // Triangle ribbons
+            const size = Math.random() * 25 + 15;
+            ribbon.style.width = '0';
+            ribbon.style.height = '0';
+            ribbon.style.borderLeft = size/2 + 'px solid transparent';
+            ribbon.style.borderRight = size/2 + 'px solid transparent';
+            ribbon.style.borderBottom = size + 'px solid ' + color;
             
-            // Random fall speed
-            const speed = Math.random() * 2 + 1;
+        } else if (ribbonType < 0.8) {
+            // Curly ribbons (with text sometimes)
+            const width = Math.random() * 40 + 20;
+            const height = Math.random() * 15 + 8;
+            ribbon.style.width = width + 'px';
+            ribbon.style.height = height + 'px';
+            ribbon.style.borderRadius = '50%';
+            ribbon.style.background = `radial-gradient(circle, ${color} 0%, ${color}80 100%)`;
             
-            let position = startY;
-            let time = 0;
-            
-            function animate() {
-                time += 0.1;
-                position += speed;
-                
-                // Calculate horizontal oscillation
-                const xOffset = Math.sin(time * frequency) * amplitude;
-                confetti.style.left = (startX + xOffset) + 'px';
-                confetti.style.top = position + 'px';
-                
-                // Rotate confetti
-                confetti.style.transform = `rotate(${time * 10}deg)`;
-                
-                // Fade out near bottom
-                if (position > endY * 0.8) {
-                    confetti.style.opacity = (endY - position) / (endY * 0.2);
-                }
-                
-                if (position < endY) {
-                    requestAnimationFrame(animate);
-                } else {
-                    confetti.remove();
-                }
+            // Occasionally add text
+            if (Math.random() > 0.7) {
+                ribbon.innerHTML = `<span style="font-size:8px; color:white; font-weight:bold; display:flex; align-items:center; justify-content:center; height:100%;">${welcomeMessages[Math.floor(Math.random() * welcomeMessages.length)]}</span>`;
             }
             
-            animate();
+        } else {
+            // Sparkle ribbons
+            const size = Math.random() * 20 + 10;
+            ribbon.style.width = size + 'px';
+            ribbon.style.height = size + 'px';
+            ribbon.style.borderRadius = '50%';
+            ribbon.style.background = `radial-gradient(circle, white 0%, ${color} 70%, transparent 100%)`;
+            ribbon.style.boxShadow = `0 0 10px ${color}`;
         }
+        
+        container.appendChild(ribbon);
+        
+        // Special welcome animation
+        animateWelcomeRibbon(ribbon, startX, ribbonType);
+    }
+}
 
+function animateWelcomeRibbon(ribbon, startX, ribbonType) {
+    const startY = -50;
+    const endY = window.innerHeight + 100;
+    
+    // Special parameters for welcome effect
+    const amplitude = Math.random() * 200 + 100;
+    const frequency = Math.random() * 0.01 + 0.005;
+    const spinSpeed = Math.random() * 8 + 4;
+    
+    // Slower fall for welcome effect
+    const speed = Math.random() * 1 + 0.5;
+    
+    let position = startY;
+    let time = 0;
+    let rotation = 0;
+    
+    function animate() {
+        time += 0.1;
+        position += speed;
+        
+        // More dramatic movement
+        const xOffset = Math.sin(time * frequency) * amplitude;
+        const yOffset = Math.sin(time * 0.3) * 10; // More vertical movement
+        
+        ribbon.style.left = (startX + xOffset) + 'vw';
+        ribbon.style.top = (position + yOffset) + 'px';
+        
+        // Spin
+        rotation += spinSpeed;
+        ribbon.style.transform = `rotate(${rotation}deg)`;
+        
+        // Pulsing effect
+        const pulse = 1 + Math.sin(time * 2) * 0.2;
+        ribbon.style.transform += ` scale(${pulse})`;
+        
+        // Color shift for some ribbons
+        if (ribbonType < 0.3 && time % 10 > 9) {
+            const hue = (time * 10) % 360;
+            ribbon.style.background = `linear-gradient(90deg, transparent 0%, hsl(${hue}, 100%, 60%) 50%, transparent 100%)`;
+        }
+        
+        // Fade and scale out
+        const progress = (position - startY) / (endY - startY);
+        if (progress > 0.6) {
+            const fade = 1 - (progress - 0.6) * 2.5;
+            ribbon.style.opacity = fade;
+            ribbon.style.transform += ` scale(${0.5 + fade * 0.5})`;
+        }
+        
+        if (position < endY) {
+            requestAnimationFrame(animate);
+        } else {
+            ribbon.remove();
+        }
+    }
+    
+    animate();
+}
         // ========== 16. EVENT LISTENERS SETUP ==========
         function setupEventListeners() {
             // Close dropdowns when clicking outside
@@ -2174,13 +2355,17 @@ function logout(reason = 'unknown') {
             });
         }
 
-        // ========== 17. INITIAL CONFETTI ==========
+       // ========== 17. INITIAL CONFETTI ==========
         // Create occasional confetti for premium feel
         confettiInterval = setInterval(() => {
-            if (Math.random() < 0.01) { // 1% chance
-                createConfettiBurst();
-            }
-        }, 10000); // Every 10 seconds
+        if (Math.random() < 0.008) { // 0.8% chance untuk efek yang lebih jarang tapi lebih dramatis
+        if (Math.random() > 0.5) {
+            createConfettiBurst();
+        } else {
+            createWelcomeRibbonShower();
+        }
+    }
+}, 15000); // Every 15 seconds
 
     </script>
 
