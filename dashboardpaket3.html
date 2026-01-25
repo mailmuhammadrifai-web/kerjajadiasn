@@ -1897,15 +1897,31 @@ document.querySelector('.close-modal').addEventListener('click', hideLogoutModal
 document.querySelector('.btn-cancel').addEventListener('click', hideLogoutModal);
 
 document.querySelector('.btn-confirm-logout').addEventListener('click', () => {
-    // 1. Jalankan fungsi logout (misal: hapus session/token)
-    logout('user_initiated');
-
-    // 2. Sembunyikan modal (opsional jika langsung pindah halaman)
-    hideLogoutModal();
-
-    // 3. Alihkan ke halaman login
-    window.location.href = 'login.html'; 
+    // Jalankan fungsi logout dengan alasan user_initiated
+    performLogout();
 });
+
+function performLogout() {
+    // 1. Hapus session data
+    if (sessionInterval) clearInterval(sessionInterval);
+    if (sessionTimer) clearInterval(sessionTimer);
+    
+    // 2. Clear localStorage untuk session ini
+    localStorage.removeItem(`session_${pinAkses}`);
+    localStorage.removeItem(`paket_peserta_${pinAkses}`);
+    sessionStorage.clear();
+    
+    // 3. Tampilkan notifikasi
+    showNotification('success', 'Berhasil Logout', 'Anda telah keluar dari dashboard');
+    
+    // 4. Tutup modal logout
+    hideLogoutModal();
+    
+    // 5. Redirect ke halaman login setelah jeda
+    setTimeout(() => {
+        window.location.href = 'login.html';
+    }, 1500);
+}
 
 
         // Tutup modal jika klik di luar konten modal
