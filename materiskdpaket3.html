@@ -1,1219 +1,352 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="id" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Materi SKD Paket 3 - Persiapan Seleksi Kompetensi Dasar</title>
-    <!-- Tailwind CSS -->
+    <title>Materi SKD Paket 3 - Premium Dashboard</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Tailwind Configuration -->
     <script>
         tailwind.config = {
+            darkMode: 'class',
             theme: {
                 extend: {
                     colors: {
-                        primary: '#1e40af',
-                        secondary: '#3b82f6',
+                        primary: { 50: '#eff6ff', 100: '#dbeafe', 200: '#bfdbfe', 300: '#93c5fd', 400: '#60a5fa', 500: '#3b82f6', 600: '#2563eb', 700: '#1d4ed8', 800: '#1e40af', 900: '#1e3a8a' },
                         accent: '#10b981'
                     },
-                    fontFamily: {
-                        'inter': ['Inter', 'sans-serif']
-                    }
+                    fontFamily: { 'inter': ['Inter', 'sans-serif'] }
                 }
             }
         }
     </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* Custom styles */
-        :root {
-            --primary-color: #1e40af;
-            --secondary-color: #3b82f6;
-            --accent-color: #10b981;
-            --text-color: #1f2937;
-            --bg-color: #f9fafb;
-            --card-color: #ffffff;
-        }
-        
-        .dark-mode {
-            --primary-color: #3b82f6;
-            --secondary-color: #60a5fa;
-            --accent-color: #34d399;
-            --text-color: #f3f4f6;
-            --bg-color: #111827;
-            --card-color: #1f2937;
-        }
-        
-        body {
-            font-family: 'Inter', sans-serif;
-            color: var(--text-color);
-            background-color: var(--bg-color);
-            transition: background-color 0.3s, color 0.3s;
-        }
-        
-        .card {
-            background-color: var(--card-color);
-            border-radius: 0.75rem;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s;
-        }
-        
-        .card:hover {
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-        }
-        
-        .nav-active {
-            background-color: var(--secondary-color);
-            color: white;
-            font-weight: 600;
-        }
-        
-        .progress-bar {
-            height: 6px;
-            background-color: #e5e7eb;
-            border-radius: 3px;
-            overflow: hidden;
-        }
-        
-        .progress-fill {
-            height: 100%;
-            background-color: var(--accent-color);
-            transition: width 0.5s ease;
-        }
-        
-        .section-content {
-            display: none;
-        }
-        
-        .section-content.active {
-            display: block;
-        }
-        
-        .tooltip {
-            position: relative;
-            cursor: pointer;
-            border-bottom: 1px dotted var(--secondary-color);
-        }
-        
-        .tooltip-text {
-            visibility: hidden;
-            width: 300px;
-            background-color: var(--card-color);
-            color: var(--text-color);
-            text-align: center;
-            border-radius: 6px;
-            padding: 12px;
-            position: absolute;
-            z-index: 1;
-            bottom: 125%;
-            left: 50%;
-            transform: translateX(-50%);
-            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
-            opacity: 0;
-            transition: opacity 0.3s;
-            font-size: 0.875rem;
-        }
-        
-        .tooltip:hover .tooltip-text {
-            visibility: visible;
-            opacity: 1;
-        }
-        
-        .print-only {
-            display: none;
-        }
-        
-        @media print {
-            .no-print {
-                display: none !important;
-            }
-            
-            .print-only {
-                display: block;
-            }
-            
-            body {
-                background-color: white !important;
-                color: black !important;
-            }
-            
-            .card {
-                box-shadow: none !important;
-                border: 1px solid #ddd !important;
-            }
-            
-            .section-content {
-                display: block !important;
-            }
-        }
-        
-        /* Smooth scroll behavior */
-        html {
-            scroll-behavior: smooth;
-            scroll-padding-top: 100px;
-        }
-        
-        /* Mobile sidebar */
-        @media (max-width: 1023px) {
-            .mobile-sidebar {
-                transform: translateX(-100%);
-                transition: transform 0.3s ease;
-            }
-            
-            .mobile-sidebar.active {
-                transform: translateX(0);
-            }
-            
-            .mobile-overlay {
-                display: none;
-                position: fixed;
-                top: 0;
-                left: 0;
-                right: 0;
-                bottom: 0;
-                background-color: rgba(0, 0, 0, 0.5);
-                z-index: 40;
-            }
-            
-            .mobile-overlay.active {
-                display: block;
-            }
-        }
+        .progress-container { position: fixed; top: 0; left: 0; width: 100%; height: 5px; background: transparent; z-index: 1000; }
+        .progress-bar { height: 5px; background: #10b981; width: 0%; transition: width 0.2s; }
+        .sidebar-active { border-left: 4px solid #3b82f6; background-color: #eff6ff; color: #1e40af; font-weight: 600; }
+        .dark .sidebar-active { background-color: #1e293b; color: #60a5fa; }
+        @media print { .no-print { display: none; } .print-only { display: block; } body { background: white; color: black; } }
+        .tooltip .tooltiptext { visibility: hidden; width: 140px; background-color: #333; color: #fff; text-align: center; border-radius: 6px; padding: 5px; position: absolute; z-index: 1; bottom: 125%; left: 50%; margin-left: -70px; opacity: 0; transition: opacity 0.3s; }
+        .tooltip:hover .tooltiptext { visibility: visible; opacity: 1; }
     </style>
 </head>
-<body class="font-inter">
-    <!-- Header Section -->
-    <header class="sticky top-0 z-50 bg-white dark:bg-gray-800 shadow-md no-print">
-        <div class="container mx-auto px-4 py-3 flex flex-col md:flex-row justify-between items-center">
-            <div class="flex items-center space-x-4 mb-3 md:mb-0">
-                <button id="mobile-menu-btn" class="lg:hidden text-gray-700 dark:text-gray-300">
-                    <i class="fas fa-bars text-xl"></i>
-                </button>
-                <div>
-                    <h1 class="text-xl md:text-2xl font-bold text-primary dark:text-white">MATERI SKD PAKET 3</h1>
-                    <p class="text-sm text-gray-600 dark:text-gray-300">Persiapan Seleksi Kompetensi Dasar</p>
-                </div>
-            </div>
-            
-            <div class="flex items-center space-x-4">
-                <!-- PIN Display -->
-                <div id="pin-display" class="bg-blue-50 dark:bg-blue-900/30 px-4 py-2 rounded-lg border border-blue-200 dark:border-blue-700">
-                    <span class="text-sm text-gray-600 dark:text-gray-300">PIN Anda:</span>
-                    <span id="pin-value" class="font-bold text-primary dark:text-blue-300 ml-1">Loading...</span>
+<body class="font-inter bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-200 transition-colors duration-300">
+
+    <div class="progress-container no-print">
+        <div class="progress-bar" id="readingProgress"></div>
+    </div>
+
+    <header class="sticky top-0 z-40 w-full backdrop-blur flex-none transition-colors duration-500 lg:z-50 lg:border-b lg:border-slate-900/10 dark:border-slate-50/[0.06] bg-white/95 dark:bg-slate-900/95 no-print">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center gap-4">
+                    <button id="mobile-menu-button" class="lg:hidden p-2 text-slate-600 dark:text-slate-400">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                    <h1 class="text-xl font-bold bg-gradient-to-r from-blue-700 to-blue-500 bg-clip-text text-transparent uppercase tracking-wider">Materi SKD Paket 3</h1>
                 </div>
                 
-                <!-- Dark Mode Toggle -->
-                <button id="dark-mode-toggle" class="p-2 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300">
-                    <i id="dark-mode-icon" class="fas fa-moon"></i>
-                </button>
-                
-                <!-- Print Button -->
-                <button id="print-btn" class="p-2 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300">
-                    <i class="fas fa-print"></i>
-                </button>
-                
-                <!-- Back to Dashboard Button -->
-                <a id="dashboard-link" href="#" class="bg-primary hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium transition duration-300">
-                    <i class="fas fa-arrow-left mr-2"></i>Kembali ke Dashboard
-                </a>
+                <div class="hidden md:flex items-center space-x-4">
+                    <div class="bg-blue-100 dark:bg-blue-900/30 px-4 py-1.5 rounded-full border border-blue-200 dark:border-blue-800">
+                        <span class="text-xs font-semibold text-blue-700 dark:text-blue-300 uppercase">PIN Anda:</span>
+                        <span id="displayPin" class="ml-2 font-mono font-bold text-blue-800 dark:text-blue-100 italic tracking-widest">------</span>
+                    </div>
+                    <button onclick="toggleDarkMode()" class="p-2 rounded-lg bg-slate-100 dark:bg-slate-800 hover:ring-2 ring-blue-400 transition-all">
+                        <i id="theme-icon" class="fas fa-moon"></i>
+                    </button>
+                    <button onclick="window.print()" class="p-2 rounded-lg bg-slate-100 dark:bg-slate-800 hover:ring-2 ring-emerald-400 transition-all">
+                        <i class="fas fa-print"></i>
+                    </button>
+                    <a id="backBtn" href="#" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 shadow-sm transition-all">
+                        <i class="fas fa-arrow-left mr-2"></i> Kembali ke Dashboard
+                    </a>
+                </div>
             </div>
-        </div>
-        
-        <!-- Progress Bar -->
-        <div class="progress-bar">
-            <div id="reading-progress" class="progress-fill" style="width: 0%"></div>
         </div>
     </header>
 
-    <!-- Main Content -->
-    <div class="container mx-auto px-4 py-6 flex flex-col lg:flex-row">
-        <!-- Sidebar Navigation -->
-        <aside class="mobile-sidebar lg:translate-x-0 lg:block w-full lg:w-1/4 mb-6 lg:mb-0 lg:sticky lg:top-24 lg:h-fit no-print">
-            <div class="card p-4 lg:p-6">
-                <h2 class="text-lg font-bold mb-4 text-primary dark:text-white">Navigasi Materi</h2>
-                <nav class="space-y-2">
-                    <a href="#twk" class="nav-item block p-3 rounded-lg hover:bg-blue-50 dark:hover:bg-gray-700 transition duration-300" data-section="twk">
-                        <div class="flex justify-between items-center">
-                            <span class="font-medium">TWK (Tes Wawasan Kebangsaan)</span>
-                            <i class="fas fa-flag text-blue-500"></i>
-                        </div>
-                        <div class="text-sm text-gray-500 dark:text-gray-400 mt-1">Estimasi: 45 menit</div>
-                        <div class="mt-2">
-                            <div class="flex justify-between text-xs mb-1">
-                                <span>Progress</span>
-                                <span id="twk-progress">0%</span>
-                            </div>
-                            <div class="w-full bg-gray-200 rounded-full h-1.5">
-                                <div id="twk-progress-bar" class="bg-accent h-1.5 rounded-full" style="width: 0%"></div>
-                            </div>
-                        </div>
-                    </a>
-                    
-                    <a href="#tiu" class="nav-item block p-3 rounded-lg hover:bg-blue-50 dark:hover:bg-gray-700 transition duration-300" data-section="tiu">
-                        <div class="flex justify-between items-center">
-                            <span class="font-medium">TIU (Tes Intelegensia Umum)</span>
-                            <i class="fas fa-brain text-green-500"></i>
-                        </div>
-                        <div class="text-sm text-gray-500 dark:text-gray-400 mt-1">Estimasi: 60 menit</div>
-                        <div class="mt-2">
-                            <div class="flex justify-between text-xs mb-1">
-                                <span>Progress</span>
-                                <span id="tiu-progress">0%</span>
-                            </div>
-                            <div class="w-full bg-gray-200 rounded-full h-1.5">
-                                <div id="tiu-progress-bar" class="bg-accent h-1.5 rounded-full" style="width: 0%"></div>
-                            </div>
-                        </div>
-                    </a>
-                    
-                    <a href="#tkp" class="nav-item block p-3 rounded-lg hover:bg-blue-50 dark:hover:bg-gray-700 transition duration-300" data-section="tkp">
-                        <div class="flex justify-between items-center">
-                            <span class="font-medium">TKP (Tes Karakteristik Pribadi)</span>
-                            <i class="fas fa-user-check text-purple-500"></i>
-                        </div>
-                        <div class="text-sm text-gray-500 dark:text-gray-400 mt-1">Estimasi: 50 menit</div>
-                        <div class="mt-2">
-                            <div class="flex justify-between text-xs mb-1">
-                                <span>Progress</span>
-                                <span id="tkp-progress">0%</span>
-                            </div>
-                            <div class="w-full bg-gray-200 rounded-full h-1.5">
-                                <div id="tkp-progress-bar" class="bg-accent h-1.5 rounded-full" style="width: 0%"></div>
-                            </div>
-                        </div>
-                    </a>
-                </nav>
-                
-                <div class="mt-6 pt-4 border-t border-gray-200 dark:border-gray-700">
-                    <h3 class="font-medium mb-2">Progress Total</h3>
-                    <div class="flex justify-between text-sm mb-1">
-                        <span>Materi yang sudah dibaca</span>
-                        <span id="total-progress">0%</span>
-                    </div>
-                    <div class="w-full bg-gray-200 rounded-full h-2.5">
-                        <div id="total-progress-bar" class="bg-primary h-2.5 rounded-full" style="width: 0%"></div>
-                    </div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex gap-8">
+        
+        <aside id="sidebar" class="hidden lg:block w-64 flex-shrink-0 sticky top-24 h-fit space-y-4 no-print">
+            <nav class="space-y-1">
+                <p class="px-3 text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Navigasi Materi</p>
+                <a href="#twk-section" class="nav-link flex items-center px-3 py-2.5 text-sm font-medium rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-all">
+                    <i class="fas fa-flag-checkered w-6 text-blue-600"></i> TWK (Wawasan Kebangsaan)
+                </a>
+                <a href="#tiu-section" class="nav-link flex items-center px-3 py-2.5 text-sm font-medium rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-all">
+                    <i class="fas fa-brain w-6 text-purple-600"></i> TIU (Intelegensia Umum)
+                </a>
+                <a href="#tkp-section" class="nav-link flex items-center px-3 py-2.5 text-sm font-medium rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-all">
+                    <i class="fas fa-user-shield w-6 text-emerald-600"></i> TKP (Karakteristik Pribadi)
+                </a>
+            </nav>
+
+            <div class="p-4 bg-gradient-to-br from-blue-600 to-blue-700 rounded-xl text-white shadow-lg">
+                <h4 class="font-bold text-sm mb-1">Status Belajar</h4>
+                <p class="text-xs text-blue-100 mb-3">Selesaikan semua materi untuk membuka simulasi CAT Paket 3.</p>
+                <div class="w-full bg-blue-400/30 rounded-full h-1.5 mb-2">
+                    <div id="sideProgress" class="bg-white h-1.5 rounded-full transition-all duration-500" style="width: 0%"></div>
                 </div>
-                
-                <div class="mt-6">
-                    <button id="scroll-top-btn" class="w-full bg-secondary hover:bg-blue-600 text-white py-2 rounded-lg font-medium transition duration-300">
-                        <i class="fas fa-arrow-up mr-2"></i>Ke Atas
-                    </button>
-                </div>
-            </div>
-            
-            <!-- Quick Access -->
-            <div class="card p-4 lg:p-6 mt-4">
-                <h3 class="font-bold mb-3 text-primary dark:text-white">Akses Cepat</h3>
-                <div class="space-y-2">
-                    <button class="quick-access-btn w-full text-left p-2 rounded hover:bg-blue-50 dark:hover:bg-gray-700" data-target="pancasila">Pancasila</button>
-                    <button class="quick-access-btn w-full text-left p-2 rounded hover:bg-blue-50 dark:hover:bg-gray-700" data-target="uud1945">UUD 1945</button>
-                    <button class="quick-access-btn w-full text-left p-2 rounded hover:bg-blue-50 dark:hover:bg-gray-700" data-target="verbal">Verbal</button>
-                    <button class="quick-access-btn w-full text-left p-2 rounded hover:bg-blue-50 dark:hover:bg-gray-700" data-target="numerik">Numerik</button>
-                    <button class="quick-access-btn w-full text-left p-2 rounded hover:bg-blue-50 dark:hover:bg-gray-700" data-target="integritas">Integritas</button>
-                </div>
+                <p id="progressText" class="text-[10px] text-right">0% Selesai</p>
             </div>
         </aside>
 
-        <!-- Mobile Overlay -->
-        <div id="mobile-overlay" class="mobile-overlay"></div>
+        <main class="flex-1 min-w-0 bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 lg:p-10">
+            
+            <div class="mb-10 p-6 rounded-xl bg-blue-50 dark:bg-blue-900/20 border-l-4 border-blue-600">
+                <h2 class="text-2xl font-bold text-blue-900 dark:text-blue-100 mb-2">Selamat Datang di Paket 3!</h2>
+                <p class="text-slate-600 dark:text-slate-400 leading-relaxed">
+                    Halaman ini berisi ringkasan materi mendalam untuk persiapan SKD CPNS. Gunakan navigasi di samping untuk berpindah antar materi. Fokuslah pada poin-poin penting yang sering muncul dalam soal ujian tahun sebelumnya.
+                </p>
+            </div>
 
-        <!-- Main Content Area -->
-        <main class="w-full lg:w-3/4 lg:pl-8">
-            <!-- TWK Section -->
-            <section id="twk" class="section-content card p-6 mb-8 active">
-                <div class="flex justify-between items-center mb-6">
-                    <h2 class="text-2xl font-bold text-primary dark:text-white">
-                        <i class="fas fa-flag mr-2"></i>Tes Wawasan Kebangsaan (TWK)
+            <section id="twk-section" class="mb-20 scroll-mt-28">
+                <div class="flex items-center justify-between border-b-2 border-slate-100 dark:border-slate-700 pb-4 mb-8">
+                    <h2 class="text-3xl font-extrabold flex items-center gap-3">
+                        <span class="bg-blue-600 text-white p-2 rounded-lg text-sm"><i class="fas fa-flag"></i></span>
+                        Tes Wawasan Kebangsaan (TWK)
                     </h2>
-                    <span class="bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 px-3 py-1 rounded-full text-sm font-medium">45 menit</span>
+                    <span class="text-sm font-medium text-slate-500"><i class="far fa-clock mr-1"></i> Estimasi: 45 Menit</span>
                 </div>
-                
-                <p class="mb-6 text-gray-700 dark:text-gray-300">Bagian TWK mengukur penguasaan pengetahuan dan kemampuan mengimplementasikan nilai-nilai nasionalisme, integritas, bela negara, pilar negara, serta kemampuan berbahasa Indonesia.</p>
-                
-                <!-- Pancasila Subsection -->
-                <div id="pancasila" class="mb-10">
-                    <h3 class="text-xl font-bold mb-4 text-primary dark:text-white border-b pb-2">Pancasila</h3>
+
+                <div id="twk-pancasila" class="prose prose-slate dark:prose-invert max-w-none mb-12">
+                    <h3 class="text-xl font-bold text-blue-700 dark:text-blue-400 mb-4">1. Pancasila: Dasar dan Ideologi Negara</h3>
+                    <img src="https://images.unsplash.com/photo-1590644365607-1c5a519a7a37?auto=format&fit=crop&q=80&w=1000" alt="Garuda Pancasila" class="w-full h-64 object-cover rounded-xl mb-6 shadow-md">
                     
-                    <div class="mb-6">
-                        <img src="https://images.unsplash.com/photo-1589256469067-ea99122bbdc4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
-                             alt="Pancasila" class="w-full h-64 object-cover rounded-lg mb-4">
-                    </div>
-                    
-                    <p class="mb-4 text-gray-700 dark:text-gray-300">Pancasila merupakan dasar negara Indonesia yang terdiri dari lima sila yang saling berkaitan dan membentuk satu kesatuan yang utuh. Kelima sila tersebut merupakan kristalisasi nilai-nilai luhur bangsa Indonesia yang telah ada sejak zaman nenek moyang.</p>
-                    
-                    <p class="mb-4 text-gray-700 dark:text-gray-300">Sila pertama, Ketuhanan Yang Maha Esa, menegaskan bahwa bangsa Indonesia adalah bangsa yang religius. Negara menjamin kemerdekaan tiap-tiap penduduk untuk memeluk agama dan kepercayaannya masing-masing serta beribadat menurut agama dan kepercayaannya itu.</p>
-                    
-                    <p class="mb-4 text-gray-700 dark:text-gray-300">Sila kedua, Kemanusiaan yang Adil dan Beradab, menekankan pengakuan terhadap harkat dan martabat manusia dengan tanpa membeda-bedakan suku, keturunan, agama, dan status sosial. Sila ini juga mengamanatkan perlunya sikap saling mencintai, tenggang rasa, dan tidak semena-mena terhadap orang lain.</p>
-                    
-                    <p class="mb-4 text-gray-700 dark:text-gray-300">Sila ketiga, Persatuan Indonesia, merupakan perwujudan dari paham kebangsaan yang mengutamakan kepentingan bangsa di atas kepentingan pribadi atau golongan. Sila ini mendorong terciptanya persatuan dan kesatuan dalam keberagaman yang menjadi ciri khas bangsa Indonesia.</p>
-                    
-                    <p class="mb-6 text-gray-700 dark:text-gray-300">Sila keempat, Kerakyatan yang Dipimpin oleh Hikmat Kebijaksanaan dalam Permusyawaratan/Perwakilan, merupakan landasan sistem demokrasi di Indonesia. Sila ini menekankan bahwa setiap keputusan harus diambil melalui musyawarah untuk mencapai mufakat dengan mengutamakan hikmat kebijaksanaan.</p>
-                    
-                    <!-- Example Question 1 -->
-                    <div class="bg-blue-50 dark:bg-blue-900/30 p-5 rounded-lg mb-6">
-                        <h4 class="font-bold mb-3 text-primary dark:text-white">
-                            <i class="fas fa-question-circle mr-2"></i>Contoh Soal 1
-                        </h4>
-                        <p class="mb-3 font-medium">Sikap yang sesuai dengan sila pertama Pancasila dalam kehidupan sehari-hari adalah...</p>
-                        <div class="space-y-2 mb-4">
-                            <div class="flex items-center">
-                                <input type="radio" name="question1" id="q1a" class="mr-2">
-                                <label for="q1a">Menghormati teman yang sedang beribadah</label>
-                            </div>
-                            <div class="flex items-center">
-                                <input type="radio" name="question1" id="q1b" class="mr-2">
-                                <label for="q1b">Mengutamakan kepentingan pribadi</label>
-                            </div>
-                            <div class="flex items-center">
-                                <input type="radio" name="question1" id="q1c" class="mr-2">
-                                <label for="q1c">Memaksakan kepercayaan kepada orang lain</label>
-                            </div>
-                            <div class="flex items-center">
-                                <input type="radio" name="question1" id="q1d" class="mr-2">
-                                <label for="q1d">Mengabaikan perbedaan agama</label>
-                            </div>
+                    <p>Pancasila merupakan landasan filosofis bangsa Indonesia yang lahir dari kristalisasi nilai-nilai luhur masyarakat nusantara. Sebagai dasar negara, Pancasila berfungsi sebagai sumber dari segala sumber hukum (staatfundamentalnorm). Artinya, tidak ada peraturan perundang-undangan di Indonesia yang boleh bertentangan dengan nilai-nilai Pancasila.</p>
+                    <p>Fungsi Pancasila sangat luas, mencakup kedudukannya sebagai Pandangan Hidup Bangsa (Weltanschauung). Dalam peran ini, Pancasila menjadi kompas moral bagi setiap warga negara dalam bersikap dan bertindak. Internalisasi nilai-nilai ini dilakukan melalui pengamalan butir-butir Pancasila yang telah diperbarui melalui Ketetapan MPR.</p>
+                    <p>Secara historis, perumusan Pancasila melibatkan perdebatan intelektual yang hebat antara golongan nasionalis sekuler dan nasionalis religius. Sidang BPUPKI pertama menjadi tonggak sejarah di mana Soekarno mencetuskan nama "Pancasila" pada 1 Juni 1945. Proses ini menunjukkan betapa besarnya jiwa besar para pendiri bangsa dalam mencapai kesepakatan.</p>
+                    <p>Seiring berjalannya waktu, Pancasila menghadapi berbagai tantangan dari ideologi luar seperti liberalisme, ekstremisme, hingga pragmatisme global. Namun, kedudukan Pancasila sebagai ideologi terbuka memungkinkannya untuk tetap relevan dengan mengikuti perkembangan zaman tanpa meninggalkan nilai dasarnya.</p>
+                    <p>Penguatan nilai Pancasila di era digital menjadi krusial. Memahami Pancasila bukan sekadar menghafal sila-silanya, melainkan menerapkan sikap toleransi, gotong royong, dan keadilan dalam interaksi sosial sehari-hari, termasuk di media sosial guna menjaga integrasi nasional.</p>
+
+                    <div class="bg-slate-50 dark:bg-slate-900/50 rounded-xl p-6 my-6 border border-slate-200 dark:border-slate-700">
+                        <div class="flex items-center gap-2 mb-4 text-emerald-600 font-bold">
+                            <i class="fas fa-question-circle"></i> <span>Contoh Soal 1</span>
                         </div>
-                        <button class="show-answer-btn bg-secondary hover:bg-blue-600 text-white px-4 py-2 rounded font-medium text-sm">
-                            <i class="fas fa-lightbulb mr-1"></i>Tampilkan Pembahasan
+                        <p class="font-medium italic mb-4">"Manakah dari pernyataan berikut yang paling tepat menggambarkan kedudukan Pancasila sebagai ideologi terbuka?"</p>
+                        <ul class="list-disc pl-5 space-y-2 mb-4">
+                            <li>A. Pancasila dapat diubah sesuai dengan keinginan penguasa yang sedang menjabat.</li>
+                            <li>B. Nilai-nilai dasar Pancasila tetap, namun penjabarannya dapat menyesuaikan perkembangan zaman.</li>
+                            <li>C. Pancasila hanya berlaku untuk satu agama tertentu saja.</li>
+                            <li>D. Pancasila menutup diri dari segala bentuk pengaruh kebudayaan asing.</li>
+                        </ul>
+                        <button onclick="toggleSolution('sol-twk-1')" class="text-blue-600 hover:underline text-sm font-bold">
+                            Lihat Pembahasan <i class="fas fa-chevron-down ml-1"></i>
                         </button>
-                        <div class="answer-content mt-4 hidden p-3 bg-green-50 dark:bg-green-900/30 rounded">
-                            <p class="font-medium text-green-700 dark:text-green-300">Jawaban: A (Menghormati teman yang sedang beribadah)</p>
-                            <p class="text-green-700 dark:text-green-300 mt-2">Pembahasan: Sila pertama Pancasila mengajarkan toleransi dan penghormatan terhadap pemeluk agama lain. Menghormati teman yang sedang beribadah merupakan wujud konkret dari pengamalan sila pertama.</p>
+                        <div id="sol-twk-1" class="hidden mt-4 p-4 bg-emerald-50 dark:bg-emerald-900/20 rounded-lg text-sm border-l-4 border-emerald-500">
+                            <strong>Jawaban: B.</strong> Pembahasan: Sebagai ideologi terbuka, Pancasila memiliki nilai dasar yang tetap (tidak berubah), namun memiliki nilai instrumental dan praksis yang dapat mengikuti perkembangan zaman tanpa kehilangan jati dirinya.
                         </div>
                     </div>
-                    
-                    <!-- Example Question 2 -->
-                    <div class="bg-blue-50 dark:bg-blue-900/30 p-5 rounded-lg mb-6">
-                        <h4 class="font-bold mb-3 text-primary dark:text-white">
-                            <i class="fas fa-question-circle mr-2"></i>Contoh Soal 2
-                        </h4>
-                        <p class="mb-3 font-medium">Makna "hikmat kebijaksanaan" dalam sila keempat Pancasila adalah...</p>
-                        <div class="space-y-2 mb-4">
-                            <div class="flex items-center">
-                                <input type="radio" name="question2" id="q2a" class="mr-2">
-                                <label for="q2a">Keputusan diambil berdasarkan suara terbanyak</label>
-                            </div>
-                            <div class="flex items-center">
-                                <input type="radio" name="question2" id="q2b" class="mr-2">
-                                <label for="q2b">Keputusan diambil dengan pertimbangan matang dan mendalam</label>
-                            </div>
-                            <div class="flex items-center">
-                                <input type="radio" name="question2" id="q2c" class="mr-2">
-                                <label for="q2c">Pemimpin memiliki hak mutlak dalam pengambilan keputusan</label>
-                            </div>
-                            <div class="flex items-center">
-                                <input type="radio" name="question2" id="q2d" class="mr-2">
-                                <label for="q2d">Keputusan berdasarkan kesepakatan tanpa pertimbangan</label>
-                            </div>
+                </div>
+
+                <div id="twk-uud" class="prose prose-slate dark:prose-invert max-w-none mb-12">
+                    <h3 class="text-xl font-bold text-blue-700 dark:text-blue-400 mb-4">2. UUD 1945 dan Konstitusi</h3>
+                    <p>Undang-Undang Dasar Negara Republik Indonesia Tahun 1945 adalah hukum dasar tertulis yang menjadi konstitusi pemerintahan negara Indonesia. Sejak proklamasi, UUD 1945 telah mengalami dinamika yang signifikan, termasuk periode penggunaan UUD RIS dan UUDS 1950 sebelum akhirnya kembali ke UUD 1945 melalui Dekrit Presiden 5 Juli 1959.</p>
+                    <p>Amandemen UUD 1945 yang dilakukan sebanyak empat kali (1999-2002) merupakan titik balik demokrasi Indonesia. Amandemen ini bertujuan untuk menyempurnakan aturan dasar mengenai tatanan negara, pembagian kekuasaan (Check and Balances), serta perlindungan Hak Asasi Manusia (HAM) yang lebih komprehensif.</p>
+                    <p>Struktur UUD 1945 pasca-amandemen terdiri dari Pembukaan dan Pasal-pasal. Pembukaan UUD 1945 memiliki kedudukan yang sangat fundamental karena memuat tujuan negara dan dasar negara (Pancasila). Secara hukum, Pembukaan UUD 1945 tidak dapat diubah oleh siapapun termasuk MPR hasil pemilu.</p>
+                    <p>Pokok-pokok pikiran dalam Pembukaan UUD 1945 meliputi persatuan, keadilan sosial, kedaulatan rakyat, dan ketuhanan menurut dasar kemanusiaan. Nilai-nilai ini harus menjiwai setiap pasal dalam batang tubuh serta semua regulasi yang berlaku di bawahnya, seperti UU, PP, dan Perda.</p>
+                    <p>Sebagai warga negara, pemahaman terhadap UUD 1945 penting untuk mengetahui hak dan kewajiban kita. Ketaatan terhadap konstitusi merupakan bentuk nyata dari upaya menegakkan kedaulatan hukum dan mewujudkan keadilan bagi seluruh rakyat Indonesia.</p>
+
+                    <div class="bg-slate-50 dark:bg-slate-900/50 rounded-xl p-6 my-6 border border-slate-200 dark:border-slate-700">
+                        <div class="flex items-center gap-2 mb-4 text-emerald-600 font-bold">
+                            <i class="fas fa-question-circle"></i> <span>Contoh Soal 2</span>
                         </div>
-                        <button class="show-answer-btn bg-secondary hover:bg-blue-600 text-white px-4 py-2 rounded font-medium text-sm">
-                            <i class="fas fa-lightbulb mr-1"></i>Tampilkan Pembahasan
+                        <p class="font-medium italic mb-4">"Lembaga manakah yang memiliki kewenangan untuk memutus sengketa kewenangan lembaga negara yang kewenangannya diberikan oleh UUD?"</p>
+                        <button onclick="toggleSolution('sol-twk-2')" class="text-blue-600 hover:underline text-sm font-bold">
+                            Lihat Pembahasan <i class="fas fa-chevron-down ml-1"></i>
                         </button>
-                        <div class="answer-content mt-4 hidden p-3 bg-green-50 dark:bg-green-900/30 rounded">
-                            <p class="font-medium text-green-700 dark:text-green-300">Jawaban: B (Keputusan diambil dengan pertimbangan matang dan mendalam)</p>
-                            <p class="text-green-700 dark:text-green-300 mt-2">Pembahasan: "Hikmat kebijaksanaan" dalam sila keempat Pancasila berarti bahwa setiap keputusan harus diambil dengan pertimbangan yang matang, mendalam, dan penuh kebijaksanaan, bukan sekadar mengikuti suara terbanyak atau keputusan sepihak.</p>
+                        <div id="sol-twk-2" class="hidden mt-4 p-4 bg-emerald-50 dark:bg-emerald-900/20 rounded-lg text-sm border-l-4 border-emerald-500">
+                            <strong>Jawaban: Mahkamah Konstitusi (MK).</strong> Pembahasan: Berdasarkan Pasal 24C Ayat (1) UUD 1945, MK berwenang mengadili pada tingkat pertama dan terakhir yang putusannya bersifat final untuk menguji UU terhadap UUD, memutus sengketa kewenangan lembaga negara, memutus pembubaran parpol, dan memutus perselisihan hasil pemilu.
                         </div>
                     </div>
-                </div>
-                
-                <!-- UUD 1945 Subsection -->
-                <div id="uud1945" class="mb-10">
-                    <h3 class="text-xl font-bold mb-4 text-primary dark:text-white border-b pb-2">UUD 1945</h3>
-                    
-                    <div class="mb-6">
-                        <img src="https://images.unsplash.com/photo-1551135049-8a33b2fb2d5f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
-                             alt="UUD 1945" class="w-full h-64 object-cover rounded-lg mb-4">
-                    </div>
-                    
-                    <p class="mb-4 text-gray-700 dark:text-gray-300">Undang-Undang Dasar Negara Republik Indonesia Tahun 1945 merupakan konstitusi negara Indonesia yang disahkan pada tanggal 18 Agustus 1945 oleh Panitia Persiapan Kemerdekaan Indonesia (PPKI). UUD 1945 menjadi dasar hukum tertinggi dalam tata hukum Indonesia.</p>
-                    
-                    <p class="mb-4 text-gray-700 dark:text-gray-300">UUD 1945 terdiri dari Pembukaan, Batang Tubuh (16 bab, 37 pasal, 3 pasal Aturan Peralihan, dan 2 pasal Aturan Tambahan), serta Penjelasan. Pembukaan UUD 1945 mengandung empat alinea yang memuat dasar-dasar filosofis negara, tujuan negara, dan bentuk negara.</p>
-                    
-                    <p class="mb-4 text-gray-700 dark:text-gray-300">Alinea pertama Pembukaan UUD 1945 menyatakan bahwa "kemerdekaan adalah hak segala bangsa". Pernyataan ini menunjukkan pengakuan terhadap hak asasi manusia dan penolakan terhadap segala bentuk penjajahan di dunia.</p>
-                    
-                    <p class="mb-4 text-gray-700 dark:text-gray-300">Alinea kedua Pembukaan UUD 1945 mengungkapkan perjuangan pergerakan kemerdekaan Indonesia yang telah sampai pada saat yang berbahagia. Alinea ini juga menyatakan bahwa perjuangan pergerakan kemerdekaan Indonesia telah berhasil mengantarkan rakyat Indonesia ke depan pintu gerbang kemerdekaan.</p>
-                    
-                    <p class="mb-6 text-gray-700 dark:text-gray-300">Alinea ketiga Pembukaan UUD 1945 memuat pernyataan tentang kemerdekaan Indonesia yang didorong oleh keinginan luhur untuk berkehidupan kebangsaan yang bebas. Sedangkan alinea keempat memuat tujuan negara, bentuk negara, dan dasar negara Pancasila.</p>
-                    
-                    <!-- Additional content to meet the 5 paragraph requirement -->
-                    <p class="mb-4 text-gray-700 dark:text-gray-300">UUD 1945 telah mengalami beberapa kali perubahan (amandemen) yang dilakukan dalam empat tahap (1999, 2000, 2001, dan 2002). Amandemen ini bertujuan untuk menyempurnakan UUD 1945 agar lebih demokratis, melindungi hak asasi manusia, dan sesuai dengan perkembangan zaman.</p>
-                    
-                    <!-- Tooltip example -->
-                    <p class="mb-6 text-gray-700 dark:text-gray-300">Salah satu perubahan penting dalam amandemen UUD 1945 adalah penguatan sistem checks and balances antara lembaga-lembaga negara. <span class="tooltip">Pasal 7B<span class="tooltip-text">Pasal 7B UUD 1945 mengatur tentang pemberhentian Presiden dan/atau Wakil Presiden dalam masa jabatannya oleh Majelis Permusyawaratan Rakyat atas usul Dewan Perwakilan Rakyat.</span></span> mengatur tentang pemberhentian Presiden dan/atau Wakil Presiden, sementara <span class="tooltip">Pasal 24C<span class="tooltip-text">Pasal 24C UUD 1945 mengatur tentang Mahkamah Konstitusi yang berwenang menguji undang-undang terhadap UUD, memutus sengketa kewenangan lembaga negara, dan membubarkan partai politik.</span></span> membentuk Mahkamah Konstitusi.</p>
-                </div>
-                
-                <!-- Bhinneka Tunggal Ika Subsection -->
-                <div id="bhinneka" class="mb-10">
-                    <h3 class="text-xl font-bold mb-4 text-primary dark:text-white border-b pb-2">Bhinneka Tunggal Ika</h3>
-                    
-                    <div class="mb-6">
-                        <img src="https://images.unsplash.com/photo-1527525443983-6e60c75fff46?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
-                             alt="Bhinneka Tunggal Ika" class="w-full h-64 object-cover rounded-lg mb-4">
-                    </div>
-                    
-                    <p class="mb-4 text-gray-700 dark:text-gray-300">Bhinneka Tunggal Ika adalah semboyan bangsa Indonesia yang berasal dari bahasa Jawa Kuno yang berarti "Berbeda-beda tetapi tetap satu". Semboyan ini pertama kali ditemukan dalam kitab Sutasoma karya Mpu Tantular pada abad ke-14 masa kerajaan Majapahit.</p>
-                    
-                    <p class="mb-4 text-gray-700 dark:text-gray-300">Semboyan Bhinneka Tunggal Ika menggambarkan kondisi masyarakat Indonesia yang majemuk terdiri dari berbagai suku bangsa, agama, bahasa, dan budaya, tetapi tetap merupakan satu kesatuan sebagai bangsa Indonesia. Keberagaman ini bukanlah suatu kelemahan, melainkan kekayaan yang harus dijaga dan dilestarikan.</p>
-                    
-                    <p class="mb-4 text-gray-700 dark:text-gray-300">Implementasi Bhinneka Tunggal Ika dalam kehidupan berbangsa dan bernegara memerlukan sikap toleransi, saling menghormati, dan saling menghargai perbedaan. Tanpa sikap-sikap tersebut, keberagaman justru dapat menjadi sumber konflik dan perpecahan.</p>
-                    
-                    <p class="mb-4 text-gray-700 dark:text-gray-300">Bhinneka Tunggal Ika juga mengajarkan pentingnya persatuan dan kesatuan dalam menghadapi tantangan bangsa. Dengan persatuan, bangsa Indonesia dapat menghadapi berbagai masalah dan mencapai tujuan nasional sebagaimana tercantum dalam Pembukaan UUD 1945.</p>
-                    
-                    <p class="mb-6 text-gray-700 dark:text-gray-300">Dalam konteks globalisasi, Bhinneka Tunggal Ika menjadi benteng untuk menjaga identitas nasional di tengah arus budaya asing. Semboyan ini mengingatkan bahwa meskipun terbuka terhadap pengaruh global, bangsa Indonesia harus tetap menjaga jati diri dan nilai-nilai luhur bangsa.</p>
-                </div>
-                
-                <!-- NKRI Subsection -->
-                <div id="nkri" class="mb-10">
-                    <h3 class="text-xl font-bold mb-4 text-primary dark:text-white border-b pb-2">NKRI (Negara Kesatuan Republik Indonesia)</h3>
-                    
-                    <div class="mb-6">
-                        <img src="https://images.unsplash.com/photo-1541336032412-2048a678540d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
-                             alt="NKRI" class="w-full h-64 object-cover rounded-lg mb-4">
-                    </div>
-                    
-                    <p class="mb-4 text-gray-700 dark:text-gray-300">Negara Kesatuan Republik Indonesia (NKRI) adalah bentuk negara Indonesia yang ditegaskan dalam Pasal 1 Ayat 1 UUD 1945 yang menyatakan "Negara Indonesia ialah Negara Kesatuan, yang berbentuk Republik". Konsep negara kesatuan berarti bahwa kekuasaan tertinggi berada di pemerintah pusat, dengan daerah-daerah yang memiliki otonomi terbatas.</p>
-                    
-                    <p class="mb-4 text-gray-700 dark:text-gray-300">NKRI menganut sistem desentralisasi dengan pemberian otonomi daerah kepada pemerintah daerah provinsi, kabupaten, dan kota. Otonomi daerah ini diatur dalam Undang-Undang No. 23 Tahun 2014 tentang Pemerintahan Daerah yang merupakan revisi dari undang-undang sebelumnya.</p>
-                    
-                    <p class="mb-4 text-gray-700 dark:text-gray-300">Sebagai negara kepulauan terbesar di dunia, NKRI terdiri dari 17.504 pulau (berdasarkan data dari Kementerian Koordinator Bidang Kemaritiman) yang terbentang dari Sabang sampai Merauke. Kondisi geografis ini menuntut pengelolaan yang baik untuk menjaga keutuhan wilayah NKRI.</p>
-                    
-                    <p class="mb-4 text-gray-700 dark:text-gray-300">Sistem pemerintahan NKRI menganut sistem presidensial, di mana Presiden berkedudukan sebagai kepala negara sekaligus kepala pemerintahan. Presiden dan Wakil Presiden dipilih langsung oleh rakyat dalam pemilihan umum untuk masa jabatan lima tahun dan dapat dipilih kembali hanya untuk satu kali masa jabatan berikutnya.</p>
-                    
-                    <p class="mb-6 text-gray-700 dark:text-gray-300">NKRI memiliki empat pilar kebangsaan yang terdiri dari Pancasila, UUD 1945, Bhinneka Tunggal Ika, dan NKRI itu sendiri. Keempat pilar ini saling terkait dan menjadi fondasi berdirinya bangsa Indonesia. Memahami dan mengamalkan nilai-nilai dari keempat pilar tersebut merupakan kewajiban setiap warga negara Indonesia.</p>
                 </div>
             </section>
-            
-            <!-- TIU Section -->
-            <section id="tiu" class="section-content card p-6 mb-8">
-                <div class="flex justify-between items-center mb-6">
-                    <h2 class="text-2xl font-bold text-primary dark:text-white">
-                        <i class="fas fa-brain mr-2"></i>Tes Intelegensia Umum (TIU)
+
+            <section id="tiu-section" class="mb-20 scroll-mt-28">
+                <div class="flex items-center justify-between border-b-2 border-slate-100 dark:border-slate-700 pb-4 mb-8">
+                    <h2 class="text-3xl font-extrabold flex items-center gap-3">
+                        <span class="bg-purple-600 text-white p-2 rounded-lg text-sm"><i class="fas fa-brain"></i></span>
+                        Tes Intelegensia Umum (TIU)
                     </h2>
-                    <span class="bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 px-3 py-1 rounded-full text-sm font-medium">60 menit</span>
+                    <span class="text-sm font-medium text-slate-500"><i class="far fa-clock mr-1"></i> Estimasi: 60 Menit</span>
                 </div>
-                
-                <p class="mb-6 text-gray-700 dark:text-gray-300">Bagian TIU mengukur kemampuan verbal, numerik, logika, dan analitis peserta. Tes ini bertujuan untuk mengukur intelegensia umum sebagai prediktor kemampuan belajar dan adaptasi terhadap pekerjaan.</p>
-                
-                <!-- Verbal Subsection -->
-                <div id="verbal" class="mb-10">
-                    <h3 class="text-xl font-bold mb-4 text-primary dark:text-white border-b pb-2">Verbal</h3>
+
+                <div class="prose prose-slate dark:prose-invert max-w-none">
+                    <h3 class="text-xl font-bold text-purple-700 dark:text-purple-400 mb-4">1. Kemampuan Numerik & Deret Angka</h3>
+                    <img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&q=80&w=1000" alt="Mathematics" class="w-full h-64 object-cover rounded-xl mb-6 shadow-md">
                     
-                    <div class="mb-6">
-                        <img src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
-                             alt="Verbal" class="w-full h-64 object-cover rounded-lg mb-4">
+                    <p>Kemampuan numerik mengukur ketangkasan Anda dalam memproses angka, menghitung, dan melihat pola. Salah satu topik yang paling sering muncul adalah deret angka. Dalam deret angka, kuncinya bukan sekadar menghitung, melainkan menemukan "irama" atau aturan yang menghubungkan satu angka dengan angka berikutnya.</p>
+                    <p>Pola deret bisa berupa penjumlahan, pengurangan, perkalian, atau pembagian tetap. Namun, pada level yang lebih sulit, pola tersebut bisa berbentuk bertingkat (selisih di dalam selisih) atau melompat (misal: angka pertama berhubungan dengan angka ketiga, angka kedua dengan angka keempat).</p>
+                    <p>Rumus-rumus dasar matematika seperti persentase, perbandingan (senilai dan berbalik nilai), serta aritmatika sosial (untung/rugi) sangat krusial. Penguasaan rumus ini akan mempercepat durasi pengerjaan soal yang terbatas.</p>
+                    <div class="bg-slate-100 dark:bg-slate-800 p-4 rounded-lg font-mono text-sm border-l-4 border-purple-500 my-4">
+                        <p><strong>Rumus Kecepatan:</strong> $V = \frac{S}{t}$</p>
+                        <p><strong>Bunga Tunggal:</strong> $B = M \times i \times t$</p>
+                        <p><strong>Pekerjaan Bersama:</strong> $\frac{1}{T_{total}} = \frac{1}{T_1} + \frac{1}{T_2}$</p>
                     </div>
+                    <p>Latihan rutin adalah cara terbaik untuk menaklukkan TIU. Dengan sering berlatih, otak akan secara otomatis mengenali pola-pola numerik tanpa perlu memikirkannya terlalu lama.</p>
                     
-                    <p class="mb-4 text-gray-700 dark:text-gray-300">Tes kemampuan verbal mengukur penguasaan kata dan bahasa seseorang. Tes ini meliputi sinonim (persamaan kata), antonim (lawan kata), analogi (hubungan kata), dan pemahaman wacana. Kemampuan verbal sangat penting dalam komunikasi sehari-hari dan pekerjaan yang membutuhkan pemahaman tertulis.</p>
-                    
-                    <p class="mb-4 text-gray-700 dark:text-gray-300">Dalam tes sinonim, peserta diminta mencari kata yang memiliki makna sama atau hampir sama dengan kata yang diberikan. Misalnya, sinonim dari "komprehensif" adalah "menyeluruh" atau "lengkap". Penguasaan kosakata yang luas akan membantu dalam menjawab soal jenis ini.</p>
-                    
-                    <p class="mb-4 text-gray-700 dark:text-gray-300">Tes antonim meminta peserta mencari kata yang bermakna berlawanan dengan kata yang diberikan. Contoh: antonim dari "produktif" adalah "improduktif" atau "mandek". Perlu diingat bahwa beberapa kata memiliki lebih dari satu antonim tergantung konteks penggunaannya.</p>
-                    
-                    <p class="mb-4 text-gray-700 dark:text-gray-300">Tes analogi mengukur kemampuan memahami hubungan antara dua kata dan menerapkan hubungan tersebut pada pasangan kata lain. Contoh: "dokter : pasien = guru : ...". Jawabannya adalah "murid" karena hubungannya adalah pemberi layanan : penerima layanan.</p>
-                    
-                    <p class="mb-6 text-gray-700 dark:text-gray-300">Tes pemahaman wacana mengukur kemampuan memahami, menganalisis, dan menarik kesimpulan dari sebuah teks. Peserta akan diberikan sebuah bacaan kemudian diminta menjawab pertanyaan berdasarkan isi bacaan tersebut. Keterampilan membaca cepat dan efektif sangat membantu dalam mengerjakan bagian ini.</p>
-                    
-                    <!-- Example Question 1 -->
-                    <div class="bg-green-50 dark:bg-green-900/30 p-5 rounded-lg mb-6">
-                        <h4 class="font-bold mb-3 text-primary dark:text-white">
-                            <i class="fas fa-question-circle mr-2"></i>Contoh Soal 1: Sinonim
-                        </h4>
-                        <p class="mb-3 font-medium">Sinonim dari kata "AMBIGU" adalah...</p>
-                        <div class="space-y-2 mb-4">
-                            <div class="flex items-center">
-                                <input type="radio" name="verbal1" id="v1a" class="mr-2">
-                                <label for="v1a">Jelas</label>
-                            </div>
-                            <div class="flex items-center">
-                                <input type="radio" name="verbal1" id="v1b" class="mr-2">
-                                <label for="v1b">Tegas</label>
-                            </div>
-                            <div class="flex items-center">
-                                <input type="radio" name="verbal1" id="v1c" class="mr-2">
-                                <label for="v1c">Mendua</label>
-                            </div>
-                            <div class="flex items-center">
-                                <input type="radio" name="verbal1" id="v1d" class="mr-2">
-                                <label for="v1d">Pasti</label>
-                            </div>
+                    <div class="bg-slate-50 dark:bg-slate-900/50 rounded-xl p-6 my-6 border border-slate-200 dark:border-slate-700">
+                        <div class="flex items-center gap-2 mb-4 text-emerald-600 font-bold">
+                            <i class="fas fa-calculator"></i> <span>Contoh Soal Numerik</span>
                         </div>
-                        <button class="show-answer-btn bg-secondary hover:bg-blue-600 text-white px-4 py-2 rounded font-medium text-sm">
-                            <i class="fas fa-lightbulb mr-1"></i>Tampilkan Pembahasan
+                        <p class="font-medium italic mb-4">"Lanjutkan deret berikut: 2, 6, 12, 20, 30, ..."</p>
+                        <button onclick="toggleSolution('sol-tiu-1')" class="text-blue-600 hover:underline text-sm font-bold">
+                            Lihat Pembahasan <i class="fas fa-chevron-down ml-1"></i>
                         </button>
-                        <div class="answer-content mt-4 hidden p-3 bg-green-50 dark:bg-green-900/30 rounded">
-                            <p class="font-medium text-green-700 dark:text-green-300">Jawaban: C (Mendua)</p>
-                            <p class="text-green-700 dark:text-green-300 mt-2">Pembahasan: Kata "ambigu" berarti mempunyai dua arti yang berbeda; tidak jelas; mendua. Sinonim yang tepat adalah "mendua". Pilihan lain merupakan antonim dari kata "ambigu".</p>
+                        <div id="sol-tiu-1" class="hidden mt-4 p-4 bg-emerald-50 dark:bg-emerald-900/20 rounded-lg text-sm border-l-4 border-emerald-500">
+                            <strong>Jawaban: 42.</strong> Pembahasan: Polanya adalah penambahan bilangan genap yang berurutan. <br>
+                            $2 + 4 = 6$ <br>
+                            $6 + 6 = 12$ <br>
+                            $12 + 8 = 20$ <br>
+                            $20 + 10 = 30$ <br>
+                            $30 + 12 = \mathbf{42}$
                         </div>
                     </div>
-                    
-                    <!-- Example Question 2 -->
-                    <div class="bg-green-50 dark:bg-green-900/30 p-5 rounded-lg mb-6">
-                        <h4 class="font-bold mb-3 text-primary dark:text-white">
-                            <i class="fas fa-question-circle mr-2"></i>Contoh Soal 2: Analogi
-                        </h4>
-                        <p class="mb-3 font-medium">KAKI : SEPATU = KEPALA : ...</p>
-                        <div class="space-y-2 mb-4">
-                            <div class="flex items-center">
-                                <input type="radio" name="verbal2" id="v2a" class="mr-2">
-                                <label for="v2a">Topi</label>
-                            </div>
-                            <div class="flex items-center">
-                                <input type="radio" name="verbal2" id="v2b" class="mr-2">
-                                <label for="v2b">Rambut</label>
-                            </div>
-                            <div class="flex items-center">
-                                <input type="radio" name="verbal2" id="v2c" class="mr-2">
-                                <label for="v2c">Mata</label>
-                            </div>
-                            <div class="flex items-center">
-                                <input type="radio" name="verbal2" id="v2d" class="mr-2">
-                                <label for="v2d">Telinga</label>
-                            </div>
-                        </div>
-                        <button class="show-answer-btn bg-secondary hover:bg-blue-600 text-white px-4 py-2 rounded font-medium text-sm">
-                            <i class="fas fa-lightbulb mr-1"></i>Tampilkan Pembahasan
-                        </button>
-                        <div class="answer-content mt-4 hidden p-3 bg-green-50 dark:bg-green-900/30 rounded">
-                            <p class="font-medium text-green-700 dark:text-green-300">Jawaban: A (Topi)</p>
-                            <p class="text-green-700 dark:text-green-300 mt-2">Pembahasan: Hubungan antara "kaki" dan "sepatu" adalah bahwa sepatu adalah pelindung atau penutup kaki. Dengan hubungan yang sama, "topi" adalah pelindung atau penutup kepala. Jadi analogi yang tepat adalah KAKI : SEPATU = KEPALA : TOPI.</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Numerik Subsection -->
-                <div id="numerik" class="mb-10">
-                    <h3 class="text-xl font-bold mb-4 text-primary dark:text-white border-b pb-2">Numerik</h3>
-                    
-                    <div class="mb-6">
-                        <img src="https://images.unsplash.com/photo-1509228468518-180dd4864904?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
-                             alt="Numerik" class="w-full h-64 object-cover rounded-lg mb-4">
-                    </div>
-                    
-                    <p class="mb-4 text-gray-700 dark:text-gray-300">Tes kemampuan numerik mengukur kemampuan berpikir secara kuantitatif dan logis menggunakan angka dan konsep matematika. Tes ini meliputi aritmatika, deret angka, perbandingan kuantitatif, dan soal cerita matematika. Kemampuan numerik penting dalam pekerjaan yang membutuhkan analisis data dan pengambilan keputusan berdasarkan angka.</p>
-                    
-                    <p class="mb-4 text-gray-700 dark:text-gray-300">Bagian aritmatika mencakup operasi dasar matematika seperti penjumlahan, pengurangan, perkalian, pembagian, pecahan, persentase, dan akar pangkat. Penguasaan operasi dasar ini akan mempercepat penyelesaian soal dan menghemat waktu pengerjaan.</p>
-                    
-                    <p class="mb-4 text-gray-700 dark:text-gray-300">Tes deret angka mengukur kemampuan mengenali pola dan melanjutkan deret angka sesuai dengan polanya. Contoh deret: 2, 4, 6, 8, ... (pola +2). Deret bisa berupa penjumlahan, pengurangan, perkalian, pembagian, atau kombinasi dari operasi-operasi tersebut.</p>
-                    
-                    <!-- Math formulas -->
-                    <div class="bg-blue-50 dark:bg-blue-900/30 p-5 rounded-lg mb-4">
-                        <h4 class="font-bold mb-3 text-primary dark:text-white">
-                            <i class="fas fa-calculator mr-2"></i>Rumus-Rumus Penting Numerik
-                        </h4>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div>
-                                <p class="font-medium mb-1">Persentase</p>
-                                <p class="text-sm">Persentase = (Nilai/Basis) × 100%</p>
-                            </div>
-                            <div>
-                                <p class="font-medium mb-1">Rata-rata (Mean)</p>
-                                <p class="text-sm">Rata-rata = Jumlah data ÷ Banyak data</p>
-                            </div>
-                            <div>
-                                <p class="font-medium mb-1">Perbandingan</p>
-                                <p class="text-sm">a : b = c : d → a × d = b × c</p>
-                            </div>
-                            <div>
-                                <p class="font-medium mb-1">Kecepatan</p>
-                                <p class="text-sm">Jarak = Kecepatan × Waktu</p>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <p class="mb-4 text-gray-700 dark:text-gray-300">Perbandingan kuantitatif meminta peserta membandingkan dua kuantitas dan menentukan hubungan antara keduanya: apakah A lebih besar dari B, B lebih besar dari A, A sama dengan B, atau hubungannya tidak dapat ditentukan dari informasi yang diberikan.</p>
-                    
-                    <p class="mb-6 text-gray-700 dark:text-gray-300">Soal cerita matematika menguji kemampuan menerapkan konsep matematika dalam situasi kehidupan sehari-hari. Soal ini biasanya melibatkan persentase, perbandingan, kecepatan, atau aljabar sederhana. Kunci mengerjakan soal cerita adalah memahami masalah, mengidentifikasi informasi yang relevan, dan menerapkan rumus yang tepat.</p>
-                    
-                    <!-- Example Question 1 -->
-                    <div class="bg-green-50 dark:bg-green-900/30 p-5 rounded-lg mb-6">
-                        <h4 class="font-bold mb-3 text-primary dark:text-white">
-                            <i class="fas fa-question-circle mr-2"></i>Contoh Soal 1: Deret Angka
-                        </h4>
-                        <p class="mb-3 font-medium">Lanjutkan deret berikut: 3, 6, 12, 24, ...</p>
-                        <div class="space-y-2 mb-4">
-                            <div class="flex items-center">
-                                <input type="radio" name="numerik1" id="n1a" class="mr-2">
-                                <label for="n1a">30</label>
-                            </div>
-                            <div class="flex items-center">
-                                <input type="radio" name="numerik1" id="n1b" class="mr-2">
-                                <label for="n1b">36</label>
-                            </div>
-                            <div class="flex items-center">
-                                <input type="radio" name="numerik1" id="n1c" class="mr-2">
-                                <label for="n1c">48</label>
-                            </div>
-                            <div class="flex items-center">
-                                <input type="radio" name="numerik1" id="n1d" class="mr-2">
-                                <label for="n1d">60</label>
-                            </div>
-                        </div>
-                        <button class="show-answer-btn bg-secondary hover:bg-blue-600 text-white px-4 py-2 rounded font-medium text-sm">
-                            <i class="fas fa-lightbulb mr-1"></i>Tampilkan Pembahasan
-                        </button>
-                        <div class="answer-content mt-4 hidden p-3 bg-green-50 dark:bg-green-900/30 rounded">
-                            <p class="font-medium text-green-700 dark:text-green-300">Jawaban: C (48)</p>
-                            <p class="text-green-700 dark:text-green-300 mt-2">Pembahasan: Pola deret ini adalah setiap angka dikalikan 2: 3×2=6, 6×2=12, 12×2=24, sehingga angka berikutnya adalah 24×2=48.</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Logika Subsection -->
-                <div id="logika" class="mb-10">
-                    <h3 class="text-xl font-bold mb-4 text-primary dark:text-white border-b pb-2">Logika</h3>
-                    
-                    <p class="mb-4 text-gray-700 dark:text-gray-300">Tes logika mengukur kemampuan berpikir secara logis dan sistematis. Tes ini meliputi logika formal, silogisme, dan logika analitik. Kemampuan logika penting dalam pengambilan keputusan, pemecahan masalah, dan analisis situasi.</p>
-                    
-                    <p class="mb-4 text-gray-700 dark:text-gray-300">Logika formal berhubungan dengan hubungan antara pernyataan dan kesimpulan yang valid. Contoh: "Semua manusia akan mati. Socrates adalah manusia. Jadi, Socrates akan mati." Ini adalah contoh silogisme kategoris yang valid.</p>
-                    
-                    <p class="mb-4 text-gray-700 dark:text-gray-300">Silogisme terdiri dari dua premis dan satu kesimpulan. Premis mayor mengandung predikat kesimpulan, premis minor mengandung subjek kesimpulan. Validitas silogisme tergantung pada bentuk dan hubungan antara ketiga pernyataan tersebut.</p>
-                    
-                    <p class="mb-4 text-gray-700 dark:text-gray-300">Logika analitik menguji kemampuan menganalisis informasi dan menarik kesimpulan yang logis. Soal jenis ini sering berupa cerita pendek yang mengandung beberapa informasi, dan peserta diminta menentukan kesimpulan yang valid berdasarkan informasi tersebut.</p>
-                    
-                    <p class="mb-6 text-gray-700 dark:text-gray-300">Tes logika juga mencakup penalaran deduktif (dari umum ke khusus) dan induktif (dari khusus ke umum). Penalaran deduktif menghasilkan kesimpulan yang pasti jika premisnya benar, sedangkan penalaran induktif menghasilkan kesimpulan yang mungkin benar berdasarkan pola atau pengamatan.</p>
-                </div>
-                
-                <!-- Analitis Subsection -->
-                <div id="analitis" class="mb-10">
-                    <h3 class="text-xl font-bold mb-4 text-primary dark:text-white border-b pb-2">Analitis</h3>
-                    
-                    <p class="mb-4 text-gray-700 dark:text-gray-300">Tes kemampuan analitis mengukur kemampuan menganalisis informasi, mengidentifikasi pola, dan menarik kesimpulan dari data yang diberikan. Tes ini meliputi analisis data tabel/gambar, penalaran analitik, dan pemecahan masalah kompleks.</p>
-                    
-                    <p class="mb-4 text-gray-700 dark:text-gray-300">Analisis data tabel/gambar meminta peserta membaca dan menafsirkan data yang disajikan dalam bentuk tabel, grafik, atau diagram. Kemampuan membaca visual dan mengekstrak informasi penting dari data sangat diperlukan dalam bagian ini.</p>
-                    
-                    <p class="mb-4 text-gray-700 dark:text-gray-300">Penalaran analitik sering berupa soal cerita yang melibatkan beberapa orang, benda, atau peristiwa dengan hubungan tertentu. Peserta diminta menentukan hubungan, urutan, atau penempatan yang tepat berdasarkan informasi yang diberikan.</p>
-                    
-                    <p class="mb-4 text-gray-700 dark:text-gray-300">Pemecahan masalah kompleks menguji kemampuan menerapkan berbagai konsep (matematika, logika, verbal) secara terintegrasi untuk menyelesaikan masalah yang lebih rumit. Soal jenis ini membutuhkan pemikiran kritis dan strategi penyelesaian yang sistematis.</p>
-                    
-                    <p class="mb-6 text-gray-700 dark:text-gray-300">Kunci sukses dalam tes analitis adalah kemampuan mengorganisir informasi, mengidentifikasi informasi yang relevan, dan menerapkan metode penyelesaian yang tepat. Latihan yang konsisten akan meningkatkan kecepatan dan ketepatan dalam mengerjakan soal analitis.</p>
                 </div>
             </section>
-            
-            <!-- TKP Section -->
-            <section id="tkp" class="section-content card p-6 mb-8">
-                <div class="flex justify-between items-center mb-6">
-                    <h2 class="text-2xl font-bold text-primary dark:text-white">
-                        <i class="fas fa-user-check mr-2"></i>Tes Karakteristik Pribadi (TKP)
+
+            <section id="tkp-section" class="mb-20 scroll-mt-28">
+                <div class="flex items-center justify-between border-b-2 border-slate-100 dark:border-slate-700 pb-4 mb-8">
+                    <h2 class="text-3xl font-extrabold flex items-center gap-3">
+                        <span class="bg-emerald-600 text-white p-2 rounded-lg text-sm"><i class="fas fa-user-shield"></i></span>
+                        Tes Karakteristik Pribadi (TKP)
                     </h2>
-                    <span class="bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200 px-3 py-1 rounded-full text-sm font-medium">50 menit</span>
+                    <span class="text-sm font-medium text-slate-500"><i class="far fa-clock mr-1"></i> Estimasi: 50 Menit</span>
                 </div>
-                
-                <p class="mb-6 text-gray-700 dark:text-gray-300">Bagian TKP mengukur karakteristik kepribadian peserta yang relevan dengan lingkungan kerja, seperti integritas, semangat berprestasi, adaptasi, dan pengendalian diri. Tes ini bertujuan untuk memprediksi kecocokan peserta dengan budaya organisasi dan tuntutan pekerjaan.</p>
-                
-                <!-- Integritas Subsection -->
-                <div id="integritas" class="mb-10">
-                    <h3 class="text-xl font-bold mb-4 text-primary dark:text-white border-b pb-2">Integritas</h3>
+
+                <div class="prose prose-slate dark:prose-invert max-w-none">
+                    <h3 class="text-xl font-bold text-emerald-700 dark:text-emerald-400 mb-4">1. Pelayanan Publik dan Profesionalisme</h3>
+                    <p>Berbeda dengan TWK dan TIU, TKP tidak mencari jawaban benar atau salah, melainkan jawaban yang memiliki bobot poin tertinggi (1-5). Fokus utama TKP adalah mengukur integritas, keramahan, dan orientasi pada pelayanan. Sebagai calon ASN, Anda diharapkan memiliki sikap mendahului kepentingan publik di atas kepentingan pribadi.</p>
+                    <p>Dalam aspek Pelayanan Publik, kuncinya adalah memberikan solusi tercepat, termudah, dan tetap sesuai aturan. Jangan memilih jawaban yang bersifat menunda atau melempar tanggung jawab kepada rekan lain jika masalah tersebut masih dalam wewenang Anda.</p>
+                    <p>Profesionalisme menuntut Anda untuk tetap fokus bekerja meskipun ada gangguan pribadi atau tekanan dari luar. Konsistensi dalam menjaga kualitas kerja adalah indikator utama dalam penilaian aspek ini.</p>
                     
-                    <div class="mb-6">
-                        <img src="https://images.unsplash.com/photo-1553877522-43269d4ea984?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
-                             alt="Integritas" class="w-full h-64 object-cover rounded-lg mb-4">
-                    </div>
-                    
-                    <p class="mb-4 text-gray-700 dark:text-gray-300">Integritas adalah konsistensi antara nilai, kata, dan perbuatan. Orang yang berintegritas akan bertindak sesuai dengan nilai-nilai moral yang dianutnya meskipun dalam situasi sulit atau tidak ada orang yang melihat. Integritas mencakup kejujuran, tanggung jawab, dan dapat dipercaya.</p>
-                    
-                    <p class="mb-4 text-gray-700 dark:text-gray-300">Dalam konteks pekerjaan, integritas memanifestasikan dalam berbagai bentuk: menyampaikan informasi dengan jujur, mengakui kesalahan, memenuhi janji dan komitmen, serta menjaga kerahasiaan informasi organisasi. Integritas adalah fondasi kepercayaan dalam hubungan profesional.</p>
-                    
-                    <p class="mb-4 text-gray-700 dark:text-gray-300">Integritas juga berkaitan dengan konsistensi antara apa yang dikatakan dan dilakukan. Seorang pegawai yang berintegritas akan melaksanakan tugas dengan baik meskipun atasan tidak mengawasi secara langsung. Konsistensi ini membangun reputasi yang baik di mata rekan kerja dan atasan.</p>
-                    
-                    <p class="mb-4 text-gray-700 dark:text-gray-300">Pengembangan integritas memerlukan kesadaran diri dan refleksi terhadap nilai-nilai yang dianut. Penting untuk mengevaluasi apakah tindakan sehari-hari sudah selaras dengan nilai-nilai tersebut. Integritas bukan hanya tentang menghindari perilaku tidak etis, tetapi juga secara aktif melakukan hal yang benar.</p>
-                    
-                    <p class="mb-6 text-gray-700 dark:text-gray-300">Integritas dalam organisasi publik sangat penting karena berkaitan dengan kepercayaan masyarakat. Pegawai negeri yang berintegritas akan melayani masyarakat dengan adil, tidak menyalahgunakan wewenang, dan mengutamakan kepentingan publik di atas kepentingan pribadi.</p>
-                    
-                    <!-- Case Study 1 -->
-                    <div class="bg-purple-50 dark:bg-purple-900/30 p-5 rounded-lg mb-6">
-                        <h4 class="font-bold mb-3 text-primary dark:text-white">
-                            <i class="fas fa-clipboard-list mr-2"></i>Studi Kasus 1: Dilema Integritas
-                        </h4>
-                        <p class="mb-3">Anda adalah pegawai di sebuah instansi pemerintah. Suatu hari, atasan Anda meminta untuk membackdate sebuah dokumen yang seharusnya sudah diselesaikan dua minggu lalu. Atasan menjelaskan bahwa hal ini diperlukan untuk menghindari sanksi keterlambatan. Apa yang akan Anda lakukan?</p>
-                        
-                        <div class="space-y-3 mt-4">
-                            <div class="p-3 bg-white dark:bg-gray-800 rounded border">
-                                <p class="font-medium mb-1">Opsi A:</p>
-                                <p>Menolak permintaan atasan dengan tegas karena melanggar integritas dan aturan</p>
+                    <div class="bg-emerald-50 dark:bg-emerald-900/20 p-6 rounded-xl border border-emerald-100 dark:border-emerald-800 my-8">
+                        <h4 class="font-bold text-emerald-800 dark:text-emerald-300 mb-4">Studi Kasus: Dilema Antrean</h4>
+                        <p class="italic text-sm mb-4">"Anda sedang melayani antrean panjang di loket. Tiba-tiba seorang teman akrab Anda datang dan meminta didahulukan karena ia sedang terburu-buru. Apa yang Anda lakukan?"</p>
+                        <div class="grid grid-cols-1 gap-3">
+                            <div class="p-3 bg-white dark:bg-slate-800 rounded border border-slate-200 dark:border-slate-700 text-xs">
+                                <span class="font-bold">Opsi A:</span> Mendahulukannya karena dia teman baik saya. (Poin 1)
                             </div>
-                            <div class="p-3 bg-white dark:bg-gray-800 rounded border">
-                                <p class="font-medium mb-1">Opsi B:</p>
-                                <p>Mematuhi permintaan atasan karena sebagai bawahan harus patuh pada perintah atasan</p>
+                            <div class="p-3 bg-white dark:bg-slate-800 rounded border border-slate-200 dark:border-slate-700 text-xs">
+                                <span class="font-bold">Opsi B:</span> Memintanya untuk tetap mengantre sesuai urutan agar adil bagi yang lain. (Poin 5)
                             </div>
-                            <div class="p-3 bg-white dark:bg-gray-800 rounded border">
-                                <p class="font-medium mb-1">Opsi C:</p>
-                                <p>Menjelaskan konsekuensi etis dan hukum dari permintaan tersebut, lalu menawarkan solusi lain</p>
-                            </div>
-                            <div class="p-3 bg-white dark:bg-gray-800 rounded border">
-                                <p class="font-medium mb-1">Opsi D:</p>
-                                <p>Mengajukan permintaan tersebut kepada atasan yang lebih tinggi untuk mendapatkan keputusan</p>
+                            <div class="p-3 bg-white dark:bg-slate-800 rounded border border-slate-200 dark:border-slate-700 text-xs">
+                                <span class="font-bold">Opsi C:</span> Menutup loket sejenak untuk berbicara dengannya. (Poin 2)
                             </div>
                         </div>
-                        
-                        <button class="show-case-analysis-btn mt-4 bg-secondary hover:bg-blue-600 text-white px-4 py-2 rounded font-medium text-sm">
-                            <i class="fas fa-analysis mr-1"></i>Analisis Kasus
-                        </button>
-                        <div class="case-analysis mt-4 hidden p-3 bg-green-50 dark:bg-green-900/30 rounded">
-                            <p class="font-medium text-green-700 dark:text-green-300">Analisis:</p>
-                            <p class="text-green-700 dark:text-green-300 mt-2">Opsi C adalah pilihan yang paling tepat karena menunjukkan integritas sekaligus kematangan dalam menghadapi dilema etika. Dengan menjelaskan konsekuensi dan menawarkan solusi alternatif, Anda menjaga integritas tanpa langsung menolak atau melawan atasan. Pendekatan ini memungkinkan dialog konstruktif untuk mencari solusi yang tidak melanggar etika.</p>
-                        </div>
+                        <p class="mt-4 text-xs font-semibold text-emerald-700">Analisis: Jawaban B menunjukkan integritas dan sikap profesional dalam pelayanan publik tanpa diskriminasi.</p>
                     </div>
-                    
-                    <!-- Case Study 2 -->
-                    <div class="bg-purple-50 dark:bg-purple-900/30 p-5 rounded-lg mb-6">
-                        <h4 class="font-bold mb-3 text-primary dark:text-white">
-                            <i class="fas fa-clipboard-list mr-2"></i>Studi Kasus 2: Konflik Kepentingan
-                        </h4>
-                        <p class="mb-3">Anda bertanggung jawab atas proses pengadaan barang di instansi Anda. Sebuah perusahaan yang diajukan oleh rekan kerja dekat Anda mengajukan penawaran. Setelah evaluasi, perusahaan tersebut tidak memenuhi persyaratan teknis. Rekan Anda meminta pertimbangan khusus karena hubungan pertemanan. Bagaimana Anda menanggapi?</p>
-                        
-                        <button class="show-case-analysis-btn mt-4 bg-secondary hover:bg-blue-600 text-white px-4 py-2 rounded font-medium text-sm">
-                            <i class="fas fa-analysis mr-1"></i>Analisis Kasus
-                        </button>
-                        <div class="case-analysis mt-4 hidden p-3 bg-green-50 dark:bg-green-900/30 rounded">
-                            <p class="font-medium text-green-700 dark:text-green-300">Analisis:</p>
-                            <p class="text-green-700 dark:text-green-300 mt-2">Dalam situasi konflik kepentingan seperti ini, integritas mengharuskan Anda untuk mengutamakan prinsip keadilan dan kepatuhan pada aturan. Penjelasan yang baik kepada rekan kerja tentang pentingnya mengikuti prosedur dan kriteria yang telah ditetapkan akan membantu menjaga hubungan tanpa mengorbankan integritas profesional. Transparansi dalam proses pengambilan keputusan juga penting untuk menghindari prasangka.</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Semangat Berprestasi Subsection -->
-                <div id="semangat" class="mb-10">
-                    <h3 class="text-xl font-bold mb-4 text-primary dark:text-white border-b pb-2">Semangat Berprestasi</h3>
-                    
-                    <p class="mb-4 text-gray-700 dark:text-gray-300">Semangat berprestasi adalah dorongan internal untuk mencapai standar keunggulan dalam pekerjaan. Karakteristik ini meliputi orientasi pada hasil, ketekunan, inisiatif, dan komitmen terhadap pengembangan diri. Pegawai dengan semangat berprestasi tinggi cenderung lebih produktif dan inovatif.</p>
-                    
-                    <p class="mb-4 text-gray-700 dark:text-gray-300">Orientasi pada hasil berarti fokus pada pencapaian tujuan dan target yang telah ditetapkan. Ini melibatkan perencanaan yang baik, prioritisasi tugas, dan evaluasi kemajuan secara berkala. Pegawai yang berorientasi hasil tidak hanya menyelesaikan tugas, tetapi juga memastikan kualitas hasil yang optimal.</p>
-                    
-                    <p class="mb-4 text-gray-700 dark:text-gray-300">Ketekunan adalah kemampuan untuk terus berusaha meskipun menghadapi hambatan atau kegagalan. Karakter ini penting dalam menghadapi tantangan pekerjaan yang kompleks. Ketekunan bukan berarti kaku, tetapi kemampuan untuk beradaptasi dan mencoba pendekatan berbeda hingga mencapai tujuan.</p>
-                    
-                    <p class="mb-4 text-gray-700 dark:text-gray-300">Inisiatif menunjukkan kemampuan untuk mengambil tindakan tanpa menunggu perintah. Pegawai dengan inisiatif tinggi akan mengidentifikasi peluang perbaikan, mengusulkan solusi, dan mengambil tanggung jawab tambahan. Inisiatif adalah kunci inovasi dan peningkatan berkelanjutan dalam organisasi.</p>
-                    
-                    <p class="mb-6 text-gray-700 dark:text-gray-300">Pengembangan diri adalah komitmen untuk terus belajar dan meningkatkan kompetensi. Dalam dunia kerja yang terus berubah, kemampuan untuk mengupdate pengetahuan dan keterampilan sangat penting. Pengembangan diri dapat dilakukan melalui pelatihan formal, belajar mandiri, atau mentoring dari rekan yang lebih berpengalaman.</p>
-                </div>
-                
-                <!-- Adaptasi Subsection -->
-                <div id="adaptasi" class="mb-10">
-                    <h3 class="text-xl font-bold mb-4 text-primary dark:text-white border-b pb-2">Adaptasi</h3>
-                    
-                    <p class="mb-4 text-gray-700 dark:text-gray-300">Kemampuan adaptasi adalah kapasitas untuk menyesuaikan diri dengan perubahan lingkungan, teknologi, prosedur, atau tim kerja. Dalam organisasi yang dinamis, kemampuan adaptasi yang tinggi akan membantu individu tetap efektif dan produktif meskipun menghadapi perubahan yang signifikan.</p>
-                    
-                    <p class="mb-4 text-gray-700 dark:text-gray-300">Adaptasi terhadap perubahan organisasi melibatkan penerimaan terhadap perubahan struktural, kebijakan baru, atau transformasi budaya organisasi. Individu yang mudah beradaptasi akan melihat perubahan sebagai peluang daripada ancaman, dan aktif mencari cara untuk berkontribusi dalam konteks baru.</p>
-                    
-                    <p class="mb-4 text-gray-700 dark:text-gray-300">Adaptasi teknologi menjadi semakin penting di era digital. Ini bukan hanya tentang kemampuan menggunakan perangkat lunak baru, tetapi juga pola pikir untuk terus belajar dan mengintegrasikan teknologi dalam pekerjaan untuk meningkatkan efisiensi dan efektivitas.</p>
-                    
-                    <p class="mb-4 text-gray-700 dark:text-gray-300">Adaptasi dalam tim kerja melibatkan kemampuan bekerja dengan berbagai tipe kepribadian, latar belakang, dan gaya kerja. Fleksibilitas dalam komunikasi dan kolaborasi akan meningkatkan sinergi tim dan mengurangi konflik interpersonal.</p>
-                    
-                    <p class="mb-6 text-gray-700 dark:text-gray-300">Resiliensi atau ketahanan adalah aspek penting dari kemampuan adaptasi. Individu yang resilien dapat pulih dari tekanan, kegagalan, atau perubahan yang tidak diharapkan dengan cepat. Resiliensi dibangun melalui pengembangan mekanisme koping yang sehat, dukungan sosial, dan perspektif positif terhadap tantangan.</p>
-                </div>
-                
-                <!-- Pengendalian Diri Subsection -->
-                <div id="pengendalian" class="mb-10">
-                    <h3 class="text-xl font-bold mb-4 text-primary dark:text-white border-b pb-2">Pengendalian Diri</h3>
-                    
-                    <p class="mb-4 text-gray-700 dark:text-gray-300">Pengendalian diri adalah kemampuan mengelola emosi, impuls, dan perilaku dalam situasi yang menantang atau penuh tekanan. Kecerdasan emosional yang tinggi berkorelasi dengan pengendalian diri yang baik, yang pada gilirannya mempengaruhi efektivitas kerja dan hubungan interpersonal.</p>
-                    
-                    <p class="mb-4 text-gray-700 dark:text-gray-300">Manajemen emosi melibatkan kesadaran akan emosi yang dialami dan kemampuan mengekspresikannya dengan cara yang konstruktif. Dalam situasi konflik atau tekanan, pengendalian emosi mencegah reaksi impulsif yang dapat memperburuk situasi. Sebaliknya, respons yang dipertimbangkan dengan matang akan menghasilkan resolusi yang lebih baik.</p>
-                    
-                    <p class="mb-4 text-gray-700 dark:text-gray-300">Pengendalian impuls berkaitan dengan kemampuan menunda kepuasan atau menahan diri dari tindakan yang tidak tepat. Dalam konteks kerja, ini dapat berupa menahan diri dari mengambil jalan pintas yang melanggar prosedur, atau menunda keputusan penting sampai informasi yang cukup terkumpul.</p>
-                    
-                    <p class="mb-4 text-gray-700 dark:text-gray-300">Ketahanan terhadap stres adalah komponen penting pengendalian diri. Teknik seperti manajemen waktu, relaksasi, dan pembingkaian ulang perspektif (reframing) dapat membantu menjaga keseimbangan emosional dalam situasi tekanan tinggi. Keseimbangan kerja-hidup juga berperan dalam ketahanan jangka panjang.</p>
-                    
-                    <p class="mb-6 text-gray-700 dark:text-gray-300">Pengendalian diri juga mencakup disiplin pribadi dalam menjaga standar etika dan profesionalisme. Ini berarti konsisten dalam menerapkan nilai-nilai dan prinsip-prinsip yang dianut, meskipun tidak ada pengawasan langsung atau dalam situasi yang menggoda untuk melanggar.</p>
                 </div>
             </section>
-            
-            <!-- Footer -->
-            <footer class="mt-12 pt-8 border-t border-gray-200 dark:border-gray-700 text-center text-gray-600 dark:text-gray-400 text-sm">
-                <p>© 2023 Materi SKD Paket 3. Hak Cipta Dilindungi Undang-Undang.</p>
-                <p class="mt-2">Halaman ini adalah bagian dari sistem persiapan SKD. Untuk informasi lebih lanjut, hubungi administrator.</p>
-                <div class="mt-4 flex justify-center space-x-4">
-                    <a href="#" class="text-primary hover:underline">Kebijakan Privasi</a>
-                    <a href="#" class="text-primary hover:underline">Syarat & Ketentuan</a>
-                    <a href="#" class="text-primary hover:underline">Bantuan</a>
-                </div>
-            </footer>
+
         </main>
     </div>
 
-    <!-- Print Header (only visible when printing) -->
-    <div class="print-only">
-        <h1 class="text-2xl font-bold text-center">MATERI SKD PAKET 3</h1>
-        <p class="text-center mt-2">PIN Peserta: <span id="print-pin"></span></p>
-        <p class="text-center text-sm">Dicetak pada: <span id="print-date"></span></p>
-        <hr class="my-4">
-    </div>
+    <footer class="bg-slate-900 text-slate-400 py-12 no-print">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <div class="flex justify-center space-x-6 mb-8">
+                <a href="#" class="hover:text-white transition-colors"><i class="fab fa-facebook-f text-xl"></i></a>
+                <a href="#" class="hover:text-white transition-colors"><i class="fab fa-instagram text-xl"></i></a>
+                <a href="#" class="hover:text-white transition-colors"><i class="fab fa-youtube text-xl"></i></a>
+            </div>
+            <p class="text-sm">© 2026 Materiskd.id - Sistem Persiapan Seleksi ASN Nasional.</p>
+            <p class="text-[10px] mt-2 opacity-50 uppercase tracking-widest italic">Belajar Lebih Cerdas, Bukan Lebih Keras.</p>
+        </div>
+    </footer>
 
     <script>
-        // Database PIN (simulasi)
+        // Database PIN Simulasi
         const paket3Pins = ["VS4NL8", "RT9XM2", "B2MK8P", "7XL1WQ", "5HG2SD", "9ZW4RB", "KP8MX3", "FN5VK2", "8WQ4PZ", "2YM9BX", "7KP1RT", "5HG6SD", "9ZW3RF", "RS4ML9", "VN7VK1", "8WQ3PZ", "4FB1NT"];
-        
-        // State variables
-        let currentPin = "";
-        let darkMode = false;
-        let readingProgress = {
-            twk: 0,
-            tiu: 0,
-            tkp: 0,
-            total: 0
-        };
-        
-        // DOM Elements
-        const pinValueElement = document.getElementById('pin-value');
-        const printPinElement = document.getElementById('print-pin');
-        const pinDisplayElement = document.getElementById('pin-display');
-        const dashboardLinkElement = document.getElementById('dashboard-link');
-        const darkModeToggle = document.getElementById('dark-mode-toggle');
-        const darkModeIcon = document.getElementById('dark-mode-icon');
-        const printButton = document.getElementById('print-btn');
-        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-        const mobileSidebar = document.querySelector('.mobile-sidebar');
-        const mobileOverlay = document.getElementById('mobile-overlay');
-        const scrollTopBtn = document.getElementById('scroll-top-btn');
-        const sectionContents = document.querySelectorAll('.section-content');
-        const navItems = document.querySelectorAll('.nav-item');
-        const quickAccessBtns = document.querySelectorAll('.quick-access-btn');
-        
-        // Initialize page
-        document.addEventListener('DOMContentLoaded', function() {
-            // Validate PIN from URL parameter
-            validatePIN();
-            
-            // Set up event listeners
-            setupEventListeners();
-            
-            // Initialize progress tracking
-            initializeProgressTracking();
-            
-            // Set print date
-            document.getElementById('print-date').textContent = new Date().toLocaleString('id-ID');
-            
-            // Set active section based on URL hash
-            activateSectionFromHash();
-        });
-        
-        // Function to validate PIN from URL
-        function validatePIN() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const pinFromURL = urlParams.get('pin');
-            
-            if (!pinFromURL) {
-                redirectToDashboard();
-                return;
-            }
-            
-            // Check if PIN is valid
-            if (paket3Pins.includes(pinFromURL.toUpperCase())) {
-                currentPin = pinFromURL.toUpperCase();
-                pinValueElement.textContent = currentPin;
-                printPinElement.textContent = currentPin;
-                
-                // Update dashboard link with PIN
-                dashboardLinkElement.href = `dashboardpaket3.html?pin=${currentPin}`;
-            } else {
-                // PIN tidak valid, redirect ke dashboard
-                redirectToDashboard();
-            }
-        }
-        
-        // Function to redirect to dashboard
-        function redirectToDashboard() {
+
+        // 1. Validasi PIN dari URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const activePin = urlParams.get('pin');
+
+        if (!activePin || !paket3Pins.includes(activePin)) {
+            alert("Akses Ditolak: PIN tidak valid atau sudah kedaluwarsa!");
             window.location.href = 'dashboardpaket3.html';
+        } else {
+            document.getElementById('displayPin').innerText = activePin;
+            document.getElementById('backBtn').href = `dashboardpaket3.html?pin=${activePin}`;
         }
-        
-        // Function to set up event listeners
-        function setupEventListeners() {
-            // Dark mode toggle
-            darkModeToggle.addEventListener('click', toggleDarkMode);
-            
-            // Print button
-            printButton.addEventListener('click', function() {
-                window.print();
-            });
-            
-            // Mobile menu button
-            mobileMenuBtn.addEventListener('click', function() {
-                mobileSidebar.classList.add('active');
-                mobileOverlay.classList.add('active');
-            });
-            
-            // Mobile overlay (close sidebar when clicked)
-            mobileOverlay.addEventListener('click', function() {
-                mobileSidebar.classList.remove('active');
-                mobileOverlay.classList.remove('active');
-            });
-            
-            // Scroll to top button
-            scrollTopBtn.addEventListener('click', function() {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            });
-            
-            // Navigation items
-            navItems.forEach(item => {
-                item.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const sectionId = this.getAttribute('data-section');
-                    const targetSection = document.getElementById(sectionId);
-                    
-                    if (targetSection) {
-                        // Close mobile sidebar if open
-                        mobileSidebar.classList.remove('active');
-                        mobileOverlay.classList.remove('active');
-                        
-                        // Scroll to section
-                        targetSection.scrollIntoView({ behavior: 'smooth' });
-                        
-                        // Update active section
-                        setActiveSection(sectionId);
-                    }
-                });
-            });
-            
-            // Quick access buttons
-            quickAccessBtns.forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const targetId = this.getAttribute('data-target');
-                    const targetElement = document.getElementById(targetId);
-                    
-                    if (targetElement) {
-                        // Close mobile sidebar if open
-                        mobileSidebar.classList.remove('active');
-                        mobileOverlay.classList.remove('active');
-                        
-                        // Scroll to target
-                        targetElement.scrollIntoView({ behavior: 'smooth' });
-                        
-                        // Determine which section this belongs to
-                        let sectionId = '';
-                        if (['pancasila', 'uud1945', 'bhinneka', 'nkri'].includes(targetId)) {
-                            sectionId = 'twk';
-                        } else if (['verbal', 'numerik', 'logika', 'analitis'].includes(targetId)) {
-                            sectionId = 'tiu';
-                        } else if (['integritas', 'semangat', 'adaptasi', 'pengendalian'].includes(targetId)) {
-                            sectionId = 'tkp';
-                        }
-                        
-                        // Update active section
-                        if (sectionId) {
-                            setActiveSection(sectionId);
-                        }
-                    }
-                });
-            });
-            
-            // Show answer buttons
-            const showAnswerButtons = document.querySelectorAll('.show-answer-btn');
-            showAnswerButtons.forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const answerContent = this.nextElementSibling;
-                    answerContent.classList.toggle('hidden');
-                    
-                    // Change button text
-                    if (answerContent.classList.contains('hidden')) {
-                        this.innerHTML = '<i class="fas fa-lightbulb mr-1"></i>Tampilkan Pembahasan';
-                    } else {
-                        this.innerHTML = '<i class="fas fa-eye-slash mr-1"></i>Sembunyikan Pembahasan';
-                    }
-                });
-            });
-            
-            // Show case analysis buttons
-            const showCaseAnalysisButtons = document.querySelectorAll('.show-case-analysis-btn');
-            showCaseAnalysisButtons.forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const caseAnalysis = this.nextElementSibling;
-                    caseAnalysis.classList.toggle('hidden');
-                    
-                    // Change button text
-                    if (caseAnalysis.classList.contains('hidden')) {
-                        this.innerHTML = '<i class="fas fa-analysis mr-1"></i>Analisis Kasus';
-                    } else {
-                        this.innerHTML = '<i class="fas fa-eye-slash mr-1"></i>Sembunyikan Analisis';
-                    }
-                });
-            });
-            
-            // Track scroll for progress
-            window.addEventListener('scroll', updateReadingProgress);
-            
-            // Track scroll for active nav
-            window.addEventListener('scroll', updateActiveNav);
-            
-            // Handle hash changes (when clicking on anchor links)
-            window.addEventListener('hashchange', activateSectionFromHash);
-        }
-        
-        // Function to toggle dark mode
+
+        // 2. Dark Mode Toggle
         function toggleDarkMode() {
-            darkMode = !darkMode;
-            
-            if (darkMode) {
-                document.body.classList.add('dark-mode');
-                darkModeIcon.classList.remove('fa-moon');
-                darkModeIcon.classList.add('fa-sun');
+            const html = document.documentElement;
+            const icon = document.getElementById('theme-icon');
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                icon.classList.replace('fa-sun', 'fa-moon');
+                localStorage.theme = 'light';
             } else {
-                document.body.classList.remove('dark-mode');
-                darkModeIcon.classList.remove('fa-sun');
-                darkModeIcon.classList.add('fa-moon');
+                html.classList.add('dark');
+                icon.classList.replace('fa-moon', 'fa-sun');
+                localStorage.theme = 'dark';
             }
-            
-            // Save preference to localStorage
-            localStorage.setItem('darkMode', darkMode);
         }
-        
-        // Function to initialize progress tracking
-        function initializeProgressTracking() {
-            // Check if there's saved progress in localStorage
-            const savedProgress = localStorage.getItem(`readingProgress_${currentPin}`);
-            if (savedProgress) {
-                readingProgress = JSON.parse(savedProgress);
-                updateProgressBars();
-            }
-            
-            // Calculate initial progress based on scroll position
-            updateReadingProgress();
+
+        // Check preference
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+            document.getElementById('theme-icon').classList.replace('fa-moon', 'fa-sun');
         }
-        
-        // Function to update reading progress based on scroll
-        function updateReadingProgress() {
-            const sections = ['twk', 'tiu', 'tkp'];
-            let totalVisible = 0;
+
+        // 3. Progress Tracking & Reading Bar
+        window.onscroll = function() {
+            let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            let scrolled = (winScroll / height) * 100;
             
-            sections.forEach(sectionId => {
-                const section = document.getElementById(sectionId);
-                if (section) {
-                    const rect = section.getBoundingClientRect();
-                    const windowHeight = window.innerHeight;
-                    
-                    // Calculate visible percentage
-                    let visiblePercentage = 0;
-                    
-                    if (rect.top >= 0 && rect.bottom <= windowHeight) {
-                        // Section fully visible
-                        visiblePercentage = 100;
-                    } else if (rect.top < 0 && rect.bottom > 0) {
-                        // Section partially visible from top
-                        visiblePercentage = (rect.bottom / windowHeight) * 100;
-                    } else if (rect.top >= 0 && rect.top < windowHeight) {
-                        // Section partially visible from bottom
-                        visiblePercentage = ((windowHeight - rect.top) / rect.height) * 100;
-                    }
-                    
-                    // Cap between 0 and 100
-                    visiblePercentage = Math.max(0, Math.min(100, visiblePercentage));
-                    
-                    // Update progress if it's higher than before
-                    if (visiblePercentage > readingProgress[sectionId]) {
-                        readingProgress[sectionId] = Math.round(visiblePercentage);
-                    }
-                    
-                    totalVisible += readingProgress[sectionId];
+            // Top Bar
+            document.getElementById("readingProgress").style.width = scrolled + "%";
+            
+            // Sidebar Card Progress
+            document.getElementById("sideProgress").style.width = scrolled + "%";
+            document.getElementById("progressText").innerText = Math.round(scrolled) + "% Selesai";
+
+            // Scroll Spy
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.nav-link');
+            
+            sections.forEach(sec => {
+                let top = window.scrollY;
+                let offset = sec.offsetTop - 150;
+                let height = sec.offsetHeight;
+                let id = sec.getAttribute('id');
+
+                if(top >= offset && top < offset + height) {
+                    navLinks.forEach(link => {
+                        link.classList.remove('sidebar-active');
+                        if(link.getAttribute('href') === '#' + id) {
+                            link.classList.add('sidebar-active');
+                        }
+                    });
                 }
             });
-            
-            // Calculate total progress
-            readingProgress.total = Math.round(totalVisible / sections.length);
-            
-            // Update progress bars
-            updateProgressBars();
-            
-            // Save progress to localStorage
-            localStorage.setItem(`readingProgress_${currentPin}`, JSON.stringify(readingProgress));
-        }
-        
-        // Function to update progress bars
-        function updateProgressBars() {
-            // Update section progress bars
-            document.getElementById('twk-progress').textContent = `${readingProgress.twk}%`;
-            document.getElementById('twk-progress-bar').style.width = `${readingProgress.twk}%`;
-            
-            document.getElementById('tiu-progress').textContent = `${readingProgress.tiu}%`;
-            document.getElementById('tiu-progress-bar').style.width = `${readingProgress.tiu}%`;
-            
-            document.getElementById('tkp-progress').textContent = `${readingProgress.tkp}%`;
-            document.getElementById('tkp-progress-bar').style.width = `${readingProgress.tkp}%`;
-            
-            // Update total progress
-            document.getElementById('total-progress').textContent = `${readingProgress.total}%`;
-            document.getElementById('total-progress-bar').style.width = `${readingProgress.total}%`;
-            
-            // Update main progress bar
-            document.getElementById('reading-progress').style.width = `${readingProgress.total}%`;
-        }
-        
-        // Function to update active nav based on scroll
-        function updateActiveNav() {
-            const sections = ['twk', 'tiu', 'tkp'];
-            const scrollPosition = window.scrollY + 100; // Offset for header
-            
-            // Find current section
-            let currentSection = '';
-            
-            for (const sectionId of sections) {
-                const section = document.getElementById(sectionId);
-                if (section) {
-                    const sectionTop = section.offsetTop;
-                    const sectionHeight = section.offsetHeight;
-                    
-                    if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
-                        currentSection = sectionId;
-                        break;
-                    }
-                }
-            }
-            
-            // If no section found, check if we're at the top
-            if (!currentSection && scrollPosition < 200) {
-                currentSection = 'twk'; // Default to first section
-            }
-            
-            // Update active section
-            if (currentSection) {
-                setActiveSection(currentSection);
+        };
+
+        // 4. Toggle Solution
+        function toggleSolution(id) {
+            const el = document.getElementById(id);
+            if (el.classList.contains('hidden')) {
+                el.classList.remove('hidden');
+            } else {
+                el.classList.add('hidden');
             }
         }
-        
-        // Function to set active section
-        function setActiveSection(sectionId) {
-            // Update section visibility
-            sectionContents.forEach(section => {
-                if (section.id === sectionId) {
-                    section.classList.add('active');
-                } else {
-                    section.classList.remove('active');
-                }
-            });
-            
-            // Update nav items
-            navItems.forEach(item => {
-                if (item.getAttribute('data-section') === sectionId) {
-                    item.classList.add('nav-active');
-                } else {
-                    item.classList.remove('nav-active');
-                }
-            });
-        }
-        
-        // Function to activate section based on URL hash
-        function activateSectionFromHash() {
-            const hash = window.location.hash.substring(1); // Remove # symbol
-            
-            if (hash && ['twk', 'tiu', 'tkp'].includes(hash)) {
-                setActiveSection(hash);
-                
-                // Scroll to section
-                const targetSection = document.getElementById(hash);
-                if (targetSection) {
-                    setTimeout(() => {
-                        targetSection.scrollIntoView({ behavior: 'smooth' });
-                    }, 100);
-                }
-            }
-        }
-        
-        // Check for saved dark mode preference
-        const savedDarkMode = localStorage.getItem('darkMode');
-        if (savedDarkMode === 'true') {
-            toggleDarkMode(); // Apply dark mode if saved
-        }
+
+        // 5. Mobile Menu Toggle
+        document.getElementById('mobile-menu-button').addEventListener('click', () => {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('hidden');
+            sidebar.classList.toggle('fixed');
+            sidebar.classList.toggle('inset-0');
+            sidebar.classList.toggle('z-50');
+            sidebar.classList.toggle('bg-white');
+            sidebar.classList.toggle('dark:bg-slate-900');
+            sidebar.classList.toggle('p-8');
+        });
     </script>
 </body>
 </html>
