@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Materi SKD Terlengkap (Paket 3) - Kerja Jadi ASN</title>
+    <title>Materi Lengkap SKD Paket 3 - Kerja Jadi ASN</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
@@ -15,365 +15,321 @@
             background: linear-gradient(135deg, #faf5ff 0%, #f3e8ff 100%);
         }
 
-        .bg-gradient-premium {
-            background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 50%, #6d28d9 100%);
-        }
-
         .glass-effect {
             background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(139, 92, 246, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
-        .card-hover {
+        .bg-gradient-premium {
+            background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+        }
+
+        .card-materi {
             transition: all 0.3s ease;
+            border: 1px solid #ede9fe;
         }
 
-        .card-hover:hover {
+        .card-materi:hover {
             transform: translateY(-5px);
-            box-shadow: 0 20px 25px -5px rgba(139, 92, 246, 0.1);
+            box-shadow: 0 15px 30px -5px rgba(139, 92, 246, 0.15);
+            border-color: #c4b5fd;
         }
 
-        .materi-section {
-            display: none;
-            animation: fadeIn 0.5s ease-out forwards;
+        .sticky-nav {
+            position: sticky;
+            top: 0;
+            z-index: 50;
         }
 
-        .materi-section.active {
-            display: block;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .tab-btn.active {
-            background: #8b5cf6;
-            color: white;
-            box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
-        }
+        /* Smooth scroll */
+        html { scroll-behavior: smooth; }
 
         /* Custom Scrollbar */
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: #f5f3ff; }
         ::-webkit-scrollbar-thumb { background: #c4b5fd; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #a78bfa; }
     </style>
 </head>
-<body class="text-slate-800">
+<body class="bg-slate-50">
 
-    <nav class="sticky top-0 z-50 glass-effect">
-        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
-            <div class="flex items-center gap-2">
-                <div class="w-8 h-8 bg-gradient-premium rounded-lg flex items-center justify-center">
-                    <i class="fa-solid fa-crown text-white text-sm"></i>
+    <nav class="bg-white border-b border-purple-100 sticky-nav shadow-sm glass-effect">
+        <div class="container mx-auto px-4 py-3">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center gap-4">
+                    <a id="backButtonTop" href="#" class="group flex items-center gap-2 bg-purple-100 hover:bg-purple-200 p-2 px-3 rounded-xl transition-all">
+                        <i class="fa-solid fa-arrow-left text-purple-600 group-hover:-translate-x-1 transition-transform"></i>
+                        <span class="text-sm font-bold text-purple-600 hidden md:block">Dashboard</span>
+                    </a>
+                    <div class="h-8 w-[1px] bg-purple-100"></div>
+                    <div class="flex items-center gap-2">
+                        <div class="w-8 h-8 bg-gradient-premium rounded-lg flex items-center justify-center">
+                            <i class="fa-solid fa-book-open text-white text-xs"></i>
+                        </div>
+                        <h1 class="font-extrabold text-purple-700 text-lg hidden sm:block">MATERI SKD</h1>
+                    </div>
                 </div>
-                <h1 class="font-extrabold text-purple-700 text-lg">
-                    KERJA JADI <span class="text-yellow-500">ASN</span>
-                </h1>
-            </div>
-            
-            <div class="flex items-center gap-4">
-                <div class="text-right hidden sm:block">
-                    <p class="text-[10px] font-bold text-purple-500 uppercase">PIN Peserta</p>
-                    <p id="displayPin" class="text-sm font-black text-purple-800 font-mono tracking-wider">-------</p>
+
+                <div class="flex items-center gap-4">
+                    <div class="text-right">
+                        <p class="text-[10px] font-bold text-purple-500 uppercase tracking-wider">PIN Peserta</p>
+                        <p id="displayPin" class="text-sm font-black text-purple-800 tracking-wide font-mono">-------</p>
+                    </div>
+                    <div class="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center border border-purple-200">
+                        <i class="fa-solid fa-user text-purple-600"></i>
+                    </div>
                 </div>
-                <button onclick="goBack()" class="bg-purple-100 text-purple-700 px-4 py-2 rounded-xl text-sm font-bold hover:bg-purple-200 transition-all flex items-center gap-2">
-                    <i class="fa-solid fa-arrow-left"></i>
-                    <span class="hidden md:inline">Kembali ke Dashboard</span>
-                </button>
             </div>
         </div>
     </nav>
 
     <main class="container mx-auto px-4 py-8">
-        <div class="bg-gradient-to-r from-purple-700 to-indigo-800 rounded-3xl p-8 mb-8 text-white relative overflow-hidden shadow-2xl">
-            <div class="relative z-10">
-                <span class="bg-white/20 backdrop-blur-md px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest border border-white/30 mb-4 inline-block">
-                    Modul Eksklusif Paket 3
+        <div class="bg-gradient-to-r from-purple-600 to-violet-800 rounded-3xl p-8 mb-10 text-white relative overflow-hidden shadow-xl">
+            <div class="relative z-10 max-w-3xl">
+                <span class="bg-white/20 backdrop-blur-md border border-white/30 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest mb-4 inline-block">
+                    Eksklusif Paket 3 Super Premium
                 </span>
-                <h2 class="text-3xl md:text-4xl font-black mb-4">Mastering SKD 2024/2025</h2>
-                <p class="text-purple-100 max-w-2xl text-lg opacity-90 mb-6">
-                    Panduan komprehensif yang dirancang khusus untuk peserta Super Premium. Pelajari strategi menjawab, konsep dasar, hingga trik cepat lolos ambang batas.
+                <h2 class="text-3xl md:text-4xl font-black mb-4">Modul Pembelajaran SKD Terlengkap</h2>
+                <p class="text-purple-100 text-lg opacity-90 leading-relaxed">
+                    Kuasai seluruh konsep TWK, TIU, dan TKP dengan pembahasan mendalam, strategi menjawab, dan poin-poin penting yang sering muncul di CAT BKN.
                 </p>
-                
-                <div class="flex flex-wrap gap-4">
-                    <div class="bg-white/10 backdrop-blur-md p-4 rounded-2xl border border-white/20 flex items-center gap-3">
-                        <i class="fa-solid fa-book-open text-yellow-400 text-2xl"></i>
-                        <div>
-                            <p class="text-xs opacity-70">Total Materi</p>
-                            <p class="font-bold">45 Sub-Bab</p>
-                        </div>
-                    </div>
-                    <div class="bg-white/10 backdrop-blur-md p-4 rounded-2xl border border-white/20 flex items-center gap-3">
-                        <i class="fa-solid fa-star text-yellow-400 text-2xl"></i>
-                        <div>
-                            <p class="text-xs opacity-70">Level Materi</p>
-                            <p class="font-bold">Super Premium</p>
-                        </div>
-                    </div>
-                </div>
             </div>
-            <i class="fa-solid fa-brain absolute -right-10 -bottom-10 text-[200px] text-white/5 rotate-12"></i>
+            <i class="fa-solid fa-graduation-cap absolute -right-10 -bottom-10 text-[200px] text-white/10 rotate-12"></i>
         </div>
 
-        <div class="flex gap-2 mb-8 overflow-x-auto pb-2 sticky top-20 z-40 bg-purple-50/50 backdrop-blur-sm p-2 rounded-2xl border border-purple-100">
-            <button onclick="switchTab('twk')" id="btn-twk" class="tab-btn active flex-1 min-w-[120px] py-4 rounded-xl font-bold flex flex-col items-center gap-1 transition-all">
-                <i class="fa-solid fa-flag-checkered"></i>
-                <span>TWK</span>
-                <span class="text-[10px] opacity-70 font-medium">Nasionalisme</span>
-            </button>
-            <button onclick="switchTab('tiu')" id="btn-tiu" class="tab-btn bg-white text-slate-600 flex-1 min-w-[120px] py-4 rounded-xl font-bold flex flex-col items-center gap-1 transition-all border border-purple-100">
-                <i class="fa-solid fa-calculator"></i>
-                <span>TIU</span>
-                <span class="text-[10px] opacity-70 font-medium">Logika & Numerik</span>
-            </button>
-            <button onclick="switchTab('tkp')" id="btn-tkp" class="tab-btn bg-white text-slate-600 flex-1 min-w-[120px] py-4 rounded-xl font-bold flex flex-col items-center gap-1 transition-all border border-purple-100">
-                <i class="fa-solid fa-user-gear"></i>
-                <span>TKP</span>
-                <span class="text-[10px] opacity-70 font-medium">Karakter Pribadi</span>
-            </button>
-        </div>
-
-        <section id="twk" class="materi-section active space-y-6">
-            <div class="grid md:grid-cols-2 gap-6">
-                <div class="bg-white rounded-2xl p-6 shadow-sm border border-purple-100 card-hover">
-                    <div class="w-12 h-12 bg-red-100 text-red-600 rounded-xl flex items-center justify-center mb-4 text-xl">
-                        <i class="fa-solid fa-heart"></i>
-                    </div>
-                    <h3 class="font-bold text-xl mb-3">1. Nasionalisme</h3>
-                    <p class="text-slate-600 text-sm leading-relaxed mb-4">
-                        Tujuan utama adalah mampu mewujudkan kepentingan nasional melalui cita-cita dan tujuan yang sama dengan tetap mempertahankan identitas nasional.
-                    </p>
-                    <ul class="space-y-2 text-sm text-slate-700 font-medium">
-                        <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-green-500"></i> Sejarah Pergerakan Nasional (Budi Utomo, Sumpah Pemuda)</li>
-                        <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-green-500"></i> Integrasi Nasional & Ancaman Disintegrasi</li>
-                        <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-green-500"></i> Unsur-unsur pembentuk bangsa</li>
-                    </ul>
+        <div class="grid grid-cols-3 gap-3 mb-10">
+            <a href="#twk" class="bg-white p-4 rounded-2xl shadow-sm border border-purple-100 text-center hover:bg-purple-50 transition-colors group">
+                <div class="w-12 h-12 bg-red-100 text-red-600 rounded-xl flex items-center justify-center mx-auto mb-2 group-hover:scale-110 transition-transform">
+                    <i class="fa-solid fa-flag text-xl"></i>
                 </div>
-
-                <div class="bg-white rounded-2xl p-6 shadow-sm border border-purple-100 card-hover">
-                    <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-xl flex items-center justify-center mb-4 text-xl">
-                        <i class="fa-solid fa-shield-halved"></i>
-                    </div>
-                    <h3 class="font-bold text-xl mb-3">2. Integritas</h3>
-                    <p class="text-slate-600 text-sm leading-relaxed mb-4">
-                        Mampu menjunjung tinggi kejujuran, ketangguhan, dan konsistensi sebagai kesatuan sikap untuk mencapai tujuan nasional.
-                    </p>
-                    <ul class="space-y-2 text-sm text-slate-700 font-medium">
-                        <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-green-500"></i> Konsep Anti-Korupsi (9 Nilai Integritas)</li>
-                        <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-green-500"></i> Tokoh Bangsa dengan Integritas Tinggi</li>
-                        <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-green-500"></i> Kode Etik ASN & Norma Sosial</li>
-                    </ul>
-                </div>
-
-                <div class="bg-white rounded-2xl p-6 shadow-sm border border-purple-100 card-hover md:col-span-2">
-                    <h3 class="font-bold text-xl mb-6 flex items-center gap-3">
-                        <i class="fa-solid fa-columns text-purple-600"></i>
-                        Pilar Negara (Pancasila, UUD 1945, NKRI, Bhinneka Tunggal Ika)
-                    </h3>
-                    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                        <div class="bg-purple-50 p-4 rounded-xl border border-purple-100">
-                            <h4 class="font-bold text-purple-700 mb-2">Pancasila</h4>
-                            <p class="text-xs text-slate-600">Fungsi, Kedudukan, dan Implementasi Butir-Butir Pancasila dalam kehidupan sehari-hari.</p>
-                        </div>
-                        <div class="bg-purple-50 p-4 rounded-xl border border-purple-100">
-                            <h4 class="font-bold text-purple-700 mb-2">UUD 1945</h4>
-                            <p class="text-xs text-slate-600">Sejarah Amandemen, Lembaga Negara, dan Hak Kewajiban Warga Negara (Pasal 27-34).</p>
-                        </div>
-                        <div class="bg-purple-50 p-4 rounded-xl border border-purple-100">
-                            <h4 class="font-bold text-purple-700 mb-2">NKRI</h4>
-                            <p class="text-xs text-slate-600">Sistem Tata Negara Indonesia, Otonomi Daerah, dan Geopolitik (Wawasan Nusantara).</p>
-                        </div>
-                        <div class="bg-purple-50 p-4 rounded-xl border border-purple-100">
-                            <h4 class="font-bold text-purple-700 mb-2">Bhinneka</h4>
-                            <p class="text-xs text-slate-600">Prinsip kerukunan, toleransi, dan sejarah semboyan dalam Kitab Sutasoma.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="tiu" class="materi-section space-y-6">
-            <div class="grid lg:grid-cols-3 gap-6">
-                <div class="bg-white rounded-2xl p-6 shadow-sm border border-purple-100 card-hover">
-                    <h3 class="font-bold text-xl mb-4 text-purple-700">A. Kemampuan Verbal</h3>
-                    <div class="space-y-4">
-                        <div class="border-l-4 border-yellow-500 pl-4">
-                            <h4 class="font-bold text-sm">Analogi</h4>
-                            <p class="text-xs text-slate-500">Menemukan hubungan kata yang setara. Contoh: Hutan : Pohon = Laut : Karang.</p>
-                        </div>
-                        <div class="border-l-4 border-yellow-500 pl-4">
-                            <h4 class="font-bold text-sm">Silogisme</h4>
-                            <p class="text-xs text-slate-500">Penarikan kesimpulan dari dua premis (Modus Ponens, Tollens, Silogisme).</p>
-                        </div>
-                        <div class="border-l-4 border-yellow-500 pl-4">
-                            <h4 class="font-bold text-sm">Analitis</h4>
-                            <p class="text-xs text-slate-500">Menganalisis informasi urutan atau tempat duduk (Urutan ranking, jadwal).</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="bg-white rounded-2xl p-6 shadow-sm border border-purple-100 card-hover">
-                    <h3 class="font-bold text-xl mb-4 text-purple-700">B. Kemampuan Numerik</h3>
-                    <div class="space-y-4">
-                        <div class="border-l-4 border-green-500 pl-4">
-                            <h4 class="font-bold text-sm">Berhitung Cepat</h4>
-                            <p class="text-xs text-slate-500">Operasi pecahan, desimal, dan persentase tanpa kalkulator.</p>
-                        </div>
-                        <div class="border-l-4 border-green-500 pl-4">
-                            <h4 class="font-bold text-sm">Deret Angka</h4>
-                            <p class="text-xs text-slate-500">Menentukan pola angka (Larik, melompat, tingkat dua).</p>
-                        </div>
-                        <div class="border-l-4 border-green-500 pl-4">
-                            <h4 class="font-bold text-sm">Perbandingan Kuantitatif</h4>
-                            <p class="text-xs text-slate-500">Menentukan hubungan X dan Y (Kecepatan, debit, pekerjaan).</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="bg-white rounded-2xl p-6 shadow-sm border border-purple-100 card-hover">
-                    <h3 class="font-bold text-xl mb-4 text-purple-700">C. Kemampuan Figural</h3>
-                    <div class="space-y-4">
-                        <div class="border-l-4 border-blue-500 pl-4">
-                            <h4 class="font-bold text-sm">Analogi Figural</h4>
-                            <p class="text-xs text-slate-500">Hubungan pola gambar pertama ke kedua.</p>
-                        </div>
-                        <div class="border-l-4 border-blue-500 pl-4">
-                            <h4 class="font-bold text-sm">Ketidaksamaan</h4>
-                            <p class="text-xs text-slate-500">Mencari satu gambar yang berbeda di antara pilihan.</p>
-                        </div>
-                        <div class="border-l-4 border-blue-500 pl-4">
-                            <h4 class="font-bold text-sm">Serial Gambar</h4>
-                            <p class="text-xs text-slate-500">Melanjutkan pola perputaran atau penambahan elemen gambar.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="tkp" class="materi-section space-y-6">
-            <div class="bg-white rounded-3xl p-8 shadow-sm border border-purple-100">
-                <div class="max-w-4xl mx-auto">
-                    <div class="text-center mb-10">
-                        <h3 class="text-2xl font-bold text-slate-800">Materi TKP (Anti-Radikalisme & Profesionalisme)</h3>
-                        <p class="text-slate-500">Skala penilaian 1-5. Tidak ada jawaban salah, yang ada hanya jawaban paling tepat.</p>
-                    </div>
-
-                    <div class="grid sm:grid-cols-2 gap-8">
-                        <div class="flex gap-4">
-                            <div class="w-10 h-10 shrink-0 bg-purple-600 text-white rounded-full flex items-center justify-center font-bold">1</div>
-                            <div>
-                                <h4 class="font-bold mb-2">Pelayanan Publik</h4>
-                                <p class="text-sm text-slate-600 leading-relaxed">Fokus: Keramahan, ketepatan waktu, dan tidak membedakan status sosial saat melayani.</p>
-                            </div>
-                        </div>
-                        <div class="flex gap-4">
-                            <div class="w-10 h-10 shrink-0 bg-purple-600 text-white rounded-full flex items-center justify-center font-bold">2</div>
-                            <div>
-                                <h4 class="font-bold mb-2">Jejaring Kerja</h4>
-                                <p class="text-sm text-slate-600 leading-relaxed">Fokus: Kolaborasi, koordinasi, dan kemampuan berbagi informasi demi tujuan organisasi.</p>
-                            </div>
-                        </div>
-                        <div class="flex gap-4">
-                            <div class="w-10 h-10 shrink-0 bg-purple-600 text-white rounded-full flex items-center justify-center font-bold">3</div>
-                            <div>
-                                <h4 class="font-bold mb-2">Sosial Budaya</h4>
-                                <p class="text-sm text-slate-600 leading-relaxed">Fokus: Adaptasi dengan lingkungan baru dan menghargai keberagaman budaya/agama.</p>
-                            </div>
-                        </div>
-                        <div class="flex gap-4">
-                            <div class="w-10 h-10 shrink-0 bg-purple-600 text-white rounded-full flex items-center justify-center font-bold">4</div>
-                            <div>
-                                <h4 class="font-bold mb-2">TIK (Teknologi Informasi)</h4>
-                                <p class="text-sm text-slate-600 leading-relaxed">Fokus: Memanfaatkan teknologi untuk mempercepat pekerjaan dan efisiensi sistem.</p>
-                            </div>
-                        </div>
-                        <div class="flex gap-4">
-                            <div class="w-10 h-10 shrink-0 bg-red-600 text-white rounded-full flex items-center justify-center font-bold">5</div>
-                            <div>
-                                <h4 class="font-bold mb-2">Anti Radikalisme</h4>
-                                <p class="text-sm text-slate-600 leading-relaxed">Fokus: Sikap waspada terhadap paham ekstrem, cinta tanah air, dan keberanian melaporkan kecurigaan.</p>
-                            </div>
-                        </div>
-                        <div class="flex gap-4">
-                            <div class="w-10 h-10 shrink-0 bg-green-600 text-white rounded-full flex items-center justify-center font-bold">6</div>
-                            <div>
-                                <h4 class="font-bold mb-2">Profesionalisme</h4>
-                                <p class="text-sm text-slate-600 leading-relaxed">Fokus: Menjalankan tugas sesuai tupoksi dan memisahkan kepentingan pribadi dari pekerjaan.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <div class="mt-12 bg-slate-900 rounded-3xl p-8 text-white flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl">
-            <div>
-                <h4 class="text-xl font-bold mb-2">Masih Bingung dengan Materinya?</h4>
-                <p class="text-slate-400 text-sm">Tanyakan langsung pada mentor di Grup VIP Super Premium khusus Paket 3.</p>
-            </div>
-            <a href="https://wa.me/6285696409288?text=Halo%20Mentor,%20saya%20ingin%20tanya%20tentang%20Materi%20SKD" target="_blank" class="bg-green-500 hover:bg-green-600 px-6 py-3 rounded-xl font-black transition-all flex items-center gap-2">
-                <i class="fa-brands fa-whatsapp text-xl"></i>
-                Diskusi dengan Mentor
+                <span class="font-bold text-slate-700 block text-sm md:text-base">TWK</span>
             </a>
+            <a href="#tiu" class="bg-white p-4 rounded-2xl shadow-sm border border-purple-100 text-center hover:bg-purple-50 transition-colors group">
+                <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-xl flex items-center justify-center mx-auto mb-2 group-hover:scale-110 transition-transform">
+                    <i class="fa-solid fa-brain text-xl"></i>
+                </div>
+                <span class="font-bold text-slate-700 block text-sm md:text-base">TIU</span>
+            </a>
+            <a href="#tkp" class="bg-white p-4 rounded-2xl shadow-sm border border-purple-100 text-center hover:bg-purple-50 transition-colors group">
+                <div class="w-12 h-12 bg-green-100 text-green-600 rounded-xl flex items-center justify-center mx-auto mb-2 group-hover:scale-110 transition-transform">
+                    <i class="fa-solid fa-users-gear text-xl"></i>
+                </div>
+                <span class="font-bold text-slate-700 block text-sm md:text-base">TKP</span>
+            </a>
+        </div>
+
+        <section id="twk" class="mb-16 scroll-mt-24">
+            <div class="flex items-center gap-3 mb-6">
+                <div class="w-10 h-10 bg-red-600 rounded-lg flex items-center justify-center shadow-lg shadow-red-200">
+                    <i class="fa-solid fa-flag text-white"></i>
+                </div>
+                <h3 class="text-2xl font-black text-slate-800 tracking-tight">Tes Wawasan Kebangsaan (TWK)</h3>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="bg-white rounded-2xl p-6 shadow-sm card-materi border-l-4 border-l-red-500">
+                    <h4 class="font-bold text-lg text-slate-800 mb-3">4 Pilar Kebangsaan</h4>
+                    <ul class="space-y-3 text-sm text-slate-600">
+                        <li class="flex items-start gap-2">
+                            <i class="fa-solid fa-check-circle text-red-500 mt-1"></i>
+                            <span><b>Pancasila:</b> Kedudukan, fungsi, dan butir-butir pengamalan (36/45 butir) dalam kehidupan sehari-hari.</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <i class="fa-solid fa-check-circle text-red-500 mt-1"></i>
+                            <span><b>UUD 1945:</b> Sejarah amandemen, lembaga negara, dan hak asasi manusia.</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <i class="fa-solid fa-check-circle text-red-500 mt-1"></i>
+                            <span><b>NKRI:</b> Bentuk negara, sistem pemerintahan, dan otonomi daerah.</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <i class="fa-solid fa-check-circle text-red-500 mt-1"></i>
+                            <span><b>Bhineka Tunggal Ika:</b> Semboyan, integrasi nasional, dan kemajemukan bangsa.</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="bg-white rounded-2xl p-6 shadow-sm card-materi border-l-4 border-l-orange-500">
+                    <h4 class="font-bold text-lg text-slate-800 mb-3">Nasionalisme & Bela Negara</h4>
+                    <ul class="space-y-3 text-sm text-slate-600">
+                        <li class="flex items-start gap-2">
+                            <i class="fa-solid fa-shield-halved text-orange-500 mt-1"></i>
+                            <span><b>Nasionalisme:</b> Kepentingan nasional, identitas nasional, dan cinta tanah air.</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <i class="fa-solid fa-shield-halved text-orange-500 mt-1"></i>
+                            <span><b>Bela Negara:</b> Hak dan kewajiban warga negara, upaya pertahanan keamanan.</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <i class="fa-solid fa-shield-halved text-orange-500 mt-1"></i>
+                            <span><b>Integritas:</b> Kejujuran, etika, dan nilai-nilai anti-korupsi di lingkungan kerja.</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="tiu" class="mb-16 scroll-mt-24">
+            <div class="flex items-center gap-3 mb-6">
+                <div class="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center shadow-lg shadow-blue-200">
+                    <i class="fa-solid fa-brain text-white"></i>
+                </div>
+                <h3 class="text-2xl font-black text-slate-800 tracking-tight">Tes Intelegensia Umum (TIU)</h3>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="bg-white rounded-2xl p-6 shadow-sm card-materi border-t-4 border-t-blue-500">
+                    <div class="w-10 h-10 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center mb-4">
+                        <i class="fa-solid fa-language"></i>
+                    </div>
+                    <h4 class="font-bold text-slate-800 mb-2">Kemampuan Verbal</h4>
+                    <p class="text-xs text-slate-500 mb-4 leading-relaxed">Analogi (hubungan kata), Silogisme (penarikan kesimpulan), dan Analitis (pemecahan masalah urutan).</p>
+                    <div class="bg-blue-50 p-3 rounded-lg text-blue-700 text-[10px] font-bold">TIPS: Perbanyak kosa kata & latihan logika posisi.</div>
+                </div>
+
+                <div class="bg-white rounded-2xl p-6 shadow-sm card-materi border-t-4 border-t-indigo-500">
+                    <div class="w-10 h-10 bg-indigo-50 text-indigo-600 rounded-full flex items-center justify-center mb-4">
+                        <i class="fa-solid fa-calculator"></i>
+                    </div>
+                    <h4 class="font-bold text-slate-800 mb-2">Kemampuan Numerik</h4>
+                    <p class="text-xs text-slate-500 mb-4 leading-relaxed">Deret Angka, Aritmatika Sosial, Perbandingan Kuantitatif (X vs Y), dan Soal Cerita Matematika.</p>
+                    <div class="bg-indigo-50 p-3 rounded-lg text-indigo-700 text-[10px] font-bold">TIPS: Hafal rumus cepat bunga, kecepatan, dan jarak.</div>
+                </div>
+
+                <div class="bg-white rounded-2xl p-6 shadow-sm card-materi border-t-4 border-t-purple-500">
+                    <div class="w-10 h-10 bg-purple-50 text-purple-600 rounded-full flex items-center justify-center mb-4">
+                        <i class="fa-solid fa-shapes"></i>
+                    </div>
+                    <h4 class="font-bold text-slate-800 mb-2">Kemampuan Figural</h4>
+                    <p class="text-xs text-slate-500 mb-4 leading-relaxed">Analogi Gambar, Ketidaksamaan (mencari gambar beda), dan Serial (melanjutkan pola gambar).</p>
+                    <div class="bg-purple-50 p-3 rounded-lg text-purple-700 text-[10px] font-bold">TIPS: Fokus pada rotasi, jumlah garis, dan warna.</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="tkp" class="mb-16 scroll-mt-24">
+            <div class="flex items-center gap-3 mb-6">
+                <div class="w-10 h-10 bg-green-600 rounded-lg flex items-center justify-center shadow-lg shadow-green-200">
+                    <i class="fa-solid fa-users-gear text-white"></i>
+                </div>
+                <h3 class="text-2xl font-black text-slate-800 tracking-tight">Tes Karakteristik Pribadi (TKP)</h3>
+            </div>
+
+            <div class="bg-white rounded-3xl p-8 shadow-sm border border-purple-100 overflow-hidden relative">
+                <div class="relative z-10 grid md:grid-cols-2 gap-8">
+                    <div>
+                        <h4 class="text-lg font-bold text-slate-800 mb-4">Indikator Penilaian Utama</h4>
+                        <div class="space-y-4">
+                            <div class="flex gap-4">
+                                <div class="shrink-0 w-8 h-8 rounded-full bg-green-100 text-green-600 flex items-center justify-center font-bold text-xs">1</div>
+                                <div>
+                                    <p class="font-bold text-sm text-slate-700">Pelayanan Publik</p>
+                                    <p class="text-xs text-slate-500">Mengutamakan kepuasan masyarakat dan sikap ramah.</p>
+                                </div>
+                            </div>
+                            <div class="flex gap-4">
+                                <div class="shrink-0 w-8 h-8 rounded-full bg-green-100 text-green-600 flex items-center justify-center font-bold text-xs">2</div>
+                                <div>
+                                    <p class="font-bold text-sm text-slate-700">Jejaring Kerja</p>
+                                    <p class="text-xs text-slate-500">Membangun hubungan, berbagi informasi, dan kerja tim.</p>
+                                </div>
+                            </div>
+                            <div class="flex gap-4">
+                                <div class="shrink-0 w-8 h-8 rounded-full bg-green-100 text-green-600 flex items-center justify-center font-bold text-xs">3</div>
+                                <div>
+                                    <p class="font-bold text-sm text-slate-700">Sosial Budaya</p>
+                                    <p class="text-xs text-slate-500">Adaptasi di lingkungan majemuk dan toleransi tinggi.</p>
+                                </div>
+                            </div>
+                            <div class="flex gap-4">
+                                <div class="shrink-0 w-8 h-8 rounded-full bg-green-100 text-green-600 flex items-center justify-center font-bold text-xs">4</div>
+                                <div>
+                                    <p class="font-bold text-sm text-slate-700">TIK & Profesionalisme</p>
+                                    <p class="text-xs text-slate-500">Pemanfaatan teknologi dan bekerja sesuai SOP.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-slate-50 rounded-2xl p-6 border border-slate-200">
+                        <h4 class="text-lg font-bold text-slate-800 mb-4">Kunci Jawaban Skor 5</h4>
+                        <p class="text-sm text-slate-600 mb-4 leading-relaxed">
+                            Di TKP tidak ada jawaban salah, yang ada adalah bobot skor (1-5). Untuk mendapatkan skor 5:
+                        </p>
+                        <ul class="space-y-2 text-xs text-slate-500 list-disc pl-4">
+                            <li>Pilih jawaban yang paling solutif bagi instansi.</li>
+                            <li>Tunjukkan sikap proaktif, bukan menunggu perintah.</li>
+                            <li>Jangan pilih jawaban yang bersifat emosional atau menghindari masalah.</li>
+                            <li>Gunakan kacamata seorang "Abdi Negara" yang profesional.</li>
+                        </ul>
+                        <div class="mt-6 p-4 bg-yellow-50 border border-yellow-200 rounded-xl">
+                            <p class="text-[10px] font-bold text-yellow-700 uppercase mb-1">Update Materi</p>
+                            <p class="text-xs font-bold text-slate-700">Anti Radikalisme:</p>
+                            <p class="text-[10px] text-slate-500">Pahami ciri-ciri radikalisme dan cara menangkalnya dalam lingkup ASN.</p>
+                        </div>
+                    </div>
+                </div>
+                <i class="fa-solid fa-award absolute -right-4 -bottom-4 text-8xl text-green-50"></i>
+            </div>
+        </section>
+
+        <div class="mt-12 text-center pb-20">
+            <h4 class="text-slate-800 font-bold mb-4">Sudah selesai belajar materi hari ini?</h4>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a id="backButtonBottom" href="#" class="bg-white border-2 border-purple-200 text-purple-600 font-bold py-4 px-8 rounded-2xl hover:bg-purple-50 transition-all flex items-center justify-center gap-3">
+                    <i class="fa-solid fa-arrow-left"></i> Kembali ke Dashboard
+                </a>
+                <a id="tryoutLink" href="#" class="bg-gradient-premium text-white font-bold py-4 px-8 rounded-2xl shadow-lg shadow-purple-200 hover:opacity-90 transition-all flex items-center justify-center gap-3">
+                    Lanjut Kerjakan Tryout <i class="fa-solid fa-arrow-right"></i>
+                </a>
+            </div>
+            <p class="text-slate-400 text-xs mt-8">© 2024 Kerja Jadi ASN - Platform Persiapan CPNS Terpercaya</p>
         </div>
     </main>
 
-    <footer class="py-12 text-center text-slate-500 text-sm">
-        <p>© 2024 Kerja Jadi ASN. Member of Super Premium Paket 3.</p>
-    </footer>
-
     <script>
-        // Valid PIN List for Paket 3
-        const validPins = ["VS4NL8", "RT9XM2", "B2MK8P", "7XL1WQ", "5HG2SD", "9ZW4RB", "KP8MX3", "FN5VK2", "8WQ4PZ", "2YM9BX", "7KP1RT", "5HG6SD", "9ZW3RF", "RS4ML9", "VN7VK1", "8WQ3PZ", "4FB1NT"];
-
-        let currentPin = "";
-
-        // Function to extract PIN from URL
-        function initPage() {
+        // 1. Ambil PIN dari URL secara otomatis
+        function getPinFromUrl() {
             const urlParams = new URLSearchParams(window.location.search);
-            const pinFromUrl = urlParams.get('id');
+            return urlParams.get('id');
+        }
 
-            if (pinFromUrl && validPins.includes(pinFromUrl)) {
-                currentPin = pinFromUrl;
-                document.getElementById('displayPin').innerText = currentPin;
-            } else {
-                // Redirect to login or show error if PIN invalid
-                alert("Sesi akses tidak valid. Silakan masuk kembali dari Dashboard.");
+        // 2. Setup Navigasi dan Tampilan
+        document.addEventListener('DOMContentLoaded', () => {
+            const pinAkses = getPinFromUrl();
+            
+            // Database PIN Paket 3 (Hanya untuk referensi/validasi jika perlu)
+            const pinPaket3 = ["VS4NL8", "RT9XM2", "B2MK8P", "7XL1WQ", "5HG2SD", "9ZW4RB", "KP8MX3", "FN5VK2", "8WQ4PZ", "2YM9BX", "7KP1RT", "5HG6SD", "9ZW3RF", "RS4ML9", "VN7VK1", "8WQ3PZ", "4FB1NT"];
+
+            if (!pinAkses) {
+                // Jika tidak ada PIN, arahkan kembali ke login
                 window.location.href = 'login.html';
+                return;
             }
-        }
 
-        // Switch Tabs Function
-        function switchTab(tabId) {
-            // Hide all sections
-            document.querySelectorAll('.materi-section').forEach(section => {
-                section.classList.remove('active');
+            // Tampilkan PIN di header
+            document.getElementById('displayPin').textContent = pinAkses.toUpperCase();
+
+            // Set link tombol kembali agar tidak error (menyertakan PIN kembali)
+            const dashboardLink = `dashboardpaket3.html?id=${pinAkses}`;
+            
+            document.getElementById('backButtonTop').href = dashboardLink;
+            document.getElementById('backButtonBottom').href = dashboardLink;
+            document.getElementById('tryoutLink').href = dashboardLink;
+
+            console.log("Sistem Siap. PIN Terdeteksi:", pinAkses);
+        });
+
+        // Fitur Tambahan: Smooth Scroll logic jika browser lama tidak support CSS scroll-behavior
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
             });
-
-            // Deactivate all buttons
-            document.querySelectorAll('.tab-btn').forEach(btn => {
-                btn.classList.remove('active', 'bg-gradient-premium');
-                btn.classList.add('bg-white', 'text-slate-600');
-            });
-
-            // Show current section
-            document.getElementById(tabId).classList.add('active');
-
-            // Activate current button
-            const activeBtn = document.getElementById('btn-' + tabId);
-            activeBtn.classList.add('active');
-            activeBtn.classList.remove('bg-white', 'text-slate-600');
-        }
-
-        // Navigation Back with PIN
-        function goBack() {
-            window.location.href = `dashboardpaket3.html?id=${currentPin}`;
-        }
-
-        // Initialize on load
-        window.onload = initPage;
+        });
     </script>
+
 </body>
 </html>
