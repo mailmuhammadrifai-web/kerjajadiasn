@@ -1403,28 +1403,42 @@
         // ========== 3. PAGE INITIALIZATION ==========
         function initializePage() {
             try {
-                // Get PIN from URL
+                // Get PIN from URL - FIX: Periksa semua kemungkinan parameter
                 const urlParams = new URLSearchParams(window.location.search);
-                pinAkses = urlParams.get('id');
+                pinAkses = urlParams.get('id') || urlParams.get('pin') || urlParams.get('token');
+                
+                // DEBUG: Log untuk melihat apa yang didapat dari URL
+                console.log('URL Params:', Object.fromEntries(urlParams.entries()));
+                console.log('PIN yang ditemukan:', pinAkses);
 
                 if (!pinAkses) {
-                    throw new Error('PIN tidak ditemukan');
+                    // Coba ambil dari localStorage sebagai fallback
+                    pinAkses = localStorage.getItem('current_pin');
+                    console.log('PIN dari localStorage:', pinAkses);
                 }
 
-                // Validate PIN
-                if (!/^[a-zA-Z0-9]{4,}$/.test(pinAkses)) {
-                    throw new Error('Format PIN tidak valid');
+                if (!pinAkses) {
+                    throw new Error('PIN tidak ditemukan. Silakan login kembali.');
                 }
+
+                // Validate PIN (menerima huruf, angka, minimal 3 karakter)
+                if (!/^[a-zA-Z0-9]{3,}$/.test(pinAkses)) {
+                    console.error('PIN tidak valid:', pinAkses);
+                    throw new Error('Format PIN tidak valid. Gunakan huruf dan angka (minimal 3 karakter)');
+                }
+
+                // Simpan PIN ke localStorage untuk halaman lain
+                localStorage.setItem('current_pin', pinAkses);
 
                 // Update PIN displays
                 updatePINDisplays();
 
-                // Set active tab from URL or default to TWK
+                // Set active tab from URL atau default ke TWK
                 const tab = urlParams.get('tab') || 'twk';
                 setTimeout(() => showSection(tab), 100);
 
                 // Show welcome notification
-                showNotification('success', 'Materi SKD Paket 3', 'Selamat belajar materi SKD lengkap!');
+                showNotification('success', 'Materi SKD Paket 3', `Selamat belajar materi SKD lengkap! PIN Anda: ${pinAkses}`);
 
             } catch (error) {
                 console.error('Initialization error:', error);
@@ -1439,6 +1453,13 @@
 
         // ========== 4. PIN MANAGEMENT ==========
         function updatePINDisplays() {
+            if (!pinAkses) {
+                console.error('pinAkses belum diinisialisasi');
+                return;
+            }
+
+            console.log('Mengupdate PIN displays dengan:', pinAkses);
+            
             // Update all PIN displays
             const pinElements = [
                 'displayPin',
@@ -1449,18 +1470,38 @@
                 const element = document.getElementById(id);
                 if (element) {
                     element.textContent = pinAkses;
+                    console.log(`Updated ${id} dengan PIN: ${pinAkses}`);
+                }
+            });
+
+            // Juga update semua link WhatsApp dengan PIN
+            updateWhatsAppLinks();
+        }
+
+        function updateWhatsAppLinks() {
+            const whatsappLinks = document.querySelectorAll('a[href*="whatsapp"]');
+            whatsappLinks.forEach(link => {
+                let originalHref = link.getAttribute('href');
+                if (originalHref && originalHref.includes('${pinAkses}')) {
+                    const updatedHref = originalHref.replace(/\$\{pinAkses\}/g, pinAkses);
+                    link.setAttribute('href', updatedHref);
                 }
             });
         }
 
         function copyPin() {
+            if (!pinAkses) {
+                showNotification('error', 'Gagal Menyalin', 'PIN tidak tersedia');
+                return;
+            }
+            
             navigator.clipboard.writeText(pinAkses)
                 .then(() => {
-                    showNotification('success', 'PIN Disalin', 'PIN telah disalin ke clipboard');
+                    showNotification('success', 'PIN Disalin', `PIN ${pinAkses} telah disalin ke clipboard`);
                 })
                 .catch(err => {
                     console.error('Failed to copy PIN:', err);
-                    showNotification('error', 'Gagal Menyalin', 'Tidak dapat menyalin PIN');
+                    showNotification('error', 'Gagal Menyalin', 'Tidak dapat menyalin PIN. Silakan salin manual.');
                 });
         }
 
@@ -1489,21 +1530,32 @@
                 activeTab.classList.add('tab-active');
             }
 
-            // Update URL without reloading
-            const url = new URL(window.location);
-            url.searchParams.set('tab', sectionId);
-            window.history.pushState({}, '', url);
+            // Update URL tanpa reload
+            updateURLWithTab(sectionId);
 
-            // Scroll to top of section
-            window.scrollTo({ top: selectedSection.offsetTop - 100, behavior: 'smooth' });
+            // Scroll ke atas section dengan smooth
+            setTimeout(() => {
+                if (selectedSection) {
+                    window.scrollTo({
+                        top: selectedSection.offsetTop - 100,
+                        behavior: 'smooth'
+                    });
+                }
+            }, 100);
+        }
+
+        function updateURLWithTab(tab) {
+            const url = new URL(window.location);
+            url.searchParams.set('tab', tab);
+            window.history.pushState({}, '', url);
         }
 
         // ========== 6. NAVIGATION FUNCTIONS ==========
         function goToDashboard() {
             if (pinAkses) {
-                window.location.href = `dashboardpaket3.html?id=${pinAkses}`;
+                window.location.href = `dashboardpaket3.html?id=${encodeURIComponent(pinAkses)}`;
             } else {
-                showNotification('error', 'Kesalahan', 'PIN tidak ditemukan');
+                showNotification('error', 'Kesalahan', 'PIN tidak ditemukan. Mengarahkan ke login...');
                 setTimeout(() => {
                     window.location.href = 'login.html';
                 }, 2000);
@@ -1511,6 +1563,11 @@
         }
 
         function startTryout() {
+            if (!pinAkses) {
+                showNotification('error', 'Kesalahan', 'PIN tidak ditemukan');
+                return;
+            }
+            
             showNotification('info', 'Memuat Tryout', 'Mengarahkan ke halaman tryout...');
             
             // Cari tryout pertama yang belum dikerjakan
@@ -1526,7 +1583,7 @@
             }
             
             setTimeout(() => {
-                window.location.href = `soalto${tryoutNumber}.html?id=${pinAkses}`;
+                window.location.href = `soalto${tryoutNumber}.html?id=${encodeURIComponent(pinAkses)}`;
             }, 1000);
         }
 
@@ -1562,7 +1619,10 @@
             toastMessage.textContent = message;
 
             // Update toast background
-            toast.querySelector('div').className = `rounded-xl shadow-lg border p-4 max-w-sm animate-slideInRight ${bgColor}`;
+            const toastDiv = toast.querySelector('div');
+            if (toastDiv) {
+                toastDiv.className = `rounded-xl shadow-lg border p-4 max-w-sm animate-slideInRight ${bgColor}`;
+            }
 
             // Show toast
             toast.classList.remove('hidden');
@@ -1572,7 +1632,10 @@
         }
 
         function hideToast() {
-            document.getElementById('notification-toast').classList.add('hidden');
+            const toast = document.getElementById('notification-toast');
+            if (toast) {
+                toast.classList.add('hidden');
+            }
         }
 
         // ========== 8. PRINT FUNCTIONALITY ==========
@@ -1596,11 +1659,12 @@
                 hideToast();
             }
 
-            // Tab navigation dengan angka
+            // Tab navigation dengan angka (1-4)
             if (event.key >= '1' && event.key <= '4') {
                 const sections = ['twk', 'tiu', 'tkp', 'tips'];
                 const index = parseInt(event.key) - 1;
                 if (sections[index]) {
+                    event.preventDefault();
                     showSection(sections[index]);
                 }
             }
@@ -1608,17 +1672,20 @@
 
         // ========== 10. PROGRESS TRACKING ==========
         function trackProgress(section) {
+            if (!pinAkses) return;
+            
             const progressKey = `materi_progress_${pinAkses}`;
             const progress = JSON.parse(localStorage.getItem(progressKey)) || {};
             
             progress[section] = {
                 viewed: true,
-                lastViewed: new Date().toISOString()
+                lastViewed: new Date().toISOString(),
+                timestamp: Date.now()
             };
             
             localStorage.setItem(progressKey, JSON.stringify(progress));
             
-            // Optional: Notify user
+            // Optional: Notify user jika pertama kali melihat
             if (!progress[section]) {
                 showNotification('success', 'Progress Tersimpan', `Anda telah menyelesaikan materi ${section.toUpperCase()}`);
             }
@@ -1636,18 +1703,89 @@
             });
         }, { threshold: 0.5 });
 
-        // Observe all sections
-        document.querySelectorAll('.materi-section').forEach(section => {
-            observer.observe(section);
-        });
+        // Observe all sections setelah halaman dimuat
+        setTimeout(() => {
+            document.querySelectorAll('.materi-section').forEach(section => {
+                observer.observe(section);
+            });
+        }, 500);
 
         // ========== 11. BACK BUTTON HANDLING ==========
         window.addEventListener('popstate', function() {
-            // Handle browser back button
             const urlParams = new URLSearchParams(window.location.search);
             const tab = urlParams.get('tab') || 'twk';
             showSection(tab);
         });
+
+        // ========== 12. URL PARAMETER CHECK ==========
+        // Periksa ulang parameter URL jika ada perubahan
+        window.addEventListener('load', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const urlPin = urlParams.get('id') || urlParams.get('pin');
+            
+            if (urlPin && urlPin !== pinAkses) {
+                console.log('PIN berubah di URL, memperbarui...');
+                pinAkses = urlPin;
+                localStorage.setItem('current_pin', pinAkses);
+                updatePINDisplays();
+            }
+        });
+
+        // ========== 13. FALLBACK PIN RECOVERY ==========
+        // Coba recover PIN dari berbagai sumber
+        function tryRecoverPin() {
+            // 1. Dari URL parameter
+            const urlParams = new URLSearchParams(window.location.search);
+            let recoveredPin = urlParams.get('id') || urlParams.get('pin');
+            
+            // 2. Dari localStorage
+            if (!recoveredPin) {
+                recoveredPin = localStorage.getItem('current_pin');
+            }
+            
+            // 3. Dari sessionStorage
+            if (!recoveredPin) {
+                const sessionData = sessionStorage.getItem('currentSession');
+                if (sessionData) {
+                    try {
+                        const session = JSON.parse(sessionData);
+                        recoveredPin = session.pin;
+                    } catch (e) {
+                        console.error('Error parsing session data:', e);
+                    }
+                }
+            }
+            
+            // 4. Cari di semua localStorage keys
+            if (!recoveredPin) {
+                for (let i = 0; i < localStorage.length; i++) {
+                    const key = localStorage.key(i);
+                    if (key && key.includes('session_')) {
+                        try {
+                            const sessionData = localStorage.getItem(key);
+                            const session = JSON.parse(sessionData);
+                            if (session && session.pin) {
+                                recoveredPin = session.pin;
+                                break;
+                            }
+                        } catch (e) {
+                            continue;
+                        }
+                    }
+                }
+            }
+            
+            return recoveredPin;
+        }
+
+        // Coba recover PIN jika belum ada
+        if (!pinAkses) {
+            pinAkses = tryRecoverPin();
+            if (pinAkses) {
+                console.log('PIN berhasil direcover:', pinAkses);
+                updatePINDisplays();
+            }
+        }
     </script>
 
 </body>
