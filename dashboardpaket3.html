@@ -1893,12 +1893,20 @@ function showLogoutModal() {
         document.head.appendChild(style);
 
         // Tambahkan event listeners
-        document.querySelector('.close-modal').addEventListener('click', hideLogoutModal);
-        document.querySelector('.btn-cancel').addEventListener('click', hideLogoutModal);
-        document.querySelector('.btn-confirm-logout').addEventListener('click', () => {
-            logout('user_initiated');
-            hideLogoutModal();
-        });
+document.querySelector('.close-modal').addEventListener('click', hideLogoutModal);
+document.querySelector('.btn-cancel').addEventListener('click', hideLogoutModal);
+
+document.querySelector('.btn-confirm-logout').addEventListener('click', () => {
+    // 1. Jalankan fungsi logout (misal: hapus session/token)
+    logout('user_initiated');
+
+    // 2. Sembunyikan modal (opsional jika langsung pindah halaman)
+    hideLogoutModal();
+
+    // 3. Alihkan ke halaman login
+    window.location.href = 'login.html'; 
+});
+
 
         // Tutup modal jika klik di luar konten modal
         modal.addEventListener('click', (e) => {
