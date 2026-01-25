@@ -3,313 +3,1746 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Materi SKD Terlengkap (Paket 3) - Kerja Jadi ASN</title>
+    <title>Materi SKD Lengkap - Paket 3 Super Premium - Kerja Jadi ASN</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#8b5cf6">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap');
 
         body { 
             font-family: 'Plus Jakarta Sans', sans-serif;
+            min-height: 100vh;
             background: linear-gradient(135deg, #faf5ff 0%, #f3e8ff 100%);
-            scroll-behavior: smooth;
         }
 
-        .glass-card {
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
         }
 
-        .materi-section {
-            display: none;
-            animation: fadeIn 0.5s ease-out;
+        ::-webkit-scrollbar-track {
+            background: #f5f3ff;
+            border-radius: 4px;
         }
 
-        .materi-section.active {
-            display: block;
+        ::-webkit-scrollbar-thumb {
+            background: #c4b5fd;
+            border-radius: 4px;
         }
 
+        ::-webkit-scrollbar-thumb:hover {
+            background: #a78bfa;
+        }
+
+        /* Animations */
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        .sidebar-link.active {
-            background-color: #8b5cf6;
-            color: white;
-            box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
+        .animate-fadeIn {
+            animation: fadeIn 0.5s ease-out;
         }
 
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #f5f3ff; }
-        ::-webkit-scrollbar-thumb { background: #c4b5fd; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #8b5cf6; }
+        /* Card Hover Effects */
+        .card-hover {
+            transition: all 0.3s ease;
+            border: 1px solid #ede9fe;
+        }
+
+        .card-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px -5px rgba(139, 92, 246, 0.1),
+                        0 10px 10px -5px rgba(139, 92, 246, 0.04);
+            border-color: #c4b5fd;
+        }
+
+        /* Glassmorphism Effect */
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        /* Custom Purple Theme */
+        .bg-gradient-premium {
+            background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 50%, #6d28d9 100%);
+        }
+
+        .text-gradient-premium {
+            background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Shimmer Effect */
+        .shimmer {
+            background: linear-gradient(
+                90deg,
+                rgba(255, 255, 255, 0) 0%,
+                rgba(255, 255, 255, 0.3) 50%,
+                rgba(255, 255, 255, 0) 100%
+            );
+            background-size: 200% 100%;
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+
+        /* Table Styles */
+        .materi-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .materi-table th {
+            background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+            color: white;
+            font-weight: 700;
+            padding: 1rem;
+            text-align: left;
+        }
+
+        .materi-table td {
+            padding: 1rem;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .materi-table tr:nth-child(even) {
+            background-color: #f8fafc;
+        }
+
+        .materi-table tr:hover {
+            background-color: #f1f5f9;
+        }
+
+        /* Highlight Box */
+        .highlight-box {
+            border-left: 4px solid;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .highlight-twk {
+            border-left-color: #8b5cf6;
+            background: linear-gradient(to right, #f5f3ff, #ede9fe);
+        }
+
+        .highlight-tiu {
+            border-left-color: #3b82f6;
+            background: linear-gradient(to right, #eff6ff, #dbeafe);
+        }
+
+        .highlight-tkp {
+            border-left-color: #10b981;
+            background: linear-gradient(to right, #f0fdf4, #dcfce7);
+        }
+
+        /* Materi Content Styles */
+        .materi-content h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin: 2rem 0 1rem 0;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        .materi-content h4 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #334155;
+            margin: 1.5rem 0 1rem 0;
+        }
+
+        .materi-content ul, .materi-content ol {
+            margin: 1rem 0;
+            padding-left: 1.5rem;
+        }
+
+        .materi-content li {
+            margin: 0.5rem 0;
+            line-height: 1.6;
+        }
+
+        .materi-content p {
+            margin: 1rem 0;
+            line-height: 1.7;
+            color: #475569;
+        }
+
+        /* Print Styles */
+        @media print {
+            .no-print {
+                display: none !important;
+            }
+
+            body {
+                background: white !important;
+                color: black !important;
+            }
+
+            .materi-content {
+                max-width: none !important;
+            }
+        }
+
+        /* Responsive Improvements */
+        @media (max-width: 768px) {
+            .nav-content {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1rem;
+            }
+
+            .nav-right {
+                width: 100%;
+                justify-content: space-between;
+            }
+
+            .materi-tabs {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .materi-tab {
+                width: 100%;
+                text-align: center;
+            }
+
+            .materi-table {
+                display: block;
+                overflow-x: auto;
+            }
+        }
     </style>
 </head>
-<body class="min-h-screen text-slate-800">
+<body class="min-h-screen bg-gradient-to-b from-purple-50 to-white">
 
-    <nav class="bg-white/80 sticky top-0 z-50 border-b border-purple-100 backdrop-blur-md">
-        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
-            <div class="flex items-center gap-3">
-                <button onclick="goBackToDashboard()" class="w-10 h-10 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center hover:bg-purple-600 hover:text-white transition-all">
-                    <i class="fa-solid fa-arrow-left"></i>
+    <!-- Notification Toast -->
+    <div id="notification-toast" class="fixed top-4 right-4 z-50 hidden">
+        <div class="bg-white rounded-xl shadow-lg border border-purple-200 p-4 max-w-sm animate-fadeIn">
+            <div class="flex items-start gap-3">
+                <div id="toast-icon" class="text-xl"></div>
+                <div class="flex-1">
+                    <h4 id="toast-title" class="font-bold text-slate-800"></h4>
+                    <p id="toast-message" class="text-sm text-slate-600 mt-1"></p>
+                </div>
+                <button onclick="hideToast()" class="text-slate-400 hover:text-slate-600">
+                    <i class="fa-solid fa-times"></i>
                 </button>
-                <div class="hidden md:block">
-                    <h1 class="font-extrabold text-purple-800 text-lg">MODUL SKD PREMIUM</h1>
-                    <p class="text-[10px] text-purple-500 font-bold uppercase tracking-widest">Eksklusif Paket 3</p>
-                </div>
             </div>
-            
-            <div class="flex items-center gap-4">
-                <div class="text-right hidden sm:block">
-                    <p class="text-[10px] font-bold text-slate-400 uppercase">PIN Peserta</p>
-                    <p id="displayPin" class="text-sm font-black text-purple-600 font-mono tracking-wider">------</p>
+        </div>
+    </div>
+
+    <nav class="bg-white border-b border-purple-100 sticky top-0 z-40 shadow-sm glass-effect">
+        <div class="container mx-auto px-4 py-3">
+            <div class="flex justify-between items-center nav-content">
+                <div class="flex items-center gap-3">
+                    <a href="#" onclick="goToDashboard()" class="flex items-center gap-2 hover:opacity-80 transition-opacity">
+                        <div class="w-8 h-8 bg-gradient-premium rounded-lg flex items-center justify-center">
+                            <i class="fa-solid fa-arrow-left text-white text-sm"></i>
+                        </div>
+                        <div class="w-8 h-8 bg-gradient-premium rounded-lg flex items-center justify-center">
+                            <i class="fa-solid fa-crown text-white"></i>
+                        </div>
+                        <h1 class="font-extrabold text-purple-700 text-lg md:text-xl">
+                            KERJA JADI <span class="text-yellow-500">ASN</span>
+                        </h1>
+                    </a>
+                    <span class="status-badge bg-gradient-to-r from-purple-500 to-violet-600 text-white text-xs font-bold px-3 py-1 rounded-full hidden md:inline-flex">
+                        <i class="fa-solid fa-gem mr-1"></i> Paket 3 Super Premium
+                    </span>
                 </div>
-                <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-purple-500 to-indigo-600 flex items-center justify-center shadow-lg">
-                    <i class="fa-solid fa-crown text-white text-xs"></i>
+
+                <div class="flex items-center gap-4 nav-right">
+                    <div class="text-right">
+                        <p class="text-[10px] font-bold text-purple-500 uppercase tracking-wider">PIN Peserta</p>
+                        <div class="flex items-center gap-2">
+                            <p id="displayPin" class="text-sm font-black text-purple-800 tracking-wide font-mono">MEMUAT...</p>
+                            <button onclick="copyPin()" class="text-purple-400 hover:text-purple-600 tooltip" title="Salin PIN">
+                                <i class="fa-regular fa-copy text-xs"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center gap-3">
+                        <button onclick="printMateri()" class="px-4 py-2 bg-purple-100 text-purple-700 rounded-lg font-bold text-sm hover:bg-purple-200 transition-colors flex items-center gap-2">
+                            <i class="fa-solid fa-print"></i> Cetak
+                        </button>
+                        <a href="#" onclick="goToDashboard()" class="px-4 py-2 bg-gradient-premium text-white rounded-lg font-bold text-sm hover:opacity-90 transition-all flex items-center gap-2 shadow-lg shadow-purple-200">
+                            <i class="fa-solid fa-home"></i> Dashboard
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
     </nav>
 
-    <main class="container mx-auto px-4 py-8">
-        <div class="flex flex-col lg:flex-row gap-8">
-            
-            <aside class="lg:w-1/4">
-                <div class="sticky top-24 space-y-4">
-                    <div class="bg-white rounded-3xl p-6 shadow-sm border border-purple-100">
-                        <h3 class="font-black text-slate-800 mb-4 text-sm uppercase tracking-wider">Daftar Materi</h3>
-                        <div class="space-y-2">
-                            <button onclick="switchMateri('pengenalan')" class="sidebar-link w-full text-left px-4 py-3 rounded-2xl text-sm font-bold flex items-center gap-3 transition-all hover:bg-purple-50 active" id="btn-pengenalan">
-                                <i class="fa-solid fa-star text-yellow-500"></i> Strategi Lulus SKD
-                            </button>
-                            <button onclick="switchMateri('twk')" class="sidebar-link w-full text-left px-4 py-3 rounded-2xl text-sm font-bold flex items-center gap-3 transition-all hover:bg-purple-50" id="btn-twk">
-                                <i class="fa-solid fa-flag text-red-500"></i> Wawasan Kebangsaan (TWK)
-                            </button>
-                            <button onclick="switchMateri('tiu')" class="sidebar-link w-full text-left px-4 py-3 rounded-2xl text-sm font-bold flex items-center gap-3 transition-all hover:bg-purple-50" id="btn-tiu">
-                                <i class="fa-solid fa-calculator text-blue-500"></i> Intelegensia Umum (TIU)
-                            </button>
-                            <button onclick="switchMateri('tkp')" class="sidebar-link w-full text-left px-4 py-3 rounded-2xl text-sm font-bold flex items-center gap-3 transition-all hover:bg-purple-50" id="btn-tkp">
-                                <i class="fa-solid fa-user-gear text-emerald-500"></i> Karakteristik Pribadi (TKP)
-                            </button>
+    <main class="container mx-auto px-4 py-6 md:py-8">
+        <!-- Header Materi -->
+        <div class="bg-gradient-to-r from-purple-600 via-violet-700 to-purple-800 rounded-2xl md:rounded-3xl p-6 md:p-8 mb-8 text-white relative overflow-hidden shadow-xl animate-fadeIn">
+            <div class="relative z-10">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
+                    <div class="flex-1">
+                        <div class="flex items-center gap-3 mb-3">
+                            <div class="w-10 h-10 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center">
+                                <i class="fa-solid fa-book-open text-yellow-300"></i>
+                            </div>
+                            <div>
+                                <span class="status-badge bg-white/20 backdrop-blur-sm border border-white/30">Materi SKD Lengkap</span>
+                                <span class="status-badge bg-yellow-500 ml-2 border border-yellow-300">Paket 3 Super Premium</span>
+                            </div>
+                        </div>
+
+                        <h2 class="text-2xl md:text-3xl font-bold mb-3">Materi SKD Komprehensif</h2>
+                        <p class="text-purple-100 opacity-95 mb-6 max-w-3xl">Panduan lengkap Tes Wawasan Kebangsaan (TWK), Tes Intelegensia Umum (TIU), dan Tes Karakteristik Pribadi (TKP) dengan strategi dan contoh soal.</p>
+
+                        <div class="flex flex-wrap gap-4">
+                            <div class="flex items-center gap-3 bg-white/10 border border-white/20 px-4 py-3 rounded-xl backdrop-blur-sm">
+                                <div class="w-10 h-10 bg-gradient-to-br from-purple-400 to-violet-500 rounded-lg flex items-center justify-center shadow-lg">
+                                    <i class="fa-solid fa-flag"></i>
+                                </div>
+                                <div>
+                                    <p class="text-[10px] font-bold text-purple-100 uppercase mb-1">TWK</p>
+                                    <p class="text-lg md:text-xl font-black">Wawasan Kebangsaan</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center gap-3 bg-white/10 border border-white/20 px-4 py-3 rounded-xl backdrop-blur-sm">
+                                <div class="w-10 h-10 bg-gradient-to-br from-blue-400 to-blue-500 rounded-lg flex items-center justify-center shadow-lg">
+                                    <i class="fa-solid fa-brain"></i>
+                                </div>
+                                <div>
+                                    <p class="text-[10px] font-bold text-purple-100 uppercase mb-1">TIU</p>
+                                    <p class="text-lg md:text-xl font-black">Intelegensia Umum</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center gap-3 bg-white/10 border border-white/20 px-4 py-3 rounded-xl backdrop-blur-sm">
+                                <div class="w-10 h-10 bg-gradient-to-br from-green-400 to-emerald-500 rounded-lg flex items-center justify-center shadow-lg">
+                                    <i class="fa-solid fa-user-check"></i>
+                                </div>
+                                <div>
+                                    <p class="text-[10px] font-bold text-purple-100 uppercase mb-1">TKP</p>
+                                    <p class="text-lg md:text-xl font-black">Karakteristik Pribadi</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="bg-gradient-to-br from-purple-600 to-indigo-700 rounded-3xl p-6 text-white shadow-xl">
-                        <p class="text-xs font-bold opacity-80 mb-1">Target Skor SKD</p>
-                        <h4 class="text-2xl font-black mb-4">450+ Points</h4>
-                        <div class="space-y-3">
-                            <div class="flex justify-between text-[10px] font-bold">
-                                <span>TWK (Target 100)</span>
-                                <span>75%</span>
-                            </div>
-                            <div class="w-full bg-white/20 h-1.5 rounded-full">
-                                <div class="bg-yellow-400 h-full rounded-full" style="width: 75%"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </aside>
-
-            <section class="lg:w-3/4">
-                
-                <div id="materi-pengenalan" class="materi-section active space-y-8">
-                    <div class="bg-white rounded-3xl p-8 shadow-sm border border-purple-100">
-                        <h2 class="text-3xl font-black text-slate-800 mb-4">Strategi Lulus Passing Grade & Ranking</h2>
-                        <p class="text-slate-600 leading-relaxed mb-6">
-                            Selamat datang di modul eksklusif Paket 3. Untuk lulus SKD, Anda tidak hanya butuh pintar, tapi butuh **strategi waktu**. Ingat, Anda memiliki 110 soal yang harus dikerjakan dalam 100 menit.
-                        </p>
-                        <div class="grid md:grid-cols-3 gap-4">
-                            <div class="p-4 bg-purple-50 rounded-2xl border border-purple-100">
-                                <p class="text-xs font-bold text-purple-600 uppercase mb-2">Urutan Kerja</p>
-                                <p class="text-sm font-bold">TKP → TWK → TIU</p>
-                            </div>
-                            <div class="p-4 bg-blue-50 rounded-2xl border border-blue-100">
-                                <p class="text-xs font-bold text-blue-600 uppercase mb-2">Manajemen Waktu</p>
-                                <p class="text-sm font-bold">Max 45 Detik / Soal</p>
-                            </div>
-                            <div class="p-4 bg-emerald-50 rounded-2xl border border-emerald-100">
-                                <p class="text-xs font-bold text-emerald-600 uppercase mb-2">Prinsip Utama</p>
-                                <p class="text-sm font-bold">Jangan Kosongkan Jawaban</p>
+                    <div class="hidden md:block">
+                        <div class="w-48 h-48 relative">
+                            <div class="absolute inset-0 bg-white/10 rounded-full backdrop-blur-sm"></div>
+                            <div class="absolute inset-4 bg-gradient-to-br from-purple-400 to-violet-500 rounded-full flex items-center justify-center">
+                                <i class="fa-solid fa-graduation-cap text-6xl text-white"></i>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
 
-                <div id="materi-twk" class="materi-section space-y-8">
-                    <div class="bg-white rounded-3xl p-8 shadow-sm border border-purple-100">
-                        <div class="w-16 h-16 bg-red-100 rounded-2xl flex items-center justify-center mb-6 text-red-600 text-2xl">
-                            <i class="fa-solid fa-flag"></i>
+            <!-- Background Elements -->
+            <div class="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full -translate-y-32 translate-x-32"></div>
+            <div class="absolute bottom-0 left-0 w-96 h-96 bg-white/5 rounded-full translate-y-48 -translate-x-48"></div>
+        </div>
+
+        <!-- Materi Tabs -->
+        <div class="mb-8">
+            <div class="flex flex-wrap gap-2 mb-6 materi-tabs">
+                <button onclick="showTab('twk')" id="tab-twk" class="px-6 py-3 rounded-lg bg-gradient-premium text-white text-sm font-bold transition-colors materi-tab">
+                    <i class="fa-solid fa-flag mr-2"></i>Tes Wawasan Kebangsaan (TWK)
+                </button>
+                <button onclick="showTab('tiu')" id="tab-tiu" class="px-6 py-3 rounded-lg bg-purple-100 hover:bg-purple-200 text-purple-700 text-sm font-bold transition-colors materi-tab">
+                    <i class="fa-solid fa-brain mr-2"></i>Tes Intelegensia Umum (TIU)
+                </button>
+                <button onclick="showTab('tkp')" id="tab-tkp" class="px-6 py-3 rounded-lg bg-purple-100 hover:bg-purple-200 text-purple-700 text-sm font-bold transition-colors materi-tab">
+                    <i class="fa-solid fa-user-check mr-2"></i>Tes Karakteristik Pribadi (TKP)
+                </button>
+                <button onclick="showTab('strategi')" id="tab-strategi" class="px-6 py-3 rounded-lg bg-purple-100 hover:bg-purple-200 text-purple-700 text-sm font-bold transition-colors materi-tab">
+                    <i class="fa-solid fa-lightbulb mr-2"></i>Strategi & Tips
+                </button>
+            </div>
+
+            <!-- Tab Content Container -->
+            <div id="tab-content" class="animate-fadeIn">
+                <!-- TWK Content (Default) -->
+                <div id="content-twk" class="materi-content">
+                    <div class="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-purple-100 card-hover">
+                        <div class="flex items-center gap-3 mb-6">
+                            <div class="w-12 h-12 bg-gradient-to-r from-purple-500 to-violet-600 rounded-xl flex items-center justify-center">
+                                <i class="fa-solid fa-flag text-white text-xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-slate-800 text-2xl">Tes Wawasan Kebangsaan (TWK)</h3>
+                                <p class="text-sm text-slate-600">Materi lengkap tentang nasionalisme, integritas, bela negara, pilar negara, dan sejarah Indonesia</p>
+                            </div>
                         </div>
-                        <h2 class="text-3xl font-black text-slate-800 mb-4">Tes Wawasan Kebangsaan (TWK)</h2>
-                        <div class="prose prose-purple max-w-none text-slate-600 space-y-6">
-                            <div>
-                                <h4 class="text-lg font-bold text-slate-800 mb-2">1. Nasionalisme</h4>
-                                <p>Tujuannya mampu mewujudkan kepentingan nasional melalui cita-cita dan tujuan yang sama dengan tetap mempertahankan identitas nasional. Fokus pada: Cinta tanah air, integrasi nasional, dan peran Indonesia di dunia internasional.</p>
+
+                        <div class="highlight-box highlight-twk">
+                            <h4 class="font-bold text-slate-800 text-lg mb-2"><i class="fa-solid fa-circle-info mr-2 text-purple-600"></i>Informasi Penting TWK</h4>
+                            <p class="text-slate-700 mb-2">TWK mengukur penguasaan pengetahuan dan kemampuan mengimplementasikan nilai-nilai nasionalisme, integritas, bela negara, pilar negara, dan bahasa Indonesia.</p>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+                                <div class="bg-white/50 rounded-lg p-3 text-center">
+                                    <div class="text-lg font-black text-purple-600">35 Soal</div>
+                                    <div class="text-xs text-slate-500">Jumlah Soal TWK</div>
+                                </div>
+                                <div class="bg-white/50 rounded-lg p-3 text-center">
+                                    <div class="text-lg font-black text-purple-600">Nilai Minimum</div>
+                                    <div class="text-xs text-slate-500">75 dari 150</div>
+                                </div>
+                                <div class="bg-white/50 rounded-lg p-3 text-center">
+                                    <div class="text-lg font-black text-purple-600">Bobot Nilai</div>
+                                    <div class="text-xs text-slate-500">5 poin per soal</div>
+                                </div>
                             </div>
-                            <div class="bg-slate-50 p-6 rounded-2xl border-l-4 border-red-500">
-                                <h5 class="font-bold text-slate-800 mb-2 italic">Tips Penalaran TWK:</h5>
-                                <p class="text-sm">Soal TWK saat ini bersifat **HOTS (Higher Order Thinking Skills)**. Jangan hanya menghafal pasal, tapi pahami penerapan Pancasila dalam kehidupan sehari-hari dan bela negara.</p>
+                        </div>
+
+                        <h3 class="text-xl font-bold text-slate-800 mt-8 mb-4">Materi Pokok TWK</h3>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                            <div class="bg-gradient-to-br from-purple-50 to-violet-50 rounded-xl p-5 border border-purple-100">
+                                <h4 class="font-bold text-slate-800 mb-3 flex items-center gap-2">
+                                    <i class="fa-solid fa-landmark text-purple-600"></i> Pancasila
+                                </h4>
+                                <ul class="space-y-2 text-slate-700">
+                                    <li class="flex items-start gap-2">
+                                        <i class="fa-solid fa-check mt-1 text-xs text-purple-500"></i>
+                                        <span>Sejarah perumusan Pancasila</span>
+                                    </li>
+                                    <li class="flex items-start gap-2">
+                                        <i class="fa-solid fa-check mt-1 text-xs text-purple-500"></i>
+                                        <span>Makna dan nilai-nilai tiap sila</span>
+                                    </li>
+                                    <li class="flex items-start gap-2">
+                                        <i class="fa-solid fa-check mt-1 text-xs text-purple-500"></i>
+                                        <span>Implementasi Pancasila dalam kehidupan sehari-hari</span>
+                                    </li>
+                                    <li class="flex items-start gap-2">
+                                        <i class="fa-solid fa-check mt-1 text-xs text-purple-500"></i>
+                                        <span>Butir-butir pengamalan Pancasila</span>
+                                    </li>
+                                </ul>
                             </div>
-                            <div>
-                                <h4 class="text-lg font-bold text-slate-800 mb-2">2. Integritas</h4>
-                                <p>Mampu menjunjung tinggi kejujuran, ketangguhan, dan konsistensi sebagai kesatuan sikap untuk mencapai tujuan nasional. Fokus: Anti korupsi, kejujuran dalam jabatan, dan etika birokrasi.</p>
-                            </div>
-                            <div>
-                                <h4 class="text-lg font-bold text-slate-800 mb-2">3. Pilar Negara</h4>
-                                <ul class="list-disc pl-5 space-y-2">
-                                    <li>**Pancasila:** Sebagai dasar negara, pandangan hidup, dan sumber segala sumber hukum.</li>
-                                    <li>**UUD 1945:** Memahami amandemen (I-IV), lembaga negara, dan hak asasi manusia.</li>
-                                    <li>**Bhineka Tunggal Ika:** Harmoni dalam perbedaan suku, ras, dan agama.</li>
-                                    <li>**NKRI:** Sejarah perjuangan kemerdekaan dan bentuk negara.</li>
+
+                            <div class="bg-gradient-to-br from-purple-50 to-violet-50 rounded-xl p-5 border border-purple-100">
+                                <h4 class="font-bold text-slate-800 mb-3 flex items-center gap-2">
+                                    <i class="fa-solid fa-balance-scale text-purple-600"></i> UUD 1945
+                                </h4>
+                                <ul class="space-y-2 text-slate-700">
+                                    <li class="flex items-start gap-2">
+                                        <i class="fa-solid fa-check mt-1 text-xs text-purple-500"></i>
+                                        <span>Sejarah pembentukan UUD 1945</span>
+                                    </li>
+                                    <li class="flex items-start gap-2">
+                                        <i class="fa-solid fa-check mt-1 text-xs text-purple-500"></i>
+                                        <span>Amandemen UUD 1945 (I-IV)</span>
+                                    </li>
+                                    <li class="flex items-start gap-2">
+                                        <i class="fa-solid fa-check mt-1 text-xs text-purple-500"></i>
+                                        <span>Sistem pemerintahan Indonesia</span>
+                                    </li>
+                                    <li class="flex items-start gap-2">
+                                        <i class="fa-solid fa-check mt-1 text-xs text-purple-500"></i>
+                                        <span>Hak dan kewajiban warga negara</span>
+                                    </li>
                                 </ul>
                             </div>
                         </div>
-                    </div>
-                </div>
 
-                <div id="materi-tiu" class="materi-section space-y-8">
-                    <div class="bg-white rounded-3xl p-8 shadow-sm border border-purple-100">
-                        <div class="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mb-6 text-blue-600 text-2xl">
-                            <i class="fa-solid fa-calculator"></i>
-                        </div>
-                        <h2 class="text-3xl font-black text-slate-800 mb-4">Tes Intelegensia Umum (TIU)</h2>
+                        <h3 class="text-xl font-bold text-slate-800 mt-8 mb-4">Bhineka Tunggal Ika</h3>
+                        <p class="text-slate-700 mb-4">Bhineka Tunggal Ika adalah semboyan bangsa Indonesia yang berarti "Berbeda-beda tetapi tetap satu". Konsep ini mencakup:</p>
                         
-                        <div class="mb-8">
-                            <h3 class="text-xl font-bold text-blue-700 mb-4 border-b pb-2">A. Kemampuan Verbal</h3>
-                            <div class="grid md:grid-cols-2 gap-4">
-                                <div class="p-5 bg-blue-50 rounded-2xl">
-                                    <h4 class="font-bold mb-2">Analogi</h4>
-                                    <p class="text-sm">Mengukur kemampuan menalar melalui hubungan dua kata. Contoh: *Matahari : Terang = Api : ... (Panas)*.</p>
-                                </div>
-                                <div class="p-5 bg-blue-50 rounded-2xl">
-                                    <h4 class="font-bold mb-2">Silogisme</h4>
-                                    <p class="text-sm">Penarikan kesimpulan dari dua premis. Ingat rumus: Semua + Sebagian = Sebagian.</p>
-                                </div>
+                        <table class="materi-table mb-8">
+                            <thead>
+                                <tr>
+                                    <th>Aspek</th>
+                                    <th>Penjelasan</th>
+                                    <th>Contoh Penerapan</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Keragaman Suku</strong></td>
+                                    <td>Indonesia memiliki lebih dari 1.300 suku bangsa</td>
+                                    <td>Saling menghormati adat istiadat suku lain</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Keragaman Agama</strong></td>
+                                    <td>6 agama resmi di Indonesia: Islam, Kristen, Katolik, Hindu, Buddha, Konghucu</td>
+                                    <td>Toleransi dalam beribadah</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Keragaman Budaya</strong></td>
+                                    <td>Ribuan bahasa daerah, tarian, lagu, dan tradisi</td>
+                                    <td>Melestarikan budaya lokal</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <h3 class="text-xl font-bold text-slate-800 mt-8 mb-4">Sejarah Perjuangan Bangsa</h3>
+                        <div class="space-y-4">
+                            <div class="bg-slate-50 rounded-xl p-4">
+                                <h4 class="font-bold text-slate-700 mb-2">Masa Penjajahan</h4>
+                                <p class="text-slate-600">Periode penjajahan Portugis, Spanyol, Belanda, Inggris, dan Jepang serta dampaknya terhadap perjuangan kemerdekaan.</p>
+                            </div>
+                            <div class="bg-slate-50 rounded-xl p-4">
+                                <h4 class="font-bold text-slate-700 mb-2">Peristiwa Penting</h4>
+                                <p class="text-slate-600">Sumpah Pemuda 1928, Proklamasi 1945, Konferensi Meja Bundar, dan peristiwa bersejarah lainnya yang membentuk Indonesia.</p>
+                            </div>
+                            <div class="bg-slate-50 rounded-xl p-4">
+                                <h4 class="font-bold text-slate-700 mb-2">Tokoh-tokoh Nasional</h4>
+                                <p class="text-slate-600">Soekarno, Hatta, Sjahrir, Tan Malaka, Kartini, dan tokoh-tokoh lain yang berjasa dalam perjuangan kemerdekaan.</p>
                             </div>
                         </div>
 
-                        <div class="mb-8">
-                            <h3 class="text-xl font-bold text-blue-700 mb-4 border-b pb-2">B. Kemampuan Numerik</h3>
-                            <div class="space-y-4">
-                                <div class="p-5 bg-slate-50 rounded-2xl border border-blue-100">
-                                    <h4 class="font-bold mb-2">Berhitung Cepat</h4>
-                                    <p class="text-sm mb-3">Gunakan teknik pembulatan dan lihat angka satuan terakhir untuk menghemat waktu.</p>
-                                    <code class="block bg-white p-3 rounded-lg text-xs font-mono">Contoh: 0,333 x 12 = (1/3) x 12 = 4</code>
+                        <h3 class="text-xl font-bold text-slate-800 mt-8 mb-4">Contoh Soal TWK</h3>
+                        <div class="bg-gradient-to-r from-purple-50 to-violet-50 rounded-xl p-5 border border-purple-200 mb-6">
+                            <h4 class="font-bold text-slate-800 mb-3">Contoh 1: Pancasila</h4>
+                            <p class="text-slate-700 mb-3">Sila keempat Pancasila yang berbunyi "Kerakyatan yang dipimpin oleh hikmat kebijaksanaan dalam permusyawaratan/perwakilan" mengandung nilai utama:</p>
+                            <div class="space-y-2">
+                                <div class="flex items-center gap-3 p-3 bg-white rounded-lg">
+                                    <div class="w-6 h-6 rounded-full border border-purple-300 flex items-center justify-center">
+                                        <span class="text-sm font-bold text-purple-700">A</span>
+                                    </div>
+                                    <span>Demokrasi dan musyawarah</span>
                                 </div>
-                                <div class="p-5 bg-slate-50 rounded-2xl border border-blue-100">
-                                    <h4 class="font-bold mb-2">Deret Angka</h4>
-                                    <p class="text-sm">Cari pola: loncat 1, loncat 2, atau pola bertingkat. Jangan terpaku pada satu deret terlalu lama.</p>
+                                <div class="flex items-center gap-3 p-3 bg-white rounded-lg">
+                                    <div class="w-6 h-6 rounded-full border border-slate-300 flex items-center justify-center">
+                                        <span class="text-sm font-bold text-slate-700">B</span>
+                                    </div>
+                                    <span>Keadilan sosial</span>
+                                </div>
+                                <div class="flex items-center gap-3 p-3 bg-white rounded-lg">
+                                    <div class="w-6 h-6 rounded-full border border-slate-300 flex items-center justify-center">
+                                        <span class="text-sm font-bold text-slate-700">C</span>
+                                    </div>
+                                    <span>Ketuhanan Yang Maha Esa</span>
+                                </div>
+                                <div class="flex items-center gap-3 p-3 bg-white rounded-lg">
+                                    <div class="w-6 h-6 rounded-full border border-slate-300 flex items-center justify-center">
+                                        <span class="text-sm font-bold text-slate-700">D</span>
+                                    </div>
+                                    <span>Persatuan Indonesia</span>
                                 </div>
                             </div>
+                            <div class="mt-4 p-3 bg-green-50 rounded-lg border border-green-200">
+                                <p class="text-green-800 font-bold"><i class="fa-solid fa-check-circle mr-2"></i>Jawaban: A. Demokrasi dan musyawarah</p>
+                                <p class="text-green-700 text-sm mt-1">Pembahasan: Sila keempat menekankan prinsip demokrasi dengan pengambilan keputusan melalui musyawarah untuk mencapai mufakat.</p>
+                            </div>
+                        </div>
+
+                        <div class="bg-gradient-to-r from-blue-50 to-blue-100 rounded-xl p-5 border border-blue-200">
+                            <h4 class="font-bold text-slate-800 mb-3">Tips Mengerjakan TWK</h4>
+                            <ol class="space-y-2 text-slate-700">
+                                <li class="flex items-start gap-2">
+                                    <span class="font-bold text-blue-600">1.</span>
+                                    <span>Pahami konsep dasar Pancasila, UUD 1945, Bhineka Tunggal Ika, dan NKRI</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="font-bold text-blue-600">2.</span>
+                                    <span>Hafalkan tanggal-tanggal penting dalam sejarah Indonesia</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="font-bold text-blue-600">3.</span>
+                                    <span>Perhatikan konteks soal dan pilih jawaban yang paling sesuai dengan nilai-nilai kebangsaan</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="font-bold text-blue-600">4.</span>
+                                    <span>Jawab semua soal karena tidak ada pengurangan nilai untuk jawaban salah</span>
+                                </li>
+                            </ol>
                         </div>
                     </div>
                 </div>
 
-                <div id="materi-tkp" class="materi-section space-y-8">
-                    <div class="bg-white rounded-3xl p-8 shadow-sm border border-purple-100">
-                        <div class="w-16 h-16 bg-emerald-100 rounded-2xl flex items-center justify-center mb-6 text-emerald-600 text-2xl">
-                            <i class="fa-solid fa-user-shield"></i>
+                <!-- TIU Content (Hidden by default) -->
+                <div id="content-tiu" class="materi-content hidden">
+                    <div class="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-purple-100 card-hover">
+                        <div class="flex items-center gap-3 mb-6">
+                            <div class="w-12 h-12 bg-gradient-to-r from-blue-500 to-blue-600 rounded-xl flex items-center justify-center">
+                                <i class="fa-solid fa-brain text-white text-xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-slate-800 text-2xl">Tes Intelegensia Umum (TIU)</h3>
+                                <p class="text-sm text-slate-600">Materi lengkap tentang kemampuan verbal, numerik, figural, analitis, logika, dan berpikir kritis</p>
+                            </div>
                         </div>
-                        <h2 class="text-3xl font-black text-slate-800 mb-4">Tes Karakteristik Pribadi (TKP)</h2>
-                        <p class="text-slate-600 mb-6 font-bold text-lg">TKP adalah kunci kelulusan. Tidak ada jawaban salah, tapi ada skala poin (1-5).</p>
+
+                        <div class="highlight-box highlight-tiu">
+                            <h4 class="font-bold text-slate-800 text-lg mb-2"><i class="fa-solid fa-circle-info mr-2 text-blue-600"></i>Informasi Penting TIU</h4>
+                            <p class="text-slate-700 mb-2">TIU mengukur kemampuan verbal, numerik, figural, analitis, logika, dan berpikir kritis yang diperlukan untuk menyelesaikan masalah.</p>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+                                <div class="bg-white/50 rounded-lg p-3 text-center">
+                                    <div class="text-lg font-black text-blue-600">30 Soal</div>
+                                    <div class="text-xs text-slate-500">Jumlah Soal TIU</div>
+                                </div>
+                                <div class="bg-white/50 rounded-lg p-3 text-center">
+                                    <div class="text-lg font-black text-blue-600">Nilai Minimum</div>
+                                    <div class="text-xs text-slate-500">80 dari 150</div>
+                                </div>
+                                <div class="bg-white/50 rounded-lg p-3 text-center">
+                                    <div class="text-lg font-black text-blue-600">Waktu</div>
+                                    <div class="text-xs text-slate-500">35 menit</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h3 class="text-xl font-bold text-slate-800 mt-8 mb-4">Jenis Soal TIU</h3>
+
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                            <div class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-5 border border-blue-200">
+                                <h4 class="font-bold text-slate-800 mb-3 flex items-center gap-2">
+                                    <i class="fa-solid fa-comment-dots text-blue-600"></i> Kemampuan Verbal
+                                </h4>
+                                <ul class="space-y-2 text-slate-700">
+                                    <li class="flex items-start gap-2">
+                                        <i class="fa-solid fa-check mt-1 text-xs text-blue-500"></i>
+                                        <span>Sinonim & Antonim</span>
+                                    </li>
+                                    <li class="flex items-start gap-2">
+                                        <i class="fa-solid fa-check mt-1 text-xs text-blue-500"></i>
+                                        <span>Analogi Verbal</span>
+                                    </li>
+                                    <li class="flex items-start gap-2">
+                                        <i class="fa-solid fa-check mt-1 text-xs text-blue-500"></i>
+                                        <span>Padanan Kata</span>
+                                    </li>
+                                    <li class="flex items-start gap-2">
+                                        <i class="fa-solid fa-check mt-1 text-xs text-blue-500"></i>
+                                        <span>Pemahaman Wacana</span>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-5 border border-blue-200">
+                                <h4 class="font-bold text-slate-800 mb-3 flex items-center gap-2">
+                                    <i class="fa-solid fa-calculator text-blue-600"></i> Kemampuan Numerik
+                                </h4>
+                                <ul class="space-y-2 text-slate-700">
+                                    <li class="flex items-start gap-2">
+                                        <i class="fa-solid fa-check mt-1 text-xs text-blue-500"></i>
+                                        <span>Aritmatika Dasar</span>
+                                    </li>
+                                    <li class="flex items-start gap-2">
+                                        <i class="fa-solid fa-check mt-1 text-xs text-blue-500"></i>
+                                        <span>Deret Angka & Huruf</span>
+                                    </li>
+                                    <li class="flex items-start gap-2">
+                                        <i class="fa-solid fa-check mt-1 text-xs text-blue-500"></i>
+                                        <span>Perbandingan Kuantitatif</span>
+                                    </li>
+                                    <li class="flex items-start gap-2">
+                                        <i class="fa-solid fa-check mt-1 text-xs text-blue-500"></i>
+                                        <span>Soal Cerita</span>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-5 border border-blue-200">
+                                <h4 class="font-bold text-slate-800 mb-3 flex items-center gap-2">
+                                    <i class="fa-solid fa-shapes text-blue-600"></i> Kemampuan Figural
+                                </h4>
+                                <ul class="space-y-2 text-slate-700">
+                                    <li class="flex items-start gap-2">
+                                        <i class="fa-solid fa-check mt-1 text-xs text-blue-500"></i>
+                                        <span>Analog Gambar</span>
+                                    </li>
+                                    <li class="flex items-start gap-2">
+                                        <i class="fa-solid fa-check mt-1 text-xs text-blue-500"></i>
+                                        <span>Seri Gambar</span>
+                                    </li>
+                                    <li class="flex items-start gap-2">
+                                        <i class="fa-solid fa-check mt-1 text-xs text-blue-500"></i>
+                                        <span>Pengelompokan Gambar</span>
+                                    </li>
+                                    <li class="flex items-start gap-2">
+                                        <i class="fa-solid fa-check mt-1 text-xs text-blue-500"></i>
+                                        <span>Bayangan Gambar</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <h3 class="text-xl font-bold text-slate-800 mt-8 mb-4">Strategi Penyelesaian Soal Numerik</h3>
+                        
+                        <table class="materi-table mb-8">
+                            <thead>
+                                <tr>
+                                    <th>Jenis Soal</th>
+                                    <th>Strategi Penyelesaian</th>
+                                    <th>Contoh Singkat</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Deret Angka</strong></td>
+                                    <td>Cari pola: penjumlahan, pengurangan, perkalian, pembagian, atau kombinasi</td>
+                                    <td>2, 4, 6, 8, ... (pola +2)</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Soal Cerita</strong></td>
+                                    <td>Identifikasi informasi penting, buat persamaan matematika sederhana</td>
+                                    <td>Jika A = 2B dan B = 10, maka A = 20</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Perbandingan</strong></td>
+                                    <td>Gunakan perbandingan senilai atau berbalik nilai, buat proporsi</td>
+                                    <td>5 pekerja = 10 hari, 10 pekerja = ? hari</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Persentase</strong></td>
+                                    <td>Ingat rumus dasar: % = (bagian/total) × 100%</td>
+                                    <td>25 dari 100 = 25%</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <h3 class="text-xl font-bold text-slate-800 mt-8 mb-4">Contoh Soal TIU</h3>
                         
                         <div class="space-y-6">
-                            <div class="flex gap-4">
-                                <div class="flex-none w-8 h-8 bg-emerald-500 text-white rounded-full flex items-center justify-center font-bold">1</div>
-                                <div>
-                                    <h4 class="font-bold text-slate-800">Pelayanan Publik</h4>
-                                    <p class="text-sm text-slate-600">Keyword: Ramah, tuntas, tanpa pamrih. Pilih jawaban yang mengutamakan kepentingan pelanggan/masyarakat di atas kepentingan pribadi.</p>
+                            <div class="bg-gradient-to-r from-blue-50 to-blue-100 rounded-xl p-5 border border-blue-200">
+                                <h4 class="font-bold text-slate-800 mb-3">Contoh 1: Analogi Verbal</h4>
+                                <p class="text-slate-700 mb-3">PENA : TULIS = KUAS : ...</p>
+                                <div class="space-y-2">
+                                    <div class="flex items-center gap-3 p-3 bg-white rounded-lg">
+                                        <div class="w-6 h-6 rounded-full border border-blue-300 flex items-center justify-center">
+                                            <span class="text-sm font-bold text-blue-700">A</span>
+                                        </div>
+                                        <span>Coret</span>
+                                    </div>
+                                    <div class="flex items-center gap-3 p-3 bg-white rounded-lg">
+                                        <div class="w-6 h-6 rounded-full border border-blue-300 flex items-center justify-center">
+                                            <span class="text-sm font-bold text-blue-700">B</span>
+                                        </div>
+                                        <span>Lukis</span>
+                                    </div>
+                                    <div class="flex items-center gap-3 p-3 bg-white rounded-lg">
+                                        <div class="w-6 h-6 rounded-full border border-slate-300 flex items-center justify-center">
+                                            <span class="text-sm font-bold text-slate-700">C</span>
+                                        </div>
+                                        <span>Cat</span>
+                                    </div>
+                                    <div class="flex items-center gap-3 p-3 bg-white rounded-lg">
+                                        <div class="w-6 h-6 rounded-full border border-slate-300 flex items-center justify-center">
+                                            <span class="text-sm font-bold text-slate-700">D</span>
+                                        </div>
+                                        <span>Gambar</span>
+                                    </div>
+                                </div>
+                                <div class="mt-4 p-3 bg-green-50 rounded-lg border border-green-200">
+                                    <p class="text-green-800 font-bold"><i class="fa-solid fa-check-circle mr-2"></i>Jawaban: B. Lukis</p>
+                                    <p class="text-green-700 text-sm mt-1">Pembahasan: Pena digunakan untuk menulis, sama seperti kuas digunakan untuk melukis. Hubungannya adalah alat dan fungsinya.</p>
                                 </div>
                             </div>
-                            <div class="flex gap-4">
-                                <div class="flex-none w-8 h-8 bg-emerald-500 text-white rounded-full flex items-center justify-center font-bold">2</div>
-                                <div>
-                                    <h4 class="font-bold text-slate-800">Teknologi Informasi (TIK)</h4>
-                                    <p class="text-sm text-slate-600">Keyword: Efisiensi, adaptasi, modern. Pilih jawaban yang menggunakan teknologi untuk mempercepat pekerjaan.</p>
+
+                            <div class="bg-gradient-to-r from-blue-50 to-blue-100 rounded-xl p-5 border border-blue-200">
+                                <h4 class="font-bold text-slate-800 mb-3">Contoh 2: Deret Angka</h4>
+                                <p class="text-slate-700 mb-3">2, 4, 8, 16, 32, ...</p>
+                                <div class="space-y-2">
+                                    <div class="flex items-center gap-3 p-3 bg-white rounded-lg">
+                                        <div class="w-6 h-6 rounded-full border border-slate-300 flex items-center justify-center">
+                                            <span class="text-sm font-bold text-slate-700">A</span>
+                                        </div>
+                                        <span>48</span>
+                                    </div>
+                                    <div class="flex items-center gap-3 p-3 bg-white rounded-lg">
+                                        <div class="w-6 h-6 rounded-full border border-slate-300 flex items-center justify-center">
+                                            <span class="text-sm font-bold text-slate-700">B</span>
+                                        </div>
+                                        <span>56</span>
+                                    </div>
+                                    <div class="flex items-center gap-3 p-3 bg-white rounded-lg">
+                                        <div class="w-6 h-6 rounded-full border border-blue-300 flex items-center justify-center">
+                                            <span class="text-sm font-bold text-blue-700">C</span>
+                                        </div>
+                                        <span>64</span>
+                                    </div>
+                                    <div class="flex items-center gap-3 p-3 bg-white rounded-lg">
+                                        <div class="w-6 h-6 rounded-full border border-slate-300 flex items-center justify-center">
+                                            <span class="text-sm font-bold text-slate-700">D</span>
+                                        </div>
+                                        <span>72</span>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="flex gap-4">
-                                <div class="flex-none w-8 h-8 bg-emerald-500 text-white rounded-full flex items-center justify-center font-bold">3</div>
-                                <div>
-                                    <h4 class="font-bold text-slate-800">Anti Radikalisme</h4>
-                                    <p class="text-sm text-slate-600">Keyword: Melaporkan, edukasi, toleransi. Pilih jawaban yang paling tegas dalam menolak paham radikal namun tetap sesuai prosedur.</p>
+                                <div class="mt-4 p-3 bg-green-50 rounded-lg border border-green-200">
+                                    <p class="text-green-800 font-bold"><i class="fa-solid fa-check-circle mr-2"></i>Jawaban: C. 64</p>
+                                    <p class="text-green-700 text-sm mt-1">Pembahasan: Pola deret adalah perkalian 2 (2×2=4, 4×2=8, 8×2=16, 16×2=32, 32×2=64).</p>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="mt-8 p-6 bg-yellow-50 rounded-2xl border-2 border-dashed border-yellow-200">
-                            <h4 class="font-black text-yellow-800 mb-2"><i class="fa-solid fa-lightbulb mr-2"></i>GOLDEN RULES TKP:</h4>
-                            <p class="text-sm text-yellow-900 leading-relaxed">
-                                Jadilah "Malaikat di Kantor". Jadilah orang yang sangat sabar, sangat jujur, sangat profesional, dan selalu memiliki inisiatif tinggi. Jangan pilih jawaban yang bersifat "mengadu" atau "pasif".
-                            </p>
+                        <div class="bg-gradient-to-r from-purple-50 to-purple-100 rounded-xl p-5 border border-purple-200 mt-8">
+                            <h4 class="font-bold text-slate-800 mb-3">Tips Mengerjakan TIU</h4>
+                            <ol class="space-y-2 text-slate-700">
+                                <li class="flex items-start gap-2">
+                                    <span class="font-bold text-purple-600">1.</span>
+                                    <span>Kerjakan soal yang paling mudah terlebih dahulu untuk menghemat waktu</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="font-bold text-purple-600">2.</span>
+                                    <span>Untuk soal cerita, baca dengan teliti dan identifikasi apa yang ditanyakan</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="font-bold text-purple-600">3.</span>
+                                    <span>Latihan rutin mengerjakan berbagai jenis soal TIU untuk meningkatkan kecepatan dan akurasi</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="font-bold text-purple-600">4.</span>
+                                    <span>Gunakan teknik eliminasi untuk menjawab soal yang sulit</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="font-bold text-purple-600">5.</span>
+                                    <span>Perhatikan waktu, alokasikan sekitar 1 menit per soal TIU</span>
+                                </li>
+                            </ol>
                         </div>
                     </div>
                 </div>
 
-                <div class="mt-8 flex justify-between items-center bg-white p-6 rounded-3xl border border-purple-100">
-                    <button onclick="goBackToDashboard()" class="text-sm font-bold text-purple-600 flex items-center gap-2 hover:underline">
-                        <i class="fa-solid fa-arrow-left"></i> Kembali ke Dashboard
-                    </button>
-                    <div class="flex gap-3">
-                        <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="w-12 h-12 rounded-2xl bg-slate-100 text-slate-600 flex items-center justify-center hover:bg-slate-200">
-                            <i class="fa-solid fa-chevron-up"></i>
-                        </button>
+                <!-- TKP Content (Hidden by default) -->
+                <div id="content-tkp" class="materi-content hidden">
+                    <div class="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-purple-100 card-hover">
+                        <div class="flex items-center gap-3 mb-6">
+                            <div class="w-12 h-12 bg-gradient-to-r from-green-500 to-emerald-600 rounded-xl flex items-center justify-center">
+                                <i class="fa-solid fa-user-check text-white text-xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-slate-800 text-2xl">Tes Karakteristik Pribadi (TKP)</h3>
+                                <p class="text-sm text-slate-600">Materi lengkap tentang integritas, profesionalisme, semangat berprestasi, pelayanan publik, dan adaptasi</p>
+                            </div>
+                        </div>
+
+                        <div class="highlight-box highlight-tkp">
+                            <h4 class="font-bold text-slate-800 text-lg mb-2"><i class="fa-solid fa-circle-info mr-2 text-green-600"></i>Informasi Penting TKP</h4>
+                            <p class="text-slate-700 mb-2">TKP mengukur karakteristik dan kepribadian peserta yang mencakup integritas, semangat berprestasi, orientasi pada pelayanan, dan kemampuan beradaptasi.</p>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+                                <div class="bg-white/50 rounded-lg p-3 text-center">
+                                    <div class="text-lg font-black text-green-600">45 Soal</div>
+                                    <div class="text-xs text-slate-500">Jumlah Soal TKP</div>
+                                </div>
+                                <div class="bg-white/50 rounded-lg p-3 text-center">
+                                    <div class="text-lg font-black text-green-600">Skor Maksimal</div>
+                                    <div class="text-xs text-slate-500">5 poin per soal</div>
+                                </div>
+                                <div class="bg-white/50 rounded-lg p-3 text-center">
+                                    <div class="text-lg font-black text-green-600">Tidak Ada</div>
+                                    <div class="text-xs text-slate-500">Nilai Minimum</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h3 class="text-xl font-bold text-slate-800 mt-8 mb-4">Aspek-Aspek Penilaian TKP</h3>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                            <div class="bg-gradient-to-br from-green-50 to-emerald-100 rounded-xl p-5 border border-green-200">
+                                <h4 class="font-bold text-slate-800 mb-3 flex items-center gap-2">
+                                    <i class="fa-solid fa-shield-alt text-green-600"></i> Integritas
+                                </h4>
+                                <p class="text-slate-700 mb-3">Kemampuan untuk menunjukkan kejujuran, konsistensi, dan komitmen terhadap nilai-nilai moral dan etika.</p>
+                                <ul class="space-y-1 text-sm text-slate-600">
+                                    <li class="flex items-start gap-2">
+                                        <i class="fa-solid fa-check mt-1 text-xs text-green-500"></i>
+                                        <span>Kejujuran dalam bertindak</span>
+                                    </li>
+                                    <li class="flex items-start gap-2">
+                                        <i class="fa-solid fa-check mt-1 text-xs text-green-500"></i>
+                                        <span>Konsistensi antara perkataan dan perbuatan</span>
+                                    </li>
+                                    <li class="flex items-start gap-2">
+                                        <i class="fa-solid fa-check mt-1 text-xs text-green-500"></i>
+                                        <span>Tanggung jawab terhadap tugas</span>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="bg-gradient-to-br from-green-50 to-emerald-100 rounded-xl p-5 border border-green-200">
+                                <h4 class="font-bold text-slate-800 mb-3 flex items-center gap-2">
+                                    <i class="fa-solid fa-trophy text-green-600"></i> Semangat Berprestasi
+                                </h4>
+                                <p class="text-slate-700 mb-3">Dorongan untuk bekerja dengan baik, mencapai target, dan terus meningkatkan kinerja.</p>
+                                <ul class="space-y-1 text-sm text-slate-600">
+                                    <li class="flex items-start gap-2">
+                                        <i class="fa-solid fa-check mt-1 text-xs text-green-500"></i>
+                                        <span>Inisiatif dalam bekerja</span>
+                                    </li>
+                                    <li class="flex items-start gap-2">
+                                        <i class="fa-solid fa-check mt-1 text-xs text-green-500"></i>
+                                        <span>Kreativitas dalam menyelesaikan masalah</span>
+                                    </li>
+                                    <li class="flex items-start gap-2">
+                                        <i class="fa-solid fa-check mt-1 text-xs text-green-500"></i>
+                                        <span>Komitmen terhadap hasil kerja</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                            <div class="bg-gradient-to-br from-green-50 to-emerald-100 rounded-xl p-5 border border-green-200">
+                                <h4 class="font-bold text-slate-800 mb-3 flex items-center gap-2">
+                                    <i class="fa-solid fa-hands-helping text-green-600"></i> Orientasi Pelayanan
+                                </h4>
+                                <p class="text-slate-700 mb-3">Kemampuan untuk memberikan pelayanan terbaik kepada masyarakat dan rekan kerja.</p>
+                                <ul class="space-y-1 text-sm text-slate-600">
+                                    <li class="flex items-start gap-2">
+                                        <i class="fa-solid fa-check mt-1 text-xs text-green-500"></i>
+                                        <span>Respek terhadap kebutuhan orang lain</span>
+                                    </li>
+                                    <li class="flex items-start gap-2">
+                                        <i class="fa-solid fa-check mt-1 text-xs text-green-500"></i>
+                                        <span>Kesabaran dalam menghadapi keluhan</span>
+                                    </li>
+                                    <li class="flex items-start gap-2">
+                                        <i class="fa-solid fa-check mt-1 text-xs text-green-500"></i>
+                                        <span>Kemampuan berkomunikasi dengan baik</span>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="bg-gradient-to-br from-green-50 to-emerald-100 rounded-xl p-5 border border-green-200">
+                                <h4 class="font-bold text-slate-800 mb-3 flex items-center gap-2">
+                                    <i class="fa-solid fa-random text-green-600"></i> Kemampuan Beradaptasi
+                                </h4>
+                                <p class="text-slate-700 mb-3">Kemampuan untuk menyesuaikan diri dengan perubahan lingkungan kerja dan situasi baru.</p>
+                                <ul class="space-y-1 text-sm text-slate-600">
+                                    <li class="flex items-start gap-2">
+                                        <i class="fa-solid fa-check mt-1 text-xs text-green-500"></i>
+                                        <span>Fleksibilitas dalam bekerja</span>
+                                    </li>
+                                    <li class="flex items-start gap-2">
+                                        <i class="fa-solid fa-check mt-1 text-xs text-green-500"></i>
+                                        <span>Resiliensi dalam menghadapi tekanan</span>
+                                    </li>
+                                    <li class="flex items-start gap-2">
+                                        <i class="fa-solid fa-check mt-1 text-xs text-green-500"></i>
+                                        <span>Keterbukaan terhadap perubahan</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <h3 class="text-xl font-bold text-slate-800 mt-8 mb-4">Skala Penilaian TKP</h3>
+                        
+                        <table class="materi-table mb-8">
+                            <thead>
+                                <tr>
+                                    <th>Skor</th>
+                                    <th>Interpretasi</th>
+                                    <th>Kategori Jawaban</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>5</strong></td>
+                                    <td>Sangat Baik</td>
+                                    <td>Jawaban yang menunjukkan sikap sangat positif dan ideal</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>4</strong></td>
+                                    <td>Baik</td>
+                                    <td>Jawaban yang menunjukkan sikap positif</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>3</strong></td>
+                                    <td>Cukup Baik</td>
+                                    <td>Jawaban yang menunjukkan sikap cukup positif</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>2</strong></td>
+                                    <td>Kurang Baik</td>
+                                    <td>Jawaban yang menunjukkan sikap kurang positif</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>1</strong></td>
+                                    <td>Tidak Baik</td>
+                                    <td>Jawaban yang menunjukkan sikap negatif</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <h3 class="text-xl font-bold text-slate-800 mt-8 mb-4">Contoh Soal TKP</h3>
+                        
+                        <div class="space-y-6">
+                            <div class="bg-gradient-to-r from-green-50 to-emerald-100 rounded-xl p-5 border border-green-200">
+                                <h4 class="font-bold text-slate-800 mb-3">Contoh 1: Integritas</h4>
+                                <p class="text-slate-700 mb-3">Ketika Anda melihat rekan kerja mengambil pulpen milik kantor untuk dibawa pulang, apa yang akan Anda lakukan?</p>
+                                <div class="space-y-2">
+                                    <div class="flex items-center gap-3 p-3 bg-white rounded-lg">
+                                        <div class="w-6 h-6 rounded-full border border-green-300 flex items-center justify-center">
+                                            <span class="text-sm font-bold text-green-700">A</span>
+                                        </div>
+                                        <span>Langsung menegur dengan tegas di tempat</span>
+                                    </div>
+                                    <div class="flex items-center gap-3 p-3 bg-white rounded-lg">
+                                        <div class="w-6 h-6 rounded-full border border-green-300 flex items-center justify-center">
+                                            <span class="text-sm font-bold text-green-700">B</span>
+                                        </div>
+                                        <span>Mengingatkan dengan sopan bahwa itu milik kantor</span>
+                                    </div>
+                                    <div class="flex items-center gap-3 p-3 bg-white rounded-lg">
+                                        <div class="w-6 h-6 rounded-full border border-slate-300 flex items-center justify-center">
+                                            <span class="text-sm font-bold text-slate-700">C</span>
+                                        </div>
+                                        <span>Tidak melakukan apa-apa, karena hanya pulpen kecil</span>
+                                    </div>
+                                    <div class="flex items-center gap-3 p-3 bg-white rounded-lg">
+                                        <div class="w-6 h-6 rounded-full border border-slate-300 flex items-center justify-center">
+                                            <span class="text-sm font-bold text-slate-700">D</span>
+                                        </div>
+                                        <span>Ikut mengambil barang kantor yang lain</span>
+                                    </div>
+                                </div>
+                                <div class="mt-4 p-3 bg-green-50 rounded-lg border border-green-200">
+                                    <p class="text-green-800 font-bold"><i class="fa-solid fa-check-circle mr-2"></i>Jawaban: B. Mengingatkan dengan sopan bahwa itu milik kantor</p>
+                                    <p class="text-green-700 text-sm mt-1">Pembahasan: Jawaban ini menunjukkan integritas dengan menjaga aset kantor, tetapi juga memperhatikan hubungan interpersonal dengan menegur secara sopan.</p>
+                                </div>
+                            </div>
+
+                            <div class="bg-gradient-to-r from-green-50 to-emerald-100 rounded-xl p-5 border border-green-200">
+                                <h4 class="font-bold text-slate-800 mb-3">Contoh 2: Orientasi Pelayanan</h4>
+                                <p class="text-slate-700 mb-3">Seorang warga datang dengan marah-marah ke kantor Anda karena merasa pelayanannya lambat. Apa yang akan Anda lakukan?</p>
+                                <div class="space-y-2">
+                                    <div class="flex items-center gap-3 p-3 bg-white rounded-lg">
+                                        <div class="w-6 h-6 rounded-full border border-slate-300 flex items-center justify-center">
+                                            <span class="text-sm font-bold text-slate-700">A</span>
+                                        </div>
+                                        <span>Membalas dengan marah juga</span>
+                                    </div>
+                                    <div class="flex items-center gap-3 p-3 bg-white rounded-lg">
+                                        <div class="w-6 h-6 rounded-full border border-slate-300 flex items-center justify-center">
+                                            <span class="text-sm font-bold text-slate-700">B</span>
+                                        </div>
+                                        <span>Mengabaikannya dan melanjutkan pekerjaan</span>
+                                    </div>
+                                    <div class="flex items-center gap-3 p-3 bg-white rounded-lg">
+                                        <div class="w-6 h-6 rounded-full border border-green-300 flex items-center justify-center">
+                                            <span class="text-sm font-bold text-green-700">C</span>
+                                        </div>
+                                        <span>Mendengarkan dengan sabar lalu menjelaskan prosedur dengan baik</span>
+                                    </div>
+                                    <div class="flex items-center gap-3 p-3 bg-white rounded-lg">
+                                        <div class="w-6 h-6 rounded-full border border-slate-300 flex items-center justify-center">
+                                            <span class="text-sm font-bold text-slate-700">D</span>
+                                        </div>
+                                        <span>Memanggil security untuk mengusirnya</span>
+                                    </div>
+                                </div>
+                                <div class="mt-4 p-3 bg-green-50 rounded-lg border border-green-200">
+                                    <p class="text-green-800 font-bold"><i class="fa-solid fa-check-circle mr-2"></i>Jawaban: C. Mendengarkan dengan sabar lalu menjelaskan prosedur dengan baik</p>
+                                    <p class="text-green-700 text-sm mt-1">Pembahasan: Jawaban ini menunjukkan orientasi pelayanan yang baik dengan tetap sabar menghadapi keluhan warga dan berusaha memberikan penjelasan yang baik.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-gradient-to-r from-purple-50 to-purple-100 rounded-xl p-5 border border-purple-200 mt-8">
+                            <h4 class="font-bold text-slate-800 mb-3">Tips Mengerjakan TKP</h4>
+                            <ol class="space-y-2 text-slate-700">
+                                <li class="flex items-start gap-2">
+                                    <span class="font-bold text-purple-600">1.</span>
+                                    <span>Pilih jawaban yang menunjukkan sikap paling positif dan konstruktif</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="font-bold text-purple-600">2.</span>
+                                    <span>Hindari jawaban ekstrem (terlalu keras atau terlalu lemah)</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="font-bold text-purple-600">3.</span>
+                                    <span>Bayangkan diri Anda sebagai PNS yang ideal ketika memilih jawaban</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="font-bold text-purple-600">4.</span>
+                                    <span>Perhatikan nilai-nilai yang ingin diukur: integritas, pelayanan, kerjasama, dll</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="font-bold text-purple-600">5.</span>
+                                    <span>Jawab semua soal karena tidak ada pengurangan nilai</span>
+                                </li>
+                            </ol>
+                        </div>
                     </div>
                 </div>
 
-            </section>
+                <!-- Strategi Content (Hidden by default) -->
+                <div id="content-strategi" class="materi-content hidden">
+                    <div class="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-purple-100 card-hover">
+                        <div class="flex items-center gap-3 mb-6">
+                            <div class="w-12 h-12 bg-gradient-to-r from-yellow-500 to-amber-600 rounded-xl flex items-center justify-center">
+                                <i class="fa-solid fa-lightbulb text-white text-xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-slate-800 text-2xl">Strategi & Tips SKD</h3>
+                                <p class="text-sm text-slate-600">Panduan lengkap strategi mengerjakan SKD, manajemen waktu, dan tips sukses CPNS</p>
+                            </div>
+                        </div>
+
+                        <div class="highlight-box" style="border-left-color: #f59e0b; background: linear-gradient(to right, #fef3c7, #fde68a);">
+                            <h4 class="font-bold text-slate-800 text-lg mb-2"><i class="fa-solid fa-star mr-2 text-yellow-600"></i>Strategi Utama SKD</h4>
+                            <p class="text-slate-700 mb-2">SKD terdiri dari 110 soal dengan waktu 100 menit. Rata-rata Anda memiliki sekitar 54 detik per soal. Strategi manajemen waktu sangat krusial.</p>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+                                <div class="bg-white/50 rounded-lg p-3 text-center">
+                                    <div class="text-lg font-black text-yellow-600">100 Menit</div>
+                                    <div class="text-xs text-slate-500">Total Waktu SKD</div>
+                                </div>
+                                <div class="bg-white/50 rounded-lg p-3 text-center">
+                                    <div class="text-lg font-black text-yellow-600">110 Soal</div>
+                                    <div class="text-xs text-slate-500">Total Soal</div>
+                                </div>
+                                <div class="bg-white/50 rounded-lg p-3 text-center">
+                                    <div class="text-lg font-black text-yellow-600">54 Detik</div>
+                                    <div class="text-xs text-slate-500">Rata-rata per Soal</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h3 class="text-xl font-bold text-slate-800 mt-8 mb-4">Strategi Per Bagian SKD</h3>
+
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                            <div class="bg-gradient-to-br from-purple-50 to-violet-50 rounded-xl p-5 border border-purple-200">
+                                <h4 class="font-bold text-slate-800 mb-3 flex items-center gap-2">
+                                    <i class="fa-solid fa-flag text-purple-600"></i> TWK
+                                    <span class="text-xs bg-purple-100 text-purple-700 px-2 py-1 rounded-full ml-auto">35 soal</span>
+                                </h4>
+                                <ul class="space-y-2 text-slate-700">
+                                    <li class="flex items-start gap-2">
+                                        <i class="fa-solid fa-clock mt-1 text-xs text-purple-500"></i>
+                                        <span>Alokasi waktu: 30 menit</span>
+                                    </li>
+                                    <li class="flex items-start gap-2">
+                                        <i class="fa-solid fa-bolt mt-1 text-xs text-purple-500"></i>
+                                        <span>Kerjakan yang mudah dulu</span>
+                                    </li>
+                                    <li class="flex items-start gap-2">
+                                        <i class="fa-solid fa-pencil-alt mt-1 text-xs text-purple-500"></i>
+                                        <span>Jawab semua, tidak ada pengurangan nilai</span>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="bg-gradient-to-br from-blue-50 to-blue-50 rounded-xl p-5 border border-blue-200">
+                                <h4 class="font-bold text-slate-800 mb-3 flex items-center gap-2">
+                                    <i class="fa-solid fa-brain text-blue-600"></i> TIU
+                                    <span class="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded-full ml-auto">30 soal</span>
+                                </h4>
+                                <ul class="space-y-2 text-slate-700">
+                                    <li class="flex items-start gap-2">
+                                        <i class="fa-solid fa-clock mt-1 text-xs text-blue-500"></i>
+                                        <span>Alokasi waktu: 35 menit</span>
+                                    </li>
+                                    <li class="flex items-start gap-2">
+                                        <i class="fa-solid fa-bolt mt-1 text-xs text-blue-500"></i>
+                                        <span>Fokus pada soal numerik dan logika</span>
+                                    </li>
+                                    <li class="flex items-start gap-2">
+                                        <i class="fa-solid fa-pencil-alt mt-1 text-xs text-blue-500"></i>
+                                        <span>Gunakan teknik eliminasi</span>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl p-5 border border-green-200">
+                                <h4 class="font-bold text-slate-800 mb-3 flex items-center gap-2">
+                                    <i class="fa-solid fa-user-check text-green-600"></i> TKP
+                                    <span class="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full ml-auto">45 soal</span>
+                                </h4>
+                                <ul class="space-y-2 text-slate-700">
+                                    <li class="flex items-start gap-2">
+                                        <i class="fa-solid fa-clock mt-1 text-xs text-green-500"></i>
+                                        <span>Alokasi waktu: 35 menit</span>
+                                    </li>
+                                    <li class="flex items-start gap-2">
+                                        <i class="fa-solid fa-bolt mt-1 text-xs text-green-500"></i>
+                                        <span>Pilih jawaban yang paling positif</span>
+                                    </li>
+                                    <li class="flex items-start gap-2">
+                                        <i class="fa-solid fa-pencil-alt mt-1 text-xs text-green-500"></i>
+                                        <span>Hindari jawaban ekstrem</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <h3 class="text-xl font-bold text-slate-800 mt-8 mb-4">Manajemen Waktu SKD</h3>
+                        
+                        <table class="materi-table mb-8">
+                            <thead>
+                                <tr>
+                                    <th>Bagian</th>
+                                    <th>Jumlah Soal</th>
+                                    <th>Waktu Ideal</th>
+                                    <th>Strategi Waktu</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>TWK</strong></td>
+                                    <td>35 soal</td>
+                                    <td>30 menit</td>
+                                    <td>≈ 51 detik/soal, kerjakan cepat soal hafalan</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>TIU</strong></td>
+                                    <td>30 soal</td>
+                                    <td>35 menit</td>
+                                    <td>≈ 70 detik/soal, fokus pada soal cerita dan numerik</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>TKP</strong></td>
+                                    <td>45 soal</td>
+                                    <td>35 menit</td>
+                                    <td>≈ 47 detik/soal, baca cepat dan pilih yang paling logis</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Total</strong></td>
+                                    <td>110 soal</td>
+                                    <td>100 menit</td>
+                                    <td>≈ 54 detik/soal, sisakan 5-10 menit untuk review</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <h3 class="text-xl font-bold text-slate-800 mt-8 mb-4">Tips Sukses SKD</h3>
+                        
+                        <div class="space-y-4 mb-8">
+                            <div class="bg-gradient-to-r from-yellow-50 to-amber-50 rounded-xl p-5 border border-yellow-200">
+                                <h4 class="font-bold text-slate-800 mb-2 flex items-center gap-2">
+                                    <i class="fa-solid fa-dumbbell text-yellow-600"></i> Persiapan Sebelum Ujian
+                                </h4>
+                                <ul class="space-y-2 text-slate-700">
+                                    <li class="flex items-start gap-2">
+                                        <i class="fa-solid fa-check mt-1 text-xs text-yellow-500"></i>
+                                        <span>Latihan rutin minimal 1 paket tryout per hari selama 2 bulan sebelum ujian</span>
+                                    </li>
+                                    <li class="flex items-start gap-2">
+                                        <i class="fa-solid fa-check mt-1 text-xs text-yellow-500"></i>
+                                        <span>Fokus pada materi yang paling sulit menurut Anda</span>
+                                    </li>
+                                    <li class="flex items-start gap-2">
+                                        <i class="fa-solid fa-check mt-1 text-xs text-yellow-500"></i>
+                                        <span>Simulasi waktu sebenarnya saat latihan tryout</span>
+                                    </li>
+                                    <li class="flex items-start gap-2">
+                                        <i class="fa-solid fa-check mt-1 text-xs text-yellow-500"></i>
+                                        <span>Istirahat yang cukup dan pola makan sehat sebelum ujian</span>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl p-5 border border-green-200">
+                                <h4 class="font-bold text-slate-800 mb-2 flex items-center gap-2">
+                                    <i class="fa-solid fa-user-clock text-green-600"></i> Saat Mengerjakan Ujian
+                                </h4>
+                                <ul class="space-y-2 text-slate-700">
+                                    <li class="flex items-start gap-2">
+                                        <i class="fa-solid fa-check mt-1 text-xs text-green-500"></i>
+                                        <span>Baca soal dengan teliti, hindari kesalahan karena salah baca</span>
+                                    </li>
+                                    <li class="flex items-start gap-2">
+                                        <i class="fa-solid fa-check mt-1 text-xs text-green-500"></i>
+                                        <span>Kerjakan soal yang paling mudah terlebih dahulu</span>
+                                    </li>
+                                    <li class="flex items-start gap-2">
+                                        <i class="fa-solid fa-check mt-1 text-xs text-green-500"></i>
+                                        <span>Untuk soal yang sulit, tandai dan lanjutkan, kembali nanti jika ada waktu</span>
+                                    </li>
+                                    <li class="flex items-start gap-2">
+                                        <i class="fa-solid fa-check mt-1 text-xs text-green-500"></i>
+                                        <span>Jawab semua soal, tidak ada pengurangan nilai untuk jawaban salah</span>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="bg-gradient-to-r from-blue-50 to-blue-50 rounded-xl p-5 border border-blue-200">
+                                <h4 class="font-bold text-slate-800 mb-2 flex items-center gap-2">
+                                    <i class="fa-solid fa-brain text-blue-600"></i> Teknik Menjawab
+                                </h4>
+                                <ul class="space-y-2 text-slate-700">
+                                    <li class="flex items-start gap-2">
+                                        <i class="fa-solid fa-check mt-1 text-xs text-blue-500"></i>
+                                        <span>Gunakan teknik eliminasi untuk mempersempit pilihan jawaban</span>
+                                    </li>
+                                    <li class="flex items-start gap-2">
+                                        <i class="fa-solid fa-check mt-1 text-xs text-blue-500"></i>
+                                        <span>Untuk TKP, pilih jawaban yang menunjukkan sikap paling positif dan konstruktif</span>
+                                    </li>
+                                    <li class="flex items-start gap-2">
+                                        <i class="fa-solid fa-check mt-1 text-xs text-blue-500"></i>
+                                        <span>Perhatikan kata kunci dalam soal, terutama untuk TWK dan TIU</span>
+                                    </li>
+                                    <li class="flex items-start gap-2">
+                                        <i class="fa-solid fa-check mt-1 text-xs text-blue-500"></i>
+                                        <span>Jika ragu, pilih jawaban yang paling logis dan masuk akal</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <h3 class="text-xl font-bold text-slate-800 mt-8 mb-4">Common Mistakes yang Harus Dihindari</h3>
+                        
+                        <div class="bg-gradient-to-r from-red-50 to-pink-50 rounded-xl p-5 border border-red-200 mb-8">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <h4 class="font-bold text-slate-800 mb-2 flex items-center gap-2">
+                                        <i class="fa-solid fa-times-circle text-red-500"></i> Kesalahan Umum
+                                    </h4>
+                                    <ul class="space-y-2 text-slate-700">
+                                        <li class="flex items-start gap-2">
+                                            <i class="fa-solid fa-times mt-1 text-xs text-red-500"></i>
+                                            <span>Tidak memperhatikan waktu</span>
+                                        </li>
+                                        <li class="flex items-start gap-2">
+                                            <i class="fa-solid fa-times mt-1 text-xs text-red-500"></i>
+                                            <span>Terlalu lama di satu soal yang sulit</span>
+                                        </li>
+                                        <li class="flex items-start gap-2">
+                                            <i class="fa-solid fa-times mt-1 text-xs text-red-500"></i>
+                                            <span>Salah membaca pertanyaan</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-slate-800 mb-2 flex items-center gap-2">
+                                        <i class="fa-solid fa-lightbulb text-green-500"></i> Solusi
+                                    </h4>
+                                    <ul class="space-y-2 text-slate-700">
+                                        <li class="flex items-start gap-2">
+                                            <i class="fa-solid fa-check mt-1 text-xs text-green-500"></i>
+                                            <span>Latihan dengan timer</span>
+                                        </li>
+                                        <li class="flex items-start gap-2">
+                                            <i class="fa-solid fa-check mt-1 text-xs text-green-500"></i>
+                                            <span>Tandai dan lewati soal sulit</span>
+                                        </li>
+                                        <li class="flex items-start gap-2">
+                                            <i class="fa-solid fa-check mt-1 text-xs text-green-500"></i>
+                                            <span>Baca soal 2x sebelum menjawab</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-gradient-to-r from-purple-50 to-violet-50 rounded-xl p-5 border border-purple-200">
+                            <h4 class="font-bold text-slate-800 mb-3">Kesimpulan Strategi SKD</h4>
+                            <p class="text-slate-700 mb-4">Kunci sukses SKD adalah kombinasi dari penguasaan materi, strategi manajemen waktu, dan mental yang siap. Dengan 20 paket tryout yang tersedia di Paket 3 Super Premium, Anda memiliki kesempatan optimal untuk berlatih dan meningkatkan kemampuan.</p>
+                            <div class="flex items-center gap-3 p-4 bg-white/50 rounded-lg">
+                                <div class="w-10 h-10 bg-gradient-premium rounded-lg flex items-center justify-center">
+                                    <i class="fa-solid fa-crown text-white"></i>
+                                </div>
+                                <div>
+                                    <p class="font-bold text-slate-800">Paket 3 Super Premium Advantage</p>
+                                    <p class="text-sm text-slate-600">Akses ke 20 paket tryout lengkap + materi SKD komprehensif + grup VIP + konsultasi mentor</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Navigation -->
+        <div class="bg-white rounded-2xl p-6 shadow-sm border border-purple-100 mt-8">
+            <h4 class="font-bold text-slate-800 mb-4 text-center">Navigasi Cepat Materi</h4>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <button onclick="showTab('twk')" class="p-4 bg-gradient-to-br from-purple-50 to-violet-50 rounded-xl border border-purple-200 hover:border-purple-400 transition-all hover:shadow-md flex flex-col items-center justify-center">
+                    <i class="fa-solid fa-flag text-2xl text-purple-600 mb-2"></i>
+                    <span class="font-bold text-slate-800 text-sm">TWK</span>
+                    <span class="text-xs text-slate-500">35 soal</span>
+                </button>
+                <button onclick="showTab('tiu')" class="p-4 bg-gradient-to-br from-blue-50 to-blue-50 rounded-xl border border-blue-200 hover:border-blue-400 transition-all hover:shadow-md flex flex-col items-center justify-center">
+                    <i class="fa-solid fa-brain text-2xl text-blue-600 mb-2"></i>
+                    <span class="font-bold text-slate-800 text-sm">TIU</span>
+                    <span class="text-xs text-slate-500">30 soal</span>
+                </button>
+                <button onclick="showTab('tkp')" class="p-4 bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl border border-green-200 hover:border-green-400 transition-all hover:shadow-md flex flex-col items-center justify-center">
+                    <i class="fa-solid fa-user-check text-2xl text-green-600 mb-2"></i>
+                    <span class="font-bold text-slate-800 text-sm">TKP</span>
+                    <span class="text-xs text-slate-500">45 soal</span>
+                </button>
+                <a href="#" onclick="goToDashboard()" class="p-4 bg-gradient-to-br from-yellow-50 to-amber-50 rounded-xl border border-yellow-200 hover:border-yellow-400 transition-all hover:shadow-md flex flex-col items-center justify-center">
+                    <i class="fa-solid fa-home text-2xl text-yellow-600 mb-2"></i>
+                    <span class="font-bold text-slate-800 text-sm">Dashboard</span>
+                    <span class="text-xs text-slate-500">Kembali</span>
+                </a>
+            </div>
         </div>
     </main>
 
+    <footer class="mt-12 pt-8 pb-10 border-t border-purple-100 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+                <div class="text-center md:text-left">
+                    <div class="flex items-center justify-center md:justify-start gap-2 mb-3">
+                        <div class="w-8 h-8 bg-gradient-premium rounded-lg flex items-center justify-center">
+                            <i class="fa-solid fa-crown text-white text-sm"></i>
+                        </div>
+                        <h2 class="font-extrabold text-purple-700 text-lg">
+                            KERJA JADI <span class="text-yellow-500">ASN</span>
+                        </h2>
+                    </div>
+                    <p class="text-slate-500 text-sm max-w-md">
+                        Materi SKD lengkap untuk Paket 3 Super Premium. Pelajari TWK, TIU, dan TKP secara komprehensif untuk persiapan maksimal ujian CPNS.
+                    </p>
+                </div>
+
+                <div class="text-center md:text-right">
+                    <div class="flex justify-center md:justify-end gap-4 mb-4">
+                        <a href="#" onclick="printMateri()" class="text-purple-400 hover:text-purple-600" title="Cetak Materi">
+                            <i class="fa-solid fa-print text-lg"></i>
+                        </a>
+                        <a href="https://wa.me/6285696409288" target="_blank" class="text-purple-400 hover:text-green-600" title="WhatsApp Support">
+                            <i class="fab fa-whatsapp text-lg"></i>
+                        </a>
+                    </div>
+                    <p class="text-purple-400 text-xs font-bold uppercase tracking-widest">
+                        &copy; <span id="currentYear">2024</span> Kerja Jadi ASN. Materi SKD Paket 3.
+                    </p>
+                </div>
+            </div>
+
+            <div class="mt-8 pt-6 border-t border-purple-100 text-center">
+                <div class="flex flex-wrap justify-center gap-4 text-xs text-purple-500">
+                    <a href="#" onclick="goToDashboard()" class="hover:text-purple-600">Kembali ke Dashboard</a>
+                    <a href="tipsformasi.html?id=${pinAkses}" class="hover:text-purple-600">Tips Formasi</a>
+                    <a href="tipskerjaskd.html?id=${pinAkses}" class="hover:text-purple-600">Tips SKD</a>
+                    <a href="https://wa.me/6285696409288" target="_blank" class="hover:text-purple-600">Konsultasi</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
     <script>
-        // Data PIN Paket 3 yang valid
-        const validPins = ["VS4NL8", "RT9XM2", "B2MK8P", "7XL1WQ", "5HG2SD", "9ZW4RB", "KP8MX3", "FN5VK2", "8WQ4PZ", "2YM9BX", "7KP1RT", "5HG6SD", "9ZW3RF", "RS4ML9", "VN7VK1", "8WQ3PZ", "4FB1NT"];
+        // ========== 1. GLOBAL VARIABLES ==========
+        let pinAkses = null;
+        const paket3PINs = ["VS4NL8", "RT9XM2", "B2MK8P", "7XL1WQ", "5HG2SD", "9ZW4RB", "KP8MX3", "FN5VK2", "8WQ4PZ", "2YM9BX", "7KP1RT", "5HG6SD", "9ZW3RF", "RS4ML9", "VN7VK1", "8WQ3PZ", "4FB1NT"];
 
-        // Ambil PIN dari URL
-        const urlParams = new URLSearchParams(window.location.search);
-        const pinAkses = urlParams.get('id');
+        // ========== 2. INITIALIZATION ==========
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Materi SKD Paket 3 initializing...');
 
-        // Validasi dan Tampilkan PIN
-        window.onload = function() {
-            if (!pinAkses || !validPins.includes(pinAkses)) {
-                alert('Akses Ditolak: PIN tidak valid untuk Paket 3.');
-                window.location.href = 'login.html';
-                return;
+            // Set current year in footer
+            document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+            // Initialize page
+            initializePage();
+        });
+
+        // ========== 3. PAGE INITIALIZATION ==========
+        function initializePage() {
+            try {
+                // Get PIN from URL
+                const urlParams = new URLSearchParams(window.location.search);
+                pinAkses = urlParams.get('id');
+
+                if (!pinAkses) {
+                    throw new Error('PIN tidak ditemukan. Silakan kembali ke dashboard.');
+                }
+
+                // Validate PIN (alphanumeric, min 4 chars)
+                if (!/^[a-zA-Z0-9]{4,}$/.test(pinAkses)) {
+                    throw new Error('Format PIN tidak valid.');
+                }
+
+                // Check if PIN is in Paket 3 list
+                if (!paket3PINs.includes(pinAkses)) {
+                    console.warn('PIN tidak terdaftar dalam daftar Paket 3, tetapi tetap diizinkan mengakses materi.');
+                }
+
+                // Update PIN display
+                updatePINDisplay();
+
+                // Set active tab (default: TWK)
+                showTab('twk');
+
+                // Update WhatsApp links with PIN
+                updateWhatsAppLinks();
+
+                // Show success notification
+                showNotification('success', 'Materi SKD Dimuat', 'Selamat belajar materi SKD lengkap untuk Paket 3 Super Premium!');
+
+            } catch (error) {
+                console.error('Initialization error:', error);
+                showNotification('error', 'Kesalahan', error.message);
+
+                // Redirect to login after delay
+                setTimeout(() => {
+                    window.location.href = 'login.html';
+                }, 3000);
             }
-            document.getElementById('displayPin').innerText = pinAkses;
-        };
+        }
 
-        // Fungsi Navigasi Materi
-        function switchMateri(id) {
-            // Sembunyikan semua section
-            document.querySelectorAll('.materi-section').forEach(section => {
-                section.classList.remove('active');
-            });
+        // ========== 4. PIN MANAGEMENT ==========
+        function updatePINDisplay() {
+            const pinElement = document.getElementById('displayPin');
+            if (pinElement) {
+                pinElement.textContent = pinAkses;
+            }
+        }
 
-            // Tampilkan section yang dipilih
-            document.getElementById('materi-' + id).classList.add('active');
-
-            // Update UI Sidebar
-            document.querySelectorAll('.sidebar-link').forEach(link => {
-                link.classList.remove('active');
-            });
-            document.getElementById('btn-' + id).classList.add('active');
-
-            // Scroll ke atas section (untuk mobile)
-            if (window.innerWidth < 1024) {
-                window.scrollTo({
-                    top: document.getElementById('materi-' + id).offsetTop - 100,
-                    behavior: 'smooth'
+        function copyPin() {
+            navigator.clipboard.writeText(pinAkses)
+                .then(() => {
+                    showNotification('success', 'PIN Disalin', 'PIN telah disalin ke clipboard');
+                })
+                .catch(err => {
+                    console.error('Failed to copy PIN:', err);
+                    showNotification('error', 'Gagal Menyalin', 'Tidak dapat menyalin PIN');
                 });
+        }
+
+        // ========== 5. TAB MANAGEMENT ==========
+        function showTab(tabName) {
+            // Hide all tab contents
+            const tabContents = ['twk', 'tiu', 'tkp', 'strategi'];
+            tabContents.forEach(tab => {
+                const content = document.getElementById(`content-${tab}`);
+                if (content) content.classList.add('hidden');
+                
+                const tabButton = document.getElementById(`tab-${tab}`);
+                if (tabButton) {
+                    tabButton.classList.remove('bg-gradient-premium', 'text-white');
+                    tabButton.classList.add('bg-purple-100', 'text-purple-700');
+                }
+            });
+
+            // Show selected tab content
+            const selectedContent = document.getElementById(`content-${tabName}`);
+            if (selectedContent) {
+                selectedContent.classList.remove('hidden');
+                
+                // Update tab button
+                const selectedTab = document.getElementById(`tab-${tabName}`);
+                if (selectedTab) {
+                    selectedTab.classList.remove('bg-purple-100', 'text-purple-700');
+                    selectedTab.classList.add('bg-gradient-premium', 'text-white');
+                }
+
+                // Scroll to top of content
+                selectedContent.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
         }
 
-        // Fungsi Kembali ke Dashboard
-        function goBackToDashboard() {
-            window.location.href = `dashboardpaket3.html?id=${pinAkses}`;
+        // ========== 6. NAVIGATION FUNCTIONS ==========
+        function goToDashboard() {
+            if (pinAkses) {
+                window.location.href = `dashboardpaket3.html?id=${pinAkses}`;
+            } else {
+                showNotification('error', 'PIN Tidak Ditemukan', 'Tidak dapat kembali ke dashboard. PIN tidak valid.');
+                setTimeout(() => {
+                    window.location.href = 'login.html';
+                }, 2000);
+            }
         }
+
+        function updateWhatsAppLinks() {
+            const whatsappLinks = document.querySelectorAll('a[href*="whatsapp"]');
+            whatsappLinks.forEach(link => {
+                const originalHref = link.getAttribute('href');
+                const updatedHref = originalHref.replace(/\$\{pinAkses\}/g, pinAkses);
+                link.setAttribute('href', updatedHref);
+            });
+
+            // Update internal links
+            const internalLinks = document.querySelectorAll('a[href*="tipsformasi.html"], a[href*="tipskerjaskd.html"]');
+            internalLinks.forEach(link => {
+                const originalHref = link.getAttribute('href');
+                if (originalHref.includes('${pinAkses}')) {
+                    const updatedHref = originalHref.replace(/\$\{pinAkses\}/g, pinAkses);
+                    link.setAttribute('href', updatedHref);
+                }
+            });
+        }
+
+        // ========== 7. PRINT FUNCTION ==========
+        function printMateri() {
+            // Get active tab content
+            const activeTab = document.querySelector('#tab-content > div:not(.hidden)');
+            if (activeTab) {
+                // Create print window
+                const printWindow = window.open('', '_blank');
+                printWindow.document.write(`
+                    <!DOCTYPE html>
+                    <html>
+                    <head>
+                        <title>Materi SKD - Paket 3 Super Premium - PIN: ${pinAkses}</title>
+                        <style>
+                            body { font-family: Arial, sans-serif; line-height: 1.6; margin: 20px; }
+                            h1 { color: #7c3aed; border-bottom: 2px solid #7c3aed; padding-bottom: 10px; }
+                            h2 { color: #4f46e5; margin-top: 20px; }
+                            h3 { color: #4338ca; }
+                            .highlight-box { border-left: 4px solid; padding: 15px; margin: 15px 0; background: #f8fafc; }
+                            table { width: 100%; border-collapse: collapse; margin: 15px 0; }
+                            th { background: #7c3aed; color: white; padding: 10px; text-align: left; }
+                            td { padding: 10px; border-bottom: 1px solid #ddd; }
+                            .footer { margin-top: 30px; text-align: center; font-size: 12px; color: #666; border-top: 1px solid #ddd; padding-top: 10px; }
+                            @media print {
+                                body { margin: 0; }
+                                .no-print { display: none; }
+                            }
+                        </style>
+                    </head>
+                    <body>
+                        <div class="no-print" style="text-align: center; margin-bottom: 20px; padding: 10px; background: #f1f5f9;">
+                            <button onclick="window.print()" style="background: #7c3aed; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;">Cetak Halaman Ini</button>
+                            <button onclick="window.close()" style="background: #64748b; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; margin-left: 10px;">Tutup</button>
+                        </div>
+                        <h1>Materi SKD - Paket 3 Super Premium</h1>
+                        <p><strong>PIN Peserta:</strong> ${pinAkses}</p>
+                        <p><strong>Tanggal Cetak:</strong> ${new Date().toLocaleDateString('id-ID', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</p>
+                        ${activeTab.innerHTML}
+                        <div class="footer">
+                            <p>Dicetak dari Kerja Jadi ASN - Paket 3 Super Premium</p>
+                            <p>PIN: ${pinAkses} | Hak Cipta &copy; ${new Date().getFullYear()} Kerja Jadi ASN</p>
+                        </div>
+                        <script>
+                            window.onload = function() {
+                                // Auto-print after loading
+                                setTimeout(function() {
+                                    window.print();
+                                }, 500);
+                            };
+                        <\/script>
+                    </body>
+                    </html>
+                `);
+                printWindow.document.close();
+            } else {
+                showNotification('error', 'Gagal Mencetak', 'Tidak dapat menemukan konten untuk dicetak');
+            }
+        }
+
+        // ========== 8. NOTIFICATION SYSTEM ==========
+        function showNotification(type, title, message) {
+            const toast = document.getElementById('notification-toast');
+            const toastIcon = document.getElementById('toast-icon');
+            const toastTitle = document.getElementById('toast-title');
+            const toastMessage = document.getElementById('toast-message');
+
+            // Set icon and colors based on type
+            let iconClass, bgColor;
+            switch (type) {
+                case 'success':
+                    iconClass = 'fa-solid fa-circle-check text-green-500';
+                    bgColor = 'bg-green-50 border-green-200';
+                    break;
+                case 'error':
+                    iconClass = 'fa-solid fa-circle-xmark text-red-500';
+                    bgColor = 'bg-red-50 border-red-200';
+                    break;
+                case 'warning':
+                    iconClass = 'fa-solid fa-triangle-exclamation text-yellow-500';
+                    bgColor = 'bg-yellow-50 border-yellow-200';
+                    break;
+                default:
+                    iconClass = 'fa-solid fa-circle-info text-purple-500';
+                    bgColor = 'bg-purple-50 border-purple-200';
+            }
+
+            toastIcon.className = iconClass;
+            toastTitle.textContent = title;
+            toastMessage.textContent = message;
+
+            // Update toast background
+            toast.querySelector('div').className = `rounded-xl shadow-lg border p-4 max-w-sm animate-fadeIn ${bgColor}`;
+
+            // Show toast
+            toast.classList.remove('hidden');
+
+            // Auto hide after 5 seconds
+            setTimeout(hideToast, 5000);
+        }
+
+        function hideToast() {
+            document.getElementById('notification-toast').classList.add('hidden');
+        }
+
+        // ========== 9. KEYBOARD SHORTCUTS ==========
+        document.addEventListener('keydown', (event) => {
+            // Ctrl+P for print
+            if (event.ctrlKey && event.key === 'p') {
+                event.preventDefault();
+                printMateri();
+            }
+
+            // Escape to go back to dashboard
+            if (event.key === 'Escape') {
+                goToDashboard();
+            }
+
+            // Number keys for tabs (1: TWK, 2: TIU, 3: TKP, 4: Strategi)
+            if (event.key >= '1' && event.key <= '4') {
+                const tabIndex = parseInt(event.key) - 1;
+                const tabs = ['twk', 'tiu', 'tkp', 'strategi'];
+                if (tabs[tabIndex]) {
+                    showTab(tabs[tabIndex]);
+                }
+            }
+        });
+
+        // ========== 10. SCROLL TO TOP BUTTON ==========
+        // Add scroll to top button dynamically
+        const scrollToTopButton = document.createElement('button');
+        scrollToTopButton.innerHTML = '<i class="fa-solid fa-arrow-up"></i>';
+        scrollToTopButton.className = 'fixed bottom-6 right-6 w-12 h-12 bg-gradient-premium text-white rounded-full shadow-lg hover:shadow-xl transition-all opacity-0 z-40 flex items-center justify-center';
+        scrollToTopButton.id = 'scrollToTop';
+        scrollToTopButton.onclick = () => window.scrollTo({ top: 0, behavior: 'smooth' });
+        document.body.appendChild(scrollToTopButton);
+
+        // Show/hide scroll to top button based on scroll position
+        window.addEventListener('scroll', () => {
+            const scrollToTopButton = document.getElementById('scrollToTop');
+            if (window.scrollY > 300) {
+                scrollToTopButton.classList.remove('opacity-0');
+                scrollToTopButton.classList.add('opacity-100');
+            } else {
+                scrollToTopButton.classList.remove('opacity-100');
+                scrollToTopButton.classList.add('opacity-0');
+            }
+        });
+
+        // ========== 11. PROGRESS TRACKING ==========
+        // Track which materi has been viewed
+        function trackMateriView(tabName) {
+            if (!pinAkses) return;
+            
+            const progressKey = `materi_progress_${pinAkses}`;
+            let progress = JSON.parse(localStorage.getItem(progressKey)) || {};
+            
+            const materiNames = {
+                'twk': 'TWK',
+                'tiu': 'TIU', 
+                'tkp': 'TKP',
+                'strategi': 'Strategi'
+            };
+            
+            if (materiNames[tabName]) {
+                progress[materiNames[tabName]] = {
+                    viewed: true,
+                    lastViewed: new Date().toISOString()
+                };
+                
+                localStorage.setItem(progressKey, JSON.stringify(progress));
+                
+                // Optional: Send to server/dashboard
+                console.log(`Materi ${materiNames[tabName]} telah dipelajari oleh PIN: ${pinAkses}`);
+            }
+        }
+
+        // Update showTab function to track views
+        const originalShowTab = showTab;
+        showTab = function(tabName) {
+            originalShowTab(tabName);
+            trackMateriView(tabName);
+        };
     </script>
+
 </body>
 </html>
