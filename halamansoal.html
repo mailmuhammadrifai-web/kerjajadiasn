@@ -15,6 +15,60 @@
         .custom-scrollbar::-webkit-scrollbar { width: 5px; }
         .custom-scrollbar::-webkit-scrollbar-track { background: #f1f1f1; }
         .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+  /* Tambahkan ini ke dalam tag <style> yang sudah ada */
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 1rem 0;
+}
+
+th, td {
+    text-align: center;
+    padding: 0.5rem;
+}
+
+.gambar-soal-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.gambar-pilihan {
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 10px;
+    transition: all 0.3s;
+    cursor: pointer;
+}
+
+.gambar-pilihan:hover {
+    border-color: #3b82f6;
+    transform: translateY(-2px);
+}
+
+.gambar-pilihan.selected {
+    border-color: #3b82f6;
+    background-color: #eff6ff;
+}
+
+.gambar-pilihan img {
+    max-width: 100px;
+    max-height: 100px;
+}
+
+@media (max-width: 768px) {
+    .gambar-soal-container {
+        gap: 10px;
+    }
+    
+    .gambar-pilihan img {
+        max-width: 70px;
+        max-height: 70px;
+    }
+}
+  
     </style>
 </head>
 <body class="bg-slate-100 min-h-screen flex flex-col">
@@ -44,7 +98,7 @@
                     <span class="bg-blue-50 text-blue-700 px-4 py-1 rounded-full text-xs font-bold uppercase tracking-widest" id="kategori-soal">Materi: TWK</span>
                     <span class="text-slate-400 text-sm font-medium">Soal No. <span id="current-no" class="text-slate-900 font-bold text-lg">1</span> / 110</span>
                 </div>
-                
+
                 <p id="teks-soal" class="text-lg text-slate-800 leading-relaxed mb-8">Loading soal...</p>
 
                 <div id="opsi-jawaban" class="space-y-3"></div>
@@ -65,7 +119,7 @@
                     <i class="fa-solid fa-th-large text-blue-600"></i> Navigasi Soal
                 </h3>
                 <div id="grid-nomor" class="grid grid-cols-5 gap-2 max-h-[400px] overflow-y-auto pr-2 custom-scrollbar"></div>
-                
+
                 <div class="mt-6 pt-6 border-t border-slate-100 space-y-2 text-[10px] font-bold uppercase text-slate-400">
                     <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-sm bg-green-600"></span> Sudah Dijawab</div>
                     <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-sm bg-yellow-500"></span> Ragu-ragu</div>
@@ -785,149 +839,393 @@
     ],
     kunci: 0
   },
-  {
+// Untuk soal yang membutuhkan tabel (soal 55 dan 56), tambahkan properti `tabel`
+{
     id: 55,
     kategori: "TIU",
-    tanya: "Lima siswa - Fajar, Galuh, Haris, Indra, dan Joko - mengikuti tiga ujian berbeda yaitu Matematika, IPA, dan Bahasa Inggris. Berikut adalah nilai yang mereka peroleh: Fajar:75, 80, 70; Galuh:65, 85, 75; Haris:80, 60, 70; Indra:70, 90, 65; Joko:60, 70, 85. Dua siswa dengan rata-rata nilai terendah tidak akan lolos seleksi tahap selanjutnya. Berdasarkan tabel nilai di atas, siapa saja siswa yang tidak lolos seleksi?",
+    tanya: "Lima siswa - Fajar, Galuh, Haris, Indra, dan Joko - mengikuti tiga ujian berbeda yaitu Matematika, IPA, dan Bahasa Inggris. Berikut adalah nilai yang mereka peroleh:",
+    tabel: `
+        <table class="min-w-full border border-slate-300 mt-4 mb-6">
+            <thead class="bg-slate-100">
+                <tr>
+                    <th class="border border-slate-300 px-4 py-2">Nama</th>
+                    <th class="border border-slate-300 px-4 py-2">Matematika</th>
+                    <th class="border border-slate-300 px-4 py-2">IPA</th>
+                    <th class="border border-slate-300 px-4 py-2">Bahasa Inggris</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td class="border border-slate-300 px-4 py-2">Fajar</td><td class="border border-slate-300 px-4 py-2">75</td><td class="border border-slate-300 px-4 py-2">80</td><td class="border border-slate-300 px-4 py-2">70</td></tr>
+                <tr><td class="border border-slate-300 px-4 py-2">Galuh</td><td class="border border-slate-300 px-4 py-2">65</td><td class="border border-slate-300 px-4 py-2">85</td><td class="border border-slate-300 px-4 py-2">75</td></tr>
+                <tr><td class="border border-slate-300 px-4 py-2">Haris</td><td class="border border-slate-300 px-4 py-2">80</td><td class="border border-slate-300 px-4 py-2">60</td><td class="border border-slate-300 px-4 py-2">70</td></tr>
+                <tr><td class="border border-slate-300 px-4 py-2">Indra</td><td class="border border-slate-300 px-4 py-2">70</td><td class="border border-slate-300 px-4 py-2">90</td><td class="border border-slate-300 px-4 py-2">65</td></tr>
+                <tr><td class="border border-slate-300 px-4 py-2">Joko</td><td class="border border-slate-300 px-4 py-2">60</td><td class="border border-slate-300 px-4 py-2">70</td><td class="border border-slate-300 px-4 py-2">85</td></tr>
+            </tbody>
+        </table>
+        <p class="mt-4">Dua siswa dengan rata-rata nilai terendah tidak akan lolos seleksi tahap selanjutnya. Berdasarkan tabel nilai di atas, siapa saja siswa yang tidak lolos seleksi?</p>
+    `,
     opsi: [
-      "A. Fajar dan Haris",
-      "B. Galuh dan Joko",
-      "C. Haris dan Joko",
-      "D. Fajar dan Indra",
-      "E. Fajar dan Indra"
+        "A. Fajar dan Haris",
+        "B. Galuh dan Joko",
+        "C. Haris dan Joko",
+        "D. Fajar dan Indra",
+        "E. Fajar dan Indra"
     ],
     kunci: 2
-  },
-  {
+},
+{
     id: 56,
     kategori: "TIU",
-    tanya: "Tabel berikut menunjukkan jumlah produksi buah (dalam kg) oleh lima petani selama satu minggu: Agus:50,70,60,40; Budi:60,65,50,45; Citra:55,80,55,50; Dedi:45,75,70,60; Eka:65,60,65,55. Berdasarkan tabel tersebut, manakah pernyataan yang benar?",
+    tanya: "Tabel berikut menunjukkan jumlah produksi buah (dalam kg) oleh lima petani selama satu minggu:",
+    tabel: `
+        <table class="min-w-full border border-slate-300 mt-4 mb-6">
+            <thead class="bg-slate-100">
+                <tr>
+                    <th class="border border-slate-300 px-4 py-2">Petani</th>
+                    <th class="border border-slate-300 px-4 py-2">Apel</th>
+                    <th class="border border-slate-300 px-4 py-2">Pisang</th>
+                    <th class="border border-slate-300 px-4 py-2">Jeruk</th>
+                    <th class="border border-slate-300 px-4 py-2">Mangga</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td class="border border-slate-300 px-4 py-2">Agus</td><td class="border border-slate-300 px-4 py-2">50</td><td class="border border-slate-300 px-4 py-2">70</td><td class="border border-slate-300 px-4 py-2">60</td><td class="border border-slate-300 px-4 py-2">40</td></tr>
+                <tr><td class="border border-slate-300 px-4 py-2">Budi</td><td class="border border-slate-300 px-4 py-2">60</td><td class="border border-slate-300 px-4 py-2">65</td><td class="border border-slate-300 px-4 py-2">50</td><td class="border border-slate-300 px-4 py-2">45</td></tr>
+                <tr><td class="border border-slate-300 px-4 py-2">Citra</td><td class="border border-slate-300 px-4 py-2">55</td><td class="border border-slate-300 px-4 py-2">80</td><td class="border border-slate-300 px-4 py-2">55</td><td class="border border-slate-300 px-4 py-2">50</td></tr>
+                <tr><td class="border border-slate-300 px-4 py-2">Dedi</td><td class="border border-slate-300 px-4 py-2">45</td><td class="border border-slate-300 px-4 py-2">75</td><td class="border border-slate-300 px-4 py-2">70</td><td class="border border-slate-300 px-4 py-2">60</td></tr>
+                <tr><td class="border border-slate-300 px-4 py-2">Eka</td><td class="border border-slate-300 px-4 py-2">65</td><td class="border border-slate-300 px-4 py-2">60</td><td class="border border-slate-300 px-4 py-2">65</td><td class="border border-slate-300 px-4 py-2">55</td></tr>
+            </tbody>
+        </table>
+        <p class="mt-4">Berdasarkan tabel tersebut, manakah pernyataan yang benar?</p>
+    `,
     opsi: [
-      "A. Budi memproduksi lebih banyak pisang daripada Citra.",
-      "B. Eka memiliki produksi mangga tertinggi di antara semua petani.",
-      "C. Dedi memproduksi jeruk lebih sedikit daripada Budi.",
-      "D. Agus memiliki produksi apel terendah di antara semua petani.",
-      "E. Citra memproduksi jumlah buah yang sama untuk apel dan mangga."
+        "A. Budi memproduksi lebih banyak pisang daripada Citra.",
+        "B. Eka memiliki produksi mangga tertinggi di antara semua petani.",
+        "C. Dedi memproduksi jeruk lebih sedikit daripada Budi.",
+        "D. Agus memiliki produksi apel terendah di antara semua petani.",
+        "E. Citra memproduksi jumlah buah yang sama untuk apel dan mangga."
     ],
     kunci: 3
-  },
-  {
+},
+// === SOAL GAMBAR (57-65) ===
+{
     id: 57,
     kategori: "TIU",
-    tanya: "Carilah gambar yang berbeda dari pilihan berikut! (Gambar tidak tersedia dalam teks, jadi kita berikan placeholder)",
-    opsi: [
-      "A. Gambar A",
-      "B. Gambar B",
-      "C. Gambar C",
-      "D. Gambar D",
-      "E. Gambar E"
+    tanya: "Carilah gambar yang berbeda dari pilihan berikut!",
+    tipe: "gambar",
+    gambar: [
+        { src: "https://via.placeholder.com/100x100/4F46E5/FFFFFF?text=○", label: "A" },
+        { src: "https://via.placeholder.com/100x100/4F46E5/FFFFFF?text=○", label: "B" },
+        { src: "https://via.placeholder.com/100x100/EF4444/FFFFFF?text=△", label: "C" },
+        { src: "https://via.placeholder.com/100x100/4F46E5/FFFFFF?text=○", label: "D" },
+        { src: "https://via.placeholder.com/100x100/4F46E5/FFFFFF?text=○", label: "E" }
     ],
-    kunci: 0
-  },
-  {
+    opsi: [
+        "A. Gambar A",
+        "B. Gambar B",
+        "C. Gambar C",
+        "D. Gambar D",
+        "E. Gambar E"
+    ],
+    kunci: 2,
+    deskripsi: "Gambar C berbeda karena berbentuk segitiga, sedangkan lainnya lingkaran"
+},
+{
     id: 58,
     kategori: "TIU",
     tanya: "Carilah gambar yang berbeda dari pilihan berikut!",
-    opsi: [
-      "A. Gambar A",
-      "B. Gambar B",
-      "C. Gambar C",
-      "D. Gambar D",
-      "E. Gambar E"
+    tipe: "gambar",
+    gambar: [
+        { src: "https://via.placeholder.com/100x100/10B981/FFFFFF?text=↑", label: "A" },
+        { src: "https://via.placeholder.com/100x100/10B981/FFFFFF?text=→", label: "B" },
+        { src: "https://via.placeholder.com/100x100/10B981/FFFFFF?text=↓", label: "C" },
+        { src: "https://via.placeholder.com/100x100/EF4444/FFFFFF?text=←", label: "D" },
+        { src: "https://via.placeholder.com/100x100/10B981/FFFFFF?text=↑", label: "E" }
     ],
-    kunci: 1
-  },
-  {
+    opsi: [
+        "A. Gambar A",
+        "B. Gambar B",
+        "C. Gambar C",
+        "D. Gambar D",
+        "E. Gambar E"
+    ],
+    kunci: 3,
+    deskripsi: "Gambar D berbeda karena panah mengarah ke kiri, sedangkan lainnya memiliki pola panah yang sama"
+},
+{
     id: 59,
     kategori: "TIU",
     tanya: "Lengkapi gambar berikut ini!",
-    opsi: [
-      "A. Gambar A",
-      "B. Gambar B",
-      "C. Gambar C",
-      "D. Gambar D",
-      "E. Gambar E"
+    tipe: "gambar",
+    gambar: [
+        { src: "https://via.placeholder.com/100x100/8B5CF6/FFFFFF?text=□", label: "A" },
+        { src: "https://via.placeholder.com/100x100/8B5CF6/FFFFFF?text=◇", label: "B" },
+        { src: "https://via.placeholder.com/100x100/F59E0B/FFFFFF?text=▽", label: "C" },
+        { src: "https://via.placeholder.com/100x100/8B5CF6/FFFFFF?text=○", label: "D" },
+        { src: "https://via.placeholder.com/100x100/8B5CF6/FFFFFF?text=△", label: "E" }
     ],
-    kunci: 2
-  },
-  {
+    opsi: [
+        "A. Gambar A",
+        "B. Gambar B",
+        "C. Gambar C",
+        "D. Gambar D",
+        "E. Gambar E"
+    ],
+    kunci: 2,
+    deskripsi: "Pola: Segitiga terbalik melengkapi pola bentuk geometris"
+},
+{
     id: 60,
     kategori: "TIU",
     tanya: "Lengkapi gambar berikut ini!",
-    opsi: [
-      "A. Gambar A",
-      "B. Gambar B",
-      "C. Gambar C",
-      "D. Gambar D",
-      "E. Gambar E"
+    tipe: "gambar",
+    gambar: [
+        { 
+            src: "https://via.placeholder.com/150x100/3B82F6/FFFFFF?text=Pola+1", 
+            label: "A",
+            preview: "Pola: ● → ●● → ●●●"
+        },
+        { 
+            src: "https://via.placeholder.com/150x100/3B82F6/FFFFFF?text=Pola+2", 
+            label: "B",
+            preview: "Pola: ■ → ■■ → ■■■"
+        },
+        { 
+            src: "https://via.placeholder.com/150x100/F59E0B/FFFFFF?text=Pola+3", 
+            label: "C",
+            preview: "Pola: ▲ → ▲▲ → ▲▲▲"
+        },
+        { 
+            src: "https://via.placeholder.com/150x100/3B82F6/FFFFFF?text=Pola+4", 
+            label: "D",
+            preview: "Pola: ◆ → ◆◆ → ◆◆◆"
+        },
+        { 
+            src: "https://via.placeholder.com/150x100/3B82F6/FFFFFF?text=Pola+5", 
+            label: "E",
+            preview: "Pola: ★ → ★★ → ★★★"
+        }
     ],
-    kunci: 3
-  },
-  {
+    opsi: [
+        "A. Gambar A",
+        "B. Gambar B",
+        "C. Gambar C",
+        "D. Gambar D",
+        "E. Gambar E"
+    ],
+    kunci: 2,
+    deskripsi: "Pola segitiga melengkapi urutan pola bentuk"
+},
+{
     id: 61,
     kategori: "TIU",
     tanya: "Lanjutkan serial gambar berikut!",
-    opsi: [
-      "A. Gambar A",
-      "B. Gambar B",
-      "C. Gambar C",
-      "D. Gambar D",
-      "E. Gambar E"
+    tipe: "gambar",
+    gambar: [
+        { 
+            src: "https://via.placeholder.com/120x120/EC4899/FFFFFF?text=1→2", 
+            label: "A",
+            preview: "Urutan: 1, 2, 3, 4, ?"
+        },
+        { 
+            src: "https://via.placeholder.com/120x120/EC4899/FFFFFF?text=2→3", 
+            label: "B",
+            preview: "Urutan: 2, 3, 4, 5, ?"
+        },
+        { 
+            src: "https://via.placeholder.com/120x120/EC4899/FFFFFF?text=3→4", 
+            label: "C",
+            preview: "Urutan: 3, 4, 5, 6, ?"
+        },
+        { 
+            src: "https://via.placeholder.com/120x120/EC4899/FFFFFF?text=4→5", 
+            label: "D",
+            preview: "Urutan: 4, 5, 6, 7, ?"
+        },
+        { 
+            src: "https://via.placeholder.com/120x120/8B5CF6/FFFFFF?text=5→6", 
+            label: "E",
+            preview: "Urutan: 5, 6, 7, 8, ?"
+        }
     ],
-    kunci: 4
-  },
-  {
+    opsi: [
+        "A. Gambar A",
+        "B. Gambar B",
+        "C. Gambar C",
+        "D. Gambar D",
+        "E. Gambar E"
+    ],
+    kunci: 4,
+    deskripsi: "Pola lanjutan dari urutan angka"
+},
+{
     id: 62,
     kategori: "TIU",
     tanya: "Lengkapi gambar berikut ini!",
-    opsi: [
-      "A. Gambar A",
-      "B. Gambar B",
-      "C. Gambar C",
-      "D. Gambar D",
-      "E. Gambar E"
+    tipe: "gambar",
+    gambar: [
+        { 
+            src: "https://via.placeholder.com/100x100/6366F1/FFFFFF?text=◐", 
+            label: "A",
+            preview: "Setengah lingkaran kanan"
+        },
+        { 
+            src: "https://via.placeholder.com/100x100/8B5CF6/FFFFFF?text=◑", 
+            label: "B",
+            preview: "Setengah lingkaran kiri"
+        },
+        { 
+            src: "https://via.placeholder.com/100x100/10B981/FFFFFF?text=◒", 
+            label: "C",
+            preview: "Setengah lingkaran atas"
+        },
+        { 
+            src: "https://via.placeholder.com/100x100/F59E0B/FFFFFF?text=◓", 
+            label: "D",
+            preview: "Setengah lingkaran bawah"
+        },
+        { 
+            src: "https://via.placeholder.com/100x100/6366F1/FFFFFF?text=○", 
+            label: "E",
+            preview: "Lingkaran penuh"
+        }
     ],
-    kunci: 0
-  },
-  {
+    opsi: [
+        "A. Gambar A",
+        "B. Gambar B",
+        "C. Gambar C",
+        "D. Gambar D",
+        "E. Gambar E"
+    ],
+    kunci: 0,
+    deskripsi: "Melengkapi pola rotasi setengah lingkaran"
+},
+{
     id: 63,
     kategori: "TIU",
     tanya: "Lengkapi gambar berikut ini!",
-    opsi: [
-      "A. Gambar A",
-      "B. Gambar B",
-      "C. Gambar C",
-      "D. Gambar D",
-      "E. Gambar E"
+    tipe: "gambar",
+    gambar: [
+        { 
+            src: "https://via.placeholder.com/120x100/3B82F6/FFFFFF?text=▒▒▒", 
+            label: "A",
+            preview: "Pola garis vertikal"
+        },
+        { 
+            src: "https://via.placeholder.com/120x100/10B981/FFFFFF?text=▌▌▌", 
+            label: "B",
+            preview: "Pola garis horizontal"
+        },
+        { 
+            src: "https://via.placeholder.com/120x100/EF4444/FFFFFF?text=███", 
+            label: "C",
+            preview: "Pola kotak solid"
+        },
+        { 
+            src: "https://via.placeholder.com/120x100/3B82F6/FFFFFF?text=░░░", 
+            label: "D",
+            preview: "Pola titik-titik"
+        },
+        { 
+            src: "https://via.placeholder.com/120x100/3B82F6/FFFFFF?text=▓▓▓", 
+            label: "E",
+            preview: "Pola diagonal"
+        }
     ],
-    kunci: 1
-  },
-  {
+    opsi: [
+        "A. Gambar A",
+        "B. Gambar B",
+        "C. Gambar C",
+        "D. Gambar D",
+        "E. Gambar E"
+    ],
+    kunci: 2,
+    deskripsi: "Melengkapi pola tekstur yang solid"
+},
+{
     id: 64,
     kategori: "TIU",
     tanya: "Lengkapi gambar berikut ini!",
-    opsi: [
-      "A. Gambar A",
-      "B. Gambar B",
-      "C. Gambar C",
-      "D. Gambar D",
-      "E. Gambar E"
+    tipe: "gambar",
+    gambar: [
+        { 
+            src: "https://via.placeholder.com/100x100/8B5CF6/FFFFFF?text={}", 
+            label: "A",
+            preview: "Kurung kurawal"
+        },
+        { 
+            src: "https://via.placeholder.com/100x100/8B5CF6/FFFFFF?text=[]", 
+            label: "B",
+            preview: "Kurung siku"
+        },
+        { 
+            src: "https://via.placeholder.com/100x100/F59E0B/FFFFFF?text=()", 
+            label: "C",
+            preview: "Kurung biasa"
+        },
+        { 
+            src: "https://via.placeholder.com/100x100/8B5CF6/FFFFFF?text=<>", 
+            label: "D",
+            preview: "Kurung sudut"
+        },
+        { 
+            src: "https://via.placeholder.com/100x100/8B5CF6/FFFFFF?text=「」", 
+            label: "E",
+            preview: "Kurung Jepang"
+        }
     ],
-    kunci: 2
-  },
-  {
+    opsi: [
+        "A. Gambar A",
+        "B. Gambar B",
+        "C. Gambar C",
+        "D. Gambar D",
+        "E. Gambar E"
+    ],
+    kunci: 2,
+    deskripsi: "Melengkapi pola jenis kurung"
+},
+{
     id: 65,
     kategori: "TIU",
     tanya: "Lengkapi gambar berikut ini!",
-    opsi: [
-      "A. Gambar A",
-      "B. Gambar B",
-      "C. Gambar C",
-      "D. Gambar D",
-      "E. Gambar E"
+    tipe: "gambar",
+    gambar: [
+        { 
+            src: "https://via.placeholder.com/120x100/EC4899/FFFFFF?text=♠", 
+            label: "A",
+            preview: "Sekop"
+        },
+        { 
+            src: "https://via.placeholder.com/120x100/EC4899/FFFFFF?text=♥", 
+            label: "B",
+            preview: "Hati"
+        },
+        { 
+            src: "https://via.placeholder.com/120x100/8B5CF6/FFFFFF?text=♦", 
+            label: "C",
+            preview: "Wajik"
+        },
+        { 
+            src: "https://via.placeholder.com/120x100/EC4899/FFFFFF?text=♣", 
+            label: "D",
+            preview: "Keriting"
+        },
+        { 
+            src: "https://via.placeholder.com/120x100/EC4899/FFFFFF?text=★", 
+            label: "E",
+            preview: "Bintang"
+        }
     ],
-    kunci: 3
-  },
+    opsi: [
+        "A. Gambar A",
+        "B. Gambar B",
+        "C. Gambar C",
+        "D. Gambar D",
+        "E. Gambar E"
+    ],
+    kunci: 2,
+    deskripsi: "Melengkapi pola kartu remi"
+}
 
   // === TKP (66-110) ===
   {
@@ -1537,26 +1835,71 @@
         }
 
         function displaySoal() {
-            const soal = bankSoal[currentIdx];
-            document.getElementById('current-no').innerText = currentIdx + 1;
-            document.getElementById('kategori-soal').innerText = `Materi: ${soal.kategori}`;
-            document.getElementById('teks-soal').innerText = soal.tanya;
-            document.getElementById('checkRagu').checked = statusRagu[currentIdx];
+    const soal = bankSoal[currentIdx];
+    document.getElementById('current-no').innerText = currentIdx + 1;
+    document.getElementById('kategori-soal').innerText = `Materi: ${soal.kategori}`;
+    
+    const teksSoal = document.getElementById('teks-soal');
+    let konten = `<div class="text-lg text-slate-800 leading-relaxed mb-4">${soal.tanya}</div>`;
+    
+    // Tabel
+    if (soal.tabel) {
+        konten += soal.tabel;
+    }
+    
+    // Gambar dalam array
+    if (soal.gambar && Array.isArray(soal.gambar)) {
+        konten += `<div class="mb-6">
+            <p class="font-bold mb-3">Pilih gambar yang berbeda:</p>
+            <div class="grid grid-cols-5 gap-3 mt-4" id="gambar-container">`;
+        
+        soal.gambar.forEach((img, idx) => {
+            const isSelected = jawabanUser[currentIdx] === idx;
+            konten += `
+                <div class="flex flex-col items-center gambar-pilihan ${isSelected ? 'selected' : ''}" onclick="pilihGambar(${idx})">
+                    <img src="${img.src}" class="w-20 h-20 object-contain border ${isSelected ? 'border-blue-500' : 'border-slate-200'} rounded-lg p-2" alt="${img.label}">
+                    <span class="text-xs mt-1">${img.label}</span>
+                </div>
+            `;
+        });
+        
+        konten += `</div></div>`;
+    }
+    // Gambar dalam string HTML
+    else if (soal.gambar) {
+        konten += soal.gambar;
+    }
+    
+    teksSoal.innerHTML = konten;
+    document.getElementById('checkRagu').checked = statusRagu[currentIdx];
 
-            const opsiContainer = document.getElementById('opsi-jawaban');
-            opsiContainer.innerHTML = '';
-            soal.opsi.forEach((o, i) => {
-                const isChecked = jawabanUser[currentIdx] === i;
-                opsiContainer.innerHTML += `
-                    <label class="flex items-center gap-4 p-4 rounded-2xl border ${isChecked ? 'border-blue-500 bg-blue-50' : 'border-slate-200 hover:bg-slate-50'} cursor-pointer transition">
-                        <input type="radio" name="jawaban" class="w-5 h-5 text-blue-600" onclick="pilihJawaban(${i})" ${isChecked ? 'checked' : ''}>
-                        <span class="text-slate-700 font-medium">${o}</span>
-                    </label>
-                `;
-            });
-            renderGrid();
-        }
+    const opsiContainer = document.getElementById('opsi-jawaban');
+    opsiContainer.innerHTML = '';
+    
+    // Hanya tampilkan opsi teks jika tidak ada gambar interaktif
+    if (!soal.gambar || !Array.isArray(soal.gambar)) {
+        soal.opsi.forEach((o, i) => {
+            const isChecked = jawabanUser[currentIdx] === i;
+            opsiContainer.innerHTML += `
+                <label class="flex items-center gap-4 p-4 rounded-2xl border ${isChecked ? 'border-blue-500 bg-blue-50' : 'border-slate-200 hover:bg-slate-50'} cursor-pointer transition">
+                    <input type="radio" name="jawaban" class="w-5 h-5 text-blue-600" onclick="pilihJawaban(${i})" ${isChecked ? 'checked' : ''}>
+                    <span class="text-slate-700 font-medium">${o}</span>
+                </label>
+            `;
+        });
+    } else {
+        // Untuk soal gambar, sembunyikan opsi teks
+        opsiContainer.innerHTML = '<p class="text-slate-500 italic">Pilih gambar di atas sebagai jawaban</p>';
+    }
+    
+    renderGrid();
+}
 
+function pilihGambar(idx) {
+    jawabanUser[currentIdx] = idx;
+    displaySoal(); // Refresh untuk update tampilan
+}
+  
         function pilihJawaban(idx) {
             jawabanUser[currentIdx] = idx;
             renderGrid();
