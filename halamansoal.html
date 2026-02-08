@@ -80,130 +80,1442 @@
         const pinAkses = urlParams.get('id') || "GUEST";
 
         const bankSoal = [
-            // === TES WAWASAN KEBANGSAAN (TWK) - 30 Soal ===
-            { id: 1, kategori: "TWK", tanya: "Nilai-nilai Pancasila selain sebagai dasar negara juga berfungsi sebagai...", opsi: ["A. Paradigma pembangunan", "B. Sumber hukum tertinggi", "C. Dasar berdirinya negara", "D. Ideologi terbuka", "E. Alat pemersatu bangsa"], kunci: 3 },
-            { id: 2, kategori: "TWK", tanya: "Dalam UUD 1945, hak untuk mendapatkan jaminan sosial dan hidup layak diatur dalam Pasal...", opsi: ["A. 28A", "B. 28H ayat (1) dan (3)", "C. 28I ayat (1)", "D. 34 ayat (1)", "E. 33 ayat (3)"], kunci: 1 },
-            { id: 3, kategori: "TWK", tanya: "Secara yuridis, Pancasila sebagai dasar negara tertuang dalam...", opsi: ["A. Alinea keempat Pembukaan UUD 1945", "B. Ketetapan MPR", "C. Penjelasan UUD 1945", "D. Keputusan Presiden", "E. Batang Tubuh UUD 1945"], kunci: 0 },
-            { id: 4, kategori: "TWK", tanya: "Berikut yang bukan termasuk lembaga negara menurut perubahan UUD 1945 adalah...", opsi: ["A. Mahkamah Konstitusi", "B. Komisi Yudisial", "C. Dewan Perwakilan Daerah", "D. Badan Pemeriksa Keuangan", "E. Dewan Pertimbangan Agung"], kunci: 4 },
-            { id: 5, kategori: "TWK", tanya: "Sikap saling menghormati dan kerja sama antarumat beragama merupakan perwujudan dari nilai Pancasila sila ke...", opsi: ["A. 1", "B. 2", "C. 3", "D. 4", "E. 5"], kunci: 2 },
-            { id: 6, kategori: "TWK", tanya: "Konsep Wawasan Nusantara merupakan penjabaran dari Pancasila terutama sila...", opsi: ["A. Ketuhanan Yang Maha Esa", "B. Kemanusiaan yang adil dan beradab", "C. Persatuan Indonesia", "D. Kerakyatan yang dipimpin oleh hikmat kebijaksanaan dalam permusyawaratan/perwakilan", "E. Keadilan sosial bagi seluruh rakyat Indonesia"], kunci: 2 },
-            { id: 7, kategori: "TWK", tanya: "Sumpah Pemuda 1928 memiliki nilai strategis bagi perjuangan bangsa karena...", opsi: ["A. Menyatukan berbagai kelompok perjuangan", "B. Menjadi dasar pembentukan organisasi PETA", "C. Mempercepat penjajahan Belanda", "D. Menetapkan Bahasa Indonesia sebagai bahasa resmi", "E. Menyatukan para pemuda dari seluruh Indonesia"], kunci: 4 },
-            { id: 8, kategori: "TWK", tanya: "Implementasi nilai integritas dalam kehidupan sehari-hari adalah...", opsi: ["A. Selalu mematuhi peraturan", "B. Menyelesaikan pekerjaan tepat waktu", "C. Konsisten antara perkataan dan perbuatan", "D. Bekerja sama dengan baik", "E. Menghargai pendapat orang lain"], kunci: 2 },
-            { id: 9, kategori: "TWK", tanya: "Berikut adalah contoh perilaku bela negara di lingkungan sekolah, kecuali...", opsi: ["A. Mengikuti upacara bendera dengan khidmat", "B. Menghafal lagu-lagu perjuangan", "C. Aktif dalam organisasi siswa", "D. Memperhatikan pelajaran kewarganegaraan", "E. Mengikuti kegiatan pramuka"], kunci: 1 },
-            { id: 10, kategori: "TWK", tanya: "Yang termasuk sikap nasionalisme adalah...", opsi: ["A. Bangga menggunakan produk luar negeri", "B. Mengutamakan kepentingan daerah", "C. Menjaga persatuan dan kesatuan bangsa", "D. Tidak peduli dengan politik", "E. Mengikuti tren budaya asing"], kunci: 2 },
-            // TWK 11-20 (Contoh lanjutan)
-            { id: 11, kategori: "TWK", tanya: "Bhinneka Tunggal Ika bermakna bahwa perbedaan suku, agama, dan budaya harus...", opsi: ["A. Dihindari untuk menjaga keseragaman", "B. Diperkuat untuk identitas daerah", "C. Dijadikan alat politik praktis", "D. Dihargai dalam bingkai persatuan", "E. Dihilangkan demi kesatuan"], kunci: 3 },
-            { id: 12, kategori: "TWK", tanya: "Ketetapan MPRS No. XX/1966 berisi tentang...", opsi: ["A. Dasar negara Pancasila", "B. Pengukuhan Supersemar", "C. Penegasan Orde Baru", "D. Memorandum DPR-GR", "E. Penetapan Hari Kesaktian Pancasila"], kunci: 0 },
-            { id: 13, kategori: "TWK", tanya: "Sistem pemerintahan Indonesia berdasarkan UUD 1945 adalah...", opsi: ["A. Presidensial", "B. Parlementer", "C. Monarki", "D. Federal", "E. Komunis"], kunci: 0 },
-            { id: 14, kategori: "TWK", tanya: "Undang-Undang Dasar 1945 pertama kali diubah pada tahun...", opsi: ["A. 1998", "B. 1999", "C. 2000", "D. 2001", "E. 2002"], kunci: 1 },
-            { id: 15, kategori: "TWK", tanya: "Lembaga yang berwenang mengubah UUD 1945 adalah...", opsi: ["A. Presiden", "B. MPR", "C. DPR", "D. Mahkamah Konstitusi", "E. Komisi Yudisial"], kunci: 1 },
-            { id: 16, kategori: "TWK", tanya: "Pancasila sebagai pandangan hidup bangsa berarti...", opsi: ["A. Pedoman dalam bertingkah laku", "B. Sumber dari segala sumber hukum", "C. Lambang negara", "D. Alat pemersatu bangsa", "E. Dasar berdirinya negara"], kunci: 0 },
-            { id: 17, kategori: "TWK", tanya: "Sila pertama Pancasila dilambangkan dengan...", opsi: ["A. Bintang", "B. Rantai", "C. Pohon beringin", "D. Kepala banteng", "E. Padi dan kapas"], kunci: 0 },
-            { id: 18, kategori: "TWK", tanya: "Pancasila sebagai ideologi terbuka mengandung makna bahwa nilai-nilai Pancasila...", opsi: ["A. Statis dan tidak berubah", "B. Dapat dikembangkan sesuai zaman", "C. Hanya berlaku untuk Indonesia", "D. Bersifat kaku dan mutlak", "E. Tertutup terhadap pengaruh luar"], kunci: 1 },
-            { id: 19, kategori: "TWK", tanya: "Kewenangan Mahkamah Konstitusi berdasarkan UUD 1945 adalah...", opsi: ["A. Menguji undang-undang terhadap UUD", "B. Memutus sengketa pemilu legislatif", "C. Memberhentikan presiden", "D. Mengangkat hakim agung", "E. Menetapkan peraturan pemerintah"], kunci: 0 },
-            { id: 20, kategori: "TWK", tanya: "Contoh pelaksanaan demokrasi Pancasila di lingkungan sekolah adalah...", opsi: ["A. Pemilihan ketua kelas secara langsung", "B. Keputusan oleh kepala sekolah mutlak", "C. Musyawarah menentukan kegiatan kelas", "D. Aturan dari guru tanpa diskusi", "E. Pemungutan suara untuk segala hal"], kunci: 2 },
-            // TWK 21-30 (Contoh lanjutan)
-            { id: 21, kategori: "TWK", tanya: "Pancasila sebagai dasar negara Indonesia disahkan pada tanggal...", opsi: ["A. 17 Agustus 1945", "B. 18 Agustus 1945", "C. 1 Juni 1945", "D. 22 Juni 1945", "E. 29 Mei 1945"], kunci: 1 },
-            { id: 22, kategori: "TWK", tanya: "Pembukaan UUD 1945 terdiri dari... alinea", opsi: ["A. 3", "B. 4", "C. 5", "D. 6", "E. 7"], kunci: 1 },
-            { id: 23, kategori: "TWK", tanya: "Yang bukan termasuk nilai-nilai Pancasila adalah...", opsi: ["A. Ketuhanan", "B. Kemanusiaan", "C. Keadilan", "D. Kebenaran", "E. Persatuan"], kunci: 3 },
-            { id: 24, kategori: "TWK", tanya: "Fungsi Pancasila sebagai ideologi negara adalah...", opsi: ["A. Menjadi pedoman hidup bernegara", "B. Dasar kegiatan pemerintahan", "C. Sumber hukum nasional", "D. Lambang persatuan bangsa", "E. Pedoman hubungan internasional"], kunci: 0 },
-            { id: 25, kategori: "TWK", tanya: "Sikap positif terhadap nilai-nilai Pancasila dapat diwujudkan dengan...", opsi: ["A. Menghafal sila-sila Pancasila", "B. Mengamalkan dalam kehidupan sehari-hari", "C. Memasang lambang Garuda di rumah", "D. Ikut upacara setiap hari Senin", "E. Memperingati hari lahir Pancasila"], kunci: 1 },
-            { id: 26, kategori: "TWK", tanya: "Implementasi sila kedua Pancasila dalam kehidupan berbangsa adalah...", opsi: ["A. Menghormati hak asasi manusia", "B. Menjalankan ibadah sesuai agama", "C. Musyawarah untuk mufakat", "D. Bekerja keras untuk kemajuan", "E. Membela tanah air"], kunci: 0 },
-            { id: 27, kategori: "TWK", tanya: "Pancasila sebagai falsafah negara mengandung arti bahwa Pancasila merupakan...", opsi: ["A. Dasar perilaku warga negara", "B. Pedoman penyelenggaraan negara", "C. Sumber inspirasi budaya bangsa", "D. Landasan berpikir bangsa Indonesia", "E. Alat pemersatu suku bangsa"], kunci: 3 },
-            { id: 28, kategori: "TWK", tanya: "Pancasila sebagai sumber dari segala sumber hukum berarti...", opsi: ["A. Semua hukum harus berdasarkan Pancasila", "B. Hanya Pancasila yang berlaku di Indonesia", "C. Pancasila menggantikan hukum positif", "D. Hukum tidak diperlukan jika ada Pancasila", "E. Pancasila sama dengan undang-undang"], kunci: 0 },
-            { id: 29, kategori: "TWK", tanya: "Sikap yang mencerminkan nilai persatuan Indonesia adalah...", opsi: ["A. Menggunakan produk dalam negeri", "B. Bergaul tanpa membedakan suku", "C. Menjaga kebersihan lingkungan", "D. Belajar dengan tekun", "E. Menghormati orang tua"], kunci: 1 },
-            { id: 30, kategori: "TWK", tanya: "Pancasila sebagai jiwa bangsa Indonesia mengandung arti bahwa Pancasila...", opsi: ["A. Menjiwai segala aktivitas bangsa", "B. Hanya untuk orang Indonesia", "C. Merupakan karakter bangsa", "D. Dibuat oleh para pendiri bangsa", "E. Tidak dapat diubah oleh siapapun"], kunci: 0 },
+  // === TWK (1–30) ===
+  {
+    id: 1,
+    kategori: "TWK",
+    tanya: "Pasal 27 ayat (2) UUD 1945 menyatakan: 'Tiap-tiap warga negara berhak atas pekerjaan dan penghidupan yang layak bagi kemanusiaan.' Adapun implementasi yang tepat dari prinsip ini tercermin dalam....",
+    opsi: [
+      "A. Pemerintah menyediakan lapangan pekerjaan bagi semua warga negara tanpa terkecuali.",
+      "B. Pemerintah berupaya meningkatkan kualitas hidup dengan menyediakan akses pendidikan dan pelatihan kerja.",
+      "C. Warga negara diberikan kebebasan memilih pekerjaan yang diinginkan sesuai kemampuan dan keterampilan masing-masing.",
+      "D. Perusahaan diwajibkan untuk mempekerjakan warga negara setempat terlebih dahulu sebelum membuka peluang bagi tenaga kerja asing.",
+      "E. Setiap warga negara memiliki kewajiban untuk mencari pekerjaan sendiri dan tidak sepenuhnya bergantung pada pemerintah."
+    ],
+    kunci: 0
+  },
+  {
+    id: 2,
+    kategori: "TWK",
+    tanya: "Pasal 28F UUD 1945 menyatakan bahwa 'Setiap orang berhak untuk berkomunikasi dan memperoleh informasi untuk mengembangkan pribadi dan lingkungan sosialnya.' Namun, dalam dunia digital saat ini, akses informasi sering kali menghadirkan berita hoaks atau informasi yang menyesatkan. Bagaimana implementasi yang tepat dari pasal ini dalam situasi benturan antara kebebasan informasi dan keakuratan berita?",
+    opsi: [
+      "A. Pemerintah membatasi akses informasi tertentu agar masyarakat terlindungi dari hoaks dan informasi yang tidak benar.",
+      "B. Masyarakat bebas mengakses semua informasi tanpa adanya kontrol, untuk menjamin kebebasan berkomunikasi.",
+      "C. Pemerintah bekerja sama dengan media dan platform digital untuk memastikan informasi yang disebarkan akurat, tanpa mengurangi kebebasan masyarakat dalam memperoleh informasi.",
+      "D. Informasi yang diakses masyarakat harus selalu melewati sensor pemerintah untuk memastikan akurasinya sebelum sampai ke publik.",
+      "E. Setiap individu bertanggung jawab penuh atas informasi yang diterima dan disebarkan, tanpa perlu adanya intervensi dari pemerintah."
+    ],
+    kunci: 2
+  },
+  {
+    id: 3,
+    kategori: "TWK",
+    tanya: "Pancasila sebagai ideologi bangsa Indonesia memiliki prinsip yang berbeda dengan ideologi-ideologi dunia lainnya seperti liberalisme, sosialisme, dan komunisme. Bagaimana Pancasila membedakan dirinya dari ideologi-ideologi dunia tersebut dalam penerapannya sebagai pandangan hidup bangsa?",
+    opsi: [
+      "A. Pancasila mengutamakan keseimbangan antara kepentingan individu dan kepentingan masyarakat.",
+      "B. Pancasila mengutamakan kebebasan individu dengan tetap menghormati hak-hak orang lain.",
+      "C. Pancasila menekankan kesejahteraan bersama dengan tetap memperhatikan kepentingan pribadi.",
+      "D. Pancasila menjunjung tinggi keadilan sosial dengan tetap memberikan ruang untuk kebebasan individu.",
+      "E. Pancasila menekankan kebebasan berpendapat sambil menjaga kepentingan sosial."
+    ],
+    kunci: 0
+  },
+  {
+    id: 4,
+    kategori: "TWK",
+    tanya: "Perhatikan pengamalan berikut ini: 1. Menghargai pendapat orang lain saat diskusi kelompok. 2. Membantu teman yang sedang kesulitan tanpa membedakan suku dan agama. 3. Turut serta menjaga keamanan dan ketertiban di masyarakat. 4. Berani menyuarakan pendapat tentang kebenaran dan keadilan. 5. Mengikuti upacara bendera sebagai wujud cinta tanah air. 6. Menghormati dan menjalin kerja sama dengan tetangga yang berbeda agama. Dari pengamalan di atas, yang mencerminkan sila ke-2 Pancasila adalah...",
+    opsi: [
+      "A. 1, 3, dan 5",
+      "B. 2, 4, dan 6",
+      "C. 2, 3, dan 4",
+      "D. 1, 4, dan 5",
+      "E. 3, 5, dan 6"
+    ],
+    kunci: 1
+  },
+  {
+    id: 5,
+    kategori: "TWK",
+    tanya: "Komisi Yudisial (KY) merupakan salah satu lembaga negara yang berperan dalam menjaga dan menegakkan kehormatan, keluhuran martabat, serta perilaku hakim. Dalam suatu kasus, ditemukan indikasi bahwa seorang hakim menerima suap untuk mempengaruhi putusan pengadilan dalam perkara yang sedang ditanganinya. Bagaimana peran Komisi Yudisial seharusnya dalam mengatasi konflik tersebut?",
+    opsi: [
+      "A. Komisi Yudisial memantau jalannya persidangan secara langsung dan memutuskan ulang perkara jika ditemukan kecurangan oleh hakim.",
+      "B. Komisi Yudisial memberikan sanksi langsung kepada hakim yang terindikasi menerima suap, tanpa melalui proses investigasi lebih lanjut.",
+      "C. Komisi Yudisial menyelidiki dugaan pelanggaran dan merekomendasikan tindakan kepada Mahkamah Agung.",
+      "D. Komisi Yudisial menegur hakim tersebut dan membiarkan pengadilan melanjutkan proses persidangan tanpa pengaruh lebih lanjut.",
+      "E. Komisi Yudisial berhak membebastugaskan hakim yang terindikasi korupsi dan mengambil alih seluruh proses peradilan yang sedang berlangsung."
+    ],
+    kunci: 2
+  },
+  {
+    id: 6,
+    kategori: "TWK",
+    tanya: "Menurut UU Nomor 43 Tahun 2008 tentang Wilayah Negara Pasal 1 angka 1, Negara Kesatuan Republik Indonesia (NKRI) mempunyai kedaulatan atas wilayahnya serta hak-hak berdaulat di luar wilayah kedaulatannya. Bagaimana implementasi kedaulatan dan hak berdaulat ini dalam konteks perairan Indonesia?",
+    opsi: [
+      "A. NKRI memiliki hak penuh untuk melakukan eksploitasi sumber daya alam di seluruh perairan hingga wilayah laut internasional.",
+      "B. Kedaulatan NKRI hanya berlaku di wilayah daratan, sedangkan hak berdaulat di laut terbatas pada hak navigasi saja.",
+      "C. NKRI memiliki kedaulatan penuh atas laut teritorial dan hak berdaulat atas Zona Ekonomi Eksklusif (ZEE) untuk pemanfaatan sumber daya alam.",
+      "D. NKRI tidak memiliki kewenangan atas perairan di luar wilayah teritorial karena sudah menjadi bagian dari hukum internasional.",
+      "E. Hak berdaulat NKRI di luar wilayahnya terbatas pada keamanan dan tidak termasuk pemanfaatan sumber daya alam."
+    ],
+    kunci: 2
+  },
+  {
+    id: 7,
+    kategori: "TWK",
+    tanya: "Papua adalah bagian penting dan tak terpisahkan dari Negara Kesatuan Republik Indonesia (NKRI) hingga kapanpun. Namun, di sisi lain, keberadaan Organisasi Papua Merdeka (OPM) yang menginginkan kemerdekaan dari NKRI menimbulkan konflik yang berkepanjangan. Bagaimana seharusnya pemerintah Indonesia mengatasi konflik tersebut untuk menjaga keutuhan NKRI dan kesejahteraan masyarakat Papua?",
+    opsi: [
+      "A. Meningkatkan operasi militer di Papua untuk menekan segala bentuk perlawanan dan aktivitas OPM.",
+      "B. Mengadakan dialog terbuka dengan perwakilan masyarakat Papua dan OPM untuk memahami aspirasi dan membangun solusi bersama.",
+      "C. Meningkatkan pembangunan infrastruktur dan peningkatan layanan publik di Papua untuk meningkatkan kesejahteraan masyarakat.",
+      "D. Meningkatkan kontrol keamanan dan membatasi aktivitas masyarakat Papua untuk mencegah pergerakan OPM.",
+      "E. Meningkatkan kerjasama antara pemerintah pusat dan daerah Papua dalam bidang ekonomi dan pendidikan."
+    ],
+    kunci: 1
+  },
+  {
+    id: 8,
+    kategori: "TWK",
+    tanya: "Semboyan 'Bhinneka Tunggal Ika,' yang berarti 'Berbeda-beda tetapi tetap satu,' menjadi landasan penting bagi bangsa Indonesia dalam menyatukan keberagaman suku, agama, budaya, dan adat istiadat. Namun, keberagaman tersebut dapat menjadi sumber konflik jika tidak dikelola dengan baik. Bagaimana cara terbaik mengatasi keberagaman ini agar dapat menjadi kelebihan dan kekuatan bagi bangsa Indonesia?",
+    opsi: [
+      "A. Memilih salah satu budaya yang dominan sebagai budaya utama bangsa agar dapat menghilangkan perbedaan di masyarakat.",
+      "B. Mendorong masyarakat untuk menyamakan cara pandang dan keyakinan agar tercipta persatuan tanpa adanya perbedaan pendapat.",
+      "C. Memfasilitasi program pertukaran budaya antar daerah untuk meningkatkan pemahaman dan menghargai keragaman.",
+      "D. Menjaga perbedaan tersebut tetap terpisah, agar setiap kelompok merasa aman dalam lingkungannya sendiri.",
+      "E. Membatasi interaksi antar kelompok yang berbeda budaya agar konflik dapat dihindari."
+    ],
+    kunci: 2
+  },
+  {
+    id: 9,
+    kategori: "TWK",
+    tanya: "Berikut ini merupakan contoh sikap Bhinneka Tunggal Ika dalam kehidupan sehari-hari, kecuali....",
+    opsi: [
+      "A. Menghargai teman yang memiliki latar belakang budaya berbeda dan belajar tentang kebiasaannya.",
+      "B. Mengajak teman dari suku yang berbeda untuk berpartisipasi dalam acara gotong royong di lingkungan sekitar.",
+      "C. Tetap menjaga hubungan baik dengan teman meskipun memiliki perbedaan pandangan agama dan budaya.",
+      "D. Berteman dengan orang yang memiliki kesamaan budaya dan agama untuk memperkuat ikatan sosial yang lebih kuat.",
+      "E. Ikut serta dalam perayaan hari besar dari budaya lain sebagai wujud penghargaan atas keragaman."
+    ],
+    kunci: 3
+  },
+  {
+    id: 10,
+    kategori: "TWK",
+    tanya: "Di tengah modernisasi dan pengaruh budaya global, banyak generasi muda Indonesia yang mulai meninggalkan budaya tradisional dan beralih pada gaya hidup yang lebih modern. Bagaimana seharusnya sikap generasi muda dalam menghadapi modernisasi tanpa kehilangan nilai nasionalisme kebudayaan?",
+    opsi: [
+      "A. Mengutamakan gaya hidup modern namun tetap mengenal dan menghargai budaya tradisional sebagai bagian dari identitas.",
+      "B. Memperkenalkan budaya tradisional pada teman-teman dari luar negeri, sembari menyesuaikan diri dengan tren global.",
+      "C. Menggabungkan elemen budaya tradisional dalam kegiatan sehari-hari dengan cara yang sesuai dengan perkembangan zaman.",
+      "D. Memprioritaskan penggunaan teknologi dan gaya hidup modern, sambil merayakan budaya tradisional pada acara-acara khusus.",
+      "E. Menjaga warisan budaya tradisional dengan mempelajarinya, meskipun dalam kesehatan lebih terpengaruh oleh gaya hidup global."
+    ],
+    kunci: 2
+  },
+  {
+    id: 11,
+    kategori: "TWK",
+    tanya: "Seorang mahasiswa yang kuliah di luar negeri merasa bangga dan selalu mengenakan baju batik khas Indonesia di acara-acara kampus. Ia juga aktif berdiskusi tentang kebudayaan Indonesia dan berusaha memperkenalkan makanan tradisional kepada teman-teman asingnya. Apa sikap mahasiswa tersebut yang mencerminkan nasionalisme?",
+    opsi: [
+      "A. Menunjukkan identitas budaya Indonesia dengan mengenakan baju batik di luar negeri.",
+      "B. Memperkenalkan masakan Indonesia untuk menarik perhatian teman-teman asing.",
+      "C. Berpartisipasi dalam diskusi budaya untuk membangun citra positif Indonesia di luar negeri.",
+      "D. Menghargai keberagaman budaya dengan memperlihatkan keunikan batik kepada teman-teman internasional.",
+      "E. Menggunakan kesempatan untuk mengajak teman-temannya berkunjung ke Indonesia dan menikmati kebudayaannya."
+    ],
+    kunci: 2
+  },
+  {
+    id: 12,
+    kategori: "TWK",
+    tanya: "Sumpah Pemuda yang dicetuskan pada 28 Oktober 1928 menjadi tonggak penting dalam perjuangan kemerdekaan Indonesia, yang berisi janji persatuan untuk tanah air, bangsa, dan bahasa Indonesia. Saat ini, semangat Sumpah Pemuda tetap relevan di era modern dengan berbagai tantangan baru. Bagaimana seharusnya pemuda masa kini menerapkan semangat Sumpah Pemuda untuk memajukan Indonesia?",
+    opsi: [
+      "A. Berkompetisi secara global dan memperkenalkan budaya asing ke masyarakat Indonesia untuk menciptakan keterbukaan pemikiran.",
+      "B. Berperan aktif dalam pembangunan masyarakat dengan berinovasi dan menciptakan solusi untuk masalah sosial, ekonomi, dan lingkungan.",
+      "C. Menjalin hubungan dengan pemuda dari negara lain dan menekankan persamaan budaya internasional di atas identitas nasional.",
+      "D. Mengikuti perkembangan tren internasional agar Indonesia selalu mengikuti perubahan dunia, tanpa harus mempertahankan nilai budaya lokal.",
+      "E. Fokus pada pengembangan diri dan karier pribadi agar memiliki prestasi dan kesuksesan individu yang dapat dikagumi dunia."
+    ],
+    kunci: 1
+  },
+  {
+    id: 13,
+    kategori: "TWK",
+    tanya: "Seorang mahasiswa Indonesia sedang menempuh pendidikan di luar negeri dengan berbagai latar belakang budaya dan kebiasaan yang berbeda. Dalam kesehariannya, ia berinteraksi dengan teman-teman dari berbagai negara, mengikuti kegiatan kampus, dan beradaptasi dengan budaya setempat. Bagaimana seharusnya mahasiswa tersebut mengimplementasikan nasionalisme saat berada di luar negeri?",
+    opsi: [
+      "A. Beradaptasi dengan budaya setempat sambil tetap menjaga identitas dan nilai-nilai budaya Indonesia dalam pergaulan sehari-hari.",
+      "B. Berpartisipasi dalam berbagai acara internasional dengan mengenalkan budaya Indonesia secara sederhana dan relevan bagi teman-teman di luar negeri.",
+      "C. Bergaul dengan teman-teman dari berbagai negara untuk mempelajari budaya mereka, sambil tetap menunjukkan rasa bangga sebagai mahasiswa Indonesia.",
+      "D. Mengikuti kegiatan komunitas mahasiswa Indonesia di luar negeri untuk menjaga hubungan dan memperkuat rasa persaudaraan.",
+      "E. Mengutamakan pendidikan sebagai prioritas utama, namun tetap berusaha mempromosikan Indonesia di berbagai kesempatan yang ada."
+    ],
+    kunci: 1
+  },
+  {
+    id: 14,
+    kategori: "TWK",
+    tanya: "Di era globalisasi dan kemajuan teknologi yang serba canggih, nasionalisme menghadapi tantangan yang cukup berat. Informasi dan budaya dari seluruh dunia mudah diakses melalui internet dan media sosial, menyebabkan generasi muda lebih mengenal budaya asing dibanding budaya bangsa sendiri. Berikut ini tantangan paling serius dalam mempertahankan semangat nasionalisme di era globalisasi adalah...",
+    opsi: [
+      "A. Maraknya penggunaan internet dan media sosial yang membuat generasi muda lebih mudah terhubung dengan budaya dan tren global.",
+      "B. Meningkatnya minat generasi muda untuk mengikuti gaya hidup dan tradisi budaya asing dibanding melestarikan budaya lokal.",
+      "C. Pesatnya perkembangan teknologi yang membuat masyarakat lebih fokus pada isu-isu global daripada isu nasional atau daerah mereka sendiri.",
+      "D. Semakin tingginya minat generasi muda untuk bekerja dan tinggal di luar negeri karena dianggap lebih menjanjikan dibanding tinggal di Indonesia.",
+      "E. Kemajuan teknologi memudahkan akses informasi, sehingga masyarakat lebih kritis terhadap pemerintah dan membandingkan kondisi negara dengan negara lain."
+    ],
+    kunci: 1
+  },
+  {
+    id: 15,
+    kategori: "TWK",
+    tanya: "Sebagai warga negara Indonesia, setiap individu tidak diwajibkan untuk mengikuti wajib militer. Namun, hal ini tidak berarti bahwa warga negara bebas dari tanggung jawab bela negara. Mengapa keterlibatan dalam usaha bela negara tetap penting bagi setiap warga Indonesia meskipun tidak diwajibkan untuk menjadi bagian dari militer?",
+    opsi: [
+      "A. Karena bela negara melibatkan peran aktif dalam membangun masyarakat yang lebih baik dan menjaga kerukunan antar warga.",
+      "B. Karena bela negara berarti mendukung pemerintah dalam setiap kebijakan tanpa perlu berpartisipasi secara langsung dalam kegiatan sosial.",
+      "C. Karena bela negara dapat diwujudkan dengan memberikan kontribusi positif pada lingkungan sekitar, termasuk menjaga persatuan dan toleransi.",
+      "D. Karena bela negara dilakukan dengan menjaga keamanan negara melalui peran yang hanya terbatas pada aparat keamanan.",
+      "E. Karena bela negara berarti siap mendukung negara kapan pun dibutuhkan, terutama saat terjadi situasi yang mengancam keamanan nasional."
+    ],
+    kunci: 4
+  },
+  {
+    id: 16,
+    kategori: "TWK",
+    tanya: "Pasal 30 ayat 1 UUD 1945 berbunyi, 'Tiap-tiap warga negara berhak dan ikut serta dalam pertahanan dan keamanan negara.' Sekilas, ini dapat berarti kewajiban dan hak membela negara dalam bentuk fisik, terutama ketika Indonesia berada dalam keadaan perang. Bagaimana seharusnya sikap kita sebagai warga negara ketika Indonesia sedang berperang?",
+    opsi: [
+      "A. Bergabung dalam upaya bela negara dengan menjadi sukarelawan untuk mendukung angkatan bersenjata dan membantu logistik.",
+      "B. Menjaga ketertiban dan keamanan di lingkungan sekitar serta membantu pemerintah dalam upaya penyelamatan dan perlindungan warga.",
+      "C. Mendukung upaya diplomasi pemerintah untuk menghentikan perang, sambil mematuhi aturan yang diberlakukan selama masa konflik.",
+      "D. Mengutamakan keselamatan diri dan keluarga, tetapi tetap berkontribusi dalam berbagai kegiatan sosial untuk mendukung ketahanan nasional.",
+      "E. Membantu penyebaran informasi dan memberikan dukungan moral kepada para pejuang, sambil tetap menjalankan kehidupan sehari-hari dengan normal."
+    ],
+    kunci: 0
+  },
+  {
+    id: 17,
+    kategori: "TWK",
+    tanya: "Perjuangan kemerdekaan Indonesia dipenuhi dengan pengorbanan dan semangat para pahlawan yang rela mengorbankan harta, tenaga, bahkan nyawa demi mencapai kemerdekaan bangsa. Bagaimana seharusnya kita sebagai generasi penerus merawat perjuangan para pendahulu dalam kehidupan sehari-hari?",
+    opsi: [
+      "A. Aktif dalam kegiatan sosial dan menjaga hubungan baik dengan masyarakat sekitar untuk memperkuat persatuan dan kebersamaan.",
+      "B. Seorang pengusaha yang memberdayakan UMKM lokal untuk meningkatkan perekonomian daerah.",
+      "C. Menerapkan nilai-nilai kebangsaan dengan menjaga kerukunan, saling membantu, dan berkontribusi untuk kesejahteraan bersama.",
+      "D. Menghargai perjuangan para pahlawan dengan berperan serta dalam kegiatan-kegiatan yang memajukan lingkungan sekitar.",
+      "E. Menunjukkan rasa cinta tanah air melalui partisipasi dalam kegiatan komunitas dan selalu mendukung program pemerintah yang bermanfaat."
+    ],
+    kunci: 2
+  },
+  {
+    id: 18,
+    kategori: "TWK",
+    tanya: "Perhatikan poin-poin berikut ini tentang pengamalan bela negara sesuai profesi: 1. Seorang dokter yang memberikan pelayanan kesehatan secara cuma-cuma kepada masyarakat kurang mampu di daerah terpencil. 2. Seorang pengusaha yang memberdayakan UMKM lokal untuk meningkatkan perekonomian daerah. 3. Seorang guru yang mengajar anak-anak di pedalaman dengan penuh dedikasi meskipun fasilitas pendidikan minim. 4. Seorang pejabat publik bekerja keras untuk memberikan pelayanan terbaik bagi masyarakat. 5. Seorang insinyur berinovasi menciptakan teknologi ramah lingkungan untuk memajukan industri nasional. 6. Seorang atlet memilih mewakili negara lain dalam kompetisi internasional demi mendapatkan fasilitas yang lebih baik. Dari poin-poin di atas, yang termasuk pengamalan bela negara sesuai profesi adalah...",
+    opsi: [
+      "A. 1, 2, dan 4",
+      "B. 3, 5, dan 6",
+      "C. 1, 3, dan 5",
+      "D. 2, 4, dan 6",
+      "E. 2, 5, dan 6"
+    ],
+    kunci: 2
+  },
+  {
+    id: 19,
+    kategori: "TWK",
+    tanya: "Seorang pelatih bulutangkis asal Indonesia memilih untuk melatih tim bulutangkis negara lain di luar negeri karena tawaran yang lebih baik. Suatu ketika, tim asuhannya harus bertanding melawan tim bulutangkis Indonesia di ajang kompetisi internasional. Bagaimana seharusnya sikap pelatih tersebut dalam pertandingan tersebut jika dikaitkan dengan prinsip bela negara dan profesionalitas?",
+    opsi: [
+      "A. Menginstruksikan tim asuhannya untuk bermain secara pasif agar tidak melukai peluang tim Indonesia untuk menang.",
+      "B. Bermain tidak terlalu serius dalam memberikan strategi terbaik kepada tim asuhannya, sebagai bentuk hormat pada negara asalnya.",
+      "C. Memberikan dukungan moral kepada tim Indonesia sebelum pertandingan, tetapi fokus memberikan strategi terbaik bagi tim asuhannya selama pertandingan.",
+      "D. Meminta izin tidak melatih saat pertandingan melawan Indonesia untuk menghindari konflik kesetiaan kepada tanah air.",
+      "E. Berusaha keras agar tim asuhannya mengalahkan tim Indonesia sebagai bukti bahwa ia telah sukses beradaptasi dengan negara barunya."
+    ],
+    kunci: 2
+  },
+  {
+    id: 20,
+    kategori: "TWK",
+    tanya: "Saat terjadi konflik di wilayah perbatasan Indonesia, seorang warga dihadapkan pada pilihan untuk bertindak demi kepentingan negara. Bagaimana sikap yang paling mencerminkan semangat bela negara?",
+    opsi: [
+      "A. Menyelenggarakan penggalangan dana dan logistik untuk mendukung kebutuhan masyarakat dan aparat yang bertugas di daerah perbatasan.",
+      "B. Menyebarkan informasi dan berita positif tentang kondisi wilayah perbatasan untuk menjaga semangat dan solidaritas masyarakat.",
+      "C. Memastikan keselamatan keluarga dengan memindahkan mereka ke tempat aman, lalu kembali untuk mendukung aktivitas pertahanan wilayah.",
+      "D. Tetap tinggal dan aktif membantu aparat keamanan di wilayah konflik sambil memastikan keluarganya berada di tempat yang aman.",
+      "E. Mengajak masyarakat sekitar untuk melakukan kegiatan doa bersama dan menyemangati warga yang terlibat dalam pertahanan wilayah."
+    ],
+    kunci: 3
+  },
+  {
+    id: 21,
+    kategori: "TWK",
+    tanya: "Bacalah paragraf berikut dengan cermat: 'Di era digital saat ini, perkembangan teknologi telah mengubah berbagai aspek kehidupan manusia. Kemudahan akses informasi membuat masyarakat semakin cepat memperoleh berita dan pengetahuan. Di sisi lain, banyaknya informasi yang beredar, termasuk berita palsu atau hoaks, menimbulkan tantangan baru dalam memilah dan memahami kebenaran informasi tersebut. Selain itu, ketergantungan terhadap teknologi juga dapat menyebabkan menurunnya interaksi sosial langsung antarindividu, yang pada akhirnya mempengaruhi hubungan sosial dalam masyarakat.' Gagasan utama dari paragraf di atas adalah...",
+    opsi: [
+      "A. Kemajuan teknologi membuat masyarakat lebih cepat mendapatkan informasi.",
+      "B. Era digital menyebabkan banyak berita palsu atau hoaks yang beredar.",
+      "C. Perkembangan teknologi di era digital membawa perubahan dan tantangan dalam berbagai aspek kehidupan manusia.",
+      "D. Ketergantungan pada teknologi mengurangi interaksi sosial langsung dalam masyarakat.",
+      "E. Informasi di era digital harus dipilah dan dipahami dengan bijak agar tidak tertipu hoaks."
+    ],
+    kunci: 2
+  },
+  {
+    id: 22,
+    kategori: "TWK",
+    tanya: "Bacalah cerita berikut ini dengan cermat: Suatu hari di sebuah desa kecil, hiduplah seorang pemuda bernama Rian. Ia terkenal sebagai pemuda yang rajin membantu tetangganya, terutama para lansia yang membutuhkan bantuan. Setiap sore, Rian mengantarkan makanan kepada Pak Wira, seorang kakek yang tinggal sendirian. Di lain waktu, ia juga sering membantu Bu Siti yang sulit mengambil air dari sumur karena kondisi fisiknya yang lemah. Namun, ketika musim panen tiba, Rian mendapati bahwa hasil kebunnya rusak karena serangan hama. Meskipun ia mengalami kerugian besar, Rian tetap dengan tulus memberikan sebagian dari hasil panen yang tersisa kepada tetangganya yang juga mengalami kesulitan serupa. Ia percaya bahwa berbagai rezeki di saat susah adalah cara untuk mempererat persaudaraan dan menunjukkan rasa empati. Nilai sosial yang dapat diambil dari cerita di atas adalah...",
+    opsi: [
+      "A. Keikhlasan dalam membantu orang lain meskipun sedang dalam kesulitan.",
+      "B. Menghargai orang tua dengan cara selalu memberikan perhatian dan bantuan.",
+      "C. Kesabaran dalam menghadapi kerugian tanpa mengeluh pada keadaan.",
+      "D. Kegigihan dalam bekerja keras meskipun hasilnya tidak selalu sesuai harapan.",
+      "E. Kebaikan hati dalam menjaga hubungan dengan sesama tanpa mengharapkan imbalan."
+    ],
+    kunci: 0
+  },
+  {
+    id: 23,
+    kategori: "TWK",
+    tanya: "Bacalah kutipan berita berikut ini dengan cermat: 'Kota Bandung telah berhasil meraih penghargaan sebagai kota dengan tata ruang terbaik di Indonesia tahun ini. Berdasarkan hasil penilaian, kota ini dinilai mampu menata kawasan perkotaan dengan baik, termasuk ruang hijau yang tersebar merata di seluruh kota. Namun, sebagian warga menganggap bahwa penghargaan ini kurang mencerminkan kenyataan di lapangan. Menurut mereka, meskipun terdapat ruang hijau, beberapa bagian kota masih kurang terawat dan terkesan kumuh. Selain itu, kemacetan yang sering terjadi di jalan-jalan utama menunjukkan bahwa penataan lalu lintas masih menjadi pekerjaan rumah bagi pemerintah setempat.' Dari kutipan berita di atas, manakah yang merupakan kalimat opini?",
+    opsi: [
+      "A. Kota Bandung telah berhasil meraih penghargaan sebagai kota dengan tata ruang terbaik di Indonesia tahun ini.",
+      "B. Berdasarkan hasil penilaian, kota ini dinilai mampu menata kawasan perkotaan dengan baik, termasuk ruang hijau yang tersebar merata di seluruh kota.",
+      "C. Sebagian warga menganggap bahwa penghargaan ini kurang mencerminkan kenyataan di lapangan.",
+      "D. Terdapat ruang hijau di Bandung, tetapi beberapa bagian kota masih kurang terawat dan terkesan kumuh.",
+      "E. Kemacetan yang sering terjadi di jalan-jalan utama menunjukkan bahwa penataan lalu lintas masih menjadi pekerjaan rumah bagi pemerintah setempat."
+    ],
+    kunci: 2
+  },
+  {
+    id: 24,
+    kategori: "TWK",
+    tanya: "Perhatikan kalimat berikut ini: 'Karena semua siswa harus mematuhi aturan sekolah, jika melanggar akan mendapatkan sanksi.' Kalimat di atas tidak efektif. Manakah dari kalimat berikut yang merupakan perbaikan kalimat tersebut agar lebih efektif dan jelas?",
+    opsi: [
+      "A. Semua siswa harus mematuhi aturan sekolah, maka mereka akan mendapatkan sanksi jika melanggar.",
+      "B. Karena semua siswa mematuhi aturan sekolah, mereka pasti tidak akan mendapatkan sanksi.",
+      "C. Jika siswa melanggar aturan sekolah, maka mereka harus mematuhi sanksi yang diberikan.",
+      "D. Semua siswa harus mematuhi aturan sekolah; jika melanggar, mereka akan mendapatkan sanksi.",
+      "E. Aturan sekolah harus dipatuhi siswa semua karena sanksi akan didapat jika melanggar."
+    ],
+    kunci: 3
+  },
+  {
+    id: 25,
+    kategori: "TWK",
+    tanya: "Seorang guru bernama Pak Rudi setiap hari berjalan kaki sejauh 5 km untuk mengajar di sekolah terpencil di desanya. Meskipun fasilitas di sekolah sangat terbatas dan gaji yang diterimanya tidak seberapa, Pak Rudi tetap semangat mengajar dan berusaha memberikan pendidikan terbaik bagi murid-muridnya. Bahkan, ia rela menggunakan sebagian gajinya untuk membeli buku dan alat tulis bagi murid-murid yang kurang mampu. Pak Rudi meyakini bahwa pendidikan adalah kunci untuk masa depan anak-anak di desanya. Sikap yang ditunjukkan oleh Pak Rudi ini termasuk ke dalam integritas ...",
+    opsi: [
+      "A. Peduli, karena Pak Rudi memperhatikan dan memprioritaskan kebutuhan murid-muridnya meskipun dirinya juga mengalami keterbatasan.",
+      "B. Tanggung jawab, karena Pak Rudi merasa bahwa memberikan pendidikan yang layak kepada murid-murid adalah kewajibannya meskipun banyak rintangan yang dihadapi.",
+      "C. Berani, karena Pak Rudi tidak takut menghadapi kesulitan dan tetap melakukan tugasnya dengan penuh tanggung jawab.",
+      "D. Sederhana, karena Pak Rudi tidak mengharapkan fasilitas yang lebih baik dan tetap bekerja keras dengan apa yang ada.",
+      "E. Mandiri, karena Pak Rudi tidak bergantung pada bantuan pemerintah dan memilih untuk menggunakan gajinya sendiri demi membantu murid-murid."
+    ],
+    kunci: 0
+  },
+  {
+    id: 26,
+    kategori: "TWK",
+    tanya: "Bung Hatta dikenal sebagai salah satu proklamator Indonesia. Meski hidup sederhana dan tidak terlalu mementingkan harta pribadi, Bung Hatta memiliki semangat juang yang tinggi demi kemajuan negara. Bahkan, di masa tuanya, ia tetap menolak berbagai tawaran jabatan dan fasilitas mewah dari pemerintah karena ingin hidup sesuai dengan prinsipnya. Bung Hatta lebih memilih mendahulukan kepentingan bangsa daripada memperkaya diri sendiri. Sikap yang ditunjukkan oleh Bung Hatta ini termasuk ke dalam integritas ...",
+    opsi: [
+      "A. Peduli, karena Bung Hatta selalu memikirkan kesejahteraan masyarakat dibandingkan dengan keuntungan pribadinya.",
+      "B. Sederhana, karena Bung Hatta memilih hidup apa adanya tanpa memanfaatkan jabatannya untuk memperkaya diri.",
+      "C. Berani, karena Bung Hatta berani menolak fasilitas mewah meski banyak orang di sekitarnya menerima fasilitas tersebut.",
+      "D. Tanggung jawab, karena Bung Hatta merasa bertanggung jawab untuk menjaga moral dan etika sebagai pejabat negara.",
+      "E. Mandiri, karena Bung Hatta memilih untuk hidup sesuai dengan prinsipnya tanpa bergantung pada bantuan pihak lain."
+    ],
+    kunci: 1
+  },
+  {
+    id: 27,
+    kategori: "TWK",
+    tanya: "Ki Hajar Dewantara adalah tokoh pendidikan Indonesia yang terkenal dengan semboyan 'Ing Ngarsa Sung Tulada' yang berarti di depan memberi teladan. Di tengah tekanan penjajahan Belanda, Ki Hajar memilih untuk berjuang di bidang pendidikan demi mencerdaskan bangsa. Meskipun sering diintimidasi oleh pemerintah kolonial dan hidup dalam keterbatasan, ia tetap mendirikan sekolah dan mengajar anak-anak dengan penuh semangat. Ki Hajar menolak kompromi dengan penjajah yang menawarkan jabatan tinggi di pemerintahan jika ia menghentikan aktivitas pendidikan pergerakannya. Sikap yang ditunjukkan oleh Ki Hajar Dewantara ini termasuk ke dalam integritas ...",
+    opsi: [
+      "A. Peduli, karena Ki Hajar Dewantara memprioritaskan pendidikan anak-anak bangsa meskipun dirinya dalam tekanan penjajah.",
+      "B. Berani, karena Ki Hajar Dewantara menolak tawaran jabatan tinggi dan tetap memilih jalan perjuangan melalui pendidikan meski berisiko.",
+      "C. Tanggung jawab, karena Ki Hajar Dewantara merasa bahwa pendidikan adalah kewajiban moralnya untuk membangun generasi bangsa yang cerdas.",
+      "D. Sederhana, karena meskipun ditawarkan jabatan tinggi oleh penjajah, Ki Hajar memilih hidup dalam keterbatasan dan fokus pada pengabdian.",
+      "E. Mandiri, karena Ki Hajar Dewantara tidak bergantung pada kekuasaan penjajah dan membangun sekolah dengan kemampuan serta dukungan rakyat."
+    ],
+    kunci: 1
+  },
+  {
+    id: 28,
+    kategori: "TWK",
+    tanya: "Pak Budi adalah seorang Aparatur Sipil Negara (ASN) yang bekerja di kantor pemerintahan daerah. Suatu hari, atasannya memintanya untuk menyetujui sebuah proyek pembangunan tanpa melalui prosedur yang benar, dengan iming-iming akan mendapat keuntungan pribadi. Namun, Pak Budi tahu bahwa proyek tersebut belum memenuhi syarat administrasi dan etika yang diharuskan. Di sisi lain, rekan-rekannya sudah menyetujui proyek tersebut. Jika Pak Budi tetap mempertahankan prinsipnya, ia khawatir kariernya akan terancam dan dijauhi oleh rekan-rekan kerjanya. Sikap yang seharusnya diambil oleh Pak Budi yang mencerminkan integritas seorang ASN adalah ...",
+    opsi: [
+      "A. Meminta waktu tambahan untuk meninjau kembali kelengkapan administrasi dan mempertimbangkan semua aspek proyek secara objektif.",
+      "B. Mengajukan diskusi dengan atasannya untuk menjelaskan pentingnya mengikuti prosedur dan dampak dari pelanggaran aturan.",
+      "C. Mengambil langkah untuk memastikan proyek tersebut memenuhi syarat yang ditentukan sebelum memberikan persetujuannya.",
+      "D. Berkomunikasi dengan rekan-rekannya untuk mencari solusi yang dapat menguntungkan semua pihak tanpa melanggar aturan.",
+      "E. Menjalin hubungan baik dengan semua pihak sambil tetap memastikan semua prosedur dilaksanakan sesuai dengan aturan yang berlaku."
+    ],
+    kunci: 4
+  },
+  {
+    id: 29,
+    kategori: "TWK",
+    tanya: "Seorang pemimpin organisasi non-pemerintah, Ibu Lisa, menemukan bahwa beberapa anggota timnya telah menggunakan dana sumbangan untuk kepentingan pribadi. Meskipun hal ini bisa menimbulkan konflik dan mempengaruhi hubungan baik di dalam tim, Ibu Lisa tahu bahwa dia harus bertindak sesuai dengan prinsip integritas. Apa sikap yang paling tepat bagi Ibu Lisa dalam situasi ini?",
+    opsi: [
+      "A. Membahas masalah ini secara terbuka dengan anggota tim dan meminta penjelasan mereka.",
+      "B. Menyelidiki masalah ini lebih dalam dan mendiskusikannya dengan pihak luar sebelum mengambil tindakan.",
+      "C. Menghadapkan anggota tim tersebut dan meminta mereka untuk mengembalikan dana tanpa melibatkan orang lain.",
+      "D. Melaporkan anggota tim tersebut ke otoritas yang lebih tinggi tanpa memberi mereka kesempatan untuk menjelaskan.",
+      "E. Mengeluarkan anggota yang terlibat dari organisasi secara langsung tanpa diskusi."
+    ],
+    kunci: 0
+  },
+  {
+    id: 30,
+    kategori: "TWK",
+    tanya: "Seorang pegawai di Komisi Pemberantasan Korupsi (KPK), Anwar, menerima tawaran dari seorang politisi untuk mendapatkan sejumlah uang sebagai imbalan atas perlakuan khusus dalam proses penyelidikan kasus korupsi. Meskipun tawaran tersebut menggiurkan dan bisa memperbaiki kondisi keuangannya, Anwar tahu bahwa menerima tawaran itu akan melanggar integritasnya. Sikap yang seharusnya diambil oleh Anwar adalah ...",
+    opsi: [
+      "A. Menolak tawaran tersebut dan melaporkan kejadian itu kepada atasan atau unit pengawasan internal.",
+      "B. Menerima tawaran tersebut dan menggunakan uangnya untuk kepentingan pribadi, tetapi tetap melanjutkan penyelidikan dengan objektif.",
+      "C. Menolak tawaran tersebut tetapi tidak melaporkan politisi tersebut karena takut akan dampaknya.",
+      "D. Menerima tawaran tersebut dan menggunakannya untuk memperbaiki kehidupan keluarganya, sambil berjanji tidak akan terpengaruh dalam penyelidikan.",
+      "E. Mengabaikan tawaran tersebut dan melanjutkan pekerjaan seperti biasa tanpa melaporkan."
+    ],
+    kunci: 0
+  },
 
-            // === TES INTELEGENSI UMUM (TIU) - 35 Soal ===
-            { id: 31, kategori: "TIU", tanya: "PREVALENSI ≈", opsi: ["A. Kelaziman", "B. Pencegahan", "C. Penangguhan", "D. Keterkaitan", "E. Perkiraan"], kunci: 0 },
-            { id: 32, kategori: "TIU", tanya: "APATIS ><", opsi: ["A. Peduli", "B. Acuh", "C. Diam", "D. Pasif", "E. Netral"], kunci: 0 },
-            { id: 33, kategori: "TIU", tanya: "SASTRA : PENULIS = ... : ...", opsi: ["A. Lukisan : Pelukis", "B. Musik : Komposer", "C. Panggung : Aktor", "D. Arsitektur : Insinyur", "E. Puisi : Penyair"], kunci: 1 },
-            { id: 34, kategori: "TIU", tanya: "2, 6, 12, 20, 30, ...", opsi: ["A. 40", "B. 42", "C. 44", "D. 46", "E. 48"], kunci: 1 },
-            { id: 35, kategori: "TIU", tanya: "5, 13, 9, 18, 15, 25, 23, 34, ...", opsi: ["A. 28", "B. 30", "C. 33", "D. 35", "E. 38"], kunci: 2 },
-            { id: 36, kategori: "TIU", tanya: "Sebuah proyek dapat diselesaikan 15 pekerja dalam 20 hari. Setelah 8 hari bekerja, proyek dihentikan 4 hari. Agar selesai tepat waktu, pekerja tambahan yang dibutuhkan adalah...", opsi: ["A. 5", "B. 6", "C. 8", "D. 10", "E. 12"], kunci: 3 },
-            { id: 37, kategori: "TIU", tanya: "Jika semua X adalah Y, dan tidak ada Y yang Z, maka...", opsi: ["A. Beberapa X adalah Z", "B. Semua X bukan Z", "C. Beberapa Y adalah X", "D. Semua Z adalah Y", "E. Tidak dapat disimpulkan"], kunci: 1 },
-            { id: 38, kategori: "TIU", tanya: "Delapan orang (A-H) duduk melingkar. A bersebelahan dengan B dan C. D tidak bersebelahan dengan B. E berhadapan dengan A. Jika F di sebelah D, maka posisi G dan H...", opsi: ["A. Bersebelahan dengan E", "B. Berhadapan dengan C", "C. Di antara B dan D", "D. Di sebelah F", "E. Tidak dapat ditentukan"], kunci: 4 },
-            { id: 39, kategori: "TIU", tanya: "x = 75% dari 0,8; y = 0,8% dari 75. Maka...", opsi: ["A. x > y", "B. x < y", "C. x = y", "D. Hubungan tidak dapat ditentukan"], kunci: 2 },
-            { id: 40, kategori: "TIU", tanya: "Gambar: (deskripsi pola) Pilih gambar yang berbeda", opsi: ["A. Gambar A", "B. Gambar B", "C. Gambar C", "D. Gambar D", "E. Gambar E"], kunci: 1 },
-            // TIU 41-50
-            { id: 41, kategori: "TIU", tanya: "TAKSA ≈", opsi: ["A. Jelas", "B. Ambigu", "C. Terang", "D. Pasti", "E. Tegas"], kunci: 1 },
-            { id: 42, kategori: "TIU", tanya: "KONVENSI ><", opsi: ["A. Kebiasaan", "B. Inovasi", "C. Tradisi", "D. Perjanjian", "E. Kesepakatan"], kunci: 1 },
-            { id: 43, kategori: "TIU", tanya: "AIR : HAUS = MAKANAN : ...", opsi: ["A. Kenyang", "B. Lapar", "C. Minum", "D. Enak", "E. Sehat"], kunci: 1 },
-            { id: 44, kategori: "TIU", tanya: "3, 7, 15, 31, 63, ...", opsi: ["A. 95", "B. 111", "C. 127", "D. 135", "E. 143"], kunci: 2 },
-            { id: 45, kategori: "TIU", tanya: "A, C, F, J, O, ...", opsi: ["A. T", "B. U", "C. V", "D. W", "E. X"], kunci: 1 },
-            { id: 46, kategori: "TIU", tanya: "Sebuah mobil menempuh jarak 120 km dengan kecepatan 60 km/jam. Jika ingin waktu tempuh berkurang 20 menit, kecepatan yang harus digunakan adalah...", opsi: ["A. 70 km/jam", "B. 72 km/jam", "C. 75 km/jam", "D. 80 km/jam", "E. 90 km/jam"], kunci: 1 },
-            { id: 47, kategori: "TIU", tanya: "Semua dokter adalah sarjana. Beberapa sarjana adalah peneliti. Simpulan yang tepat adalah...", opsi: ["A. Semua dokter adalah peneliti", "B. Beberapa dokter adalah peneliti", "C. Semua peneliti adalah dokter", "D. Beberapa peneliti adalah dokter", "E. Tidak ada kesimpulan pasti"], kunci: 4 },
-            { id: 48, kategori: "TIU", tanya: "Umur Ayah 3 kali umur Anak. Jika selisih umur mereka 24 tahun, maka umur Anak adalah...", opsi: ["A. 8 tahun", "B. 10 tahun", "C. 12 tahun", "D. 14 tahun", "E. 16 tahun"], kunci: 2 },
-            { id: 49, kategori: "TIU", tanya: "Perbandingan uang A:B = 2:3, B:C = 4:5. Jika uang A Rp 80.000, maka uang C adalah...", opsi: ["A. Rp 120.000", "B. Rp 150.000", "C. Rp 180.000", "D. Rp 200.000", "E. Rp 240.000"], kunci: 1 },
-            { id: 50, kategori: "TIU", tanya: "Jika 4x² - 9 = 0, maka nilai x adalah...", opsi: ["A. 1.5 atau -1.5", "B. 2 atau -2", "C. 2.25 atau -2.25", "D. 3 atau -3", "E. 4 atau -4"], kunci: 0 },
-            // TIU 51-65
-            { id: 51, kategori: "TIU", tanya: "PROLIFERASI ≈", opsi: ["A. Penyusutan", "B. Perkembangan", "C. Pembekuan", "D. Penghancuran", "E. Pengurangan"], kunci: 1 },
-            { id: 52, kategori: "TIU", tanya: "KONSENSUS ><", opsi: ["A. Persetujuan", "B. Perbedaan", "C. Perdebatan", "D. Penolakan", "E. Pertentangan"], kunci: 4 },
-            { id: 53, kategori: "TIU", tanya: "BUKU : PERPUSTAKAAN = UANG : ...", opsi: ["A. Bank", "B. Dompet", "C. Pasar", "D. Toko", "E. Kantor"], kunci: 0 },
-            { id: 54, kategori: "TIU", tanya: "2, 5, 10, 17, 26, ...", opsi: ["A. 35", "B. 37", "C. 39", "D. 41", "E. 43"], kunci: 1 },
-            { id: 55, kategori: "TIU", tanya: "B, D, G, K, P, ...", opsi: ["A. U", "B. V", "C. W", "D. X", "E. Y"], kunci: 1 },
-            { id: 56, kategori: "TIU", tanya: "Sebuah lingkaran memiliki diameter 14 cm. Luas lingkaran tersebut adalah... (π = 22/7)", opsi: ["A. 154 cm²", "B. 308 cm²", "C. 616 cm²", "D. 1232 cm²", "E. 2464 cm²"], kunci: 0 },
-            { id: 57, kategori: "TIU", tanya: "Jika harga 5 buku dan 3 pensil adalah Rp 27.500, sedangkan harga 3 buku dan 2 pensil adalah Rp 16.500, maka harga 1 buku adalah...", opsi: ["A. Rp 3.000", "B. Rp 3.500", "C. Rp 4.000", "D. Rp 4.500", "E. Rp 5.000"], kunci: 2 },
-            { id: 58, kategori: "TIU", tanya: "Sebuah segitiga memiliki alas 12 cm dan tinggi 8 cm. Luas segitiga tersebut adalah...", opsi: ["A. 48 cm²", "B. 56 cm²", "C. 64 cm²", "D. 72 cm²", "E. 96 cm²"], kunci: 0 },
-            { id: 59, kategori: "TIU", tanya: "Nilai dari 75% dari 0,8 adalah...", opsi: ["A. 0,5", "B. 0,6", "C. 0,7", "D. 0,8", "E. 0,9"], kunci: 1 },
-            { id: 60, kategori: "TIU", tanya: "Sebuah persegi panjang memiliki panjang 15 cm dan lebar 10 cm. Keliling persegi panjang tersebut adalah...", opsi: ["A. 25 cm", "B. 50 cm", "C. 75 cm", "D. 100 cm", "E. 150 cm"], kunci: 1 },
-            { id: 61, kategori: "TIU", tanya: "Jika a = 3 dan b = 4, maka nilai dari a² + b² adalah...", opsi: ["A. 7", "B. 12", "C. 16", "D. 25", "E. 49"], kunci: 3 },
-            { id: 62, kategori: "TIU", tanya: "Suatu pekerjaan dapat diselesaikan oleh 8 orang dalam 12 hari. Jika pekerjaan tersebut harus selesai dalam 8 hari, maka banyak pekerja tambahan yang diperlukan adalah...", opsi: ["A. 4 orang", "B. 6 orang", "C. 8 orang", "D. 10 orang", "E. 12 orang"], kunci: 0 },
-            { id: 63, kategori: "TIU", tanya: "Sebuah toko memberikan diskon 20% untuk semua barang. Jika harga sebuah barang setelah diskon adalah Rp 80.000, maka harga barang sebelum diskon adalah...", opsi: ["A. Rp 90.000", "B. Rp 95.000", "C. Rp 100.000", "D. Rp 105.000", "E. Rp 110.000"], kunci: 2 },
-            { id: 64, kategori: "TIU", tanya: "Jika 3x - 7 = 8, maka nilai x adalah...", opsi: ["A. 3", "B. 4", "C. 5", "D. 6", "E. 7"], kunci: 2 },
-            { id: 65, kategori: "TIU", tanya: "Sebuah kereta bergerak dengan kecepatan 80 km/jam. Jarak yang ditempuh dalam 45 menit adalah...", opsi: ["A. 50 km", "B. 55 km", "C. 60 km", "D. 65 km", "E. 70 km"], kunci: 2 },
+  // === TIU (31–65) ===
+  {
+    id: 31,
+    kategori: "TIU",
+    tanya: "Seorang fotografer sering menggunakan kamera dan lensa dalam pekerjaannya. Hubungan objek pada kalimat ini setara dengan ...",
+    opsi: [
+      "A. Seorang pilot menggunakan peta dan seragam saat mengemudikan pesawat",
+      "B. Seorang petani menggunakan cangkul dan air saat bekerja di sawah",
+      "C. Seorang penyanyi menggunakan mikrofon dan gitar saat tampil",
+      "D. Seorang pelukis menggunakan kanvas dan cat saat membuat lukisan",
+      "E. Seorang pemain bola menggunakan sepatu dan kaos saat latihan"
+    ],
+    kunci: 3
+  },
+  {
+    id: 32,
+    kategori: "TIU",
+    tanya: "Seorang koki menggunakan pisau dan wajan saat memasak di dapur. Hubungan objek pada kalimat ini setara dengan ...",
+    opsi: [
+      "A. Seorang pemahat menggunakan pahat dan kayu untuk membuat patung",
+      "B. Seorang petugas kebersihan menggunakan sapu dan ember saat membersihkan",
+      "C. Seorang mekanik menggunakan kunci dan minyak rem saat memperbaiki mesin",
+      "D. Seorang petani menggunakan benih dan pupuk untuk menanam",
+      "E. Seorang musisi menggunakan gitar dan drum saat bermain musik"
+    ],
+    kunci: 0
+  },
+  {
+    id: 33,
+    kategori: "TIU",
+    tanya: "Banjir akan terjadi jika curah hujan tinggi. Jika banjir terjadi, maka lalu lintas menjadi macet. Jika lalu lintas macet, maka waktu perjalanan menjadi lebih lama. Waktu perjalanan tidak menjadi lebih lama. Kesimpulan yang paling tepat adalah ...",
+    opsi: [
+      "A. Curah hujan rendah",
+      "B. Tidak ada banjir",
+      "C. Hujan tidak turun",
+      "D. Lalu lintas menjadi macet",
+      "E. Tidak dapat disimpulkan"
+    ],
+    kunci: 0
+  },
+  {
+    id: 34,
+    kategori: "TIU",
+    tanya: "Jika seseorang rajin belajar, maka dia akan mendapat nilai tinggi. Jika seseorang mendapat nilai tinggi, maka dia bisa masuk universitas favorit. Jika seseorang masuk universitas favorit, maka dia akan mendapatkan pekerjaan yang baik. Ali mendapatkan pekerjaan yang baik. Kesimpulan yang paling tepat adalah ...",
+    opsi: [
+      "A. Ali rajin belajar",
+      "B. Ali tidak rajin belajar",
+      "C. Tidak dapat disimpulkan",
+      "D. Ali bisa masuk universitas favorit",
+      "E. Ali mendapatkan nilai yang tinggi"
+    ],
+    kunci: 2
+  },
+  {
+    id: 35,
+    kategori: "TIU",
+    tanya: "Tidak satu pun kucing di rumah milik Bu Rina yang berbulu putih. Kebanyakan kucing milik Bu Rina adalah kucing betina, maka ...",
+    opsi: [
+      "A. Tidak ada kucing betina di rumah Bu Rina yang berbulu putih.",
+      "B. Semua kucing berbulu putih di rumah Bu Rina adalah kucing betina.",
+      "C. Beberapa kucing milik Bu Rina berbulu selain putih.",
+      "D. Beberapa kucing Bu Rina adalah jantan.",
+      "E. Ada kucing yang berbulu putih di rumah Bu Rina."
+    ],
+    kunci: 0
+  },
+  {
+    id: 36,
+    kategori: "TIU",
+    tanya: "1. Semua prajurit berbadan tegap. 2. Sebagian prajurit bertugas diperbatasan. Kesimpulan yang tepat adalah....",
+    opsi: [
+      "A. Sebagian prajurit yang bertugas diperbatasan berbadan tegap",
+      "B. Sebagian prajurit yang bertugas diperbatasan tidak berbadan tegap",
+      "C. Semua prajurit yang bertugas diperbatasan berbadan tegap",
+      "D. Semua prajurit yang bertugas diperbatasan tidak berbadan tegap",
+      "E. Tidak dapat disimpulkan"
+    ],
+    kunci: 0
+  },
+  {
+    id: 37,
+    kategori: "TIU",
+    tanya: "Andi makan lebih cepat daripada Budi. Citra makan lebih lambat daripada Dimas. Dimas makan lebih cepat daripada Evi tetapi lebih lambat daripada Budi. Budi makan lebih cepat daripada Evi tetapi lebih lambat daripada Andi. Evi lebih cepat daripada Citra. Urutan yang benar mulai dari yang paling cepat adalah ...",
+    opsi: [
+      "A. Andi, Dimas, Budi, Evi, Citra",
+      "B. Andi, Dimas, Budi, Citra, Evi",
+      "C. Dimas, Andi, Budi, Evi, Citra",
+      "D. Andi, Budi, Dimas, Citra, Evi",
+      "E. Andi, Budi, Dimas, Evi, Citra"
+    ],
+    kunci: 4
+  },
+  {
+    id: 38,
+    kategori: "TIU",
+    tanya: "Enam orang sahabat Dennis, Hana, Hendro, Aslam, Jodi, dan Ikbal menonton pertunjukan drama Bersama. Profesi mereka secara acak adalah polisi, karyawan, perawat, dokter, guru, dan pedagang. Mereka duduk di dua baris terdepan, 3 orang duduk di baris pertama dan 3 orang lagi duduk tepat dibelakangnya. Ketentuan tempat duduk mereka adalah sebagai berikut: ▪ Pedagang duduk disebelah kanan ▪ Polisi dibaris depan ▪ Dennis adalah dokter ▪ Guru duduk tepat dibelakang dennis ▪ Karyawan duduk sebaris dengan perawat ▪ Ikbal duduk dikursi Tengah di barisan depan ▪ Hendro berada disebelah kanan Dennis Pernyataan yang pasti benar adalah ....",
+    opsi: [
+      "A. Ikbal adalah polisi",
+      "B. Hana adalah karyawan",
+      "C. Jodi adalah guru",
+      "D. Aslam adalah pedagang",
+      "E. Dennis adalah perawat"
+    ],
+    kunci: 0
+  },
+  {
+    id: 39,
+    kategori: "TIU",
+    tanya: "Sebuah Bus Travel berangkat dari Semarang menuju Bandung. Berangkat dari Semarang, Kota P adalah kota pertama yang dilalui sebelum akan memilih melalui kota Q atau kota R. Kota Q dan kota R saling terhubung. Kota selanjutnya yang dilalui setelah melalui kota Q adalah kota T. Jika melalui kota R maka bus dapat melalui kota S untuk bisa sampai di Kota T. Kota T terhubung dengan Kota U dan Kota V. Kota U dan Kota V saling terhubung. Kota V merupakan kota terakhir sebelum sampai di Bandung. Jika Bus melalui jalur tercepat, berapa kota yang dilewati sebelum sampai ke Bandung?",
+    opsi: [
+      "A. 2 Kota",
+      "B. 3 Kota",
+      "C. 4 Kota",
+      "D. 5 Kota",
+      "E. 6 Kota"
+    ],
+    kunci: 1
+  },
+  {
+    id: 40,
+    kategori: "TIU",
+    tanya: "Sekelompok mahasiswa Anggun, Beti, Gianti, Mentari, Gina, Pian, Toro, dan Bambang akan berdiskusi membahas pentas perayaan ulang tahun himpunan. Mereka duduk mengelilingi sebuah meja dengan aturan: ▪ Gianti berjarak satu kursi dari Pian ▪ Mentari ingin bersebelahan dengan Anggun ▪ Anggun bersebelahan dengan Pian dan tidak mau berhadapan dengan Toro ▪ Bambang duduk dua kursi dari Anggun, tapi tidak mau berdekatan dengan Beti Siapakah yang berhadapan dengan Anggun?",
+    opsi: [
+      "A. Mentari",
+      "B. Gina",
+      "C. Pian",
+      "D. Toro",
+      "E. Bambang"
+    ],
+    kunci: 1
+  },
+  {
+    id: 41,
+    kategori: "TIU",
+    tanya: "50% dari (8/3 × 6/4) (40% ÷ 2/5) = ...",
+    opsi: [
+      "A. 1",
+      "B. 2",
+      "C. 3",
+      "D. 4",
+      "E. 5"
+    ],
+    kunci: 1
+  },
+  {
+    id: 42,
+    kategori: "TIU",
+    tanya: "Hasil dari 2,4 ÷ 8% + 0,5 × 1 3/4 = ...",
+    opsi: [
+      "A. 30,375",
+      "B. 31,625",
+      "C. 31,125",
+      "D. 32,875",
+      "E. 30,875"
+    ],
+    kunci: 3
+  },
+  {
+    id: 43,
+    kategori: "TIU",
+    tanya: "Hasil dari 2/5 + 1/4 - 1/10 = ...",
+    opsi: [
+      "A. 40%",
+      "B. 45%",
+      "C. 50%",
+      "D. 55%",
+      "E. 60%"
+    ],
+    kunci: 3
+  },
+  {
+    id: 44,
+    kategori: "TIU",
+    tanya: "145, 235, 345, 475, 625, 795, ...",
+    opsi: [
+      "A. 965",
+      "B. 975",
+      "C. 985",
+      "D. 1005",
+      "E. 1025"
+    ],
+    kunci: 2
+  },
+  {
+    id: 45,
+    kategori: "TIU",
+    tanya: "150, 180, 225, 285, 360, ...",
+    opsi: [
+      "A. 420",
+      "B. 450",
+      "C. 465",
+      "D. 480",
+      "E. 495"
+    ],
+    kunci: 1
+  },
+  {
+    id: 46,
+    kategori: "TIU",
+    tanya: "11, 12, 8, 17, 1, ...",
+    opsi: [
+      "A. -6",
+      "B. 6",
+      "C. 26",
+      "D. 30",
+      "E. 36"
+    ],
+    kunci: 2
+  },
+  {
+    id: 47,
+    kategori: "TIU",
+    tanya: "Seorang pengrajin dapat membuat 6 lukisan dalam waktu 12 hari. Tentukan hubungan kuantitas antara P dan Q berdasarkan informasi berikut! P: Waktu yang dibutuhkan untuk membuat 9 lukisan, Q: 18 hari",
+    opsi: [
+      "A. P > Q",
+      "B. P < Q",
+      "C. P = Q",
+      "D. 2P = Q",
+      "E. Tidak dapat ditentukan"
+    ],
+    kunci: 1
+  },
+  {
+    id: 48,
+    kategori: "TIU",
+    tanya: "Tentukan hubungan kuantitas antara P dan Q berdasarkan informasi berikut! P: Berapa halaman yang dapat dicetak jika Printer bekerja selama 45 menit, Q: 90 halaman",
+    opsi: [
+      "A. 2P > 4Q",
+      "B. 2P = 4Q",
+      "C. 3P = 5Q",
+      "D. 3P < 5Q",
+      "E. P = Q"
+    ],
+    kunci: 4
+  },
+  {
+    id: 49,
+    kategori: "TIU",
+    tanya: "Bagaimana hubungan kuantitas antara X dan Y berdasarkan tabel berikut! X: 2 + 2/5 - 1/10, Y: 1/2 2/2",
+    opsi: [
+      "A. X > Y",
+      "B. X < Y",
+      "C. X = Y",
+      "D. X + 1 = Y",
+      "E. X - 0 = Y"
+    ],
+    kunci: 0
+  },
+  {
+    id: 50,
+    kategori: "TIU",
+    tanya: "Bagaimana hubungan kuantitas antara X dan Y berdasarkan tabel berikut! X: 1 + 3/8 + 1/4, Y: 1 - 5/16 + 1/8",
+    opsi: [
+      "A. 2X < Y",
+      "B. 2X > Y",
+      "C. 2X = Y",
+      "D. 2X = 3Y",
+      "E. 3X = 2Y"
+    ],
+    kunci: 1
+  },
+  {
+    id: 51,
+    kategori: "TIU",
+    tanya: "Sebuah kereta menempuh jarak 180 km dalam waktu 3 jam dengan kecepatan 60 km/jam. Jika kereta tersebut dipercepat menjadi 90 km/jam, berapakah jarak yang ditempuh dengan waktu yang sama?",
+    opsi: [
+      "A. 240 km",
+      "B. 250 km",
+      "C. 270 km",
+      "D. 280 km",
+      "E. 300 km"
+    ],
+    kunci: 2
+  },
+  {
+    id: 52,
+    kategori: "TIU",
+    tanya: "Sebuah proyek pembangunan rumah dapat diselesaikan oleh 15 pekerja dalam waktu 24 hari. Karena ingin mempercepat pembangunan, jumlah pekerja ditambah menjadi 20 orang. Maka, pekerjaan proyek akan selesai dalam...",
+    opsi: [
+      "A. Tepat waktu",
+      "B. 6 hari lebih cepat",
+      "C. 5 hari lebih cepat",
+      "D. 4 hari lebih cepat",
+      "E. 6 hari lebih lambat"
+    ],
+    kunci: 1
+  },
+  {
+    id: 53,
+    kategori: "TIU",
+    tanya: "Seekor kambing dapat menghabiskan rumput di sebuah lapangan dalam waktu 12 hari, sementara seekor domba dapat menghabiskan rumput yang sama dalam waktu 8 hari. Jika keduanya bekerja sama, berapa hari yang diperlukan untuk menghabiskan seluruh rumput di lapangan tersebut?",
+    opsi: [
+      "A. 3,2 hari",
+      "B. 4 hari",
+      "C. 4,8 hari",
+      "D. 5 hari",
+      "E. 6 hari"
+    ],
+    kunci: 2
+  },
+  {
+    id: 54,
+    kategori: "TIU",
+    tanya: "Sebuah bak mandi dapat diisi penuh oleh Keran A dalam waktu 6 jam, dan oleh Keran B dalam waktu 8 jam. Kedua keran dinyalakan bersama-sama selama 3 jam. Berapa bagian dari bak mandi yang belum terisi?",
+    opsi: [
+      "A. 1/8 bagian",
+      "B. 7/8 bagian",
+      "C. 5/8 bagian",
+      "D. 1/4 bagian",
+      "E. 1/2 bagian"
+    ],
+    kunci: 0
+  },
+  {
+    id: 55,
+    kategori: "TIU",
+    tanya: "Lima siswa - Fajar, Galuh, Haris, Indra, dan Joko - mengikuti tiga ujian berbeda yaitu Matematika, IPA, dan Bahasa Inggris. Berikut adalah nilai yang mereka peroleh: Fajar:75, 80, 70; Galuh:65, 85, 75; Haris:80, 60, 70; Indra:70, 90, 65; Joko:60, 70, 85. Dua siswa dengan rata-rata nilai terendah tidak akan lolos seleksi tahap selanjutnya. Berdasarkan tabel nilai di atas, siapa saja siswa yang tidak lolos seleksi?",
+    opsi: [
+      "A. Fajar dan Haris",
+      "B. Galuh dan Joko",
+      "C. Haris dan Joko",
+      "D. Fajar dan Indra",
+      "E. Fajar dan Indra"
+    ],
+    kunci: 2
+  },
+  {
+    id: 56,
+    kategori: "TIU",
+    tanya: "Tabel berikut menunjukkan jumlah produksi buah (dalam kg) oleh lima petani selama satu minggu: Agus:50,70,60,40; Budi:60,65,50,45; Citra:55,80,55,50; Dedi:45,75,70,60; Eka:65,60,65,55. Berdasarkan tabel tersebut, manakah pernyataan yang benar?",
+    opsi: [
+      "A. Budi memproduksi lebih banyak pisang daripada Citra.",
+      "B. Eka memiliki produksi mangga tertinggi di antara semua petani.",
+      "C. Dedi memproduksi jeruk lebih sedikit daripada Budi.",
+      "D. Agus memiliki produksi apel terendah di antara semua petani.",
+      "E. Citra memproduksi jumlah buah yang sama untuk apel dan mangga."
+    ],
+    kunci: 3
+  },
+  {
+    id: 57,
+    kategori: "TIU",
+    tanya: "Carilah gambar yang berbeda dari pilihan berikut! (Gambar tidak tersedia dalam teks, jadi kita berikan placeholder)",
+    opsi: [
+      "A. Gambar A",
+      "B. Gambar B",
+      "C. Gambar C",
+      "D. Gambar D",
+      "E. Gambar E"
+    ],
+    kunci: 0
+  },
+  {
+    id: 58,
+    kategori: "TIU",
+    tanya: "Carilah gambar yang berbeda dari pilihan berikut!",
+    opsi: [
+      "A. Gambar A",
+      "B. Gambar B",
+      "C. Gambar C",
+      "D. Gambar D",
+      "E. Gambar E"
+    ],
+    kunci: 1
+  },
+  {
+    id: 59,
+    kategori: "TIU",
+    tanya: "Lengkapi gambar berikut ini!",
+    opsi: [
+      "A. Gambar A",
+      "B. Gambar B",
+      "C. Gambar C",
+      "D. Gambar D",
+      "E. Gambar E"
+    ],
+    kunci: 2
+  },
+  {
+    id: 60,
+    kategori: "TIU",
+    tanya: "Lengkapi gambar berikut ini!",
+    opsi: [
+      "A. Gambar A",
+      "B. Gambar B",
+      "C. Gambar C",
+      "D. Gambar D",
+      "E. Gambar E"
+    ],
+    kunci: 3
+  },
+  {
+    id: 61,
+    kategori: "TIU",
+    tanya: "Lanjutkan serial gambar berikut!",
+    opsi: [
+      "A. Gambar A",
+      "B. Gambar B",
+      "C. Gambar C",
+      "D. Gambar D",
+      "E. Gambar E"
+    ],
+    kunci: 4
+  },
+  {
+    id: 62,
+    kategori: "TIU",
+    tanya: "Lengkapi gambar berikut ini!",
+    opsi: [
+      "A. Gambar A",
+      "B. Gambar B",
+      "C. Gambar C",
+      "D. Gambar D",
+      "E. Gambar E"
+    ],
+    kunci: 0
+  },
+  {
+    id: 63,
+    kategori: "TIU",
+    tanya: "Lengkapi gambar berikut ini!",
+    opsi: [
+      "A. Gambar A",
+      "B. Gambar B",
+      "C. Gambar C",
+      "D. Gambar D",
+      "E. Gambar E"
+    ],
+    kunci: 1
+  },
+  {
+    id: 64,
+    kategori: "TIU",
+    tanya: "Lengkapi gambar berikut ini!",
+    opsi: [
+      "A. Gambar A",
+      "B. Gambar B",
+      "C. Gambar C",
+      "D. Gambar D",
+      "E. Gambar E"
+    ],
+    kunci: 2
+  },
+  {
+    id: 65,
+    kategori: "TIU",
+    tanya: "Lengkapi gambar berikut ini!",
+    opsi: [
+      "A. Gambar A",
+      "B. Gambar B",
+      "C. Gambar C",
+      "D. Gambar D",
+      "E. Gambar E"
+    ],
+    kunci: 3
+  },
 
-            // === TES KARAKTERISTIK PRIBADI (TKP) - 45 Soal ===
-            { id: 66, kategori: "TKP", tanya: "Saat mengetahui rekan kerja melakukan kecurangan administratif ringan, saya...", opsi: ["A. Langsung melapor ke atasan tanpa bicara padanya", "B. Mengingatkan dan menegurnya secara baik-baik", "C. Diam saja karena bukan urusan saya", "D. Ikut melakukannya jika menguntungkan", "E. Membicarakannya dengan rekan lain"], kunci: 1, bobot: [2, 5, 3, 1, 2] },
-            { id: 67, kategori: "TKP", tanya: "Atasan saya memberikan tugas mendadak di luar job desk saya. Saya...", opsi: ["A. Menerima sambil protes dalam hati", "B. Menerima dan berusaha mengerjakan sebaik mungkin", "C. Menolak karena bukan tanggung jawab saya", "D. Meminta penjelasan dan negosiasi deadline", "E. Langsung meminta diajarkan cara mengerjakannya"], kunci: 3, bobot: [2, 4, 1, 5, 3] },
-            { id: 68, kategori: "TKP", tanya: "Dalam rapat tim, ide saya tidak diterima. Saya...", opsi: ["A. Kecewa dan menarik diri", "B. Menerima dan mendukung ide terbaik untuk tim", "C. Mempertahankan pendapat sampai disetujui", "D. Diam dan tidak berpartisipasi lagi", "E. Mencari dukungan rekan lain di luar rapat"], kunci: 1, bobot: [1, 5, 3, 2, 2] },
-            { id: 69, kategori: "TKP", tanya: "Ada warga yang marah-marah karena merasa dilayani lambat. Saya...", opsi: ["A. Membiarkannya sampai tenang sendiri", "B. Menjelaskan prosedur dengan sabar", "C. Meminta security mengamankan", "D. Membalas dengan nada tinggi", "E. Langsung melayani untuk menghindari konflik"], kunci: 1, bobot: [2, 5, 3, 1, 4] },
-            { id: 70, kategori: "TKP", tanya: "Saya ditugaskan memimpin proyek yang sebagian anggotanya lebih senior. Saya...", opsi: ["A. Memimpin dengan tegas tanpa melibatkan mereka", "B. Berdiskusi dan menghargai masukan mereka", "C. Menyerahkan kepemimpinan pada yang senior", "D. Hanya memberi tugas tanpa koordinasi", "E. Biarkan mereka bekerja sendiri-sendiri"], kunci: 1, bobot: [2, 5, 3, 1, 1] },
-            { id: 71, kategori: "TKP", tanya: "Bawahan saya melakukan kesalahan fatal. Sebagai atasan, saya...", opsi: ["A. Menghukumnya dengan skorsing", "B. Memanggil, menegur, dan membimbing perbaikan", "C. Melaporkan ke HRD untuk sanksi", "D. Meminta yang lain memperbaikinya", "E. Membiarkan agar ia belajar sendiri"], kunci: 1, bobot: [2, 5, 3, 2, 1] },
-            { id: 72, kategori: "TKP", tanya: "Saya mengetahui atasan terlibat rekayasa laporan. Saya...", opsi: ["A. Dalam hati tidak menyetujui", "B. Mengikuti perintah atasan", "C. Melaporkan melalui jalur yang benar dan whistleblowing system", "D. Pura-pura tidak tahu", "E. Membicarakannya di kantor"], kunci: 2, bobot: [2, 1, 5, 3, 1] },
-            { id: 73, kategori: "TKP", tanya: "Saya melihat lowongan internal yang lebih baik, padahal posisi saya sekarang belum genap satu tahun. Saya...", opsi: ["A. Langsung mendaftar tanpa pikir panjang", "B. Mendaftar setelah bicara dengan atasan langsung", "C. Tidak mendaftar karena takut dianggap tidak loyal", "D. Mendaftar diam-diam", "E. Menunggu ditawari"], kunci: 1, bobot: [2, 5, 3, 1, 2] },
-            { id: 74, kategori: "TKP", tanya: "Saya mendapat kritik pedas dari publik melalui media sosial. Saya...", opsi: ["A. Membalas dengan menjelaskan panjang lebar", "B. Mengecek kebenarannya dan menanggapi secara profesional", "C. Mengabaikannya", "D. Melapor ke pihak berwajib", "E. Menghapus komentar tersebut"], kunci: 1, bobot: [2, 5, 3, 2, 1] },
-            { id: 75, kategori: "TKP", tanya: "Di lingkungan baru, budaya kerja sangat berbeda dengan kebiasaan saya. Saya...", opsi: ["A. Tetap pada cara kerja lama saya", "B. Mempelajari dan beradaptasi dengan budaya baru", "C. Mencoba mengubah budaya kerja mereka", "D. Merasa tertekan dan ingin pindah", "E. Hanya fokus pada pekerjaan tanpa peduli budaya"], kunci: 1, bobot: [2, 5, 3, 1, 2] },
-            // TKP 76-85
-            { id: 76, kategori: "TKP", tanya: "Rekan kerja saya sering terlambat datang. Sikap saya adalah...", opsi: ["A. Melaporkan ke atasan", "B. Menegur dengan baik-baik", "C. Membiarkan saja", "D. Ikut terlambat", "E. Memperingatkan melalui chat grup"], kunci: 1, bobot: [3, 5, 2, 1, 4] },
-            { id: 77, kategori: "TKP", tanya: "Saya menemukan kesalahan dalam dokumen yang sudah disetujui atasan. Saya...", opsi: ["A. Diam saja karena sudah disetujui", "B. Memberi tahu atasan dengan sopan", "C. Memperbaikinya sendiri", "D. Menyimpan untuk bahan kritik", "E. Memberitahu rekan kerja"], kunci: 1, bobot: [2, 5, 4, 1, 3] },
-            { id: 78, kategori: "TKP", tanya: "Atasan memberikan penilaian kinerja yang menurut saya tidak adil. Saya...", opsi: ["A. Menerima dengan lapang dada", "B. Meminta klarifikasi dengan sopan", "C. Mengajukan banding ke HRD", "D. Mengundurkan diri", "E. Mengumpat dalam hati"], kunci: 1, bobot: [3, 5, 4, 1, 2] },
-            { id: 79, kategori: "TKP", tanya: "Saya diminta bekerja lembur mendadak padahal sudah ada janji keluarga. Saya...", opsi: ["A. Menolak dengan tegas", "B. Meminta pengertian atasan", "C. Membatalkan janji keluarga", "D. Bekerja dengan setengah hati", "E. Mencari alasan untuk pulang"], kunci: 1, bobot: [2, 5, 4, 1, 2] },
-            { id: 80, kategori: "TKP", tanya: "Saya melihat teman mengambil pulpen milik kantor untuk anaknya. Saya...", opsi: ["A. Melaporkan ke security", "B. Menegurnya dengan halus", "C. Membiarkan saja", "D. Ikut mengambil", "E. Memberitahu atasan"], kunci: 1, bobot: [4, 5, 2, 1, 3] },
-            { id: 81, kategori: "TKP", tanya: "Saya mendapatkan informasi rahasia tentang rencana perusahaan. Saya...", opsi: ["A. Menyimpannya untuk diri sendiri", "B. Hanya memberi tahu keluarga", "C. Menyebarkan ke rekan dekat", "D. Tetap merahasiakan", "E. Menjual informasi"], kunci: 3, bobot: [2, 1, 1, 5, 1] },
-            { id: 82, kategori: "TKP", tanya: "Saya diminta menjadi saksi untuk kasus teman di kantor. Saya...", opsi: ["A. Membela teman sepenuhnya", "B. Bersikap netral", "C. Menolak menjadi saksi", "D. Berkata sesuai fakta", "E. Memihak atasan"], kunci: 3, bobot: [2, 3, 1, 5, 2] },
-            { id: 83, kategori: "TKP", tanya: "Dalam tim, ada anggota yang tidak kooperatif. Saya...", opsi: ["A. Mengeluarkannya dari tim", "B. Mengajak diskusi untuk mencari solusi", "C. Mengeluh ke atasan", "D. Bekerja sendiri saja", "E. Membiarkan dia tidak bekerja"], kunci: 1, bobot: [2, 5, 3, 1, 1] },
-            { id: 84, kategori: "TKP", tanya: "Saya memiliki ide untuk meningkatkan efisiensi kerja. Saya...", opsi: ["A. Menyimpannya sendiri", "B. Menerapkannya sendiri", "C. Menyampaikan ke atasan", "D. Diskusikan dengan tim", "E. Menunggu ditanya"], kunci: 3, bobot: [1, 3, 5, 4, 2] },
-            { id: 85, kategori: "TKP", tanya: "Ketika rapat, atasan salah menyebut data. Saya...", opsi: ["A. Membiarkan saja", "B. Membetulkan di tempat", "C. Memberi catatan kecil", "D. Membetulkan setelah rapat", "E. Menyuruh orang lain membetulkan"], kunci: 3, bobot: [2, 3, 4, 5, 1] },
-            // TKP 86-95
-            { id: 86, kategori: "TKP", tanya: "Saya ditugaskan di daerah terpencil. Sikap saya...", opsi: ["A. Menolak dengan tegas", "B. Menerima dengan berat hati", "C. Menerima sebagai tantangan", "D. Mengajukan keberatan", "E. Mencari alasan untuk tidak berangkat"], kunci: 2, bobot: [1, 3, 5, 2, 1] },
-            { id: 87, kategori: "TKP", tanya: "Saya melihat atasan menerima hadiah dari rekanan. Saya...", opsi: ["A. Melaporkan ke KPK", "B. Membicarakannya dengan rekan", "C. Menganggapnya biasa", "D. Menanyakan ke atasan", "E. Mencatat sebagai bukti"], kunci: 3, bobot: [4, 2, 1, 5, 3] },
-            { id: 88, kategori: "TKP", tanya: "Ada peluang kerja sampingan yang menguntungkan tapi menyita waktu kerja. Saya...", opsi: ["A. Mengambilnya", "B. Menolak karena tidak etis", "C. Mengambil dengan sembunyi", "D. Meminta izin atasan", "E. Menunggu sampai pensiun"], kunci: 3, bobot: [1, 4, 1, 5, 2] },
-            { id: 89, kategori: "TKP", tanya: "Saya diminta menyelesaikan pekerjaan yang belum pernah saya lakukan. Saya...", opsi: ["A. Menolak mentah-mentah", "B. Mencoba belajar sendiri", "C. Minta diajari atasan", "D. Menyerahkan ke orang lain", "E. Pura-pura bisa"], kunci: 2, bobot: [1, 5, 4, 2, 1] },
-            { id: 90, kategori: "TKP", tanya: "Saya merasa jenuh dengan pekerjaan rutin. Saya...", opsi: ["A. Mengundurkan diri", "B. Bekerja asal-asalan", "C. Mencari variasi dalam kerja", "D. Mengeluh ke teman", "E. Meminta mutasi"], kunci: 2, bobot: [1, 1, 5, 2, 3] },
-            { id: 91, kategori: "TKP", tanya: "Saya mengetahui ada pungutan liar di instansi. Saya...", opsi: ["A. Ikut memungut", "B. Membiarkan saja", "C. Melaporkan ke atasan", "D. Melaporkan ke polisi", "E. Memperingatkan pelaku"], kunci: 4, bobot: [1, 2, 4, 5, 3] },
-            { id: 92, kategori: "TKP", tanya: "Saya sering ditegur atasan karena kesalahan kecil. Saya...", opsi: ["A. Membenci atasan", "B. Menerima dan memperbaiki", "C. Membalas dengan sindiran", "D. Pindah bagian", "E. Mengabaikan teguran"], kunci: 1, bobot: [1, 5, 1, 3, 1] },
-            { id: 93, kategori: "TKP", tanya: "Ada warga miskin meminta bantuan padahal bukan tugas saya. Saya...", opsi: ["A. Mengusirnya", "B. Membiarkan saja", "C. Membantu semampu saya", "D. Mengarahkan ke bagian terkait", "E. Meminta uang padanya"], kunci: 3, bobot: [1, 2, 4, 5, 1] },
-            { id: 94, kategori: "TKP", tanya: "Saya melihat teman mengambil cuti padahal tidak sakit. Saya...", opsi: ["A. Melaporkan ke HRD", "B. Menegurnya", "C. Membiarkan saja", "D. Ikut mengambil cuti", "E. Memberi tahu atasan"], kunci: 2, bobot: [3, 5, 2, 1, 4] },
-            { id: 95, kategori: "TKP", tanya: "Saya diminta memberi keterangan yang tidak sebenarnya. Saya...", opsi: ["A. Menolak dengan tegas", "B. Menerima dengan terpaksa", "C. Meminta waktu berpikir", "D. Melakukan dengan setengah hati", "E. Melaporkan ke atasan lebih tinggi"], kunci: 0, bobot: [5, 1, 3, 2, 4] },
-            // TKP 96-105
-            { id: 96, kategori: "TKP", tanya: "Saya melihat anak atasan melanggar peraturan. Saya...", opsi: ["A. Membiarkan saja", "B. Menegur dengan sopan", "C. Melaporkan ke atasan", "D. Pura-pura tidak lihat", "E. Memberi sanksi ringan"], kunci: 1, bobot: [2, 5, 4, 1, 3] },
-            { id: 97, kategori: "TKP", tanya: "Saya harus memilih antara menyelesaikan pekerjaan tepat waktu atau dengan kualitas terbaik. Saya...", opsi: ["A. Tepat waktu saja", "B. Kualitas terbaik", "C. Kompromi keduanya", "D. Minta bantuan rekan", "E. Minta tambahan waktu"], kunci: 2, bobot: [3, 4, 5, 2, 4] },
-            { id: 98, kategori: "TKP", tanya: "Saya melihat teman bekerja sambil main game. Saya...", opsi: ["A. Bergabung bermain", "B. Menegurnya", "C. Melaporkan ke atasan", "D. Membiarkan saja", "E. Mengingatkan dengan baik"], kunci: 4, bobot: [1, 4, 3, 2, 5] },
-            { id: 99, kategori: "TKP", tanya: "Saya diminta bekerja pada hari libur. Saya...", opsi: ["A. Menolak dengan halus", "B. Menerima dengan ikhlas", "C. Minta ganti rugi", "D. Bekerja dengan malas", "E. Minta diwakilkan"], kunci: 1, bobot: [3, 5, 4, 1, 2] },
-            { id: 100, kategori: "TKP", tanya: "Saya menemukan dompet berisi uang di kantor. Saya...", opsi: ["A. Mengambil uangnya", "B. Menyerahkan ke security", "C. Membiarkan saja", "D. Membawa pulang", "E. Mencari pemiliknya"], kunci: 4, bobot: [1, 4, 2, 1, 5] },
-            { id: 101, kategori: "TKP", tanya: "Atasan meminta pendapat tentang rekan kerja. Saya...", opsi: ["A. Mengatakan yang baik saja", "B. Berkata jujur apa adanya", "C. Menolak memberi pendapat", "D. Mengatakan yang buruk", "E. Minta waktu berpikir"], kunci: 1, bobot: [3, 5, 2, 1, 4] },
-            { id: 102, kategori: "TKP", tanya: "Saya diminta menggantikan rekan yang sakit. Saya...", opsi: ["A. Menolak karena sibuk", "B. Menerima dengan senang", "C. Menerima dengan berat hati", "D. Minta imbalan", "E. Mengeluh ke atasan"], kunci: 1, bobot: [1, 5, 3, 1, 2] },
-            { id: 103, kategori: "TKP", tanya: "Saya menghadapi masalah pribadi yang mengganggu kerja. Saya...", opsi: ["A. Bekerja seperti biasa", "B. Mengambil cuti", "C. Bekerja setengah hati", "D. Cerita ke rekan kerja", "E. Minta bantuan psikolog"], kunci: 1, bobot: [4, 5, 1, 2, 3] },
-            { id: 104, kategori: "TKP", tanya: "Saya tidak setuju dengan kebijakan baru. Saya...", opsi: ["A. Melanggar diam-diam", "B. Menerima dengan patuh", "C. Menyampaikan pendapat dengan sopan", "D. Memprotes keras", "E. Mengajak rekan untuk menolak"], kunci: 2, bobot: [1, 3, 5, 2, 1] },
-            { id: 105, kategori: "TKP", tanya: "Saya melihat teman memanipulasi data. Saya...", opsi: ["A. Bergabung memanipulasi", "B. Membiarkan saja", "C. Menegur dengan tegas", "D. Melaporkan ke atasan", "E. Memperingatkan secara baik"], kunci: 4, bobot: [1, 2, 4, 5, 5] },
-            // TKP 106-110
-            { id: 106, kategori: "TKP", tanya: "Saya harus memutuskan antara kepentingan pribadi dan tugas negara. Saya...", opsi: ["A. Mengutamakan pribadi", "B. Mengutamakan tugas", "C. Mencari jalan tengah", "D. Menyerahkan pada atasan", "E. Mengundurkan diri"], kunci: 1, bobot: [1, 5, 4, 3, 1] },
-            { id: 107, kategori: "TKP", tanya: "Saya mendapat tugas yang tidak saya sukai. Saya...", opsi: ["A. Menolak tegas", "B. Menerima dengan profesional", "C. Mengerjakan asal-asalan", "D. Minta ditukar", "E. Menunda-nunda"], kunci: 1, bobot: [1, 5, 1, 3, 1] },
-            { id: 108, kategori: "TKP", tanya: "Saya melihat fasilitas negara disalahgunakan. Saya...", opsi: ["A. Ikut menggunakan", "B. Membiarkan saja", "C. Melaporkan ke yang berwajib", "D. Menegur pelaku", "E. Mengambil untuk diri sendiri"], kunci: 2, bobot: [1, 2, 5, 4, 1] },
-            { id: 109, kategori: "TKP", tanya: "Saya harus bekerja dengan orang yang tidak saya sukai. Saya...", opsi: ["A. Menolak bekerja sama", "B. Bekerja profesional", "C. Bekerja dengan tidak serius", "D. Minta pindah tim", "E. Mengeluh ke atasan"], kunci: 1, bobot: [1, 5, 1, 3, 2] },
-            { id: 110, kategori: "TKP", tanya: "Saya diminta menyimpan rahasia negara. Saya...", opsi: ["A. Menyebarkan ke media", "B. Menyimpan dengan baik", "C. Memberi tahu keluarga", "D. Menjual informasi", "E. Membicarakan dengan rekan"], kunci: 1, bobot: [1, 5, 2, 1, 1] }
-        ];
+  // === TKP (66-110) ===
+  {
+    id: 66,
+    kategori: "TKP",
+    tanya: "Anda adalah seorang profesional yang baru saja bergabung dengan sebuah perusahaan besar. Anda diberi tanggung jawab untuk mengelola proyek besar yang melibatkan banyak departemen. Dalam pertemuan tim awal, Anda mengetahui bahwa salah satu rekan kerja dari departemen lain adalah Pak Ardi. Padahal Anda memiliki hubungan pribadi yang kurang baik karena pengalaman buruk di masa lalu. Pak Ardi akan menjadi kunci keberhasilan proyek ini dan perlu bekerja sama dengan Anda secara erat. Namun, Anda khawatir bahwa hubungan pribadi yang buruk akan memengaruhi kinerja proyek. Maka sikap Anda adalah.....",
+    opsi: [
+      "A. Mengabaikan ketegangan pribadi dan fokus pada tugas masing-masing tanpa membahas masalah tersebut secara langsung.",
+      "B. Mengadakan pertemuan pribadi dengan Pak Ardi untuk menyelesaikan masalah dan memastikan bahwa kalian berdua dapat bekerja sama dengan baik.",
+      "C. Menggunakan pendekatan formal dengan meminta bantuan manajer untuk memediasi dan menyelesaikan ketegangan antara Anda dan Pak Ardi.",
+      "D. Mencoba menghindari interaksi langsung dengan Pak Ardi sebanyak mungkin dan menyerahkan komunikasi proyek kepada anggota tim lainnya.",
+      "E. Mengajukan permohonan untuk dipindahkan dari proyek tersebut jika merasa tidak nyaman bekerja dengan Pak Ardi."
+    ],
+    kunci: [5, 4, 3, 2, 1]
+  },
+  {
+    id: 67,
+    kategori: "TKP",
+    tanya: "Dalam sebuah lingkungan kerja yang heterogen, Anda mengetahui bahwa salah satu rekan kerja yang bernama Rudi sering menyebarkan pandangan ekstrem yang mengarah pada radikalisasi. Rudi kerap kali mengajak rekan-rekannya berdiskusi tentang ide-ide tersebut di forum internal yang seharusnya digunakan untuk pekerjaan. Beberapa rekan kerja merasa tidak nyaman, tetapi enggan mengungkapkan pendapat mereka secara terbuka. Anda sudah mencoba menegur Rudi secara pribadi mengenai sikap dan diskusinya, tetapi teguran Anda diabaikan. Sementara itu, pimpinan sedang sibuk dengan proyek besar dan tidak bisa langsung menangani masalah ini. Maka yang akan Anda lakukan adalah.....",
+    opsi: [
+      "A. Mengabaikan situasi tersebut dan fokus pada pekerjaan karena merasa bahwa masalah radikalisasi tidak akan berdampak langsung pada produktivitas tim.",
+      "B. Menyarankan rekan-rekan kerja yang merasa tidak nyaman untuk menyuarakan ketidaknyamanan mereka di forum internal untuk menunjukkan bahwa masalah ini perlu dibahas.",
+      "C. Mengajukan laporan kepada HRD mengenai perilaku Rudi dengan menyertakan bukti dan dampaknya terhadap suasana kerja serta potensi bahaya radikalisasi.",
+      "D. Berbicara langsung dengan Rudi sekali lagi dan memberikan nasihat mengenai pentingnya menjaga sikap dan diskusi yang sesuai di tempat kerja dan mencari dukungan dari kolega lain jika diperlukan.",
+      "E. Menyebarluaskan informasi tentang bahaya radikalisasi di forum internal dengan harapan bahwa informasi tersebut akan menyadarkan Rudi dan rekan kerja lainnya tentang potensi bahaya radikalisasi."
+    ],
+    kunci: [5, 4, 3, 2, 1]
+  },
+  {
+    id: 68,
+    kategori: "TKP",
+    tanya: "Salsabila merupakan salah satu sekretaris pribadi dari pimpinan perusahaan. Suatu hari, la mendapatkan tamu dari teman jauh pimpinan dan berniat untuk menemui pimpinan sesuai dengan kesepakatan. Salsabila meminta tamu tersebut untuk menunggu kehadiran pimpinan. Namun, tamu tersebut merokok diruangan yang tertulis dilarang merokok. Maka yang dilakukan Salsabila adalah...",
+    opsi: [
+      "A. Menegur tamu secara tegas dan meminta tamu tersebut untuk segera mematikan rokok karena melanggar aturan perusahaan.",
+      "B. Membiarkan tamu merokok dan berpura-pura tidak mengetahui bahwa ada aturan larangan merokok di ruangan tersebut.",
+      "C. Menghubungi pimpinan melalui telepon internal dan meminta izin untuk memperingatkan tamu mengenai aturan larangan merokok.",
+      "D. Memberikan pilihan kepada tamu untuk merokok di area yang telah disediakan oleh perusahaan, sesuai dengan aturan yang berlaku.",
+      "E. Segera melaporkan kejadian tersebut kepada satpam atau petugas keamanan untuk menegur tamu yang merokok di ruangan yang dilarang."
+    ],
+    kunci: [5, 4, 3, 2, 1]
+  },
+  {
+    id: 69,
+    kategori: "TKP",
+    tanya: "Anda telah mendaftar untuk sebuah kompetisi desain yang sangat kompetitif. Namun, saat proposal Anda dievaluasi, Anda diberitahu bahwa desain Anda tidak cukup memukau dan kreatif untuk bersaing dan gagal mengikuti tahap seleksi berikutnya. Maka langkah yang paling tepat selanjutnya adalah ....................",
+    opsi: [
+      "A. Menyewa seorang penilai yang akan memberikan umpan balik yang lebih positif.",
+      "B. Membuat demonstrasi publik di media sosial tentang ketidakadilan penilaian.",
+      "C. Membuat presentasi yang lebih menarik agar lebih bisa tetap mengikuti seleksi Menerima kritik tersebut dan berusaha memperbaiki desain Anda.",
+      "D. Menanyakan kembali kepada juri tentang kekurangan design Anda.",
+      "E. Menerima kritik tersebut dan berusaha memperbaiki desain Anda."
+    ],
+    kunci: [5, 4, 3, 2, 1]
+  },
+  {
+    id: 70,
+    kategori: "TKP",
+    tanya: "Sarah baru saja mulai bekerja di perusahaannya selama beberapa hari terakhir dan ia langsung diberikan tugas oleh atasannya. Ia merupakan karyawan baru dan tugasnya tersebut mengharuskan semua laporan diselesaikan dalam bentuk grafik dan tabel serta dianalisis dengan program teknologi terbaru yang belum terlalu ia kuasai, maka yang akan Sarah lakukan adalah....",
+    opsi: [
+      "A. meminta bantuan dari karyawan lain untuk dapat mengajarkannya dalam menguasai program teknologi baru tersebut",
+      "B. membuat laporan dengan program yang belum dikuasai dengan beajar otodidak via youtube tanpa harus bertanya terlebih dahulu",
+      "C. kurang memperhatikan perintah dan membuat laporan seadanya agar cepat selesai",
+      "D. meminta bantuan teman anda untuk dapat membantu membuatkan laporan karena sudah mahir di dalam penggunaan program tersebut",
+      "E. membuat laporan menggunakan analisis dengan program yang ia kuasai terlebih dahulu baru mengkonversi ke program baru"
+    ],
+    kunci: [5, 4, 3, 2, 1]
+  },
+  {
+    id: 71,
+    kategori: "TKP",
+    tanya: "Kemarin wilayah tempat tinggal anda digoyang gempa bumi dengan skala sedang. Akibat peristiwa tersebut, Gereja dekat rumah anda mengalami kerusakan bangunan. Hari ini pihak Gereja akan merapikan area gereja dan puing-puing karena agar tidak mengganggu ibadah di hari Minggu nanti, dan mempersilahkan warga sekitar yang lain membantu. Anda libur kerja di akhir pekan dan belum memiliki agenda. Yang anda lakukan adalah ...",
+    opsi: [
+      "A. Membiarkan warga sekitar yang beragama Kristen untuk membantu pihak Gereja",
+      "B. Ikut membantu merapikan puing-puing di Gereja akibat gempa tersebut",
+      "C. Menyebarkan informasi tersebut kepada tetangga saya yang lain yang sempat untuk ikut membantu merapikan puing-puing gereja tersebut bersama",
+      "D. Menyampaikan simpati kepada pihak Gereja dan para tetangga yang beragama Kristen atas musibah yang menimpa Gereja",
+      "E. Mensuplai alat-alat dan konsumsi yang dibutuhkan oleh para relawan Gereja untuk merapikan puing-puing akibat gempa tersebut"
+    ],
+    kunci: [5, 4, 3, 2, 1]
+  },
+  {
+    id: 72,
+    kategori: "TKP",
+    tanya: "Anda merupakan pimpinan instansi pada suatu wilayah. Tugas pokok institusi anda adalah menjaga keamanan dan kedamaian dalam masyarakat. Pada suatu waktu, terjadi konflik antar warga di wilayah kerja anda. Konflik ini bermula saat suatu kelompok warga yang diduga merupakan kelompok pendatang sengaja mengambil alih tanah adat milik suku hilir untuk dijadikan sebagai tempat latihan. Mengetahui hal tersebut suku hilir sangat marah. Tindakan harus segera diambil untuk menghindari bertambahnya korban akibat pertikaian tersebut. Sebagai pimpinan upaya yang anda lakukan adalah ...",
+    opsi: [
+      "A. Memupuk kesadaran masyarakat terkait bahayanya paham radikalisme",
+      "B. Memberikan jaminan hukum yang pasti kepada seluruh lapisan masyarakat",
+      "C. Menurunkan anggota anda untuk mencegah jika terjadi pertikaian lanjutan",
+      "D. Melakukan mediasi terhadap kedua kelompok dengan memanggil para pembesar kelompoknya masing-masing ke instansi Anda",
+      "E. Menangkap seluruh pihak yang terlibat untuk diberikan sanksi yang sesuai"
+    ],
+    kunci: [5, 4, 3, 2, 1]
+  },
+  {
+    id: 73,
+    kategori: "TKP",
+    tanya: "Pada pemilihan RT bulan lalu, anda dicalonkan oleh para warga dan akhirnya terpilih untuk menjalankan amanah tersebut. Saat ini Anda tinggal di sebuah kompleks perumahan tersebut. Kemarin baru saja Anda kedatangan tetangga baru yang mengontrak di sebelah Anda. Ia cenderung tertutup dan jarang berkomunikasi dengan warga lainnya. Selain itu, tetangga tersebut jarang di rumah dan sering berpergian. Tetangga Anda tersebut biasanya berpakaian seperti oknum pelaku terorisme yang pernah Anda lihat di TV. Beberapa kali anda melihat bahwa ia didatangi oleh tamu dengan penampilan yang sama. Di tengah maraknya isu radikalisme, sikap yang Anda lakukan adalah ....",
+    opsi: [
+      "A. Saya meyakini orang tersebut merupakan jaringan kelompok radikal karena gerak-geriknya mencurigakan, bersifat tertutup, dan berpenampilan mirip pelaku terorisme",
+      "B. Saya tidak peduli meskipun orang tersebut gerak-geriknya mencurigakan. Menurut saya, seseorang tidak boleh dituduh atau dicurigai atas rencana atau aksi radikal sebelum terbukti benar.",
+      "C. Saya akan berusaha berkomunikasi dengannya dan bertanya mengenai administrasi kepindahan, dan memanfaatkan kesempatan itu untuk mengenalnya lebih dekat, namun bila memang mencurigakan akan segera melapor ke pihak berwenang.",
+      "D. Saya akan segera melaporkan tetangga tersebut ke pihak yang berwenang karena saya meyakini yang bersangkutan menunjukkan ciri-ciri yang sangat mencurigakan.",
+      "E. Sebagai ketua RT, kewajiban saya untuk mengenal setiap warga di lingkungan sehingga saya bisa lebih akrab dan mengenal lebih dekat secara pribadi, termasuk kegiatannya."
+    ],
+    kunci: [5, 4, 3, 2, 1]
+  },
+  {
+    id: 74,
+    kategori: "TKP",
+    tanya: "Komunitas sosial yang Julia ikuti sedang mengadakan bakti sosial dan kegiatan outbond untuk anak-anak kurang mampu di suatu desa terpencil, yang bertujuan untuk memberikan motivasi semangat kepada anak-anak di tengah kondisi ekonomi yang kurang. Namun, di antara anak-anak tersebut ada beberapa yang berkebutuhan khusus. Sikap Julia adalah...",
+    opsi: [
+      "A. Mengupayakan kegiatan yang dapat diikuti semua peserta tanpa membandingkan kemampuan setiap anak",
+      "B. Mengupayakan memberikan kegiatan lain yang dapat dilakukan oleh anak berkebutuhan khusus",
+      "C. Mengusulkan kepada tim untuk mengikutkan peserta outbond yang dirasa kuat dan sehat saja",
+      "D. Meminta wakil dari anak berkebutuhan khusus untuk mendampingi anaknya mengikuti kegiatan outbond",
+      "E. Mengusulkan kepada tim untuk memilah peserta yang kuat dan sehat agar dapat ikut kegiatan outbond yang lainnya ikut kegiatan di waktu lain."
+    ],
+    kunci: [5, 4, 3, 2, 1]
+  },
+  {
+    id: 75,
+    kategori: "TKP",
+    tanya: "Dalam rangka memperingati HUT kemerdekaan RI, perusahaan tempat Arif bekerja mengadakan berbagai macam perlombaan. Arif di daftarkan oleh atasan untuk mengikuti lomba membuat puisi dan lomba ini diikuti oleh semua kolega perusahaan, maka sikap Arif akan......",
+    opsi: [
+      "A. Tak cukup hanya berpatisipasi saja, saya harus menjadi juara dalam kompetisi",
+      "B. Saya sejujurnya malas untuk ikut lomba puisi buang buang waktu saja",
+      "C. Apapun yang saya lakukan untuk menjaga kebaikan perusahaan dan performa",
+      "D. Karena di perintah atasan ya harus dikerjakan asal bapak senang",
+      "E. Kompetisi menjadi juara itu utama agar menjaga nama baik perusahaan"
+    ],
+    kunci: [5, 4, 3, 2, 1]
+  },
+  {
+    id: 76,
+    kategori: "TKP",
+    tanya: "Di kantor, sahabat Anda menunjukkan sikap yang berbeda terhadap beberapa kegiatan perusahaan yang berkaitan dengan nilai-nilai kebangsaan dan sosial. Pada saat acara perayaan nasional, dia memilih untuk tidak berpartisipasi dalam kegiatan tersebut dengan alasan yang berkaitan dengan keyakinan pribadinya. Anda merasa bahwa sikap tersebut mungkin berdampak pada hubungan kerja dan suasana di lingkungan kantor. Maka Anda akan.....",
+    opsi: [
+      "A. Mengajaknya berdiskusi dengan tenang mengenai pentingnya partisipasi dalam kegiatan perusahaan dan dampaknya terhadap hubungan di kantor",
+      "B. Memberi teguran langsung mengenai dampak dari sikapnya terhadap hubungan di tim dan menekankan pentingnya keselarasan dengan nilai-nilai perusahaan.",
+      "C. Melaporkan kepada manajer HR atau pihak terkait agar masalah ini dapat ditangani secara resmi dan memberikan kesempatan untuk klarifikasi serta penyesuaian jika diperlukan.",
+      "D. Mengurangi interaksi dengan sahabat Anda karena khawatir akan terpengaruh juga.",
+      "E. Membiarkan situasi berjalan dan berharap masalah ini akan diselesaikan dengan sendirinya atau melalui interaksi di kantor."
+    ],
+    kunci: [5, 4, 3, 2, 1]
+  },
+  {
+    id: 77,
+    kategori: "TKP",
+    tanya: "Randi baru saja pindah ke luar kota dan mendapatkan rumah dinas di sana karena Randi mendapatkan posisi baru sebagai manajer operasional cabang di daerah tersebut. Saat Randi di sana, dia menyadari bahwa ada budaya di tempat tersebut yang kurang sesuai dengan kepercayaannya dalam beragama. Memang daerah baru tersebut masih menjunjung tinggi adat istiadat dari leluhur. Sikap Randi adalah:",
+    opsi: [
+      "A. Bermusyawarah dengan warga agar tidak melaksanakan adat yang menyimpang dari norma agama",
+      "B. Menghormati dan menjalankan budaya setempat sepanjang tidak bertentangan dengan kepercayaannya",
+      "C. Berusaha memperjuangkan hal-hal yang tidak merugikan hak-hak Randi sebagai warga negara yang telah dijamin oleh Negara",
+      "D. Menghormati budaya setempat sebagai bentuk toleransi antar umat beragama dan menghindari konflik yang tidak perlu.",
+      "E. Mengendalikan diri dan membatasi dari hal yang bertentangan dengan budaya dan agama"
+    ],
+    kunci: [5, 4, 3, 2, 1]
+  },
+  {
+    id: 78,
+    kategori: "TKP",
+    tanya: "Syifa diberikan tugas oleh atasannya saat ia baru mulai bekerja beberapa hari. Ia merupakan karyawan baru di kantor dan yang mengharuskan semua laporan diselesaikan dalam bentuk grafik dan tabel serta dianalisis dengan program teknologi terbaru yang belum terlalu ia kuasai, maka yang akan Syifa lakukan adalah....",
+    opsi: [
+      "A. meminta bantuan dari karyawan lain untuk dapat mengajarkannya dalam menguasai program teknologi baru tersebut",
+      "B. membuat laporan dengan program yang belum dikuasai dengan beajar otodidak via youtube tanpa harus bertanya terlebih dahulu",
+      "C. kurang memperhatikan perintah dan membuat laporan seadanya agar cepat selesai",
+      "D. meminta bantuan teman anda untuk dapat membantu membuatkan laporan karena sudah mahir di dalam penggunaan program tersebut",
+      "E. membuat laporan menggunakan analisis dengan program yang ia kuasai terlebih dahulu baru mengkonversi ke program baru"
+    ],
+    kunci: [5, 4, 3, 2, 1]
+  },
+  {
+    id: 79,
+    kategori: "TKP",
+    tanya: "Instansi anda memperoleh predikat instansi dengan performa sangat baik, karena Anda selalu mendorong dan menstimulasi bawahan anda untuk bekerja dengan standar tinggi. Anda sendiri berposisi sebagai Kepala Biro Kepegawaian. Tiba-tiba anda mendapat kabar dari polisi bahwa salah satu staf di divisi anda terlibat aksi terorisme bom bunuh diri. Dari sana Anda mulai berpikir, bahwa selain berkinerja tinggi, bawahan anda pun harus dicek terbebas dan bersih dari paham radikalisme. Strategi penangkalan yang Anda lakukan...",
+    opsi: [
+      "A. Membuat laporan ke instansi pusat tentang upaya yang harus dijalankan guna mengantisipasi merebaknya pemahaman ini di instansi anda",
+      "B. Bersinergi dengan bagian pengembangan pegawai pusat untuk menerapkan program pembekalan dan pelatihan ke seluruh pegawai tentang pekerjaan termasuk juga pembinaan terhadap masing-masing bawahan saya",
+      "C. Memanggil dan menegur sub divisi pengembangan pegawai agar lebih cermat dalam menyusun program pembinaan mental dan kesejahteraan pegawai",
+      "D. Menginstruksikan kepada setiap bawahan untuk tidak lagi bermain media social agar tidak terpapar paham radikalisme yang marak beredar belakangan ini",
+      "E. Menggerakkan beberapa bawahan kepercayaan anda untuk melaporkan rekan-rekan mereka yang disinyalir terpapar paham tersebut"
+    ],
+    kunci: [5, 4, 3, 2, 1]
+  },
+  {
+    id: 80,
+    kategori: "TKP",
+    tanya: "Nasya merupakan salah satu atlet renang provinsi yang sering mengikuti perlombaan. Suatu hari la tidak dapat latihan karena sakit. Sementara perlombaan sudah minggu depan, pada akhirnya pelatih memilih Rara untuk mengikuti pertandingan. Nasya merasa sangat kecewa karena pelatih tidak memberikan waktu kepada Nasya untuk sembuh terlebih dahulu. Jika Anda adalah rara, maka yang akan anda lakukan adalah.....",
+    opsi: [
+      "A. Saya akan menghargai kesempatan ini dengan mempersiapkan diri secara optimal dan berkomitmen untuk memberikan yang terbaik dalam perlombaan.",
+      "B. saya akan bersedia dan tetap mendukung Nasya dengan memberikan semangat dan bantuan moral agar dia cepat sembuh dan merasa didukung",
+      "C. saya akan berbicara dengan pelatih tentang situasi Nasya dan mencari kemungkinan untuk memberikan waktu ekstra bagi Nasya sembuh sebelum perlombaan, sambil tetap menghormati keputusan pelatih.",
+      "D. saya akan fokus pada peningkatan keterampilan dan latihan saya sendiri untuk memastikan performa terbaik dalam perlombaan.",
+      "E. saya berusaha agar menjaga Kesehatan mental saja dengan tidak memikirkan hal-hal diluar perlombaan."
+    ],
+    kunci: [5, 4, 3, 2, 1]
+  },
+  {
+    id: 81,
+    kategori: "TKP",
+    tanya: "Heri adalah salah satu pegawai yang ditempatkan di bagian umum dan bertugas membuat surat undangan dan mengatur jadwal kegiatan pimpinan. Suatu hari, Heri telah membuatkan jadwal pertemuan pimpinan dengan salah satu organisasi kemasyarakatan. Namun, ternyata terjadi miskomunikasi karena tamu tersebut salah melihat jadwal perjanjian pertemuan. Maka sebaiknya yang dilakukan oleh Heri dalam menjelaskan kepada pimpinan instansi adalah.....",
+    opsi: [
+      "A. Heri harus segera meminta maaf kepada pimpinan dan menjelaskan bahwa terjadi miskomunikasi mengenai jadwal pertemuan.",
+      "B. Heri perlu menyajikan bukti tertulis seperti salinan jadwal yang telah dikirim untuk menjelaskan asal mula kesalahan",
+      "C. Heri harus menjelaskan langkah-langkah yang telah diambil untuk memperbaiki situasi dan menjadwalkan ulang pertemuan",
+      "D. Heri sebaiknya mengusulkan solusi alternatif atau jadwal baru yang sesuai untuk kedua belah pihak.",
+      "E. Heri harus membuat laporan tertulis yang menjelaskan kejadian, tindakan yang diambil, dan langkah pencegahan di masa depan."
+    ],
+    kunci: [5, 4, 3, 2, 1]
+  },
+  {
+    id: 82,
+    kategori: "TKP",
+    tanya: "Baim baru saja menyaksikan video pada IG Reels Pemerintah lewat akun resmi. Di dalam video itu, Bupati Daerah tersebut menyoroti sejumlah ancaman yang dapat muncul di ruang digital, mulai dari penyebaran hoaks hingga radikalisme berbasis digital. Beliau meminta public masyarakat mengisi ruang digital dengan konten yang positif. Sebagai ASN di daerah tersebut, tindakan yang akan Baim lakukan adalah...",
+    opsi: [
+      "A. Lebih mawas diri dan turut membantu mengedukasi masyarakat untuk mewaspadai konten-konten berbau radikalisme serta mengisi konten positif yang dapat di konsumsi",
+      "B. Tetap aktif di media sosial dan membentegi diri agar terhindar dari radikalisme",
+      "C. Menghindari media sosial karena takut terpapar paham radikalisme",
+      "D. Fokus menjalankan tanggung jawab pekerjaan dan mendukung upaya pemerintah melawan radikalisme secara langsung tanpa harus terjun ke dunia digital",
+      "E. Menggelar diskusi dengan teman sesama ASN agar bisa terdeteksi sejak dini jika ada teman yang terpapar konten negative dari platform media sosial"
+    ],
+    kunci: [5, 4, 3, 2, 1]
+  },
+  {
+    id: 83,
+    kategori: "TKP",
+    tanya: "Dhiya adalah seorang mahasiswa di fakultas hukum dan ibunya baru saja masuk ke dalam organisasi perempuan setempat. Dhiya mengetahui bahwa paham radikalisme menyerang bukan hanya kepada anak muda tetapi juga orang tua yang tidak paham juga dan terpapar paham radikalisme dengan mudahnya. Hal tersebut sangat rentan untuk terpengaruh radikalisme dalam lingkungan pemerintahan, yang akan ia lakukan agar ibunya tidak terpengaruh paham tersebut....",
+    opsi: [
+      "A. menyarankan agar ibunya mengikuti organisasi bersifat keagamaan saja agar dihya merasa nyaman dan tidak terlalu khawatir",
+      "B. menyarankan agar ibunya berhati-hati dalam bergaul dan menerima informasi",
+      "C. menyarankan agar ibunya selalu melaporkan kepada ia tentang teman yang baru ditemui dalam organisasi tersebut",
+      "D. menyuruh ibunya agar keluar segera dari organisasi tersebut",
+      "E. memperbolehkan ibunya masuk ke dalam organisasi tersebut asal bukan organisasi bersifat ekstrim"
+    ],
+    kunci: [5, 4, 3, 2, 1]
+  },
+  {
+    id: 84,
+    kategori: "TKP",
+    tanya: "Julia mempunyai rekan satu divisi yang bernama Rizqi yang baru saja dibentuk oleh atasan anda dikantor. Mereka sudah sangat akrab meskipun baru beberapa hari kenal. Pada suatu ketika, Rizqi bercerita bahwa ia dulu pernah terlibat dalam organisasi terlarang yang berupaya merongrong Pancasila. Namun, ia sekarang sudah tidak terlibat lagi karena menyadari berbahayanya organisasi tersebut. Sikap Julia yang tepat adalah ...",
+    opsi: [
+      "A. Menasehati rekan kerja tersebut bahwa ia sudah mempunyai catatan hitam pernah terlibat radikalisme dan jangan pernah mengulanginya lagi",
+      "B. Melaporkan kepada atasan agar sesegera mungkin mengawasi rekan kerja tersebut",
+      "C. Seketika menjauhi rekan kerja tersebut karena pernah punya paham yang radikal",
+      "D. Mengajak diskusi tentang Pancasila dan merangkul rekan kerja tersebut supaya tidak terjerumus kembali dalam organisasi terlarang",
+      "E. Mendengarkan dengan baik ceritanya dan tidak menceritakan ke rekan kerja lain karena itu merupakan rahasia yang ia simpan kepada anda"
+    ],
+    kunci: [5, 4, 3, 2, 1]
+  },
+  {
+    id: 85,
+    kategori: "TKP",
+    tanya: "Seorang warga yang datang ke kantor pelayanan Anda mengeluh tentang proses pengurusan dokumen yang dianggap lambat dan berbelit-belit. Ia mulai mengeluh dengan nada tinggi di depan umum, yang membuat suasana di ruang tunggu menjadi kurang kondusif. Apa tindakan Anda?",
+    opsi: [
+      "A. Meminta warga tersebut untuk tenang dan menunggu giliran dengan sabar.",
+      "B. Menjelaskan dengan tenang prosedur yang sedang berlangsung dan berusaha mencari solusi yang bisa mempercepat proses.",
+      "C. Mengabaikan keluhan warga tersebut agar tidak mengganggu proses pelayanan.",
+      "D. Meminta warga tersebut untuk membuat keluhan resmi ke bagian pengaduan agar diproses.",
+      "E. Memanggil keamanan untuk menenangkan situasi."
+    ],
+    kunci: [5, 4, 3, 2, 1]
+  },
+  {
+    id: 86,
+    kategori: "TKP",
+    tanya: "Anda diberikan tiga tugas dengan tenggat waktu yang hampir bersamaan, dan semuanya dianggap penting oleh atasan Anda. Anda merasa tidak mungkin menyelesaikan ketiga tugas tersebut tepat waktu. Apa yang Anda lakukan?",
+    opsi: [
+      "A. Mengurutkan pekerjaan dari yang mudah dan menyelesaikannya terlebih dahulu agar menghasilkan progress.",
+      "B. Menyusun prioritas berdasarkan urgensi dan dampak dari setiap tugas.",
+      "C. Meminta rekan kerja untuk membantu menyelesaikan sebagian tugas Anda.",
+      "D. Menyelesaikan semua tugas sekaligus meskipun hasilnya tidak maksimal.",
+      "E. Menyampaikan kondisi tersebut kepada atasan untuk meminta arahan lebih lanjut."
+    ],
+    kunci: [5, 4, 3, 2, 1]
+  },
+  {
+    id: 87,
+    kategori: "TKP",
+    tanya: "Anda bekerja di tim proyek lintas negara. Salah satu anggota tim dari negara lain cenderung bekerja lebih lambat karena ia terbiasa dengan proses yang sangat detail dan mengikuti prosedur dengan ketat, sementara tim lain yang berasal dari negara dengan budaya kerja yang lebih cepat mulai merasa frustrasi karena keterlambatan tersebut. Hal ini mulai menimbulkan ketegangan dalam tim, dan kinerja proyek terpengaruh. Apa langkah terbaik yang Anda lakukan untuk menyelesaikan situasi ini?",
+    opsi: [
+      "A. Meminta anggota tim yang lambat untuk bekerja lebih cepat dan menyesuaikan dengan ritme tim lain.",
+      "B. Menunda proyek agar semua orang bisa bekerja dengan kecepatan yang nyaman bagi mereka.",
+      "C. Mengadakan discusi terbuka tentang perbedaan gaya kerja dan mencari solusi bersama yang menghargai budaya kerja masing-masing.",
+      "D. Membagi tugas sehingga anggota tim yang bekerja lambat agar menangani bagian yang tidak memengaruhi tenggat waktu utama.",
+      "E. Memecat anggota tim yang tidak bisa mengikuti ritme kerja proyek."
+    ],
+    kunci: [5, 4, 3, 2, 1]
+  },
+  {
+    id: 88,
+    kategori: "TKP",
+    tanya: "Anda adalah pemimpin tim digital marketing di sebuah perusahaan. Dalam sebuah rapat, tim Anda mengusulkan penggunaan data pelanggan yang dikumpulkan melalui media sosial untuk membuat kampanye iklan yang lebih personal. Namun, Anda menyadari bahwa beberapa data tersebut bersifat sensitif dan pelanggan mungkin tidak mengetahui bahwa data mereka sedang digunakan untuk keperluan pemasaran. Sebagai pemimpin, Anda harus memastikan bahwa perusahaan tetap menjalankan kampanye yang efektif tanpa melanggar etika atau privasi pelanggan. Tindakan yang tepat untuk anda lakukan?",
+    opsi: [
+      "A. Menyetujui usulan tersebut, karena data tersebut telah tersedia dan bisa dimanfaatkan untuk meningkatkan efektivitas iklan.",
+      "B. Mengusulkan untuk meminta persetujuan langsung dari pelanggan sebelum data mereka digunakan dalam kampanye pemasaran.",
+      "C. Menggunakan data tersebut hanya untuk kepentingan internal tanpa membagikannya dengan pihak ketiga.",
+      "D. Meminta tim untuk berhati-hati dalam menggunakan data dan memastikan bahwa tidak ada informasi sensitif yang dipakai secara langsung.",
+      "E. Menunda penggunaan data tersebut dan mencari cara lain yang lebih etis untuk mempersonalisasi kampanye iklan."
+    ],
+    kunci: [5, 4, 3, 2, 1]
+  },
+  {
+    id: 89,
+    kategori: "TKP",
+    tanya: "Di lingkungan kerja Anda, ada seorang rekan yang sering menyebarkan informasi yang provokatif dan bernuansa kebencian. Sikap ini membuat beberapa rekan kerja merasa tidak nyaman dan berpotensi menimbulkan konflik. Apa yang akan Anda lakukan?",
+    opsi: [
+      "A. Mengabaikan tindakan rekan tersebut karena setiap orang berhak berpendapat.",
+      "B. Melaporkan kepada atasan agar tindakan rekan tersebut ditangani dengan segera.",
+      "C. Menegur rekan tersebut secara langsung untuk menghentikan perilakunya.",
+      "D. Mengajak rekan tersebut berdiskusi secara personal, dan menasihatinya dengan tenang agar menghentikan tindakan yang provokatif.",
+      "E. Membicarakan tindakan rekan tersebut dengan rekan kerja lain untuk mencari solusi bersama."
+    ],
+    kunci: [5, 4, 3, 2, 1]
+  },
+  {
+    id: 90,
+    kategori: "TKP",
+    tanya: "Anda bekerja di sebuah instansi pemerintah yang melayani permohonan bantuan sosial. Seorang warga datang dengan sikap yang sedikit terburu-buru dan meminta agar permohonannya segera diproses karena ia membutuhkan bantuan sosial tersebut. Namun, Anda tahu bahwa prosedur permohonan memerlukan beberapa tahapan pemeriksaan yang tidak bisa dipercepat. Apa yang sebaiknya Anda lakukan?",
+    opsi: [
+      "A. Meminta warga tersebut untuk bersabar dan menunggu proses berjalan sesuai prosedur.",
+      "B. Menjelaskan dengan jelas proses dan tahapan yang harus dilalui sambil tetap bersikap ramah.",
+      "C. Meminta warga untuk datang kembali nanti setelah semua tahap selesai diproses.",
+      "D. Mengutamakan permohonan warga tersebut agar bisa diproses lebih cepat.",
+      "E. Meminta atasan untuk mempertimbangkan percepatan proses karena merasa bahwa situasi yang dihadapinya adalah darurat."
+    ],
+    kunci: [5, 4, 3, 2, 1]
+  },
+  {
+    id: 91,
+    kategori: "TKP",
+    tanya: "Dalam suatu organisasi kemungkinan terjadinya konflik antar unit kerja adalah hal yang sangat wajar. Pada suatu hari, terdapat 2 unit kerja yang berada di bawah kepemimpinan Anda mengalami konflik akibat adanya kesalahpahaman tentang jobdesk masing-masing. Karena anda ditunjuk sebagai ketua yang memiliki kewenangan dalam mengatasi situasi konflik tersebut maka sikap Anda adalah...",
+    opsi: [
+      "A. Langsung menggunakan kewenangan saya sebagai ketua dan menjelaskan pendapat saya kepada kedua unit yang bermasalah tersebut",
+      "B. Mengajak berdiskusi dengan kedua unit untuk mencapai pemecahan yang terbaik",
+      "C. Menanyakan pendapat anggota lainnya dahulu kemudian menjadi mediator untuk mencapai kata sepakat",
+      "D. Setuju dengan pendapat anggota yang lebih banyak suaranya dan memberikan dukungan semaksimal mungkin",
+      "E. Menjaga pertemuan agar tidak bersifat pribadi dan menggunakan peraturan jika itu diperlukan"
+    ],
+    kunci: [5, 4, 3, 2, 1]
+  },
+  {
+    id: 92,
+    kategori: "TKP",
+    tanya: "Anda merupakan seorang karyawan yang memiliki dedikasi tinggi terhadap pekerjaan. Suatu hari, Anda memiliki kondisi yang membingungkan akibat dihadapkan dengan pekerjaan yang sangat banyak dan semuanya memiliki deadline yang sama. Sebagai karyawan yang profesional, maka yang akan anda lakukan adalah...",
+    opsi: [
+      "A. Melaporkan kepada atasan bahwa Anda butuh bantuan dari karyawan lain dalam menyelesaikan tugas yang banyak",
+      "B. Menyelesaikan pekerjaan sesuai deadline dengan hasil sebisanya",
+      "C. Memilih lembur dengan semangat akan mendapat tambahan gaji berupa uang lembur",
+      "D. Pulang sesuai jadwal dengan meninggalkan setumpuk pekerjaan di meja untuk dikerjakan besok harinya lagi",
+      "E. Membawa tugas tersebut ke rumah dan mengerjakannya di rumah hingga larut malam"
+    ],
+    kunci: [5, 4, 3, 2, 1]
+  },
+  {
+    id: 93,
+    kategori: "TKP",
+    tanya: "Rabu ini akan diadakan jumat bersih di setiap divisi yang berada di bawah kantor wilayah tempat anda bekerja. Kepala Kanwil tersebut memberikan instruksi bahwa hari itu semua pegawai tanpa terkecuali harus mengadakan gotong royong untuk membersihkan kantor yang dimulai dari lingkungan divisi masing-masing. Sedangkan sesuai jadwal yang sudah dibagi, rabu itu jadwal istirahat dan tidak dalam shift kerja maka sikap Anda adalah....",
+    opsi: [
+      "A. Meminta izin tidak hadir karena memang sedang tidak kena shift kerja dihari tersebut",
+      "B. menyambutnya dengan penuh antusias dan segera pergi ke kantor",
+      "C. mulai membersihkan lingkungan divisi anda dari sehari sebelumnya karena besok anda tidak hadir",
+      "D. menjadi penggerak dan meminta semua rekan kerja anda untuk membawa alat perkakas dari rumahnya masing-masing",
+      "E. meminta izin kepada pimpinan untuk tidak ikut karena anda butuh istirahat sebagai seorang profesional"
+    ],
+    kunci: [5, 4, 3, 2, 1]
+  },
+  {
+    id: 94,
+    kategori: "TKP",
+    tanya: "Anda seorang kepala biro SDM di pemerintahan daerah Anda saat ini. saat ini pemerintah pusat meluncurkan aplikasi “ASN no radikal” di kantor Kementerian PanRB. Peluncuran aplikasi ini sebagai bentuk tindak lanjut untuk mewujudkan birokrasi pemerintah bebas dari paham radikalisme. tujuannya mengatasi paham radikalisme yang bisa dianut oleh para ASN di lingkungan instansi pemerintah dari berbagai tingkatan. sebagai kepala biro SDM maka anda menyikapi tentang aplikasi ini adalah...",
+    opsi: [
+      "A. Menginstruksikan seluruh anggota unit untuk mempelajarinya, baru anda pelajari",
+      "B. Meminta kepada pusat agar diadakan pelatihan cara penggunaan aplikasi ini di pemerintahan daerah anda karena ini adalah aplikasi yang baru di daerah anda",
+      "C. Menelusuri penggunaan aplikasi tersebut dan bersama-sama dengan anggota unit lainnya mempelajari konten di dalam aplikasi tersebut",
+      "D. Mengirimkan salah satu utusan dari unit anda untuk mempelajari penggunaan aplikasi tersebut dan sekembalinya dari sana memintanya untuk mendemonstrasikannya kepada anda dan anggota unit lainnya",
+      "E. Berharap aplikasi tersebut efektif dalam mengatasi paham radikalisme di lingkungan pemerintahan daerah anda"
+    ],
+    kunci: [5, 4, 3, 2, 1]
+  },
+  {
+    id: 95,
+    kategori: "TKP",
+    tanya: "Anda bekerja di bagian umum di sebuah instansi. Suatu hari, pimpinan meminta Anda untuk mengikuti kegiatan perjalanan dinas di luar kota dengan tema kegiatan tentang keuangan. Karena bagian keuangan sedang memiliki agenda penting lainnya, pimpinan meminta Anda untuk mengambil alih tugas tersebut. Maka sebaiknya sikap Anda adalah...",
+    opsi: [
+      "A. Menerima tugas tersebut dan berusaha mempelajari tugas yang biasanya dilakukan oleh bagian keuangan agar perjalanan dinas dapat berjalan lancar.",
+      "B. Menolak tugas tersebut karena merasa tidak sesuai dengan deskripsi pekerjaan Anda dan menyarankan pimpinan untuk mencari solusi lain.",
+      "C. Menerima tugas tersebut tetapi hanya menjalankan tugas pokok Anda sebagai bagian dari bagian umum tanpa memperhatikan tugas keuangan.",
+      "D. Melaporkan kepada pimpinan bahwa tugas tersebut tidak dalam tanggung jawab Anda dan meminta kejelasan lebih lanjut terkait peran Anda dalam perjalanan dinas tersebut.",
+      "E. Menerima tugas tersebut dan segera berkoordinasi dengan bagian keuangan untuk memastikan semua persiapan yang dibutuhkan saat tugas luar."
+    ],
+    kunci: [5, 4, 3, 2, 1]
+  },
+  {
+    id: 96,
+    kategori: "TKP",
+    tanya: "Dimas mengetahui bahwa rekannya yang bekerja sebagai guru honorer sangat pintar IT. Namun, la menggunakan keahliannya untuk melakukan peretasan situs dan menjual data milik BKN. Maka sebaiknya sikap Dimas adalah...",
+    opsi: [
+      "A. Menegur rekan Dimas secara langsung dan menjelaskan konsekuensi yang terjadi jika la masih melakukan hal yang sama.",
+      "B. Melaporkan tindakan rekannya kepada pihak yang berwenang agar ditindak sesuai hukum yang berlaku.",
+      "C. Menyimpan informasi tersebut dan tidak membocorkannya kepada siapa pun karena tidak ingin merusak hubungan dengan rekannya.",
+      "D. Menyarankan rekannya untuk segera mengakui kesalahan kepada kepala sekolah agar la mendapatkan solusi dari permasalahan tersebut.",
+      "E. Mengabaikan tindakan rekannya karena bukan merupakan urusan pribadi dan bukan tanggung jawabnya."
+    ],
+    kunci: [5, 4, 3, 2, 1]
+  },
+  {
+    id: 97,
+    kategori: "TKP",
+    tanya: "Anda adalah seorang Widyaiswara yang bertugas memberikan pelatihan kepada pegawai mengenai manajemen Aparatur Sipil Negara (ASN). Dalam rangka meningkatkan pemahaman peserta, Anda dan tim diharuskan merencanakan pelatihan yang efektif dan mudah dipahami. Anda perlu mempertimbangkan berbagai aspek, termasuk materi, metode pengajaran, serta cara evaluasi yang tepat agar peserta dapat menyerap informasi dengan baik. Maka yang akan Anda lakukan adalah......",
+    opsi: [
+      "A. Menggunakan platform e-learning untuk mengakses materi pelatihan dan menyediakan forum diskusi online, sehingga peserta dapat bertanya dan berbagi pemikiran di luar sesi tatap muka.",
+      "B. Mengadakan presentasi tatap muka yang panjang dan menggunakan alat bantu presentasi menarik untuk menyampaikan materi.",
+      "C. Menggunakan aplikasi pembelajaran interaktif dan kuis online selama pelatihan untuk meningkatkan keterlibatan peserta dan mengukur pemahaman mereka secara langsung.",
+      "D. Menyusun materi pelatihan dalam bentuk dokumen digital yang dapat diunduh dengan mudah oleh peserta.",
+      "E. Mengandalkan video rekaman sebagai satu-satunya sumber belajar agar peserta bisa mengulanginya jika belum memahami pada bagian materi tertentu."
+    ],
+    kunci: [5, 4, 3, 2, 1]
+  },
+  {
+    id: 98,
+    kategori: "TKP",
+    tanya: "Anda merupakan seorang ASN yang ditugaskan di bidang humas. Kantor Anda sering menerima kunjungan tamu dari luar negeri, dan biasanya bagian humas sangat bergantung pada seorang penerjemah (translator). Namun, pimpinan meminta agar ke depannya bagian humas dapat lebih mandiri dalam berkomunikasi dengan tamu asing. Sebagai ASN baru yang ditempatkan di humas, apa langkah yang sebaiknya Anda ambil?",
+    opsi: [
+      "A. Meminta translator memberikan kesempatan secara bertahap untuk tim humas berkomunikasi langsung dengan tamu asing, dengan translator sebagai pengawas.",
+      "B. Meminta translator memberikan tips dalam melakukan komunikasi dengan tamu asing.",
+      "C. Meminta translator untuk membuat skenario latihan percakapan bahasa asing sebelum kunjungan tamu.",
+      "D. Mengatur jadwal pertemuan berkala antara translator dan tim humas untuk evaluasi perkembangan",
+      "E. Meminta translator memberikan catatan atau tips bahasa asing yang bisa dipelajari secara mandiri"
+    ],
+    kunci: [5, 4, 3, 2, 1]
+  },
+  {
+    id: 99,
+    kategori: "TKP",
+    tanya: "Anda sering menemukan bawahan Anda yang membuat kesalahan dalam membuat surat. Padahal Anda sudah memberikan semua jenis surat lengkap bersama templatenya. Maka yang sebaiknya Anda lakukan adalah......",
+    opsi: [
+      "A. Meminta bantuan rekan kerja lain yang lebih ahli untuk mendampingi bawahan Anda dalam penulisan surat.",
+      "B. Mengadakan sesi diskusi untuk berbagi pengalaman dan solusi dalam menggunakan template surat, serta wajib diperiksa sebelum surat diedarkan.",
+      "C. Menugaskan tim khusus untuk meninjau kembali proses penulisan surat dan memberikan rekomendasi perbaikan.",
+      "D. Menghubungkan bawahan dengan mentor yang memiliki keterampilan penulisan surat yang baik.",
+      "E. Memintanya untuk mengirimkan surat secara online sebelum surat diedarkan agar dibantu untuk memeriksanya."
+    ],
+    kunci: [5, 4, 3, 2, 1]
+  },
+  {
+    id: 100,
+    kategori: "TKP",
+    tanya: "Ardi baru saja diberikan tanggung jawab untuk mengelola akun media sosial perusahaan. Dia tidak memiliki banyak pengalaman dalam hal ini, tetapi perusahaan mengharapkan konten baru dan interaksi dengan pelanggan setiap hari. Apa yang sebaiknya dilakukan Ardi?",
+    opsi: [
+      "A. Menghubungi teman yang ahli media sosial untuk belajar strategi terbaik dalam mengelola akun dan meningkatkan keterampilan.",
+      "B. Melakukan riset online tentang cara terbaik mengelola akun media sosial, mencoba beberapa strategi, dan mencari bantuan jika ada kesulitan.",
+      "C. Mulai memposting konten yang relevan dan teratur sambil mencari tahu lebih lanjut tentang cara terbaik mengelola akun.",
+      "D. Berdiskusi dengan rekan kerja untuk mendapatkan masukan tentang konten yang menarik, dan kemudian mencoba mengimplementasikannya.",
+      "E. Bertanya kepada atasan untuk mendapatkan panduan spesifik dan terus belajar untuk mengelola akun dengan lebih baik."
+    ],
+    kunci: [5, 4, 3, 2, 1]
+  },
+  {
+    id: 101,
+    kategori: "TKP",
+    tanya: "Anda bekerja di kantor pelayanan kependudukan yang sering menerima permintaan pembuatan KTP. Suatu hari, seorang warga datang dengan sikap tergesa-gesa dan meminta KTP-nya segera dibuat karena akan digunakan untuk melamar pekerjaan esok hari. Anda tahu bahwa proses pembuatan KTP membutuhkan waktu karena harus melalui beberapa tahapan verifikasi dan pencetakan. Apa yang sebaiknya Anda lakukan?",
+    opsi: [
+      "A. Meminta warga tersebut untuk menunggu hingga proses selesai sesuai antrian dan prosedur yang berlaku.",
+      "B. Menjelaskan dengan sopan dan ramah tentang tahapan dan waktu yang dibutuhkan untuk pembuatan KTP, serta menawarkan solusi alternatif jika memungkinkan.",
+      "C. Menyarankan warga tersebut untuk datang kembali nanti setelah proses pembuatan KTP selesai sesuai jadwal yang sudah ditentukan.",
+      "D. Menunda permohonan warga lainnya dan segera memproses KTP warga tersebut karena situasi darurat.",
+      "E. Menghubungi atasan dan meminta izin untuk mempercepat pembuatan KTP warga tersebut karena dianggap situasi mendesak."
+    ],
+    kunci: [5, 4, 3, 2, 1]
+  },
+  {
+    id: 102,
+    kategori: "TKP",
+    tanya: "Anda bekerja di bagian layanan pengaduan di sebuah instansi pemerintah. Suatu hari, seorang warga datang dengan keluhan bahwa layanan internet gratis di wilayahnya sering bermasalah dan mempengaruhi kegiatan belajar anak-anaknya. Warga tersebut terlihat kesal dan menuntut agar masalah segera diperbaiki. Anda tahu bahwa perbaikan jaringan membutuhkan waktu dan koordinasi dengan pihak teknis yang berwenang. Apa yang sebaiknya Anda lakukan?",
+    opsi: [
+      "A. Meminta warga untuk membuat pengaduan resmi secara tertulis agar dapat diproses lebih lanjut.",
+      "B. Mendengarkan keluhan warga dengan empati dan menjelaskan proses penyelesaian masalah, serta memberikan informasi perkiraan waktu perbaikan.",
+      "C. Memberikan janji kepada warga bahwa masalah akan segera diperbaiki hari itu juga, meskipun Anda tahu proses perbaikan bisa memakan waktu.",
+      "D. Meminta warga untuk bersabar karena masalah teknis seperti ini memerlukan waktu dan Anda tidak dapat memberikan kepastian.",
+      "E. Mengarahkan warga untuk menghubungi pihak teknis secara langsung agar masalahnya bisa lebih cepat terselesaikan."
+    ],
+    kunci: [5, 4, 3, 2, 1]
+  },
+  {
+    id: 103,
+    kategori: "TKP",
+    tanya: "Anda bekerja dalam sebuah tim proyek dan sedang mengerjakan laporan penting yang harus diselesaikan dalam waktu seminggu. Selama rapat mingguan tim, seorang rekan kerja memberikan saran yang berbeda dari rencana yang sudah Anda buat. Rekan tersebut menyampaikan bahwa dengan perubahan saran yang dia berikan, hasil kerja tim bisa lebih efektif dan laporan lebih cepat selesai. Anda merasa rencana yang telah Anda buat sudah matang dan baik. Apa yang sebaiknya Anda lakukan?",
+    opsi: [
+      "A. Menyatakan bahwa rencana Anda adalah yang terbaik karena Anda sudah mempertimbangkannya dengan matang.",
+      "B. Mendengarkan dengan terbuka saran dari rekan Anda, mempertimbangkannya bersama tim, dan berdiskusi untuk menemukan solusi terbaik bagi proyek.",
+      "C. Mempertahankan rencana yang Anda buat, namun meminta rekan tersebut untuk menjelaskan secara rinci apa manfaat perubahan yang dia tawarkan.",
+      "D. Mengabaikan saran rekan kerja tersebut dan tetap berpegang pada rencana awal Anda agar pekerjaan tidak semakin rumit dengan perubahan.",
+      "E. Menyerahkan keputusan kepada pimpinan tim dan mengikuti arahan selanjutnya tanpa terlibat lebih lanjut dalam discusi."
+    ],
+    kunci: [5, 4, 3, 2, 1]
+  },
+  {
+    id: 104,
+    kategori: "TKP",
+    tanya: "Anda bekerja di sebuah tim proyek lintas departemen yang baru dibentuk dan memiliki tenggat waktu cukup ketat. Selama beberapa hari, Anda menyadari bahwa seorang anggota tim dari departemen lain kurang terlibat aktif, jarang hadir dalam rapat, dan sering terlambat dalam memberikan data yang dibutuhkan oleh tim. Hal ini mempengaruhi kemajuan kerja Anda dan tim. Apa yang sebaiknya Anda lakukan?",
+    opsi: [
+      "A. Mendiskusikan masalah ini dengan anggota tim lainnya untuk mencari cara bersama dalam menghadapinya.",
+      "B. Menghubungi rekan yang bersangkutan secara pribadi untuk memahami apakah ada masalah dan menawarkan bantuan jika dibutuhkan.",
+      "C. Melaporkan masalah ini kepada pimpinan tim dan meminta intervensi untuk memastikan anggota tersebut lebih aktif.",
+      "D. Mengabaikan masalah ini dan fokus pada pekerjaan Anda sendiri agar tugas Anda selesai tepat waktu.",
+      "E. Menyampaikan ketidakpuasan Anda terhadap anggota tersebut di rapat tim berikutnya agar seluruh tim mengetahui masalah ini."
+    ],
+    kunci: [5, 4, 3, 2, 1]
+  },
+  {
+    id: 105,
+    kategori: "TKP",
+    tanya: "Anda bekerja dalam sebuah tim proyek yang terdiri dari anggota dengan latar belakang budaya, agama, dan suku yang berbeda-beda. Pada suatu hari, seorang anggota tim meminta rapat harian dijadwal ulang karena bertepatan dengan waktu ibadahnya. Perubahan jadwal ini bisa berdampak pada waktu kerja Anda dan beberapa anggota tim lainnya. Bagaimana sebaiknya Anda menanggapi permintaan tersebut?",
+    opsi: [
+      "A. Menolak permintaan tersebut dan menyarankan agar ia mengatur waktu ibadahnya di luar jam rapat yang sudah dijadwalkan.",
+      "B. Menerima permintaan tersebut dan berusaha menyesuaikan waktu Anda, karena menghormati waktu ibadah anggota tim adalah hal yang penting.",
+      "C. Mengusulkan diskusi lebih lanjut dengan tim untuk mencari jadwal alternatif yang tidak mengganggu aktivitas kerja maupun waktu ibadah.",
+      "D. Menyetujui permintaan tersebut untuk kali ini, tetapi menyampaikan kepada anggota tersebut agar tidak membuat permintaan serupa di masa mendatang.",
+      "E. Mengabaikan permintaan tersebut dan tetap menjalankan rapat sesuai jadwal, karena mengubah jadwal dapat mengganggu produktivitas tim."
+    ],
+    kunci: [5, 4, 3, 2, 1]
+  },
+  {
+    id: 106,
+    kategori: "TKP",
+    tanya: "Anda adalah seorang ASN yang baru saja ditempatkan di daerah terpencil yang memiliki budaya, bahasa, dan kebiasaan sehari-hari yang berbeda dari daerah asal Anda. Awalnya, Anda merasa sulit untuk beradaptasi karena gaya komunikasi dan kebiasaan masyarakat setempat cukup berbeda dengan yang biasa Anda lakukan. Apa yang sebaiknya Anda lakukan untuk bisa beradaptasi dan bekerja dengan efektif di daerah tersebut?",
+    opsi: [
+      "A. Tetap berpegang pada kebiasaan dan cara kerja Anda sendiri sambil menjalankan tugas, agar tidak terpengaruh oleh perbedaan budaya yang ada.",
+      "B. Mencari tahu dan mempelajari budaya, bahasa, dan kebiasaan setempat, serta berusaha menyesuaikan diri dalam kehidupan sehari-hari untuk memahami masyarakat lokal.",
+      "C. Menghindari terlalu banyak berinteraksi dengan masyarakat setempat dan lebih banyak bergaul dengan sesama ASN atau pendatang yang juga ditempatkan di daerah tersebut.",
+      "D. Menjalankan tugas dengan fokus hanya pada pekerjaan kantor dan tidak terlalu memedulikan budaya atau kebiasaan masyarakat setempat.",
+      "E. Mengajukan permintaan untuk dipindahkan ke tempat yang lebih dekat dengan daerah asal Anda karena merasa sulit beradaptasi."
+    ],
+    kunci: [5, 4, 3, 2, 1]
+  },
+  {
+    id: 107,
+    kategori: "TKP",
+    tanya: "Sebagai seorang ASN, Anda diberikan tanggung jawab untuk menyusun laporan kegiatan tahunan instansi. Namun, di tengah proses penyusunan, seorang rekan kerja meminta bantuan Anda untuk menyelesaikan pekerjaannya yang juga cukup mendesak. Anda tahu bahwa jika membantu rekan kerja tersebut, Anda mungkin akan terlambat menyelesaikan laporan kegiatan tahunan Anda yang juga memiliki tenggat waktu. Apa yang sebaiknya Anda lakukan?",
+    opsi: [
+      "A. Menolak permintaan rekan kerja karena Anda harus fokus menyelesaikan laporan yang menjadi tanggung jawab Anda.",
+      "B. Menerima permintaan rekan kerja dan membantu menyelesaikan pekerjaannya terlebih dahulu karena bisa meningkatkan kerja sama tim.",
+      "C. Meminta rekan kerja Anda mencari bantuan dari orang lain karena laporan tahunan adalah tugas yang sangat penting dan harus diselesaikan tepat waktu.",
+      "D. Berdiskusi dengan rekan kerja untuk mencari tahu seberapa mendesak pekerjaannya dan menawarkan bantuan setelah Anda menyelesaikan sebagian besar laporan Anda.",
+      "E. Menunda pekerjaan laporan kegiatan tahunan Anda dan membantu rekan kerja dengan harapan dia juga akan membantu Anda saat Anda membutuhkan."
+    ],
+    kunci: [5, 4, 3, 2, 1]
+  },
+  {
+    id: 108,
+    kategori: "TKP",
+    tanya: "Sebagai seorang ASN di bagian pelayanan publik, Anda diberikan tanggung jawab untuk melayani permohonan izin usaha. Setiap harinya, Anda berinteraksi dengan banyak warga yang mengajukan permohonan. Suatu hari, seorang pemohon memberikan hadiah kepada Anda sebagai bentuk ucapan terima kasih karena telah membantu mengurus izin usahanya dengan cepat. Anda tahu bahwa menerima hadiah dari warga tidak sesuai dengan aturan etika dan profesionalisme jabatan. Apa yang sebaiknya Anda lakukan?",
+    opsi: [
+      "A. Menerima hadiah tersebut karena warga memberikannya dengan niat baik, tanpa mengharapkan imbalan.",
+      "B. Melaporkan kepada atasan bahwa ada warga yang memberikan hadiah kepada Anda, kemudian mengikuti instruksi dari atasan terkait apa yang harus dilakukan.",
+      "C. Menolak hadiah tersebut dengan sopan sambil menjelaskan bahwa Anda tidak dapat menerima hadiah dalam bentuk apapun karena sudah menjadi tugas anda sebagai pelayan publik.",
+      "D. Menerima hadiah tersebut namun tidak membukanya dan menyimpannya di tempat kerja untuk menghindari kecurigaan rekan kerja lain.",
+      "E. Menerima hadiah tersebut tetapi dengan catatan bahwa Anda hanya akan menerimanya kali ini saja karena merasa tidak enak menolak pemberian warga."
+    ],
+    kunci: [5, 4, 3, 2, 1]
+  },
+  {
+    id: 109,
+    kategori: "TKP",
+    tanya: "Anda adalah seorang ASN yang sedang mengerjakan tugas penting dengan tenggat waktu yang ketat dari kantor. Namun, pada hari yang sama, Anda memiliki janji pribadi yang sangat penting di luar pekerjaan dan sudah direncanakan jauh-jauh hari, seperti menghadiri acara keluarga atau urusan pribadi yang mendesak. Jika Anda memenuhi janji pribadi tersebut, tugas kantor yang harus Anda selesaikan kemungkinan besar akan tertunda dan berdampak pada hasil kinerja Anda. Apa yang sebaiknya Anda lakukan?",
+    opsi: [
+      "A. Mengutamakan janji pribadi Anda karena sudah direncanakan sebelumnya, dan berjanji akan menyelesaikan tugas kantor setelah urusan pribadi selesai.",
+      "B. Mengkomunikasikan kepada atasan mengenai situasi yang Anda hadapi dan meminta izin untuk menyelesaikan urusan pribadi terlebih dahulu.",
+      "C. Menunda atau membatalkan janji pribadi dan fokus menyelesaikan tugas kantor sesuai tenggat waktu, karena tugas tersebut adalah prioritas utama.",
+      "D. Menyelesaikan sebagian tugas kantor secepat mungkin, kemudian melanjutkan urusan pribadi, meski hal ini bisa membuat tugas kantor tidak terselesaikan dengan baik.",
+      "E. Mendelegasikan tugas kantor kepada rekan kerja lain yang mungkin bisa membantu, sambil tetap memenuhi janji pribadi Anda."
+    ],
+    kunci: [5, 4, 3, 2, 1]
+  },
+  {
+    id: 110,
+    kategori: "TKP",
+    tanya: "Anda bekerja sebagai seorang ASN di bagian administrasi yang bertugas untuk menyusun laporan bulanan dan membagikannya kepada seluruh pegawai terkait. Biasanya, Anda menyusun laporan ini secara manual menggunakan aplikasi pengolah kata dan membagikannya satu per satu melalui email. Namun, Anda baru saja mengetahui bahwa ada aplikasi berbasis cloud yang bisa memudahkan penyusunan, kolaborasi, dan pembagian laporan dengan lebih cepat dan efisien. Apa yang sebaiknya Anda lakukan?",
+    opsi: [
+      "A. Melanjutkan metode manual yang biasa Anda lakukan karena Anda sudah terbiasa dan tidak ingin mengambil risiko dengan menggunakan aplikasi baru.",
+      "B. Mencari tahu lebih banyak tentang aplikasi tersebut dan mulai mempelajari cara menggunakannya untuk meningkatkan efisiensi penyusunan laporan.",
+      "C. Menunggu hingga ada pelatihan resmi dari kantor mengenai penggunaan aplikasi tersebut, karena Anda tidak yakin bisa mempelajarinya sendiri.",
+      "D. Mencoba aplikasi baru tersebut hanya jika laporan bulanan sudah mendekati tenggat waktu agar tidak mengganggu proses penyusunan yang sedang berjalan.",
+      "E. Mengusulkan kepada atasan untuk menggunakan aplikasi berbasis cloud tersebut di seluruh tim dan siap membantu rekan kerja lain untuk mempelajari cara menggunakannya."
+    ],
+    kunci: [5, 4, 3, 2, 1]
+  }
+];
 
         let currentIdx = 0;
         let jawabanUser = new Array(110).fill(null);
