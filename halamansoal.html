@@ -1834,66 +1834,13 @@ th, td {
             });
         }
 
-        function displaySoal() {
-    const soal = bankSoal[currentIdx];
+      const soal = bankSoal[currentIdx];
     document.getElementById('current-no').innerText = currentIdx + 1;
     document.getElementById('kategori-soal').innerText = `Materi: ${soal.kategori}`;
     
     const teksSoal = document.getElementById('teks-soal');
     let konten = `<div class="text-lg text-slate-800 leading-relaxed mb-4">${soal.tanya}</div>`;
     
-    // Tabel
-    if (soal.tabel) {
-        konten += soal.tabel;
-    }
-    
-    // Gambar dalam array
-    if (soal.gambar && Array.isArray(soal.gambar)) {
-        konten += `<div class="mb-6">
-            <p class="font-bold mb-3">Pilih gambar yang berbeda:</p>
-            <div class="grid grid-cols-5 gap-3 mt-4" id="gambar-container">`;
-        
-        soal.gambar.forEach((img, idx) => {
-            const isSelected = jawabanUser[currentIdx] === idx;
-            konten += `
-                <div class="flex flex-col items-center gambar-pilihan ${isSelected ? 'selected' : ''}" onclick="pilihGambar(${idx})">
-                    <img src="${img.src}" class="w-20 h-20 object-contain border ${isSelected ? 'border-blue-500' : 'border-slate-200'} rounded-lg p-2" alt="${img.label}">
-                    <span class="text-xs mt-1">${img.label}</span>
-                </div>
-            `;
-        });
-        
-        konten += `</div></div>`;
-    }
-    // Gambar dalam string HTML
-    else if (soal.gambar) {
-        konten += soal.gambar;
-    }
-    
-    teksSoal.innerHTML = konten;
-    document.getElementById('checkRagu').checked = statusRagu[currentIdx];
-
-    const opsiContainer = document.getElementById('opsi-jawaban');
-    opsiContainer.innerHTML = '';
-    
-    // Hanya tampilkan opsi teks jika tidak ada gambar interaktif
-    if (!soal.gambar || !Array.isArray(soal.gambar)) {
-        soal.opsi.forEach((o, i) => {
-            const isChecked = jawabanUser[currentIdx] === i;
-            opsiContainer.innerHTML += `
-                <label class="flex items-center gap-4 p-4 rounded-2xl border ${isChecked ? 'border-blue-500 bg-blue-50' : 'border-slate-200 hover:bg-slate-50'} cursor-pointer transition">
-                    <input type="radio" name="jawaban" class="w-5 h-5 text-blue-600" onclick="pilihJawaban(${i})" ${isChecked ? 'checked' : ''}>
-                    <span class="text-slate-700 font-medium">${o}</span>
-                </label>
-            `;
-        });
-    } else {
-        // Untuk soal gambar, sembunyikan opsi teks
-        opsiContainer.innerHTML = '<p class="text-slate-500 italic">Pilih gambar di atas sebagai jawaban</p>';
-    }
-    
-    renderGrid();
-}
 
 function pilihGambar(idx) {
     jawabanUser[currentIdx] = idx;
