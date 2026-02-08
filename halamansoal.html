@@ -15,60 +15,59 @@
         .custom-scrollbar::-webkit-scrollbar { width: 5px; }
         .custom-scrollbar::-webkit-scrollbar-track { background: #f1f1f1; }
         .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
-  /* Tambahkan ini ke dalam tag <style> yang sudah ada */
-table {
-    border-collapse: collapse;
-    width: 100%;
-    margin: 1rem 0;
-}
-
-th, td {
-    text-align: center;
-    padding: 0.5rem;
-}
-
-.gambar-soal-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 15px;
-    justify-content: center;
-    margin: 20px 0;
-}
-
-.gambar-pilihan {
-    border: 2px solid #e2e8f0;
-    border-radius: 8px;
-    padding: 10px;
-    transition: all 0.3s;
-    cursor: pointer;
-}
-
-.gambar-pilihan:hover {
-    border-color: #3b82f6;
-    transform: translateY(-2px);
-}
-
-.gambar-pilihan.selected {
-    border-color: #3b82f6;
-    background-color: #eff6ff;
-}
-
-.gambar-pilihan img {
-    max-width: 100px;
-    max-height: 100px;
-}
-
-@media (max-width: 768px) {
-    .gambar-soal-container {
-        gap: 10px;
-    }
-    
-    .gambar-pilihan img {
-        max-width: 70px;
-        max-height: 70px;
-    }
-}
   
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1rem 0;
+        }
+
+        th, td {
+            text-align: center;
+            padding: 0.5rem;
+        }
+
+        .gambar-soal-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        .gambar-pilihan {
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 10px;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .gambar-pilihan:hover {
+            border-color: #3b82f6;
+            transform: translateY(-2px);
+        }
+
+        .gambar-pilihan.selected {
+            border-color: #3b82f6;
+            background-color: #eff6ff;
+        }
+
+        .gambar-pilihan img {
+            max-width: 100px;
+            max-height: 100px;
+        }
+
+        @media (max-width: 768px) {
+            .gambar-soal-container {
+                gap: 10px;
+            }
+            
+            .gambar-pilihan img {
+                max-width: 70px;
+                max-height: 70px;
+            }
+        }
     </style>
 </head>
 <body class="bg-slate-100 min-h-screen flex flex-col">
@@ -99,7 +98,8 @@ th, td {
                     <span class="text-slate-400 text-sm font-medium">Soal No. <span id="current-no" class="text-slate-900 font-bold text-lg">1</span> / 110</span>
                 </div>
 
-                <p id="teks-soal" class="text-lg text-slate-800 leading-relaxed mb-8">Loading soal...</p>
+                <!-- PERBAIKAN: Pastikan ID ini sesuai dengan yang dipanggil di JavaScript -->
+                <div id="teks-soal" class="text-lg text-slate-800 leading-relaxed mb-8">Loading soal...</div>
 
                 <div id="opsi-jawaban" class="space-y-3"></div>
             </div>
@@ -132,7 +132,7 @@ th, td {
     <script>
         const urlParams = new URLSearchParams(window.location.search);
         const pinAkses = urlParams.get('id') || "GUEST";
-
+    
         const bankSoal = [
   // === TWK (1–30) ===
   {
@@ -839,7 +839,6 @@ th, td {
     ],
     kunci: 0
   },
-// Untuk soal yang membutuhkan tabel (soal 55 dan 56), tambahkan properti `tabel`
 {
     id: 55,
     kategori: "TIU",
@@ -907,7 +906,6 @@ th, td {
     ],
     kunci: 3
 },
-// === SOAL GAMBAR (57-65) ===
 {
     id: 57,
     kategori: "TIU",
@@ -1226,8 +1224,6 @@ th, td {
     kunci: 2,
     deskripsi: "Melengkapi pola kartu remi"
 },
-
-  // === TKP (66-110) ===
   {
     id: 66,
     kategori: "TKP",
@@ -1815,6 +1811,7 @@ th, td {
   }
 ];
 
+        // PERBAIKAN: Inisialisasi array jawaban dan status
         let currentIdx = 0;
         let jawabanUser = new Array(110).fill(null);
         let statusRagu = new Array(110).fill(false);
@@ -1826,27 +1823,92 @@ th, td {
                 const btn = document.createElement('button');
                 btn.innerText = i + 1;
                 btn.className = `no-soal-btn w-full aspect-square text-xs font-bold rounded-lg border transition-all ${currentIdx === i ? 'active ring-2 ring-blue-300' : ''}`;
-                if (statusRagu[i]) btn.classList.add('ragu');
-                else if (jawabanUser[i] !== null) btn.classList.add('filled');
-                else btn.classList.add('bg-white', 'text-slate-600', 'border-slate-200');
+                
+                // Tentukan kelas berdasarkan status
+                if (statusRagu[i]) {
+                    btn.classList.add('ragu');
+                } else if (jawabanUser[i] !== null) {
+                    btn.classList.add('filled');
+                } else {
+                    btn.classList.add('bg-white', 'text-slate-600', 'border-slate-200');
+                }
+                
                 btn.onclick = () => jumpTo(i);
                 grid.appendChild(btn);
             });
         }
 
-      const soal = bankSoal[currentIdx];
-    document.getElementById('current-no').innerText = currentIdx + 1;
-    document.getElementById('kategori-soal').innerText = `Materi: ${soal.kategori}`;
-    
-    const teksSoal = document.getElementById('teks-soal');
-    let konten = `<div class="text-lg text-slate-800 leading-relaxed mb-4">${soal.tanya}</div>`;
-    
+        function displaySoal() {
+            const soal = bankSoal[currentIdx];
+            document.getElementById('current-no').innerText = currentIdx + 1;
+            document.getElementById('kategori-soal').innerText = `Materi: ${soal.kategori}`;
+            
+            // PERBAIKAN: Gunakan elemen yang benar
+            const teksSoal = document.getElementById('teks-soal');
+            
+            // Bersihkan konten sebelumnya
+            let konten = `<div class="text-lg text-slate-800 leading-relaxed mb-4">${soal.tanya}</div>`;
+            
+            // Tambahkan tabel jika ada
+            if (soal.tabel) {
+                konten += soal.tabel;
+            }
+            
+            // Tambahkan gambar jika ada
+            if (soal.gambar && Array.isArray(soal.gambar)) {
+                konten += `<div class="mb-6">
+                    <div class="gambar-soal-container" id="gambar-container">`;
+                
+                soal.gambar.forEach((img, idx) => {
+                    const isSelected = jawabanUser[currentIdx] === idx;
+                    konten += `
+                        <div class="gambar-pilihan ${isSelected ? 'selected' : ''}" onclick="pilihGambar(${idx})">
+                            <img src="${img.src}" alt="${img.label}">
+                            <span class="text-xs mt-2 block text-center">${img.label}</span>
+                        </div>
+                    `;
+                });
+                
+                konten += `</div></div>`;
+            } else if (soal.gambar) {
+                konten += soal.gambar;
+            }
+            
+            teksSoal.innerHTML = konten;
+            
+            // Update checkbox ragu-ragu
+            document.getElementById('checkRagu').checked = statusRagu[currentIdx];
+            
+            // Tampilkan opsi jawaban (untuk soal non-gambar)
+            const opsiContainer = document.getElementById('opsi-jawaban');
+            opsiContainer.innerHTML = '';
+            
+            // Hanya tampilkan opsi teks jika tidak ada gambar interaktif
+            if (!soal.gambar || !Array.isArray(soal.gambar)) {
+                soal.opsi.forEach((o, i) => {
+                    const isChecked = jawabanUser[currentIdx] === i;
+                    const optionElement = document.createElement('label');
+                    optionElement.className = `flex items-center gap-4 p-4 rounded-2xl border ${isChecked ? 'border-blue-500 bg-blue-50' : 'border-slate-200 hover:bg-slate-50'} cursor-pointer transition`;
+                    optionElement.innerHTML = `
+                        <input type="radio" name="jawaban" class="w-5 h-5 text-blue-600" ${isChecked ? 'checked' : ''}>
+                        <span class="text-slate-700 font-medium">${o}</span>
+                    `;
+                    optionElement.onclick = () => pilihJawaban(i);
+                    opsiContainer.appendChild(optionElement);
+                });
+            } else {
+                // Untuk soal gambar, beri petunjuk
+                opsiContainer.innerHTML = '<p class="text-slate-500 italic text-center">Pilih gambar di atas sebagai jawaban</p>';
+            }
+            
+            renderGrid();
+        }
 
-function pilihGambar(idx) {
-    jawabanUser[currentIdx] = idx;
-    displaySoal(); // Refresh untuk update tampilan
-}
-  
+        function pilihGambar(idx) {
+            jawabanUser[currentIdx] = idx;
+            displaySoal(); // Refresh untuk update tampilan
+        }
+
         function pilihJawaban(idx) {
             jawabanUser[currentIdx] = idx;
             renderGrid();
@@ -1857,13 +1919,32 @@ function pilihGambar(idx) {
             renderGrid();
         }
 
-        function nextSoal() { if (currentIdx < 109) { currentIdx++; displaySoal(); } }
-        function prevSoal() { if (currentIdx > 0) { currentIdx--; displaySoal(); } }
-        function jumpTo(i) { currentIdx = i; displaySoal(); }
+        function nextSoal() {
+            if (currentIdx < bankSoal.length - 1) {
+                currentIdx++;
+                displaySoal();
+            }
+        }
 
-        let time = 100 * 60;
+        function prevSoal() {
+            if (currentIdx > 0) {
+                currentIdx--;
+                displaySoal();
+            }
+        }
+
+        function jumpTo(i) {
+            currentIdx = i;
+            displaySoal();
+        }
+
+        // Timer
+        let time = 100 * 60; // 100 menit dalam detik
         const timerInt = setInterval(() => {
-            if (time <= 0) { clearInterval(timerInt); selesaiUjian(true); }
+            if (time <= 0) {
+                clearInterval(timerInt);
+                selesaiUjian(true);
+            }
             time--;
             const m = Math.floor(time / 60);
             const s = time % 60;
@@ -1871,7 +1952,7 @@ function pilihGambar(idx) {
         }, 1000);
 
         function selesaiUjian(isAuto = false) {
-            if(isAuto || confirm("Apakah Anda yakin ingin mengakhiri ujian?")) {
+            if (isAuto || confirm("Apakah Anda yakin ingin mengakhiri ujian?")) {
                 let sTWK = 0, sTIU = 0, sTKP = 0, benar = 0, salah = 0, kosong = 0;
 
                 bankSoal.forEach((soal, i) => {
@@ -1880,13 +1961,16 @@ function pilihGambar(idx) {
                         kosong++;
                     } else {
                         if (soal.kategori === "TKP") {
-                            sTKP += soal.bobot ? soal.bobot[jawab] : 0;
+                            // Untuk TKP, gunakan bobot nilai
+                            const nilai = soal.kunci ? (soal.kunci[jawab] || 0) : 0;
+                            sTKP += nilai;
                             benar++;
                         } else {
+                            // Untuk TWK dan TIU
                             if (jawab === soal.kunci) {
                                 benar++;
                                 if (soal.kategori === "TWK") sTWK += 5;
-                                else sTIU += 5;
+                                else if (soal.kategori === "TIU") sTIU += 5;
                             } else {
                                 salah++;
                             }
@@ -1903,11 +1987,13 @@ function pilihGambar(idx) {
                     salah, 
                     kosong 
                 };
+                
                 localStorage.setItem(`hasil_${pinAkses}`, JSON.stringify(hasil));
                 window.location.href = `hasilujian.html?id=${pinAkses}`;
             }
         }
 
+        // Inisialisasi pertama kali
         displaySoal();
     </script>
 </body>
