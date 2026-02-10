@@ -68,6 +68,23 @@
                 max-height: 70px;
             }
         }
+    
+    .gambar-soal-penunjuk {
+    max-width: 300px;
+    max-height: 200px;
+    margin: 0 auto;
+    border: 2px dashed #cbd5e1;
+    border-radius: 12px;
+    padding: 10px;
+    background-color: #f8fafc;
+}
+
+@media (max-width: 768px) {
+    .gambar-soal-penunjuk {
+        max-width: 250px;
+        max-height: 150px;
+    }
+}
     </style>
 </head>
 <body class="bg-slate-100 min-h-screen flex flex-col">
@@ -994,6 +1011,7 @@
     kategori: "TIU",
     tanya: "Lengkapi gambar berikut ini!",
     tipe: "gambar",
+    gambarSoal: "soal59.png", // GAMBAR PENUNJUK SOAL
     gambar: [
         { src: "59a.png", label: "A" },
         { src: "59b.png", label: "B" },
@@ -1016,6 +1034,7 @@
     kategori: "TIU",
     tanya: "Lengkapi gambar berikut ini!",
     tipe: "gambar",
+    gambarSoal: "soal60.png",
     gambar: [
         { 
             src: "60a.png", 
@@ -1058,6 +1077,7 @@
     kategori: "TIU",
     tanya: "Lanjutkan serial gambar berikut!",
     tipe: "gambar",
+    gambarSoal: "soal61.png",
     gambar: [
         { 
             src: "61a.png", 
@@ -1100,6 +1120,7 @@
     kategori: "TIU",
     tanya: "Lengkapi gambar berikut ini!",
     tipe: "gambar",
+    gambarSoal: "soal62.png",
     gambar: [
         { 
             src: "62a.png", 
@@ -1142,6 +1163,7 @@
     kategori: "TIU",
     tanya: "Lengkapi gambar berikut ini!",
     tipe: "gambar",
+    gambarSoal: "soal63.png",
     gambar: [
         { 
             src: "63a.png", 
@@ -1184,6 +1206,7 @@
     kategori: "TIU",
     tanya: "Lengkapi gambar berikut ini!",
     tipe: "gambar",
+    gambarSoal: "soal64.png",
     gambar: [
         { 
             src: "64a.png", 
@@ -1226,6 +1249,7 @@
     kategori: "TIU",
     tanya: "Lengkapi gambar berikut ini!",
     tipe: "gambar",
+    gambarSoal: "soal65.png",
     gambar: [
         { 
             src: "65a.png", 
@@ -1878,70 +1902,87 @@
         }
 
         function displaySoal() {
-            const soal = bankSoal[currentIdx];
-            document.getElementById('current-no').innerText = currentIdx + 1;
-            document.getElementById('kategori-soal').innerText = `Materi: ${soal.kategori}`;
-            
-            // PERBAIKAN: Gunakan elemen yang benar
-            const teksSoal = document.getElementById('teks-soal');
-            
-            // Bersihkan konten sebelumnya
-            let konten = `<div class="text-lg text-slate-800 leading-relaxed mb-4">${soal.tanya}</div>`;
-            
-            // Tambahkan tabel jika ada
-            if (soal.tabel) {
-                konten += soal.tabel;
-            }
-            
-            // Tambahkan gambar jika ada
-            if (soal.gambar && Array.isArray(soal.gambar)) {
-                konten += `<div class="mb-6">
-                    <div class="gambar-soal-container" id="gambar-container">`;
-                
-                soal.gambar.forEach((img, idx) => {
-                    const isSelected = jawabanUser[currentIdx] === idx;
-                    konten += `
-                        <div class="gambar-pilihan ${isSelected ? 'selected' : ''}" onclick="pilihGambar(${idx})">
-                            <img src="${img.src}" alt="${img.label}">
-                            <span class="text-xs mt-2 block text-center">${img.label}</span>
-                        </div>
-                    `;
-                });
-                
-                konten += `</div></div>`;
-            } else if (soal.gambar) {
-                konten += soal.gambar;
-            }
-            
-            teksSoal.innerHTML = konten;
-            
-            // Update checkbox ragu-ragu
-            document.getElementById('checkRagu').checked = statusRagu[currentIdx];
-            
-            // Tampilkan opsi jawaban (untuk soal non-gambar)
-            const opsiContainer = document.getElementById('opsi-jawaban');
-            opsiContainer.innerHTML = '';
-            
-            // Hanya tampilkan opsi teks jika tidak ada gambar interaktif
-            if (!soal.gambar || !Array.isArray(soal.gambar)) {
-                soal.opsi.forEach((o, i) => {
-                    const isChecked = jawabanUser[currentIdx] === i;
-                    const optionElement = document.createElement('label');
-                    optionElement.className = `flex items-center gap-4 p-4 rounded-2xl border ${isChecked ? 'border-blue-500 bg-blue-50' : 'border-slate-200 hover:bg-slate-50'} cursor-pointer transition`;
-                    optionElement.innerHTML = `
-                        <input type="radio" name="jawaban" class="w-5 h-5 text-blue-600" ${isChecked ? 'checked' : ''}>
-                        <span class="text-slate-700 font-medium">${o}</span>
-                    `;
-                    optionElement.onclick = () => pilihJawaban(i);
-                    opsiContainer.appendChild(optionElement);
-                });
-            } else {
-                // Untuk soal gambar, beri petunjuk
-                opsiContainer.innerHTML = '<p class="text-slate-500 italic text-center">Pilih gambar di atas sebagai jawaban</p>';
-            }
-            
-            renderGrid();
-        }
+    const soal = bankSoal[currentIdx];
+    document.getElementById('current-no').innerText = currentIdx + 1;
+    document.getElementById('kategori-soal').innerText = `Materi: ${soal.kategori}`;
+
+    const teksSoal = document.getElementById('teks-soal');
+
+    // Bersihkan konten sebelumnya
+    let konten = `<div class="text-lg text-slate-800 leading-relaxed mb-4">${soal.tanya}</div>`;
+
+    // 1. TAMPILKAN GAMBAR PENUNJUK SOAL JIKA ADA
+    if (soal.gambarSoal) {
+        konten += `
+            <div class="mb-6">
+                <div class="text-sm text-slate-500 mb-2 text-center">Gambar soal:</div>
+                <img src="${soal.gambarSoal}" 
+                     alt="Gambar soal" 
+                     class="gambar-soal-penunjuk mx-auto">
+            </div>
+        `;
+    }
+
+    // 2. Tambahkan tabel jika ada
+    if (soal.tabel) {
+        konten += soal.tabel;
+    }
+
+    // 3. Tambahkan gambar pilihan jika ada (untuk soal tipe gambar)
+    if (soal.tipe === "gambar" && soal.gambar && Array.isArray(soal.gambar)) {
+        konten += `<div class="mb-6">
+            <div class="text-sm text-slate-500 mb-2 text-center">Pilih gambar jawaban:</div>
+            <div class="gambar-soal-container" id="gambar-container">`;
+
+        soal.gambar.forEach((img, idx) => {
+            const isSelected = jawabanUser[currentIdx] === idx;
+            konten += `
+                <div class="gambar-pilihan ${isSelected ? 'selected' : ''}" onclick="pilihGambar(${idx})">
+                    <img src="${img.src}" alt="${img.label}">
+                    <span class="text-xs mt-2 block text-center">${img.label}</span>
+                    ${img.preview ? `<div class="text-xs text-slate-500 mt-1">${img.preview}</div>` : ''}
+                </div>
+            `;
+        });
+
+        konten += `</div></div>`;
+    } else if (soal.gambar && typeof soal.gambar === 'string') {
+        // Jika gambar adalah string langsung (bukan array)
+        konten += soal.gambar;
+    }
+
+    teksSoal.innerHTML = konten;
+
+    // Update checkbox ragu-ragu
+    document.getElementById('checkRagu').checked = statusRagu[currentIdx];
+
+    // Tampilkan opsi jawaban (untuk soal non-gambar)
+    const opsiContainer = document.getElementById('opsi-jawaban');
+    opsiContainer.innerHTML = '';
+
+    // Hanya tampilkan opsi teks jika tidak ada gambar interaktif
+    if (!soal.tipe || soal.tipe !== "gambar") {
+        soal.opsi.forEach((o, i) => {
+            const isChecked = jawabanUser[currentIdx] === i;
+            const optionElement = document.createElement('label');
+            optionElement.className = `flex items-center gap-4 p-4 rounded-2xl border ${isChecked ? 'border-blue-500 bg-blue-50' : 'border-slate-200 hover:bg-slate-50'} cursor-pointer transition`;
+            optionElement.innerHTML = `
+                <input type="radio" name="jawaban" class="w-5 h-5 text-blue-600" ${isChecked ? 'checked' : ''}>
+                <span class="text-slate-700 font-medium">${o}</span>
+            `;
+            optionElement.onclick = () => pilihJawaban(i);
+            opsiContainer.appendChild(optionElement);
+        });
+    } else {
+        // Untuk soal gambar, beri petunjuk
+        opsiContainer.innerHTML = `
+            <p class="text-slate-500 italic text-center mb-2">Pilih gambar di atas sebagai jawaban</p>
+            ${soal.deskripsi ? `<p class="text-sm text-slate-600 text-center">${soal.deskripsi}</p>` : ''}
+        `;
+    }
+
+    renderGrid();
+}
 
         function pilihGambar(idx) {
             jawabanUser[currentIdx] = idx;
